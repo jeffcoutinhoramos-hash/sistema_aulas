@@ -886,42 +886,33 @@
 <div class="overlay" id="overlay"></div>
 <div class="auth-gate" id="auth-gate"></div>
 
-<!-- Firebase (Auth + Firestore) — veja FIREBASE_SETUP.md para o passo a passo -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<!-- Supabase (Auth + Postgres) — veja SUPABASE_SETUP.md para o passo a passo -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* ================= firebase config =================
-   Substitua os valores abaixo pelos dados do SEU projeto Firebase
-   (Firebase Console → ⚙️ Configurações do projeto → seus apps → Config).
-   Veja o passo a passo completo em FIREBASE_SETUP.md.
+/* ================= supabase config =================
+   Preenchido com as credenciais do seu projeto Supabase.
+   Veja o SQL necessário em SUPABASE_SETUP.md.
 */
-const firebaseConfig = {
-  apiKey: "COLE_AQUI_SUA_API_KEY",
-  authDomain: "SEU-PROJETO.firebaseapp.com",
-  projectId: "SEU-PROJETO",
-  storageBucket: "SEU-PROJETO.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:xxxxxxxxxxxxxxxxxxxxxx"
-};
-const FIREBASE_CONFIGURED = firebaseConfig.apiKey !== "COLE_AQUI_SUA_API_KEY";
-let fbAuth = null, fbDb = null, fbUid = null;
-function initFirebaseSdk(){
-  if(!FIREBASE_CONFIGURED) return false;
+const SUPABASE_URL = "https://ahywzptofipszaqjcdsi.supabase.co";
+const SUPABASE_KEY = "sb_publishable_WhmY4u6UDatBOc9x-nv3PA_e79e_vMi";
+const SUPABASE_CONFIGURED = SUPABASE_URL !== "COLE_AQUI_SUA_URL" && !!SUPABASE_URL;
+let sb = null, sbUid = null, sbEmail = '';
+function initSupabaseSdk(){
+  if(!SUPABASE_CONFIGURED) return false;
   try{
-    firebase.initializeApp(firebaseConfig);
-    fbAuth = firebase.auth();
-    fbDb = firebase.firestore();
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sb.auth.onAuthStateChange((event, session)=>{
+      if(event === 'PASSWORD_RECOVERY') showPasswordRecoveryPrompt();
+    });
     return true;
-  }catch(e){ console.error('Firebase init failed:', e); return false; }
+  }catch(e){ console.error('Supabase init failed:', e); return false; }
 }
-function waitForAuthState(){
-  return new Promise(resolve=>{
-    const unsub = fbAuth.onAuthStateChanged(user=>{ unsub(); resolve(user); });
-  });
+async function waitForAuthState(){
+  const { data } = await sb.auth.getSession();
+  return data && data.session ? data.session.user : null;
 }
-// deriva um "e-mail" válido para o Firebase Auth a partir de um e-mail real ou de um CPF/CNPJ
+// deriva um "e-mail" válido para o login a partir de um e-mail real ou de um CPF/CNPJ
 function deriveAuthEmail(raw){
   const v = (raw||'').trim().toLowerCase();
   if(v.includes('@')) return v;
@@ -1147,9 +1138,11 @@ let STORAGE_OK = true;
 const mem = {};
 async function read(key, fallback){
   try{
-    if(FIREBASE_CONFIGURED && fbDb && fbUid){
-      const doc = await fbDb.collection('users').doc(fbUid).collection('data').doc(key).get();
-      if(doc.exists && doc.data().value != null) return JSON.parse(doc.data().value);
+    if(SUPABASE_CONFIGURED && sb && sbUid){
+      const { data, error } = await sb.from('app_data').select('value')
+        .eq('user_id', sbUid).eq('key', key).maybeSingle();
+      if(error) throw error;
+      if(data && data.value != null) return data.value;
       throw new Error('empty');
     }
     if(!window.storage) throw new Error('no storage');
@@ -1163,9 +1156,11 @@ async function read(key, fallback){
 }
 async function write(key, val){
   try{
-    if(FIREBASE_CONFIGURED && fbDb && fbUid){
-      await fbDb.collection('users').doc(fbUid).collection('data').doc(key)
-        .set({ value: JSON.stringify(val), updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    if(SUPABASE_CONFIGURED && sb && sbUid){
+      const { error } = await sb.from('app_data')
+        .upsert({ user_id: sbUid, key: key, value: val, updated_at: new Date().toISOString() },
+                { onConflict: 'user_id,key' });
+      if(error) throw error;
       STORAGE_OK = true; mem[key] = val;
       return;
     }
@@ -1254,6 +1249,8 @@ const I18N = {
     'login.errFillAll':'Preencha o nome, o e-mail e o CPF/CNPJ.',
     'login.errEmailInvalid':'Digite um e-mail válido.',
     'login.errEmailInUse':'Já existe uma conta com esse e-mail. Tente fazer login ou recuperar a senha.',
+    'login.checkEmailConfirm':'✓ Conta criada! Verifique seu e-mail para confirmar antes de entrar.',
+    'login.setNewPasswordSub':'Você clicou no link de recuperação. Defina sua nova senha abaixo.',
     'login.recoverTitle':'Recuperar senha', 'login.recoverSub':'Informe o e-mail cadastrado para receber um link de redefinição de senha.',
     'login.recoverBtn':'Enviar link de recuperação',
     'login.recoverSent':'✓ Link enviado! Confira seu e-mail (inclusive a caixa de spam).',
@@ -1436,6 +1433,8 @@ const I18N = {
     'login.errFillAll':'Fill in your name, email, and Tax ID.',
     'login.errEmailInvalid':'Enter a valid email address.',
     'login.errEmailInUse':'An account with this email already exists. Try logging in or recovering your password.',
+    'login.checkEmailConfirm':'✓ Account created! Check your email to confirm before logging in.',
+    'login.setNewPasswordSub':'You clicked the recovery link. Set your new password below.',
     'login.recoverTitle':'Recover password', 'login.recoverSub':'Enter your registered email to receive a password reset link.',
     'login.recoverBtn':'Send recovery link',
     'login.recoverSent':'✓ Link sent! Check your email (including the spam folder).',
@@ -1603,7 +1602,7 @@ function setAuthView(v){ authView = v; renderAuthGate(); }
 function renderAuthGate(){
   const el = document.getElementById('auth-gate');
   if(!el) return;
-  const shouldShow = FIREBASE_CONFIGURED ? !authOk : (state.authHash && !authOk);
+  const shouldShow = SUPABASE_CONFIGURED ? !authOk : (state.authHash && !authOk);
   if(!shouldShow){ el.classList.remove('on'); el.innerHTML=''; authView='login'; return; }
   el.classList.add('on');
   el.innerHTML = `
@@ -1651,7 +1650,7 @@ function authCardHTML(){
       <button class="auth-link" onclick="setAuthView('login')">${t('login.backToLogin')}</button>`;
   }
   if(authView==='recover'){
-    if(FIREBASE_CONFIGURED){
+    if(SUPABASE_CONFIGURED){
       return `
         <div class="auth-icon">✉️</div>
         <h2>${t('login.recoverTitle')}</h2>
@@ -1725,13 +1724,14 @@ async function attemptLogin(){
   const userRaw = document.getElementById('auth-user').value;
   const pass = document.getElementById('auth-pass').value||'';
 
-  if(FIREBASE_CONFIGURED){
+  if(SUPABASE_CONFIGURED){
     const email = deriveAuthEmail(userRaw);
     if(!email || !pass){ if(errEl) errEl.textContent = t('login.invalid'); return; }
     try{
-      const cred = await fbAuth.signInWithEmailAndPassword(email, pass);
+      const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if(error) throw error;
       handleRememberOnLogin(userRaw, pass);
-      fbUid = cred.user.uid; authOk = true;
+      sbUid = data.user.id; sbEmail = data.user.email; authOk = true;
       renderAuthGate();
       await afterAuthReady();
     }catch(e){
@@ -1740,7 +1740,7 @@ async function attemptLogin(){
     return;
   }
 
-  // modo local (sem Firebase configurado)
+  // modo local (sem Supabase configurado)
   const user = normUser(userRaw);
   const userDigits = (userRaw||'').replace(/\D/g,'');
   const valid = validUsernames();
@@ -1769,18 +1769,25 @@ async function submitSignup(){
   if(!passwordIsStrong(pass)){ errEl.textContent = t('login.weak'); return; }
   if(pass !== pass2){ errEl.textContent = t('login.mismatch'); return; }
 
-  if(FIREBASE_CONFIGURED){
+  if(SUPABASE_CONFIGURED){
     try{
-      const cred = await fbAuth.createUserWithEmailAndPassword(email, pass);
-      fbUid = cred.user.uid; authOk = true;
-      renderAuthGate();
-      await afterAuthReady();
-      // guarda os dados essenciais no perfil da instituição
-      state.orgInfo = Object.assign({}, state.orgInfo, {nome:name, email:email, doc:doc});
-      await write('orgInfo', state.orgInfo);
-      renderBrand(); renderInfo();
+      const { data, error } = await sb.auth.signUp({ email, password: pass });
+      if(error) throw error;
+      if(data.session && data.user){
+        sbUid = data.user.id; sbEmail = data.user.email; authOk = true;
+        renderAuthGate();
+        await afterAuthReady();
+        // guarda os dados essenciais no perfil da instituição
+        state.orgInfo = Object.assign({}, state.orgInfo, {nome:name, email:email, doc:doc});
+        await write('orgInfo', state.orgInfo);
+        renderBrand(); renderInfo();
+      }else{
+        errEl.classList.add('auth-ok');
+        errEl.textContent = t('login.checkEmailConfirm');
+      }
     }catch(e){
-      errEl.textContent = (e.code==='auth/email-already-in-use') ? t('login.errEmailInUse') : t('login.invalid');
+      const msg = (e && e.message || '').toLowerCase();
+      errEl.textContent = msg.includes('already registered') ? t('login.errEmailInUse') : t('login.invalid');
     }
     return;
   }
@@ -1798,11 +1805,12 @@ async function submitRecover(){
   const errEl = document.getElementById('auth-err');
   errEl.classList.remove('auth-ok');
 
-  if(FIREBASE_CONFIGURED){
+  if(SUPABASE_CONFIGURED){
     const email = (document.getElementById('rc-email').value||'').trim().toLowerCase();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ errEl.textContent = t('login.errEmailInvalid'); return; }
     try{
-      await fbAuth.sendPasswordResetEmail(email);
+      const { error } = await sb.auth.resetPasswordForEmail(email);
+      if(error) throw error;
       errEl.textContent = t('login.recoverSent');
       errEl.classList.add('auth-ok');
     }catch(e){
@@ -1830,15 +1838,15 @@ async function submitRecover(){
 }
 async function logoutNow(){
   closeModal();
-  if(FIREBASE_CONFIGURED && fbAuth){ try{ await fbAuth.signOut(); }catch(e){} }
-  fbUid = null; authOk = false;
+  if(SUPABASE_CONFIGURED && sb.auth){ try{ await sb.auth.signOut(); }catch(e){} }
+  sbUid = null; sbEmail = ''; authOk = false;
   renderAuthGate();
   go('painel');
 }
 function loginPanelBodyHTML(){
   const o = state.orgInfo || {};
-  if(FIREBASE_CONFIGURED){
-    const email = (fbAuth && fbAuth.currentUser) ? fbAuth.currentUser.email : '';
+  if(SUPABASE_CONFIGURED){
+    const email = sbEmail || '';
     return `
       <div class="login-status">
         <span class="login-status-ico">✓</span>
@@ -1920,6 +1928,35 @@ async function createPassword(){
   msgEl.textContent = ''; msgEl.className = '';
   refreshLoginUI();
 }
+function showPasswordRecoveryPrompt(){
+  showModal(`
+    <h3>${t('login.recoverLocalTitle')}</h3>
+    <div class="msub">${t('login.setNewPasswordSub')}</div>
+    <div class="field"><label>${t('login.newPassword')}</label>
+      ${pwFieldHTML('pr-pass')}</div>
+    <div class="field"><label>${t('login.passwordConfirm')}</label>
+      ${pwFieldHTML('pr-pass2')}</div>
+    <div class="field-hint">${t('login.passwordRule')}</div>
+    <div id="pr-msg" class="auth-err"></div>
+    <div class="modal-acts">
+      <button class="btn btn-primary" onclick="submitPasswordRecoveryReset()">${t('login.resetBtn')}</button>
+    </div>`);
+}
+async function submitPasswordRecoveryReset(){
+  const pw = document.getElementById('pr-pass').value||'';
+  const pw2 = document.getElementById('pr-pass2').value||'';
+  const msgEl = document.getElementById('pr-msg');
+  if(!passwordIsStrong(pw)){ msgEl.textContent = t('login.weak'); return; }
+  if(pw !== pw2){ msgEl.textContent = t('login.mismatch'); return; }
+  try{
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if(error) throw error;
+    msgEl.textContent = t('login.resetOk'); msgEl.classList.add('auth-ok');
+    setTimeout(()=>{ closeModal(); sb.auth.signOut(); sbUid=null; authOk=false; renderAuthGate(); go('painel'); }, 1400);
+  }catch(e){
+    msgEl.textContent = t('login.invalid');
+  }
+}
 function openChangePassword(){
   const needsCurrent = true;
   showModal(`
@@ -1946,12 +1983,12 @@ async function submitChangePassword(){
   if(!passwordIsStrong(pw)){ msgEl.textContent = t('login.weak'); return; }
   if(pw !== pw2){ msgEl.textContent = t('login.mismatch'); return; }
 
-  if(FIREBASE_CONFIGURED){
+  if(SUPABASE_CONFIGURED){
     try{
-      const email = fbAuth.currentUser.email;
-      const credential = firebase.auth.EmailAuthProvider.credential(email, cur);
-      await fbAuth.currentUser.reauthenticateWithCredential(credential);
-      await fbAuth.currentUser.updatePassword(pw);
+      const { error: signInErr } = await sb.auth.signInWithPassword({ email: sbEmail, password: cur });
+      if(signInErr) throw signInErr;
+      const { error: updErr } = await sb.auth.updateUser({ password: pw });
+      if(updErr) throw updErr;
       msgEl.textContent = t('login.saved'); msgEl.classList.add('auth-ok');
       setTimeout(closeModal, 900);
     }catch(e){
@@ -1982,11 +2019,11 @@ async function boot(){
   applyNavLabels();
   applyTheme(false);
 
-  if(FIREBASE_CONFIGURED){
-    initFirebaseSdk();
+  if(SUPABASE_CONFIGURED){
+    initSupabaseSdk();
     const user = await waitForAuthState();
     if(user){
-      fbUid = user.uid; authOk = true;
+      sbUid = user.id; sbEmail = user.email; authOk = true;
       await afterAuthReady();
     }else{
       authOk = false;
@@ -2020,7 +2057,7 @@ async function loadAppData(){
   state.expressions = await read('expressions', seedExpressions());
   state.lessons  = await read('lessons', []);
   state.orgInfo  = await read('orgInfo', {});
-  if(!FIREBASE_CONFIGURED) state.authHash = await read('authHash', '');
+  if(!SUPABASE_CONFIGURED) state.authHash = await read('authHash', '');
   state.orgDocs  = await read('orgDocs', []);
   state.agendaHours = await read('agendaHours', AGENDA_HOURS_DEFAULT.slice());
   state.agendaRecurring = await read('agendaRecurring', {});
