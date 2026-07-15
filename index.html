@@ -62,12 +62,61 @@
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
+  /* ---------- Modo Allure: cobre detalhes que ainda usavam verde/laranja fixo ---------- */
+  body.allure .alu-tag,body.allure .ag-week-count,body.allure .ag-hourchip,body.allure .chip-count,
+  body.allure .desp-servico,body.allure .emoji-cell:hover{background:#EEF2FE}
+  body.allure .alu-tag{color:#3457D5}
+  body.allure .ag-hourchip:hover{background:#E3E9FC}
+  body.allure .emoji-cell:hover{border-color:#C7D4F5}
+  body.allure .al-money:focus-within,body.allure .pr-topic-btn:hover,body.allure .cp-item:hover,
+  body.allure .cp-add input:focus,body.allure #cp-search:focus,body.allure .ag-nav:hover,
+  body.allure .painel-login-btn:hover,body.allure .org-photo-btn:hover,body.allure .btn-ghost:hover,
+  body.allure .search input:focus,
+  body.allure .field input:focus,body.allure .field select:focus,body.allure .field textarea:focus{
+    border-color:#AFC1F2!important}
+  body.allure .pr-topic-btn:hover,body.allure .cp-item:hover,body.allure .ag-nav:hover,
+  body.allure .org-photo-btn:hover,body.allure .btn-ghost:hover,body.allure .tp-card:hover,
+  body.allure .ex-row:hover{background:#FAFBFF}
+  body.allure .pr-topic-btn.has{border-color:#C7D4F5;background:#EEF2FE;color:#2540A0}
+  body.allure .pr-topic-btn.has:hover{border-color:#AFC1F2;background:#E3E9FC}
+  body.allure .cp-item.sel{background:#EEF2FE;border-color:var(--violet)}
+  body.allure .tp-card:hover,body.allure .ex-row:hover{border-color:#C7D4F5}
+  body.allure .ex-confirm:hover{border-color:#AFC1F2}
+  body.allure .fn-editvalor:hover,body.allure .dc-edit:hover,body.allure .alu-acts button:hover{background:#E3E9FC}
+  body.allure .wa-link:hover{background:#EEF2FE}
+  body.allure .rp-bar-fill.p{background:linear-gradient(90deg,#6C8EEA,#3457D5)}
+  body.allure .dc-total{background:linear-gradient(135deg,#5C7CE0,#3457D5)}
+  body.allure .es-stat-violet{background:linear-gradient(135deg,#6C8EEA,#3457D5)}
+  body.allure .es-stat-sky{background:linear-gradient(135deg,#9CACEE,#5470C4)}
+  body.allure .es-stat-emerald{background:linear-gradient(135deg,#7FB0E8,#3D74C4)}
+  body.allure .es-stat-amber{background:linear-gradient(135deg,#F0D68A,#C99A2E)}
+  body.allure .contract-dl{background:#FCF8EC;border-color:#F3E7C0}
+  body.allure .contract-dl-btn{background:linear-gradient(135deg,#F0D68A,#C99A2E)!important}
+  body.allure .doc-upload-btn{background:linear-gradient(135deg,#F0D68A,#C99A2E)}
+  body.allure .doc-row{border-color:#F3E7C0}
+  body.allure .desp-pago-btn:hover{border-color:#AFC1F2}
+  body.allure .desp-pago-btn.on:hover{background:#2E6FA8}
+  body.allure .emoji-cell,body.allure .al-money,body.allure .pr-topic-btn,body.allure .cp-add input,
+  body.allure #cp-search,body.allure .ag-slot,body.allure .ag-modal-row,
+  body.allure .field input,body.allure .field select,body.allure .field textarea{background:#FCFCFF}
+  body.allure .ag-slot:hover{background:#F7F9FF;border-color:#DDE5FA}
+  body.dark.allure .cp-item.sel{background:#1B2444}
+  body.dark.allure .pr-topic-btn{background:#181D32;color:var(--muted)}
+  body.dark.allure .pr-topic-btn:hover{background:#202A4A;border-color:#2E3F70}
+  body.dark.allure .pr-topic-btn.has{background:#1B2444;color:#8FA8F5;border-color:#2E3F70}
+  body.dark.allure .pr-topic-btn.has:hover{background:#22305C}
+  body.dark.allure .ex-confirm:hover{border-color:#6B8AF5;color:#8FA8F5}
+  body.dark.allure .painel-login-btn:hover{border-color:#6B8AF5}
+  body.dark.allure .alu-tag,body.dark.allure .chip-count,body.dark.allure .ag-week-count,body.dark.allure .ag-hourchip{
+    background:#1B2444;color:#8FA8F5}
+  body.dark.allure .ag-hourchip:hover{background:#22305C70}
+  body.dark.allure .ag-hourchip.on{background:#3457D5;color:#fff}
+  body.dark.allure .pn-today-topic{background:#1B2444;color:#8FA8F5}
   body.dark .card,body.dark .panel{background:var(--surface);border-color:var(--line)}
   body.dark input,body.dark select,body.dark textarea{background:#1C2A21;color:var(--ink);border-color:var(--line)}
   body.dark .modal{background:var(--surface)}
   body.dark .avatar{box-shadow:none}
   body.dark ::placeholder{color:#5E7365}
-  body.dark .nav button.active{background:#233428}
   body.dark .al-money,body.dark .cp-add input,body.dark #cp-search,body.dark .search input,
   body.dark .field input,body.dark .field select,body.dark .field textarea{background:#1C2A21!important;color:var(--ink)}
   body.dark .al-money:focus-within,body.dark .cp-add input:focus,body.dark #cp-search:focus,
@@ -122,7 +171,6 @@
   body.dark .count-pill{background:#233428;color:var(--muted)}
   body.dark .stat{color:#fff}
   body.dark .es-stat-lbl,body.dark .fn-tot-lbl,body.dark .dc-total-lbl{color:#fff}
-  body.dark .theme-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)!important}
   html,body{margin:0}
   body{
     font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);
@@ -138,19 +186,19 @@
   .layout{display:block}
   .sidebar{
     position:fixed;top:0;left:0;bottom:0;flex:none;
-    width:236px;background:var(--grad);overflow-y:auto;
-    padding:26px 18px;display:flex;flex-direction:column;gap:26px;z-index:40
+    width:236px;background:var(--surface);border-right:1px solid var(--line);overflow-y:auto;
+    padding:22px 14px;display:flex;flex-direction:column;gap:22px;z-index:40
   }
   .content{margin-left:236px;min-height:100vh}
   .shell{max-width:1440px;margin:0 auto;padding:24px 40px 96px}
 
-  .brand{display:flex;align-items:center;gap:12px;color:#fff}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);padding:0 6px}
   .mark{
-    width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.16);
-    display:grid;place-items:center;font-size:23px;backdrop-filter:blur(4px);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);flex:none;cursor:pointer;transition:.15s
+    width:38px;height:38px;border-radius:10px;background:var(--accent-bg);
+    display:grid;place-items:center;font-size:19px;flex:none;cursor:pointer;transition:.15s;
+    border:1px solid var(--line)
   }
-  .mark:hover{background:rgba(255,255,255,.3);transform:scale(1.05)}
+  .mark:hover{filter:brightness(.97);transform:scale(1.05)}
   .emoji-section{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 2px 9px}
   .emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:7px}
   .emoji-cell{font-size:24px;padding:8px 0;border-radius:11px;background:#FCFCFF;border:1px solid var(--line);transition:.12s;line-height:1}
@@ -406,48 +454,37 @@
   .brand h1{font-size:20px;font-weight:800;line-height:1.1}
   .brand p{margin:2px 0 0;font-size:12px;opacity:.82;font-weight:500;letter-spacing:.01em}
 
-  .nav{display:flex;flex-direction:column;gap:8px}
+  .nav{display:flex;flex-direction:column;gap:2px}
+  .nav-group-label{
+    font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
+    padding:14px 10px 4px;user-select:none
+  }
   .nav button{
-    color:#fff;opacity:.92;padding:12px 15px;border-radius:12px;font-size:14.5px;font-weight:600;
-    display:flex;align-items:center;gap:11px;text-align:left;width:100%;
-    background:rgba(255,255,255,.10);
-    border-bottom:3px solid rgba(0,0,0,.20);
-    box-shadow:0 1px 0 rgba(255,255,255,.18) inset, 0 3px 7px -3px rgba(0,0,0,.3);
-    transform:translateY(0);
-    transition:transform .09s ease-out, box-shadow .09s ease-out, border-bottom-width .09s ease-out, background .15s ease
+    color:var(--ink);opacity:.85;padding:7px 10px;border-radius:7px;font-size:13.5px;font-weight:500;
+    display:flex;align-items:center;gap:10px;text-align:left;width:100%;
+    background:none;transition:background .1s ease,opacity .1s ease
   }
-  .nav button .ico{font-size:16px;width:20px;text-align:center}
-  .nav button:hover{opacity:1;background:rgba(255,255,255,.18)}
-  .nav button:active{
-    transform:translateY(2px);
-    border-bottom-width:1px;
-    box-shadow:0 1px 2px -1px rgba(0,0,0,.25) inset;
-    color:#262626
-  }
+  .nav button .ico{font-size:15px;width:18px;text-align:center;opacity:.7;filter:saturate(.7)}
+  .nav button:hover{opacity:1;background:var(--line-2)}
+  .nav button:active{background:var(--line)}
   .nav button.active{
-    opacity:1;background:#fff;color:var(--violet);
-    border-bottom:3px solid rgba(20,40,25,.18);
-    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 5px 12px -5px rgba(0,0,0,.4)
+    opacity:1;background:var(--accent-bg);color:var(--violet);font-weight:700
   }
-  .nav button.active:hover{background:#fff}
-  .nav button.active:active{
-    transform:translateY(2px);
-    border-bottom-width:1px;
-    box-shadow:0 4px 8px -5px rgba(0,0,0,.3);
-    color:var(--indigo)
-  }
-  /* modo escuro: nenhuma mudança de cor no clique, só o efeito 3D */
+  .nav button.active .ico{opacity:1;filter:none}
+  .nav button.active:hover{background:var(--accent-bg)}
+  .nav button.active:active{filter:brightness(.96)}
+  /* modo escuro: cor do texto do item ativo permanece igual ao passar/clicar */
   body.dark .nav button:active{color:#fff}
   body.dark .nav button.active:active{color:var(--violet)}
 
   .theme-toggle{
-    color:#fff;opacity:.9;padding:12px 15px;border-radius:12px;font-size:14.5px;font-weight:600;
-    display:flex;align-items:center;gap:11px;transition:.18s;text-align:left;width:100%;
-    background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.22)!important
+    color:var(--ink);opacity:.85;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:600;
+    display:flex;align-items:center;gap:9px;transition:.15s;text-align:left;width:100%;
+    background:var(--line-2);border:1px solid var(--line)!important
   }
-  .theme-toggle .ico{font-size:16px;width:20px;text-align:center}
-  .theme-toggle:hover{opacity:1;background:rgba(255,255,255,.2)}
-  .sidebar-toggles{display:flex;flex-direction:column;gap:8px}
+  .theme-toggle .ico{font-size:14px;width:18px;text-align:center}
+  .theme-toggle:hover{opacity:1;background:var(--line)}
+  .sidebar-toggles{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid var(--line)}
 
   main{position:relative;z-index:2}
   .view{display:none;animation:rise .35s ease both}
@@ -638,34 +675,39 @@
   .scard .acts button.danger:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- topics ---------- */
-  .tp-board{display:flex;gap:14px;overflow-x:auto;padding-bottom:14px;align-items:flex-start}
+  .tp-board{display:flex;gap:10px;align-items:flex-start}
   .tp-col{
-    flex:0 0 240px;background:var(--line-2);border-radius:16px;padding:12px;
-    display:flex;flex-direction:column;gap:8px;min-height:120px;transition:.15s
+    flex:1 1 0;min-width:0;background:var(--line-2);border-radius:14px;padding:10px 8px;
+    display:flex;flex-direction:column;gap:7px;min-height:120px;transition:.15s
   }
   .tp-col-over{background:var(--emerald-bg);outline:2px dashed var(--emerald)}
   .tp-col-head{
     display:flex;align-items:center;justify-content:space-between;font-weight:800;
-    font-size:13px;color:var(--ink);padding:2px 4px 6px
+    font-size:11.5px;color:var(--ink);padding:2px 3px 5px;gap:4px
   }
-  .tp-col-count{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface);
-    padding:2px 8px;border-radius:20px}
-  .tp-col-body{display:flex;flex-direction:column;gap:8px}
-  .tp-col-empty{font-size:12px;color:var(--muted);text-align:center;padding:18px 6px;
+  .tp-col-head span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .tp-col-count{font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface);
+    padding:2px 7px;border-radius:20px;flex:none}
+  .tp-col-body{display:flex;flex-direction:column;gap:7px;max-height:64vh;overflow-y:auto}
+  .tp-col-empty{font-size:11px;color:var(--muted);text-align:center;padding:14px 4px;
     border:1.5px dashed var(--line);border-radius:10px}
   .tp-card{
     background:#fff;border:1px solid var(--line);border-left:3px solid transparent;border-radius:10px;
-    padding:9px 10px;cursor:grab;transition:.13s;box-shadow:var(--shadow-sm)
+    padding:8px 8px;cursor:grab;transition:.13s;box-shadow:var(--shadow-sm)
   }
   .tp-card:hover{background:#FCFEFC;border-color:#DCF1DF}
   .tp-card-dragging{opacity:.4}
-  .tp-card-name{display:block;font-size:13px;font-weight:600;color:var(--ink);
-    margin-bottom:7px;word-break:break-word}
-  .tp-card-acts{display:flex;align-items:center;gap:4px}
-  .tp-move-select{flex:1;min-width:0;font-size:11px;padding:4px 6px;border-radius:7px;
+  .tp-card-name{display:block;font-size:12.5px;font-weight:600;color:var(--ink);
+    margin-bottom:6px;word-break:break-word}
+  .tp-card-acts{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+  .tp-move-select{flex:1 1 100%;min-width:0;font-size:10.5px;padding:4px 4px;border-radius:6px;
     border:1px solid var(--line);background:var(--surface);color:var(--muted)}
-  .tp-btn{width:26px;height:26px;border-radius:7px;font-size:12px;display:grid;place-items:center;transition:.12s;flex:none}
+  .tp-btn{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;transition:.12s;flex:none}
   .tp-btn:hover{background:var(--line-2)}
+  @media(max-width:1100px){
+    .tp-board{overflow-x:auto;padding-bottom:14px}
+    .tp-col{flex:0 0 190px}
+  }
   .tp-del:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- expressões ---------- */
@@ -678,6 +720,7 @@
   .ex-name{min-width:0;font-size:14px;font-weight:600;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .ex-name-on{color:var(--emerald);font-weight:700}
+  .ex-date{font-size:10.5px;font-weight:600;color:var(--muted);margin-top:-2px}
   .ex-acts{display:flex;gap:5px;flex:none;justify-content:flex-end}
   .ex-confirm{width:26px;height:26px;border-radius:7px;font-size:13px;font-weight:800;
     border:1.5px solid var(--line);color:var(--muted);background:#fff;display:grid;place-items:center;transition:.13s}
@@ -887,6 +930,7 @@
     }
     .content{margin-left:0}
     .nav{flex-direction:row;flex-wrap:wrap;gap:6px}
+    .nav-group-label{display:none}
     .nav button{padding:9px 13px;width:auto}
     .shell{padding:24px 18px 96px}
     .stat-grid{grid-template-columns:1fr 1fr}
@@ -930,16 +974,21 @@
     </div>
     <nav class="nav" id="nav">
       <button data-view="painel" class="active"><span class="ico">✦</span>Painel</button>
+      <div class="nav-group-label" data-group="gestao">Gestão</div>
       <button data-view="alunos"><span class="ico">👤</span>Alunos</button>
       <button data-view="agenda"><span class="ico">🗓️</span>Agenda</button>
       <button data-view="presenca"><span class="ico">✅</span>Frequência</button>
+      <div class="nav-group-label" data-group="ensino">Ensino</div>
       <button data-view="topicos"><span class="ico">📚</span>Plano de Aula</button>
       <button data-view="expressoes"><span class="ico">💬</span>Expressões</button>
-      <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
+      <div class="nav-group-label" data-group="administracao">Administração</div>
       <button data-view="financeiro"><span class="ico">💰</span>Financeiro</button>
-      <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
       <button data-view="declaracao"><span class="ico">📄</span>Declarações</button>
+      <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
+      <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
+      <div class="nav-group-label" data-group="analise">Análise</div>
       <button data-view="estatisticas"><span class="ico">📈</span>Estatísticas</button>
+      <div class="nav-group-label" data-group="sistema">Sistema</div>
       <button data-view="info"><span class="ico">🏫</span>Configurações</button>
     </nav>
     <div class="sidebar-toggles">
@@ -1277,6 +1326,8 @@ async function write(key, val){
 const I18N = {
   pt: {
     'nav.painel':'Painel', 'nav.login':'Login', 'nav.alunos':'Alunos', 'nav.agenda':'Agenda', 'nav.presenca':'Frequência',
+    'nav.group.gestao':'Gestão', 'nav.group.ensino':'Ensino', 'nav.group.administracao':'Administração',
+    'nav.group.analise':'Análise', 'nav.group.sistema':'Sistema',
     'nav.topicos':'Plano de Aula', 'nav.expressoes':'Expressões', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
     'nav.despesas':'Despesas', 'nav.declaracao':'Declarações', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
@@ -1410,6 +1461,7 @@ const I18N = {
     'expressoes.altPh':'Ex: "Start the conversation."', 'expressoes.boldHint':'Dica: coloque <b>&lt;b&gt;</b> em volta da expressão para deixá-la em negrito no exemplo.',
     'expressoes.empty':'Nenhuma expressão cadastrada ainda.', 'expressoes.emptyCta':'Clique em <b>＋ Adicionar expressão</b> para começar.',
     'expressoes.confirmDelete':'Excluir a expressão', 'expressoes.confirm':'Confirmar / enviar',
+    'expressoes.sentOn':'Enviada em',
     'alert.waFailed':'Não foi possível abrir o WhatsApp automaticamente aqui.\nO link foi copiado — cole no navegador para conversar:',
     'alert.hourNotFound':'O horário', 'alert.hourNotFoundEnd':'não está na grade.',
     'alert.invalidValue':'Digite um valor válido, como 150,00.', 'alert.chooseDueDate':'Escolha uma data de vencimento.',
@@ -1468,6 +1520,8 @@ const I18N = {
   },
   en: {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
+    'nav.group.gestao':'Management', 'nav.group.ensino':'Teaching', 'nav.group.administracao':'Administration',
+    'nav.group.analise':'Analysis', 'nav.group.sistema':'System',
     'nav.topicos':'Lesson Plan', 'nav.expressoes':'Expressions', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
     'nav.despesas':'Expenses', 'nav.declaracao':'Statements', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
@@ -1602,6 +1656,7 @@ const I18N = {
     'expressoes.altPh':'E.g.: "Start the conversation."', 'expressoes.boldHint':'Tip: wrap the expression in <b>&lt;b&gt;</b> to bold it inside the example.',
     'expressoes.empty':'No expressions registered yet.', 'expressoes.emptyCta':'Click <b>＋ Add expression</b> to get started.',
     'expressoes.confirmDelete':'Delete the expression', 'expressoes.confirm':'Confirm / submit',
+    'expressoes.sentOn':'Sent on',
     'alert.waFailed':"Couldn't open WhatsApp automatically here.\nThe link was copied — paste it in your browser to chat:",
     'alert.hourNotFound':'The time slot', 'alert.hourNotFoundEnd':'is not on the grid.',
     'alert.invalidValue':'Enter a valid amount, like 150.00.', 'alert.chooseDueDate':'Choose a due date.',
@@ -2549,8 +2604,9 @@ function renderExpressoes(){
     ${list.length ? `<div class="ex-list">${list.map(x=>`
       <div class="ex-row ${x.confirmed?'ex-row-on':''}">
         <span class="ex-name ${x.confirmed?'ex-name-on':''}">${esc(x.title)}</span>
+        ${x.confirmed && x.confirmedDate ? `<span class="ex-date">📅 ${fmtDateBR(x.confirmedDate)}</span>` : ''}
         <span class="ex-acts">
-          <button class="ex-confirm ${x.confirmed?'on':''}" title="${t('expressoes.confirm')}" onclick="toggleExpressaoConfirm('${x.id}')">✓</button>
+          <button class="ex-confirm ${x.confirmed?'on':''}" title="${x.confirmed && x.confirmedDate ? t('expressoes.sentOn')+' '+fmtDateBR(x.confirmedDate) : t('expressoes.confirm')}" onclick="toggleExpressaoConfirm('${x.id}')">✓</button>
           <button class="tp-btn" title="${t('common.edit')}" onclick="openExpressaoForm('${x.id}')">✏️</button>
           <button class="tp-btn tp-del" title="${t('common.delete')}" onclick="delExpressao('${x.id}')">🗑️</button>
         </span>
@@ -2587,6 +2643,7 @@ async function saveExpressao(id){
 async function toggleExpressaoConfirm(id){
   const x = state.expressions.find(e=>e.id===id); if(!x) return;
   x.confirmed = !x.confirmed;
+  x.confirmedDate = x.confirmed ? isoDate(new Date()) : '';
   await write('expressions', state.expressions);
   renderExpressoes();
 }
@@ -3913,6 +3970,9 @@ function applyNavLabels(){
     btn.innerHTML = '';
     if(span) btn.appendChild(span);
     btn.appendChild(document.createTextNode(t(key)));
+  });
+  document.querySelectorAll('#nav .nav-group-label').forEach(el=>{
+    el.textContent = t('nav.group.'+el.dataset.group);
   });
 }
 async function toggleLang(){
