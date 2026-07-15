@@ -1378,6 +1378,28 @@ function ageFromDOB(dob){
   return (a>=0 && a<130) ? a : null;
 }
 const fmtBRL = n => (n||n===0) ? Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : '';
+/* ================= máscara de valores em dinheiro (formato brasileiro) ================= */
+function moneyToDisplay(n){
+  if(n==null || n==='') return '';
+  const num = Number(n);
+  if(isNaN(num)) return '';
+  return num.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function parseCurrencyValue(str){
+  if(str==null || str==='') return 0;
+  const cleaned = String(str).replace(/\./g,'').replace(',', '.').replace(/[^\d.]/g,'');
+  const n = parseFloat(cleaned);
+  return isNaN(n) ? 0 : n;
+}
+function formatCurrencyInput(el){
+  let digits = el.value.replace(/\D/g,'');
+  if(!digits){ el.value = ''; return; }
+  digits = digits.replace(/^0+(?=\d)/, '');
+  while(digits.length < 3) digits = '0'+digits;
+  const cents = parseInt(digits, 10);
+  const value = cents / 100;
+  el.value = value.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
 
 const WEEK_DAYS = [
   {k:'seg', key:'agenda.mon', gradNature:'linear-gradient(135deg,#59B686,#46966A)', gradAllure:'linear-gradient(135deg,#6C8EEA,#3457D5)', gradSun:'linear-gradient(135deg,#F0C245,#D4A017)'},
@@ -3546,7 +3568,7 @@ function openEditValor(sid, year, month, computed){
     <div class="msub">${esc(s.name)} · ${MONTHS_FULL_CAP[month]} ${year}</div>
     <div class="banner" style="margin:0 0 14px">${t('financeiro.autoValue')}: <b>${fmtBRL(computed)}</b></div>
     <div class="field"><label>${t('financeiro.finalValue')}</label>
-      <div class="al-money"><span>R$</span><input id="fn-valor-input" type="number" min="0" step="0.01" value="${atual}" placeholder="0,00"></div>
+      <div class="al-money"><span>R$</span><input id="fn-valor-input" type="text" inputmode="decimal" value="${moneyToDisplay(atual)}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
     </div>
     <div class="modal-acts">
       ${hasAjuste(sid,year,month)?`<button class="btn btn-ghost" onclick="clearValorAjuste('${sid}',${year},${month})">${t('financeiro.restore')}</button>`:''}
@@ -3558,7 +3580,7 @@ function openEditValor(sid, year, month, computed){
 async function saveValorAjuste(sid, year, month){
   const raw = document.getElementById('fn-valor-input').value;
   if(raw==='') return;
-  state.financeiroAjustes[ajusteKey(sid,year,month)] = Number(raw);
+  state.financeiroAjustes[ajusteKey(sid,year,month)] = parseCurrencyValue(raw);
   await write('financeiroAjustes', state.financeiroAjustes);
   closeModal(); renderFinanceiro();
 }
@@ -3788,7 +3810,7 @@ function openDespesaForm(id){
   despesaTipo = d ? d.tipo : 'material';
   despesaRecorrente = d ? !!d.recorrente : false;
   const today = new Date().toISOString().slice(0,10);
-  const valorStr = d ? (Number(d.valor)||0).toFixed(2).replace('.',',') : '';
+  const valorStr = d ? moneyToDisplay(d.valor) : '';
   const pill = (t,label)=>`<button class="tipo-${t}" data-tipo="${t}" aria-pressed="${despesaTipo===t}" onclick="setDespesaTipo('${t}')">${label}</button>`;
   const recPill = (v,label)=>`<button class="rec-${v}" data-rec="${v}" aria-pressed="${String(despesaRecorrente)===v}" onclick="setDespesaRecorrente(${v})">${label}</button>`;
   showModal(`
@@ -3808,7 +3830,7 @@ function openDespesaForm(id){
       <div class="field-hint" id="desp-rec-hint"></div>
     </div>
     <div class="field"><label>${t('despesas.value')}</label>
-      <div class="al-money"><span>R$</span><input id="desp-valor" type="text" inputmode="decimal" value="${valorStr}" placeholder="0,00"></div>
+      <div class="al-money"><span>R$</span><input id="desp-valor" type="text" inputmode="decimal" value="${valorStr}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
     </div>
     <div class="field"><label>${t('despesas.dueDate')}</label>
       <input id="desp-venc" type="date" value="${d?d.vencimento:today}" oninput="updateDespesaRecHint()"></div>
@@ -4040,13 +4062,13 @@ function getMonthValue(year, month, computed){
 }
 function openEditMonthValue(year, month, computed){
   const atual = getMonthValue(year, month, computed);
-  const atualStr = (atual||0).toFixed(2).replace('.',',');
+  const atualStr = moneyToDisplay(atual||0);
   showModal(`
     <h3>${t('financeiro.editValue')}</h3>
     <div class="msub">${MONTHS_FULL_CAP[month]} ${year}</div>
     <div class="banner" style="margin:0 0 14px">${t('financeiro.autoValue')}: <b>${fmtBRL(computed)}</b></div>
     <div class="field"><label>${t('declaracao.receivedValue')}</label>
-      <div class="al-money"><span>R$</span><input id="dc-valor-input" type="text" inputmode="decimal" value="${atualStr}" placeholder="0,00"></div>
+      <div class="al-money"><span>R$</span><input id="dc-valor-input" type="text" inputmode="decimal" value="${atualStr}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
       <div class="field-hint">${t('declaracao.centsHint')}</div>
     </div>
     <div class="modal-acts">
@@ -4402,7 +4424,7 @@ function openAluno(id){
     <div class="field"><label>${t('alunos.startDate')}</label>
       <input id="al-inicio" type="date" value="${s&&s.startDate?s.startDate:''}"></div>
     <div class="field"><label>${t('alunos.price')}</label>
-      <div class="al-money"><span>R$</span><input id="al-valor" type="number" min="0" step="0.01" value="${s&&s.price!=null?s.price:''}" placeholder="0,00"></div>
+      <div class="al-money"><span>R$</span><input id="al-valor" type="text" inputmode="decimal" value="${s&&s.price!=null?moneyToDisplay(s.price):''}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
     </div>
     <div class="modal-acts">
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
@@ -4427,7 +4449,7 @@ async function saveAluno(id){
     status: (document.getElementById('al-status')||{}).value || 'ativo',
     level: (document.getElementById('al-nivel')||{}).value || '',
     startDate: fv('al-inicio'),
-    price: valorRaw==='' ? '' : Number(valorRaw)
+    price: valorRaw==='' ? '' : parseCurrencyValue(valorRaw)
   };
   if(id){
     Object.assign(studentById(id), data);
