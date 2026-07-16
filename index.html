@@ -898,9 +898,9 @@
   .scard .acts button.danger:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- topics ---------- */
-  .tp-board{display:flex;gap:16px;align-items:flex-start}
+  .tp-board{display:flex;gap:16px;align-items:flex-start;overflow-x:auto;padding-bottom:14px;width:100%}
   .tp-col{
-    flex:1 1 0;min-width:0;background:var(--surface);border-radius:18px;padding:16px 12px;
+    flex:0 0 calc(25% - 12px);min-width:280px;background:var(--surface);border-radius:18px;padding:16px 12px;
     display:flex;flex-direction:column;gap:12px;min-height:220px;transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     border:1px solid var(--line);box-shadow:var(--shadow-sm);
   }
@@ -935,9 +935,7 @@
     position:relative;
   }
   .tp-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:transparent}
-  .tp-card-content{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-  .tp-card-icon{font-size:16px;flex:none}
-  .tp-card-name{display:block;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-card-name{display:block;font-size:12.5px;font-weight:600;line-height:1.3;white-space:normal;word-break:break-word;overflow:visible;flex:1}
   .tp-card-actions{display:flex;gap:4px;opacity:0;transition:opacity 0.18s ease;flex:none}
   .tp-card:hover .tp-card-actions{opacity:1}
   .tp-card-btn{
@@ -948,6 +946,103 @@
   .tp-card-btn:hover{background:#fff;color:var(--ink);border-color:var(--muted);transform:scale(1.05)}
   .tp-card-btn.tp-del:hover{background:var(--rose-bg);color:var(--rose);border-color:var(--rose)}
   .tp-card-dragging{opacity:.35;transform:scale(0.96)}
+
+  /* Quick Filters & View Switcher */
+  .tp-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .tp-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tp-pill {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .tp-pill:hover {
+    background: var(--line-2);
+    color: var(--ink);
+  }
+  .tp-pill.active {
+    background: var(--violet);
+    color: #fff;
+    border-color: var(--violet);
+  }
+  
+  /* View Switcher */
+  .tp-switcher {
+    display: flex;
+    background: var(--line-2);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1.5px solid var(--line);
+  }
+  .tp-switch-btn {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tp-switch-btn.active {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Grid/Table View List */
+  .tp-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+  }
+  .tp-grid-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  .tp-grid-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  .tp-grid-badge {
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
 
   .tp-btn{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;transition:.12s;flex:none}
   .tp-btn:hover{background:var(--line-2)}
@@ -960,7 +1055,7 @@
   .tp-manage-acts{display:flex;gap:3px;flex:none}
   @media(max-width:1100px){
     .tp-board{overflow-x:auto;padding-bottom:14px}
-    .tp-col{flex:0 0 230px}
+    .tp-col{flex:0 0 250px}
   }
   .tp-del:hover{background:var(--rose-bg);color:var(--rose)}
 
@@ -1458,22 +1553,32 @@
     background: rgba(37, 211, 102, 0.1);
   }
   
-  /* Lembrete Preview Modal */
-  .rem-grid {
+  /* Lembrete Preview Modal Layout */
+  .rem-horizontal-layout {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
     margin-top: 12px;
     text-align: left;
   }
-  .rem-cards-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  @media(max-width: 540px) {
-    .rem-cards-row {
-      grid-template-columns: 1fr;
+  @media(min-width: 768px) {
+    .modal.modal-wide {
+      max-width: 860px !important;
+      width: 90% !important;
+    }
+    .rem-horizontal-layout {
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+    .rem-left-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rem-right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
   }
   .rem-card {
@@ -1543,6 +1648,80 @@
   .rem-copy-toast.show {
     display: inline-flex;
     animation: fadeIn 0.2s ease;
+  }
+  
+  /* AI Image Container and Elements */
+  .rem-img-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    border: 1px solid var(--line-2);
+    overflow: hidden;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rem-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .rem-img.loaded {
+    opacity: 1;
+  }
+  .rem-img-skeleton {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--surface);
+  }
+  .rem-img-regen-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(15, 23, 42, 0.6);
+    color: #fff;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+    padding: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  .rem-img-regen-btn:hover {
+    background: rgba(15, 23, 42, 0.85);
+    transform: scale(1.1);
+  }
+  .rem-img-regen-btn svg {
+    stroke: #fff;
+  }
+  .rem-spinner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(124, 58, 237, 0.1);
+    border-top-color: var(--violet);
+    border-radius: 50%;
+    animation: remSpin 0.8s linear infinite;
+  }
+  @keyframes remSpin {
+    to { transform: rotate(360deg); }
   }
 
   /* Quick Actions Grid */
@@ -2257,6 +2436,7 @@
           <button data-view="declaracao"><span class="ico">📄</span>Declarações</button>
           <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
           <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
+          <button data-view="relatorio-mensal"><span class="ico">📋</span>Relatório Mensal</button>
         </div>
       </div>
       <div class="nav-group" data-group="analise">
@@ -2299,6 +2479,7 @@
         <div id="v-expressoes" class="view"></div>
         <div id="v-agenda" class="view"></div>
         <div id="v-relatorio" class="view"></div>
+        <div id="v-relatorio-mensal" class="view"></div>
         <div id="v-financeiro" class="view"></div>
         <div id="v-despesas" class="view"></div>
         <div id="v-info" class="view"></div>
@@ -2739,7 +2920,7 @@ const I18N = {
     'nav.painel':'Painel', 'nav.login':'Login', 'nav.alunos':'Alunos', 'nav.agenda':'Agenda', 'nav.presenca':'Frequência',
     'nav.group.gestao':'Gestão', 'nav.group.ensino':'Ensino', 'nav.group.administracao':'Administração',
     'nav.group.analise':'Análise', 'nav.group.sistema':'Sistema',
-    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
+    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.relatorio-mensal':'Relatório Mensal', 'nav.financeiro':'Financeiro',
     'nav.despesas':'Despesas', 'nav.declaracao':'Declarações', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
@@ -2945,12 +3126,14 @@ const I18N = {
     'rem.casual':'Casual / Amigável',
     'rem.professional':'Profissional / Formal',
     'rem.enthusiastic':'Entusiasmado / Animado',
+    'rem.generatingImage':'Gerando imagem educacional da IA...',
+    'rem.regenerateImage':'Gerar nova imagem',
   },
   en: {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
     'nav.group.gestao':'Management', 'nav.group.ensino':'Teaching', 'nav.group.administracao':'Administration',
     'nav.group.analise':'Analysis', 'nav.group.sistema':'System',
-    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
+    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.relatorio-mensal':'Monthly Report', 'nav.financeiro':'Finance',
     'nav.despesas':'Expenses', 'nav.declaracao':'Statements', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
@@ -3157,6 +3340,8 @@ const I18N = {
     'rem.casual':'Casual / Friendly',
     'rem.professional':'Professional / Formal',
     'rem.enthusiastic':'Enthusiastic / Animated',
+    'rem.generatingImage':'Generating AI educational image...',
+    'rem.regenerateImage':'Regenerate image',
   }
 };
 function t(key){
@@ -4256,55 +4441,147 @@ function topicIcon(id){ let h=0; for(let i=0;i<id.length;i++) h=(h*17+id.charCod
 let dragTopicId = null;
 function renderTopicos(){
   const el = document.getElementById('v-topicos');
+  if(!el) return;
+  
+  if (state.selectedTopicCategoryFilter === undefined) state.selectedTopicCategoryFilter = 'all';
+  if (state.topicViewMode === undefined) state.topicViewMode = 'kanban';
+  
   const q = (state.q_topicos||'').toLowerCase();
   const list = state.topics.filter(t=>t.title.toLowerCase().includes(q));
   const isDark = document.body.classList.contains('dark');
+  const isEn = state.lang === 'en';
+  
+  // 1. Build Filter Pills
+  let pillsHtml = `<button class="tp-pill ${state.selectedTopicCategoryFilter === 'all' ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = 'all'; renderTopicos();">${isEn ? 'All' : 'Todos'}</button>`;
+  TOPIC_CATEGORIES.forEach(cat => {
+    pillsHtml += `<button class="tp-pill ${state.selectedTopicCategoryFilter === cat.key ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = '${cat.key}'; renderTopicos();">${cat.label}</button>`;
+  });
+  
+  // 2. Build View Switcher
+  const switcherHtml = `
+    <div class="tp-switcher">
+      <button class="tp-switch-btn ${state.topicViewMode === 'kanban' ? 'active' : ''}" onclick="state.topicViewMode = 'kanban'; renderTopicos();" title="${isEn ? 'Kanban Board' : 'Quadro Kanban'}">
+        📊 ${isEn ? 'Kanban' : 'Kanban'}
+      </button>
+      <button class="tp-switch-btn ${state.topicViewMode === 'table' ? 'active' : ''}" onclick="state.topicViewMode = 'table'; renderTopicos();" title="${isEn ? 'List View' : 'Visualização em Lista'}">
+        📋 ${isEn ? 'List' : 'Lista'}
+      </button>
+    </div>
+  `;
+  
+  // 3. Filter list by selected category pill
+  let filteredList = list;
+  if (state.selectedTopicCategoryFilter !== 'all') {
+    filteredList = list.filter(tp => topicCategory(tp) === state.selectedTopicCategoryFilter);
+  }
+  
+  // 4. Generate Body content based on View Mode
+  let bodyContent = '';
+  if (state.topics.length === 0) {
+    bodyContent = `
+      <div class="card panel"><div class="empty" style="padding:44px 16px">
+        <div style="font-size:40px;margin-bottom:10px">📚</div>
+        ${t('topicos.empty')}<br>${t('topicos.emptyCta')}
+      </div></div>
+    `;
+  } else if (state.topicViewMode === 'table') {
+    if (filteredList.length === 0) {
+      bodyContent = `<div class="card panel" style="width:100%;"><div class="empty" style="padding:44px 16px">🔍 ${isEn ? 'No topics found matching the filters.' : 'Nenhum tópico encontrado correspondendo aos filtros.'}</div></div>`;
+    } else {
+      bodyContent = `
+        <div class="tp-grid-view">
+          ${filteredList.map(tp => {
+            const catObj = TOPIC_CATEGORIES.find(c => c.key === topicCategory(tp)) || { label: 'Other', key: 'other' };
+            const c = topicColor(tp.id);
+            const badgeBg = isDark ? 'var(--line-2)' : c.bg;
+            const badgeFg = isDark ? 'var(--muted)' : c.fg;
+            
+            return `
+              <div class="tp-grid-card">
+                <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                  <span style="font-size: 18px; flex: none;">${topicIcon(tp.id)}</span>
+                  <div style="min-width: 0; flex: 1; text-align: left;">
+                    <div style="font-size: 13.5px; font-weight: 600; color: var(--ink); word-break: break-word; line-height: 1.3;">${esc(tp.title)}</div>
+                    <span class="tp-grid-badge" style="background: ${badgeBg}; color: ${badgeFg}; margin-top: 4px; display: inline-block;">${catObj.label}</span>
+                  </div>
+                </div>
+                <div class="tp-card-actions" style="opacity: 1; display: flex; gap: 4px; flex: none;">
+                  <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
+                  <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+  } else {
+    // Kanban mode - filter columns if a category filter is active
+    const activeColumns = TOPIC_CATEGORIES.filter(cat => state.selectedTopicCategoryFilter === 'all' || state.selectedTopicCategoryFilter === cat.key);
+    
+    bodyContent = `
+      <div class="tp-board">
+        ${activeColumns.map(cat => {
+          const colTopics = list.filter(tp => topicCategory(tp) === cat.key);
+          return `
+            <div class="tp-col tp-col-${cat.key}" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
+                ondragleave="this.classList.remove('tp-col-over')"
+                ondrop="onTopicDrop(event,'${cat.key}')">
+              <div class="tp-col-head">
+                <span>${cat.label}</span><span class="tp-col-count">${colTopics.length}</span>
+              </div>
+              <div class="tp-col-body">
+                ${colTopics.length ? colTopics.map(tp => {
+                  const c = topicColor(tp.id);
+                  const cardStyle = isDark
+                    ? `style="border-left-color:${c.ic}; background: var(--line-2); border-color: var(--line);"`
+                    : `style="border-left-color:${c.ic}; background:${c.bg}; border-color:${c.bd};"`;
+                  const textStyle = isDark ? '' : `style="color:${c.fg}"`;
+                  return `
+                    <div class="tp-card" draggable="true" ${cardStyle}
+                        ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)">
+                      <div class="tp-card-content">
+                        <span class="tp-card-icon">${topicIcon(tp.id)}</span>
+                        <span class="tp-card-name" ${textStyle}>${esc(tp.title)}</span>
+                      </div>
+                      <div class="tp-card-actions">
+                        <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
+                        <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
+                      </div>
+                    </div>
+                  `;
+                }).join('') : `<div class="tp-col-empty">${t('topicos.dropHere')}</div>`}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+  
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('topicos.title')}</h2><div class="sub">${state.topics.length} ${t('topicos.inLibrary')}</div></div>
       <button class="btn btn-primary" onclick="openTopicForm()">${t('topicos.add')}</button>
     </div>
-    <div class="toolbar">
+    
+    <div class="toolbar" style="margin-bottom: 12px;">
       <div class="search"><span class="mag">🔍</span>
         <input placeholder="${t('topicos.search')}" value="${esc(state.q_topicos||'')}" oninput="state.q_topicos=this.value;renderTopicos()">
       </div>
-      <span class="count-pill">${list.length} ${t('topicos.shown')}</span>
+      <span class="count-pill">${filteredList.length} ${t('topicos.shown')}</span>
     </div>
-    ${state.topics.length ? `<div class="tp-board">
-      ${TOPIC_CATEGORIES.map(cat=>{
-        const colTopics = list.filter(tp=>topicCategory(tp)===cat.key);
-        return `<div class="tp-col tp-col-${cat.key}" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
-            ondragleave="this.classList.remove('tp-col-over')"
-            ondrop="onTopicDrop(event,'${cat.key}')">
-          <div class="tp-col-head">
-            <span>${cat.label}</span><span class="tp-col-count">${colTopics.length}</span>
-          </div>
-          <div class="tp-col-body">
-            ${colTopics.length ? colTopics.map(tp=>{
-              const c = topicColor(tp.id);
-              const cardStyle = isDark
-                ? `style="border-left-color:${c.ic}; background: var(--line-2); border-color: var(--line);"`
-                : `style="border-left-color:${c.ic}; background:${c.bg}; border-color:${c.bd};"`;
-              const textStyle = isDark ? '' : `style="color:${c.fg}"`;
-              return `<div class="tp-card" draggable="true" ${cardStyle}
-                  ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)">
-                <div class="tp-card-content">
-                  <span class="tp-card-icon">${topicIcon(tp.id)}</span>
-                  <span class="tp-card-name" ${textStyle}>${esc(tp.title)}</span>
-                </div>
-                <div class="tp-card-actions">
-                  <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
-                  <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
-                </div>
-              </div>`;
-            }).join('') : `<div class="tp-col-empty">${t('topicos.dropHere')}</div>`}
-          </div>
-        </div>`;
-      }).join('')}
-    </div>` : `<div class="card panel"><div class="empty" style="padding:44px 16px">
-        <div style="font-size:40px;margin-bottom:10px">📚</div>
-        ${t('topicos.empty')}<br>${t('topicos.emptyCta')}
-      </div></div>`}`;
+    
+    <!-- Filter pills & View Switcher Bar -->
+    <div class="tp-filter-bar">
+      <div class="tp-pills">
+        ${pillsHtml}
+      </div>
+      ${switcherHtml}
+    </div>
+    
+    ${bodyContent}
+  `;
 }
 function onTopicDragStart(ev, id){
   dragTopicId = id;
@@ -5017,6 +5294,105 @@ function renderRelatorio(){
         <div style="font-size:40px;margin-bottom:10px">📊</div>
         ${t('relatorio.noData')} ${monthLabel}.<br>${t('relatorio.noDataCta')}
       </div></div>`}`;
+}
+
+/* ================= MONTHLY REPORT MODULE ================= */
+function onMonthlyReportSelectChange(type, value) {
+  if (type === 'student') state.monthlyReportStudent = value;
+  if (type === 'month') state.monthlyReportMonth = parseInt(value, 10);
+  if (type === 'year') state.monthlyReportYear = parseInt(value, 10);
+  renderRelatorioMensal();
+}
+
+function renderRelatorioMensal() {
+  const el = document.getElementById('v-relatorio-mensal');
+  if (!el) return;
+  
+  if (state.monthlyReportStudent === undefined) state.monthlyReportStudent = '';
+  if (state.monthlyReportMonth === undefined) state.monthlyReportMonth = new Date().getMonth();
+  if (state.monthlyReportYear === undefined) state.monthlyReportYear = new Date().getFullYear();
+  
+  const studentsList = state.alunos || [];
+  studentsList.sort((a,b) => a.name.localeCompare(b.name, 'pt-BR', {sensitivity: 'base'}));
+  
+  let studentOptions = `<option value="">${state.lang==='en' ? 'Select a student...' : 'Selecione um aluno...'}</option>`;
+  studentsList.forEach(s => {
+    const isSelected = s.id === state.monthlyReportStudent ? 'selected' : '';
+    studentOptions += `<option value="${s.id}" ${isSelected}>${esc(s.name)}</option>`;
+  });
+  
+  let monthOptions = '';
+  for (let i = 0; i < 12; i++) {
+    const isSelected = i === state.monthlyReportMonth ? 'selected' : '';
+    const label = state.lang === 'en' ? 
+      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][i] : 
+      ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][i];
+    monthOptions += `<option value="${i}" ${isSelected}>${label}</option>`;
+  }
+  
+  let yearOptions = '';
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear - 3; y <= currentYear + 2; y++) {
+    const isSelected = y === state.monthlyReportYear ? 'selected' : '';
+    yearOptions += `<option value="${y}" ${isSelected}>${y}</option>`;
+  }
+  
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>${state.lang==='en' ? 'Monthly Report' : 'Relatório Mensal'}</h2>
+      <div class="sub">${state.lang==='en' ? 'Generate monthly attendance and performance reports for students' : 'Gere relatórios mensais de frequência e desempenho para os alunos'}</div>
+    </div></div>
+    
+    <div class="card panel" style="max-width: 600px; margin-top: 16px; padding: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
+        
+        <!-- Student Selector -->
+        <div class="field">
+          <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
+            ${state.lang==='en' ? 'Select Student' : 'Selecionar Aluno'}
+          </label>
+          <select id="rep-monthly-student" onchange="onMonthlyReportSelectChange('student', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
+            ${studentOptions}
+          </select>
+        </div>
+        
+        <!-- Month and Year Row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <!-- Month Selector -->
+          <div class="field">
+            <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
+              ${state.lang==='en' ? 'Month' : 'Mês'}
+            </label>
+            <select id="rep-monthly-month" onchange="onMonthlyReportSelectChange('month', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
+              ${monthOptions}
+            </select>
+          </div>
+          
+          <!-- Year Selector -->
+          <div class="field">
+            <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
+              ${state.lang==='en' ? 'Year' : 'Ano'}
+            </label>
+            <select id="rep-monthly-year" onchange="onMonthlyReportSelectChange('year', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
+              ${yearOptions}
+            </select>
+          </div>
+        </div>
+        
+        <!-- Actions Row -->
+        <div style="display: flex; gap: 12px; margin-top: 12px; justify-content: flex-end; align-items: center;">
+          <button class="btn btn-ghost" style="height: 42px; padding: 0 20px; font-size: 14px; border-radius: 8px; font-weight: 600;">
+            ${state.lang==='en' ? 'Preview Report' : 'Visualizar Relatório'}
+          </button>
+          <button class="btn btn-primary" style="height: 42px; padding: 0 20px; font-size: 14px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>${state.lang==='en' ? 'Generate PDF' : 'Gerar PDF'}</span>
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  `;
 }
 function navRelatorioMonth(delta){
   state.relatorioMonth = addMonths(state.relatorioMonth, delta);
@@ -5790,6 +6166,56 @@ function generateAiReminder(studentName, level, time, topic, tone) {
   return selectedList[randomIndex];
 }
 
+function getAiImagePrompt(topic) {
+  const cleanTopic = (topic || '').trim().toLowerCase();
+  
+  if (!cleanTopic) {
+    return "English language learning concept, open book, letters and chat bubbles floating, cute 3D clay style render, colorful, bright background";
+  }
+  
+  if (cleanTopic.includes('airport') || cleanTopic.includes('travel') || cleanTopic.includes('trip') || cleanTopic.includes('hotel') || cleanTopic.includes('flight')) {
+    return `Beautiful isometric 3D render of an airport terminal with a small airplane and travel luggage, travel concept illustration, bright colors, clean composition, high definition`;
+  }
+  
+  if (cleanTopic.includes('food') || cleanTopic.includes('fruit') || cleanTopic.includes('vegetable') || cleanTopic.includes('grocery') || cleanTopic.includes('restaurant') || cleanTopic.includes('eat') || cleanTopic.includes('cooking')) {
+    return `Vibrant 3D clay style illustration of a basket of fresh delicious food and tropical fruits, grocery kitchen concept, bright soft background, cute design`;
+  }
+  
+  if (cleanTopic.includes('sport') || cleanTopic.includes('soccer') || cleanTopic.includes('game') || cleanTopic.includes('olympic') || cleanTopic.includes('play')) {
+    return `Dynamic flat vector illustration of active athletes running, sports equipment, stadium background, energetic composition, vibrant clean colors`;
+  }
+  
+  if (cleanTopic.includes('job') || cleanTopic.includes('interview') || cleanTopic.includes('work') || cleanTopic.includes('office') || cleanTopic.includes('business') || cleanTopic.includes('meeting') || cleanTopic.includes('money')) {
+    return `Modern minimalist flat design vector illustration of a professional job interview meeting, office desk setup, business conversation, corporate style, blue and purple tones`;
+  }
+  
+  if (cleanTopic.includes('music') || cleanTopic.includes('song') || cleanTopic.includes('instrument') || cleanTopic.includes('guitar')) {
+    return `Cute 3D clay render of a musical note, headphone and guitar, colorful musical background, creative sound illustration, bright and playful design`;
+  }
+  
+  if (cleanTopic.includes('movie') || cleanTopic.includes('cinema') || cleanTopic.includes('series') || cleanTopic.includes('show')) {
+    return `Vibrant 3D rendering of a cinema popcorn box, film reel, and classic movie camera, red and gold color palette, entertainment background, high quality graphic`;
+  }
+  
+  if (cleanTopic.includes('family') || cleanTopic.includes('people') || cleanTopic.includes('friend') || cleanTopic.includes('kid')) {
+    return `Warm flat vector illustration of a happy family standing together, smiling faces, friendly community concept, soft colors, minimalist clean design`;
+  }
+  
+  if (cleanTopic.includes('past') || cleanTopic.includes('present') || cleanTopic.includes('future') || cleanTopic.includes('tense') || cleanTopic.includes('grammar') || cleanTopic.includes('perfect') || cleanTopic.includes('conditional') || cleanTopic.includes('should') || cleanTopic.includes('continuous')) {
+    return `Clean educational infographic showing a time line layout with past, present, and future points, blackboard style study board, grammar concept, neat vector design`;
+  }
+
+  if (cleanTopic.includes('technology') || cleanTopic.includes('internet') || cleanTopic.includes('computer') || cleanTopic.includes('phone') || cleanTopic.includes('digital')) {
+    return `Isometric 3D render of a smartphone displaying glowing holograms of chat icons and graphs, tech futuristic concept illustration, dark mode background with purple accents`;
+  }
+
+  if (cleanTopic.includes('weather') || cleanTopic.includes('season') || cleanTopic.includes('summer') || cleanTopic.includes('winter') || cleanTopic.includes('rain')) {
+    return `Stylized 3D rendering of a sunny sky with a cloud and rain drops, sun emoji, cute weather icons, bright blue background`;
+  }
+
+  return `Vibrant 3D clay render representing the concept of "${topic}", learning english card, educational graphic, minimalist clean backdrop, high definition detail`;
+}
+
 function openWaReminderPreview(studentId, hour) {
   const s = studentById(studentId);
   if (!s) return;
@@ -5803,18 +6229,41 @@ function openWaReminderPreview(studentId, hour) {
     subject: s.subject || '—',
     time: hour,
     topic: topic,
-    tone: 'casual'
+    tone: 'casual',
+    customImageSearch: '',
+    uploadedFile: null
   };
   
   const initialMsg = generateAiReminder(s.name, s.level, hour, topic, 'casual');
+  const prompt = getAiImagePrompt(topic);
+  const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=350&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
   
   const html = `
-    <div class="sec-head" style="margin-bottom: 12px;"><div>
+    <div class="sec-head" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
       <h2>${t('rem.title')}</h2>
-    </div></div>
+      <button class="btn btn-ghost" onclick="toggleCredentialsForm()" style="padding: 6px; min-width: unset;" title="Configure WhatsApp Business API">⚙️</button>
+    </div>
     
-    <div class="rem-grid">
-      <div class="rem-cards-row">
+    <!-- WhatsApp Business API Credentials Form (Collapsible) -->
+    <div id="rem-creds-form" style="display: none; margin-bottom: 16px; padding: 16px; border: 1.5px dashed var(--line); border-radius: 12px; background: var(--surface);">
+      <h4 style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin: 0 0 10px 0; text-align: left;">WhatsApp Business API</h4>
+      <div class="field" style="margin-bottom: 10px; text-align: left;">
+        <label>Phone Number ID</label>
+        <input id="rem-phone-id-input" value="${esc(state.orgInfo.waPhoneId || '')}" placeholder="Ex: 105943282245371">
+      </div>
+      <div class="field" style="margin-bottom: 10px; text-align: left;">
+        <label>Permanent Access Token</label>
+        <input id="rem-token-input" type="password" value="${esc(state.orgInfo.waToken || '')}" placeholder="EAAG...">
+      </div>
+      <button class="btn btn-primary" style="width: 100%; margin-top: 4px;" onclick="saveReminderCredentials()">${t('common.save')}</button>
+    </div>
+
+    <!-- Status Banner for Send Status -->
+    <div id="rem-status-banner" style="display: none; margin-bottom: 16px; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 600; text-align: left;"></div>
+    
+    <div class="rem-horizontal-layout">
+      <!-- Left Column: Student/Class details & Tone settings -->
+      <div class="rem-left-panel">
         <div class="rem-card">
           <h4>${t('rem.studentInfo')}</h4>
           <div class="rem-card-info">
@@ -5831,35 +6280,304 @@ function openWaReminderPreview(studentId, hour) {
             <p><b>${t('rep.topic')}:</b> ${topic ? esc(topic) : `<em>${t('painel.noTopic')}</em>`}</p>
           </div>
         </div>
+        <div class="field" style="margin-bottom: 0;">
+          <label>${t('rem.tone')}</label>
+          <select id="rem-tone-select" onchange="updateReminderTone(this.value)">
+            <option value="casual" selected>${t('rem.casual')}</option>
+            <option value="professional">${t('rem.professional')}</option>
+            <option value="enthusiastic">${t('rem.enthusiastic')}</option>
+          </select>
+        </div>
       </div>
       
-      <div class="field">
-        <label>${t('rem.tone')}</label>
-        <select id="rem-tone-select" onchange="updateReminderTone(this.value)">
-          <option value="casual" selected>${t('rem.casual')}</option>
-          <option value="professional">${t('rem.professional')}</option>
-          <option value="enthusiastic">${t('rem.enthusiastic')}</option>
-        </select>
-      </div>
-      
-      <div class="rem-textarea-container">
-        <label style="font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 2px;">${t('rem.msg')}</label>
-        <textarea id="rem-message-text" class="rem-textarea">${esc(initialMsg)}</textarea>
-      </div>
-      
-      <div class="modal-acts" style="margin-top: 8px; display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
-        <span id="rem-copy-status" class="rem-copy-toast">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          ${t('rem.copied')}
-        </span>
-        <button class="btn btn-ghost" onclick="regenerateReminder()">🔄 ${t('rem.generate')}</button>
-        <button class="btn btn-ghost" onclick="focusReminderTextarea()">✏️ ${t('rem.edit')}</button>
-        <button class="btn btn-primary" onclick="copyReminderText()">📋 ${t('rem.copy')}</button>
+      <!-- Right Column: AI image, Editable message & Footer Actions -->
+      <div class="rem-right-panel">
+        <!-- AI Image Preview Container -->
+        <div class="rem-img-container">
+          <div class="rem-img-skeleton" id="rem-img-loader">
+            <div class="rem-spinner"></div>
+            <span>${t('rem.generatingImage')}</span>
+          </div>
+          <img id="rem-img-el" class="rem-img" onload="onReminderImageLoaded()" onerror="onReminderImageError()" src="${imgUrl}" alt="AI Educational Graphic">
+          <button class="rem-img-regen-btn" onclick="regenerateReminderImage()" title="${t('rem.regenerateImage')}">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </button>
+        </div>
+        
+        <!-- Manual Image Generation Search Bar & Upload Button -->
+        <div style="display: flex; gap: 8px; margin-top: 8px; width: 100%;">
+          <input id="rem-img-search-input" type="text" onkeydown="if(event.key==='Enter') searchCustomReminderImage()" placeholder="${state.lang==='en' ? 'Type custom image concept...' : 'Digite outro conceito de imagem...'}" style="flex: 1; height: 36px; padding: 0 10px; font-size: 13px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); box-sizing: border-box;">
+          <button class="btn btn-primary" onclick="searchCustomReminderImage()" style="height: 36px; padding: 0 12px; font-size: 13px; border-radius: 8px; min-width: unset; display: flex; align-items: center; justify-content: center; box-sizing: border-box;" title="${state.lang==='en' ? 'Search/Generate Image' : 'Buscar/Gerar Imagem'}">
+            🔍
+          </button>
+          
+          <!-- Local Image Upload Trigger -->
+          <input type="file" id="rem-img-upload-input" accept="image/*" onchange="uploadReminderImage(event)" style="display: none;">
+          <button class="btn btn-ghost" onclick="document.getElementById('rem-img-upload-input').click()" style="height: 36px; padding: 0 12px; font-size: 13px; border-radius: 8px; min-width: unset; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--line); box-sizing: border-box;" title="${state.lang==='en' ? 'Upload Image' : 'Fazer Upload'}">
+            📁
+          </button>
+        </div>
+        
+        <div class="rem-textarea-container">
+          <label style="font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 2px;">${t('rem.msg')}</label>
+          <textarea id="rem-message-text" class="rem-textarea" style="height: 130px;">${esc(initialMsg)}</textarea>
+        </div>
+        
+        <div class="modal-acts" style="margin-top: 4px; display: flex; justify-content: flex-end; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span id="rem-copy-status" class="rem-copy-toast">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            ${t('rem.copied')}
+          </span>
+          <button class="btn btn-ghost" onclick="regenerateReminder()">🔄 ${t('rem.generate')}</button>
+          <button class="btn btn-ghost" onclick="focusReminderTextarea()">✏️ ${t('rem.edit')}</button>
+          <button class="btn btn-ghost" onclick="copyReminderText()">📋 ${t('rem.copy')}</button>
+          <button id="rem-send-btn" class="btn btn-primary" onclick="sendWaReminder('${studentId}')" style="background: #25D366; border-color: #25D366; display: inline-flex; align-items: center; gap: 6px;">
+            <span id="rem-send-btn-spinner" class="rem-spinner" style="display: none; width: 12px; height: 12px; border-width: 1.5px; border-top-color: #fff;"></span>
+            <span>${state.lang==='en' ? 'Send Reminder' : 'Enviar Lembrete'}</span>
+          </button>
+        </div>
       </div>
     </div>
   `;
   
   showModal(html);
+  
+  const modalEl = overlay.querySelector('.modal');
+  if (modalEl) {
+    modalEl.classList.add('modal-wide');
+  }
+}
+
+function onReminderImageLoaded() {
+  const img = document.getElementById('rem-img-el');
+  const loader = document.getElementById('rem-img-loader');
+  if (img && loader) {
+    img.classList.add('loaded');
+    loader.style.display = 'none';
+  }
+}
+
+function onReminderImageError() {
+  const loader = document.getElementById('rem-img-loader');
+  if (loader) {
+    loader.innerHTML = `⚠️ Error loading image`;
+  }
+}
+
+function regenerateReminderImage() {
+  const img = document.getElementById('rem-img-el');
+  const loader = document.getElementById('rem-img-loader');
+  if (!img || !loader) return;
+  
+  img.classList.remove('loaded');
+  loader.style.display = 'flex';
+  loader.innerHTML = `
+    <div class="rem-spinner"></div>
+    <span>${t('rem.generatingImage')}</span>
+  `;
+  
+  const baseTopic = currentReminderData.customImageSearch || currentReminderData.topic;
+  const prompt = getAiImagePrompt(baseTopic);
+  const newSeed = Math.floor(Math.random() * 1000000);
+  img.src = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=350&nologo=true&seed=${newSeed}`;
+}
+
+function searchCustomReminderImage() {
+  const input = document.getElementById('rem-img-search-input');
+  const img = document.getElementById('rem-img-el');
+  const loader = document.getElementById('rem-img-loader');
+  
+  if (!input || !img || !loader) return;
+  
+  const query = input.value.trim();
+  if (!query) return;
+  
+  img.classList.remove('loaded');
+  loader.style.display = 'flex';
+  loader.innerHTML = `
+    <div class="rem-spinner"></div>
+    <span>${t('rem.generatingImage')}</span>
+  `;
+  
+  currentReminderData.customImageSearch = query;
+  
+  const prompt = getAiImagePrompt(query);
+  const newSeed = Math.floor(Math.random() * 1000000);
+  img.src = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=350&nologo=true&seed=${newSeed}`;
+}
+
+function uploadReminderImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    const img = document.getElementById('rem-img-el');
+    const loader = document.getElementById('rem-img-loader');
+    if (img && loader) {
+      img.classList.remove('loaded');
+      loader.style.display = 'flex';
+      loader.innerHTML = `
+        <div class="rem-spinner"></div>
+        <span>${state.lang === 'en' ? 'Loading local image...' : 'Carregando imagem local...'}</span>
+      `;
+      img.src = dataUrl;
+    }
+  };
+  reader.readAsDataURL(file);
+  
+  currentReminderData.uploadedFile = file;
+  currentReminderData.customImageSearch = '';
+}
+
+function toggleCredentialsForm() {
+  const form = document.getElementById('rem-creds-form');
+  if (form) {
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+async function saveReminderCredentials() {
+  const phoneId = document.getElementById('rem-phone-id-input').value.trim();
+  const token = document.getElementById('rem-token-input').value.trim();
+  
+  if (!phoneId || !token) {
+    alert(state.lang === 'en' ? "Please fill in both fields." : "Por favor, preencha ambos os campos.");
+    return;
+  }
+  
+  state.orgInfo.waPhoneId = phoneId;
+  state.orgInfo.waToken = token;
+  
+  await write('orgInfo', state.orgInfo);
+  alert(t('info.saved'));
+  
+  const form = document.getElementById('rem-creds-form');
+  if (form) form.style.display = 'none';
+}
+
+function setSendLoading(isLoading) {
+  const btn = document.getElementById('rem-send-btn');
+  const spinner = document.getElementById('rem-send-btn-spinner');
+  if (!btn || !spinner) return;
+  
+  btn.disabled = isLoading;
+  spinner.style.display = isLoading ? 'inline-block' : 'none';
+}
+
+function showSendStatus(isSuccess, message) {
+  const banner = document.getElementById('rem-status-banner');
+  if (!banner) return;
+  
+  banner.style.display = 'block';
+  if (isSuccess) {
+    banner.style.background = 'rgba(16, 185, 129, 0.08)';
+    banner.style.border = '1px solid rgba(16, 185, 129, 0.2)';
+    banner.style.color = '#10B981';
+    banner.innerHTML = `✓ ${message}`;
+  } else {
+    banner.style.background = 'rgba(239, 68, 68, 0.08)';
+    banner.style.border = '1px solid rgba(239, 68, 68, 0.2)';
+    banner.style.color = '#EF4444';
+    banner.innerHTML = `⚠️ ${message}`;
+  }
+  
+  setTimeout(() => {
+    banner.style.display = 'none';
+  }, 6000);
+}
+
+async function sendWaReminder(studentId) {
+  const s = studentById(studentId);
+  if (!s) return;
+  
+  const text = document.getElementById('rem-message-text').value;
+  const imgEl = document.getElementById('rem-img-el');
+  const imgUrl = imgEl ? imgEl.src : '';
+  
+  const phoneId = state.orgInfo.waPhoneId || '';
+  const token = state.orgInfo.waToken || '';
+  
+  const rawPhone = (s.phone || '').replace(/\D/g, '');
+  if (!rawPhone) {
+    showSendStatus(false, state.lang === 'en' ? "Student has no registered phone number!" : "Aluno não possui telefone cadastrado!");
+    return;
+  }
+  const fullPhone = rawPhone.length <= 11 ? '55' + rawPhone : rawPhone;
+  
+  if (!phoneId || !token) {
+    showSendStatus(false, state.lang === 'en' ? "Please configure your WhatsApp Business API credentials first by clicking the ⚙️ settings gear." : "Por favor, configure suas credenciais da API do WhatsApp Business primeiro clicando na engrenagem ⚙️.");
+    toggleCredentialsForm();
+    return;
+  }
+  
+  setSendLoading(true);
+  
+  try {
+    let imgPayload = {};
+    const file = currentReminderData.uploadedFile;
+    
+    if (file) {
+      showSendStatus(true, state.lang === 'en' ? "Uploading image to WhatsApp..." : "Fazendo upload da imagem para o WhatsApp...");
+      
+      const mediaUrl = `https://graph.facebook.com/v20.0/${phoneId}/media`;
+      const formData = new FormData();
+      formData.append('messaging_product', 'whatsapp');
+      formData.append('file', file);
+      formData.append('type', file.type);
+      
+      const mediaResponse = await fetch(mediaUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      const mediaResult = await mediaResponse.json();
+      if (!mediaResponse.ok || !mediaResult.id) {
+        throw new Error(mediaResult.error ? mediaResult.error.message : (state.lang === 'en' ? "Media upload failed." : "Falha no upload de mídia."));
+      }
+      
+      imgPayload = { id: mediaResult.id, caption: text };
+    } else {
+      imgPayload = { link: imgUrl, caption: text };
+    }
+    
+    showSendStatus(true, state.lang === 'en' ? "Sending reminder message..." : "Enviando mensagem de lembrete...");
+    
+    const url = `https://graph.facebook.com/v20.0/${phoneId}/messages`;
+    const payload = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: fullPhone,
+      type: "image",
+      image: imgPayload
+    };
+    
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok && result.messages) {
+      showSendStatus(true, state.lang === 'en' ? "Reminder message and image sent successfully!" : "Mensagem de lembrete e imagem enviadas com sucesso!");
+    } else {
+      const errorMsg = result.error ? result.error.message : (state.lang === 'en' ? "Failed to send message via API." : "Erro ao enviar mensagem via API.");
+      showSendStatus(false, errorMsg);
+    }
+  } catch (err) {
+    showSendStatus(false, err.message || (state.lang === 'en' ? "Network connection error." : "Erro de conexão de rede."));
+  } finally {
+    setSendLoading(false);
+  }
 }
 
 function updateReminderTone(tone) {
@@ -6152,6 +6870,7 @@ function go(view){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+view).classList.add('on');
+  if(view==='relatorio-mensal') renderRelatorioMensal();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.getElementById('nav').addEventListener('click', e=>{
@@ -6162,7 +6881,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
+  renderRelatorio(); renderRelatorioMensal(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
   renderAuthGate();
 }
 boot();
