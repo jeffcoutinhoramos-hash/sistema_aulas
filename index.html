@@ -898,9 +898,9 @@
   .scard .acts button.danger:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- topics ---------- */
-  .tp-board{display:flex;gap:16px;align-items:flex-start;overflow-x:auto;padding-bottom:14px;width:100%}
+  .tp-board{display:flex;gap:16px;align-items:flex-start}
   .tp-col{
-    flex:0 0 calc(25% - 12px);min-width:280px;background:var(--surface);border-radius:18px;padding:16px 12px;
+    flex:1 1 0;min-width:0;background:var(--surface);border-radius:18px;padding:16px 12px;
     display:flex;flex-direction:column;gap:12px;min-height:220px;transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     border:1px solid var(--line);box-shadow:var(--shadow-sm);
   }
@@ -946,6 +946,18 @@
   .tp-card-btn:hover{background:#fff;color:var(--ink);border-color:var(--muted);transform:scale(1.05)}
   .tp-card-btn.tp-del:hover{background:var(--rose-bg);color:var(--rose);border-color:var(--rose)}
   .tp-card-dragging{opacity:.35;transform:scale(0.96)}
+
+  .tp-list-simple{display:flex;flex-direction:column;gap:8px}
+  .tp-row-simple{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;
+    border:1px solid var(--line);border-left:4px solid transparent;transition:all .15s ease
+  }
+  .tp-row-simple:hover{transform:translateX(2px);box-shadow:var(--shadow-sm)}
+  .tp-row-icon{font-size:19px;flex:none}
+  .tp-row-name{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--ink);word-break:break-word}
+  .tp-row-actions{display:flex;gap:5px;flex:none;opacity:0;transition:opacity .15s ease}
+  .tp-row-simple:hover .tp-row-actions{opacity:1}
+  @media(max-width:640px){ .tp-row-actions{opacity:1} }
 
   /* Quick Filters & View Switcher */
   .tp-filter-bar {
@@ -1055,7 +1067,7 @@
   .tp-manage-acts{display:flex;gap:3px;flex:none}
   @media(max-width:1100px){
     .tp-board{overflow-x:auto;padding-bottom:14px}
-    .tp-col{flex:0 0 250px}
+    .tp-col{flex:0 0 230px}
   }
   .tp-del:hover{background:var(--rose-bg);color:var(--rose)}
 
@@ -4442,40 +4454,11 @@ let dragTopicId = null;
 function renderTopicos(){
   const el = document.getElementById('v-topicos');
   if(!el) return;
-  
-  if (state.selectedTopicCategoryFilter === undefined) state.selectedTopicCategoryFilter = 'all';
-  if (state.topicViewMode === undefined) state.topicViewMode = 'kanban';
-  
+
   const q = (state.q_topicos||'').toLowerCase();
   const list = state.topics.filter(t=>t.title.toLowerCase().includes(q));
   const isDark = document.body.classList.contains('dark');
-  const isEn = state.lang === 'en';
-  
-  // 1. Build Filter Pills
-  let pillsHtml = `<button class="tp-pill ${state.selectedTopicCategoryFilter === 'all' ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = 'all'; renderTopicos();">${isEn ? 'All' : 'Todos'}</button>`;
-  TOPIC_CATEGORIES.forEach(cat => {
-    pillsHtml += `<button class="tp-pill ${state.selectedTopicCategoryFilter === cat.key ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = '${cat.key}'; renderTopicos();">${cat.label}</button>`;
-  });
-  
-  // 2. Build View Switcher
-  const switcherHtml = `
-    <div class="tp-switcher">
-      <button class="tp-switch-btn ${state.topicViewMode === 'kanban' ? 'active' : ''}" onclick="state.topicViewMode = 'kanban'; renderTopicos();" title="${isEn ? 'Kanban Board' : 'Quadro Kanban'}">
-        📊 ${isEn ? 'Kanban' : 'Kanban'}
-      </button>
-      <button class="tp-switch-btn ${state.topicViewMode === 'table' ? 'active' : ''}" onclick="state.topicViewMode = 'table'; renderTopicos();" title="${isEn ? 'List View' : 'Visualização em Lista'}">
-        📋 ${isEn ? 'List' : 'Lista'}
-      </button>
-    </div>
-  `;
-  
-  // 3. Filter list by selected category pill
-  let filteredList = list;
-  if (state.selectedTopicCategoryFilter !== 'all') {
-    filteredList = list.filter(tp => topicCategory(tp) === state.selectedTopicCategoryFilter);
-  }
-  
-  // 4. Generate Body content based on View Mode
+
   let bodyContent = '';
   if (state.topics.length === 0) {
     bodyContent = `
@@ -4484,102 +4467,45 @@ function renderTopicos(){
         ${t('topicos.empty')}<br>${t('topicos.emptyCta')}
       </div></div>
     `;
-  } else if (state.topicViewMode === 'table') {
-    if (filteredList.length === 0) {
-      bodyContent = `<div class="card panel" style="width:100%;"><div class="empty" style="padding:44px 16px">🔍 ${isEn ? 'No topics found matching the filters.' : 'Nenhum tópico encontrado correspondendo aos filtros.'}</div></div>`;
-    } else {
-      bodyContent = `
-        <div class="tp-grid-view">
-          ${filteredList.map(tp => {
-            const catObj = TOPIC_CATEGORIES.find(c => c.key === topicCategory(tp)) || { label: 'Other', key: 'other' };
-            const c = topicColor(tp.id);
-            const badgeBg = isDark ? 'var(--line-2)' : c.bg;
-            const badgeFg = isDark ? 'var(--muted)' : c.fg;
-            
-            return `
-              <div class="tp-grid-card">
-                <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-                  <span style="font-size: 18px; flex: none;">${topicIcon(tp.id)}</span>
-                  <div style="min-width: 0; flex: 1; text-align: left;">
-                    <div style="font-size: 13.5px; font-weight: 600; color: var(--ink); word-break: break-word; line-height: 1.3;">${esc(tp.title)}</div>
-                    <span class="tp-grid-badge" style="background: ${badgeBg}; color: ${badgeFg}; margin-top: 4px; display: inline-block;">${catObj.label}</span>
-                  </div>
-                </div>
-                <div class="tp-card-actions" style="opacity: 1; display: flex; gap: 4px; flex: none;">
-                  <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
-                  <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
+  } else if (list.length === 0) {
+    bodyContent = `<div class="card panel"><div class="empty" style="padding:44px 16px">🔍 ${t('topicos.noResults')}</div></div>`;
   } else {
-    // Kanban mode - filter columns if a category filter is active
-    const activeColumns = TOPIC_CATEGORIES.filter(cat => state.selectedTopicCategoryFilter === 'all' || state.selectedTopicCategoryFilter === cat.key);
-    
     bodyContent = `
-      <div class="tp-board">
-        ${activeColumns.map(cat => {
-          const colTopics = list.filter(tp => topicCategory(tp) === cat.key);
+      <div class="tp-list-simple">
+        ${list.map(tp=>{
+          const c = topicColor(tp.id);
+          const rowStyle = isDark
+            ? `style="border-left-color:${c.ic};background:var(--line-2);border-color:var(--line)"`
+            : `style="border-left-color:${c.ic};background:${c.bg};border-color:${c.bd}"`;
+          const textStyle = isDark ? '' : `style="color:${c.fg}"`;
           return `
-            <div class="tp-col tp-col-${cat.key}" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
-                ondragleave="this.classList.remove('tp-col-over')"
-                ondrop="onTopicDrop(event,'${cat.key}')">
-              <div class="tp-col-head">
-                <span>${cat.label}</span><span class="tp-col-count">${colTopics.length}</span>
-              </div>
-              <div class="tp-col-body">
-                ${colTopics.length ? colTopics.map(tp => {
-                  const c = topicColor(tp.id);
-                  const cardStyle = isDark
-                    ? `style="border-left-color:${c.ic}; background: var(--line-2); border-color: var(--line);"`
-                    : `style="border-left-color:${c.ic}; background:${c.bg}; border-color:${c.bd};"`;
-                  const textStyle = isDark ? '' : `style="color:${c.fg}"`;
-                  return `
-                    <div class="tp-card" draggable="true" ${cardStyle}
-                        ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)">
-                      <div class="tp-card-content">
-                        <span class="tp-card-icon">${topicIcon(tp.id)}</span>
-                        <span class="tp-card-name" ${textStyle}>${esc(tp.title)}</span>
-                      </div>
-                      <div class="tp-card-actions">
-                        <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
-                        <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
-                      </div>
-                    </div>
-                  `;
-                }).join('') : `<div class="tp-col-empty">${t('topicos.dropHere')}</div>`}
-              </div>
+            <div class="tp-row-simple" ${rowStyle}>
+              <span class="tp-row-icon">${topicIcon(tp.id)}</span>
+              <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
+              <span class="tp-row-actions">
+                <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
+                <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
+              </span>
             </div>
           `;
         }).join('')}
       </div>
     `;
   }
-  
+
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('topicos.title')}</h2><div class="sub">${state.topics.length} ${t('topicos.inLibrary')}</div></div>
       <button class="btn btn-primary" onclick="openTopicForm()">${t('topicos.add')}</button>
     </div>
-    
+
     <div class="toolbar" style="margin-bottom: 12px;">
       <div class="search"><span class="mag">🔍</span>
         <input placeholder="${t('topicos.search')}" value="${esc(state.q_topicos||'')}" oninput="state.q_topicos=this.value;renderTopicos()">
       </div>
-      <span class="count-pill">${filteredList.length} ${t('topicos.shown')}</span>
+      <span class="count-pill">${list.length} ${t('topicos.shown')}</span>
     </div>
-    
-    <!-- Filter pills & View Switcher Bar -->
-    <div class="tp-filter-bar">
-      <div class="tp-pills">
-        ${pillsHtml}
-      </div>
-      ${switcherHtml}
-    </div>
-    
+
     ${bodyContent}
   `;
 }
@@ -4731,14 +4657,11 @@ async function doDelExpressao(id){
 }
 function openTopicForm(id){
   const tp = id ? topicById(id) : null;
-  const curCat = tp ? topicCategory(tp) : 'other';
   showModal(`
     <h3>${tp?t('topicos.formEdit'):t('topicos.formNew')}</h3>
     <div class="msub">${tp?t('topicos.changeTitle'):t('topicos.newTopicSub')}</div>
     <div class="field"><label>${t('topicos.name')}</label>
       <input id="tp-title" value="${tp?esc(tp.title):''}" placeholder="${t('topicos.namePh')}"></div>
-    <div class="field"><label>${t('topicos.category')}</label>
-      <select id="tp-category">${TOPIC_CATEGORIES.map(c=>`<option value="${c.key}" ${c.key===curCat?'selected':''}>${c.label}</option>`).join('')}</select></div>
     <div class="field" style="margin-top:6px">
       <label>${t('topicos.allTopics')} (${state.topics.length})</label>
       <input id="tp-manage-search" placeholder="${t('topicos.search')}" oninput="filterTopicManageList()">
@@ -4771,11 +4694,10 @@ function filterTopicManageList(){
 async function saveTopicForm(id){
   const title = (document.getElementById('tp-title').value||'').trim();
   if(!title) return;
-  const category = (document.getElementById('tp-category')||{}).value || 'other';
   if(id){
-    const tp = topicById(id); tp.title = title; tp.category = category;
+    const tp = topicById(id); tp.title = title;
   }else{
-    state.topics.unshift({id:uid(), title, done:false, category});
+    state.topics.unshift({id:uid(), title, done:false});
   }
   await save('topics'); closeModal(); renderTopicos(); renderPresenca();
 }
