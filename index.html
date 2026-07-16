@@ -332,11 +332,17 @@
     font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);
     -webkit-font-smoothing:antialiased;line-height:1.5;
   }
+  /* Sleek modern scrollbar for the application */
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+  ::-webkit-scrollbar-track{background:transparent}
+  
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   h1,h2,h3{font-family:'Bricolage Grotesque',Inter,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.1}
   button{font-family:inherit;cursor:pointer;border:0;background:none}
   input,select,textarea{font-family:inherit;font-size:15px;color:var(--ink)}
-  :focus-visible{outline:3px solid #62A580;outline-offset:2px;border-radius:8px}
+  :focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:8px}
 
   /* ---------- layout: vertical sidebar + content ---------- */
   .layout{display:block}
@@ -609,7 +615,7 @@
     display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;cursor:pointer;transition:.14s}
   .ag-slot:hover{background:#F6FBF7;border-color:#DCF1DF}
   .ag-plus{color:var(--line);font-size:16px;font-weight:700}
-  .ag-chip{font-size:12px;font-weight:700;color:var(--ink);padding:4px 8px;border-radius:8px;white-space:nowrap;
+  .ag-chip{font-size:12px;font-weight:700;color:#0F172A;padding:4px 8px;border-radius:8px;white-space:nowrap;
     max-width:100%;overflow:hidden;text-overflow:ellipsis}
 
   .ag-modal-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
@@ -628,15 +634,16 @@
 
   .nav{display:flex;flex-direction:column;gap:2px;flex:1;overflow-y:auto;min-height:0}
   .nav-group{display:flex;flex-direction:column}
-  .nav-group-label{
+  .nav button.nav-group-label{
     display:flex;align-items:center;gap:6px;width:100%;
     font-size:11px;font-weight:800;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;
     padding:8px 10px;margin-top:10px;border-radius:8px;background:var(--accent-bg);
-    user-select:none;cursor:pointer;transition:filter .15s,transform .1s
+    user-select:none;cursor:pointer;transition:filter .15s,transform .1s;
+    opacity:1
   }
-  .nav-group:first-of-type .nav-group-label{margin-top:4px}
-  .nav-group-label:hover{filter:brightness(.95)}
-  .nav-group-label:active{transform:scale(.98)}
+  .nav-group:first-of-type button.nav-group-label{margin-top:4px}
+  .nav button.nav-group-label:hover{filter:brightness(.95);opacity:1;background:var(--accent-bg)}
+  .nav button.nav-group-label:active{transform:scale(.98);background:var(--accent-bg)}
   .nav-group-chevron{font-size:9px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:var(--violet);opacity:.85}
   .nav-group-items{
     display:flex;flex-direction:column;gap:2px;overflow:hidden;
@@ -891,30 +898,57 @@
   .scard .acts button.danger:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- topics ---------- */
-  .tp-board{display:flex;gap:10px;align-items:flex-start}
+  .tp-board{display:flex;gap:16px;align-items:flex-start}
   .tp-col{
-    flex:1 1 0;min-width:0;background:var(--line-2);border-radius:14px;padding:10px 8px;
-    display:flex;flex-direction:column;gap:7px;min-height:120px;transition:.15s
+    flex:1 1 0;min-width:0;background:var(--surface);border-radius:18px;padding:16px 12px;
+    display:flex;flex-direction:column;gap:12px;min-height:220px;transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border:1px solid var(--line);box-shadow:var(--shadow-sm);
   }
-  .tp-col-over{background:var(--emerald-bg);outline:2px dashed var(--emerald)}
+  .tp-col:hover{box-shadow:var(--shadow)}
+  .tp-col-over{background:var(--emerald-bg);border-color:var(--emerald);outline:2px dashed var(--emerald);transform:scale(1.01)}
   .tp-col-head{
-    display:flex;align-items:center;justify-content:space-between;font-weight:800;
-    font-size:11.5px;color:var(--ink);padding:2px 3px 5px;gap:4px
+    display:flex;align-items:center;justify-content:space-between;
+    padding:2px 4px 10px;border-bottom:1px solid var(--line);margin-bottom:4px;
   }
-  .tp-col-head span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-  .tp-col-count{font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface);
-    padding:2px 7px;border-radius:20px;flex:none}
-  .tp-col-body{display:flex;flex-direction:column;gap:7px;max-height:64vh;overflow-y:auto}
-  .tp-col-empty{font-size:11px;color:var(--muted);text-align:center;padding:14px 4px;
-    border:1.5px dashed var(--line);border-radius:10px}
+  .tp-col-head span:first-child{
+    font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;
+    padding:4px 10px;border-radius:99px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+  }
+  /* Category Badge Colors */
+  .tp-col-kids .tp-col-head span:first-child{background:var(--emerald-bg);color:var(--emerald)}
+  .tp-col-basic .tp-col-head span:first-child{background:var(--sky-bg);color:var(--sky)}
+  .tp-col-intermediate .tp-col-head span:first-child{background:var(--accent-bg);color:var(--violet)}
+  .tp-col-pre-advanced .tp-col-head span:first-child{background:var(--amber-bg);color:var(--amber)}
+  .tp-col-advanced .tp-col-head span:first-child{background:var(--rose-bg);color:var(--rose)}
+  .tp-col-master .tp-col-head span:first-child{background:rgba(236, 72, 153, 0.12);color:var(--pink)}
+  .tp-col-other .tp-col-head span:first-child{background:rgba(100, 116, 139, 0.12);color:var(--slate)}
+
+  .tp-col-count{font-size:11px;font-weight:700;color:var(--muted);background:var(--bg);
+    border:1px solid var(--line);padding:2px 8px;border-radius:20px;flex:none}
+  .tp-col-body{display:flex;flex-direction:column;gap:9px;max-height:64vh;overflow-y:auto;padding-right:2px}
+  .tp-col-empty{font-size:12px;color:var(--muted);text-align:center;padding:20px 4px;
+    border:1.5px dashed var(--line);border-radius:12px;background:var(--bg)}
   .tp-card{
-    background:#fff;border:1px solid var(--line);border-left:3px solid transparent;border-radius:9px;
-    padding:7px 9px;cursor:grab;transition:.13s;box-shadow:var(--shadow-sm)
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    border:1px solid var(--line);border-left:4px solid transparent;border-radius:12px;
+    padding:10px 12px;cursor:grab;transition:all 0.22s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:0 2px 4px rgba(0,0,0,0.02);
+    position:relative;
   }
-  .tp-card:hover{background:#FCFEFC;border-color:#DCF1DF}
-  .tp-card-dragging{opacity:.4}
-  .tp-card-name{display:block;font-size:12.5px;font-weight:600;color:var(--ink);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:transparent}
+  .tp-card-content{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+  .tp-card-icon{font-size:16px;flex:none}
+  .tp-card-name{display:block;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-card-actions{display:flex;gap:4px;opacity:0;transition:opacity 0.18s ease;flex:none}
+  .tp-card:hover .tp-card-actions{opacity:1}
+  .tp-card-btn{
+    width:24px;height:24px;border-radius:7px;font-size:11px;display:grid;place-items:center;
+    background:rgba(255,255,255,0.7);color:var(--muted);border:1px solid var(--line);
+    cursor:pointer;transition:all 0.15s ease;
+  }
+  .tp-card-btn:hover{background:#fff;color:var(--ink);border-color:var(--muted);transform:scale(1.05)}
+  .tp-card-btn.tp-del:hover{background:var(--rose-bg);color:var(--rose);border-color:var(--rose)}
+  .tp-card-dragging{opacity:.35;transform:scale(0.96)}
+
   .tp-btn{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;transition:.12s;flex:none}
   .tp-btn:hover{background:var(--line-2)}
   .tp-manage-list{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;
@@ -926,29 +960,40 @@
   .tp-manage-acts{display:flex;gap:3px;flex:none}
   @media(max-width:1100px){
     .tp-board{overflow-x:auto;padding-bottom:14px}
-    .tp-col{flex:0 0 190px}
+    .tp-col{flex:0 0 230px}
   }
   .tp-del:hover{background:var(--rose-bg);color:var(--rose)}
 
   /* ---------- expressões ---------- */
-  .ex-list{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .ex-row{display:flex;flex-direction:column;align-items:stretch;gap:8px;
-    padding:12px 14px;border-radius:12px;background:#fff;border:1px solid var(--line);
-    border-left:3px solid transparent;transition:.13s}
-  .ex-row:hover{background:#FCFEFC;border-color:#DCF1DF}
-  .ex-row-on{border-left-color:var(--emerald)}
-  .ex-name{min-width:0;font-size:14px;font-weight:600;color:var(--ink);
+  .ex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+  .ex-row{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;
+    padding:8px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);
+    border-left:3.5px solid transparent;transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:0 1px 3px rgba(0,0,0,0.01)}
+  .ex-row:hover{background:var(--line-2);border-color:var(--line);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+  .ex-row-on{border-left-color:var(--violet);background:var(--accent-bg)}
+  .ex-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;text-align:left}
+  .ex-name{min-width:0;font-size:13.5px;font-weight:600;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ex-name-on{color:var(--emerald);font-weight:700}
-  .ex-date{font-size:10.5px;font-weight:600;color:var(--muted);margin-top:-2px}
-  .ex-acts{display:flex;gap:5px;flex:none;justify-content:flex-end}
-  .ex-confirm{width:26px;height:26px;border-radius:7px;font-size:13px;font-weight:800;
-    border:1.5px solid var(--line);color:var(--muted);background:#fff;display:grid;place-items:center;transition:.13s}
-  .ex-confirm:hover{border-color:#BBE6D3;color:var(--emerald)}
-  .ex-confirm.on{background:var(--emerald);border-color:transparent;color:#fff}
-  @media(max-width:1100px){ .ex-list{grid-template-columns:repeat(3,1fr)} }
-  @media(max-width:880px){ .ex-list{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:480px){ .ex-list{grid-template-columns:1fr} }
+  .ex-name-on{color:var(--violet);font-weight:700}
+  .ex-date{font-size:10px;font-weight:600;color:var(--muted)}
+  .ex-acts{display:flex;gap:4px;flex:none;align-items:center}
+  .ex-confirm{width:24px;height:24px;border-radius:7px;font-size:12px;font-weight:800;
+    border:1.5px solid var(--line);color:var(--muted);background:var(--surface);display:grid;place-items:center;transition:all 0.15s ease}
+  .ex-confirm:hover{border-color:var(--violet);color:var(--violet);transform:scale(1.05)}
+  .ex-confirm.on{background:var(--violet);border-color:transparent;color:#fff}
+  .ex-sug-list{
+    position:absolute;top:100%;left:0;right:0;background:var(--surface);
+    border:1.5px solid var(--line);border-radius:12px;margin-top:4px;
+    max-height:200px;overflow-y:auto;z-index:1000;box-shadow:var(--shadow);
+  }
+  .ex-sug-item{
+    padding:10px 14px;font-size:13.5px;font-weight:500;color:var(--ink);
+    cursor:pointer;transition:background 0.15s ease;text-align:left;
+  }
+  .ex-sug-item:hover{background:var(--line-2)}
+  .ex-sug-item:first-of-type{border-top-left-radius:10px;border-top-right-radius:10px}
+  .ex-sug-item:last-of-type{border-bottom-left-radius:10px;border-bottom-right-radius:10px}
 
   /* ---------- lessons ---------- */
   .daygroup{margin-bottom:18px}
@@ -994,19 +1039,18 @@
   .cf-acts{justify-content:center}
   .cf-danger-btn{background:var(--rose)!important}
   .cf-danger-btn:hover{background:#D25976!important}
-
-  /* ---------- login / auth gate ---------- */
+  /* ---------- login / auth gate (restaurado) ---------- */
   .auth-gate{
     position:fixed;inset:0;z-index:80;
     opacity:0;pointer-events:none;
     transition:opacity .5s cubic-bezier(.16,1,.3,1)
   }
   .auth-gate.on{opacity:1;pointer-events:auto}
-  .auth-bg{transform:scale(1.03);transition:transform .7s cubic-bezier(.16,1,.3,1)}
+  .auth-bg{
+    position:absolute;inset:0;background-size:cover;background-position:center;z-index:1;
+    transform:scale(1.03);transition:transform .7s cubic-bezier(.16,1,.3,1)
+  }
   .auth-gate.on .auth-bg{transform:scale(1)}
-  .auth-card{transform:translateY(8px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1) .08s,opacity .5s ease .08s}
-  .auth-gate.on .auth-card{transform:translateY(0);opacity:1}
-  .auth-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:1}
   .auth-bg-scrim{
     position:absolute;inset:0;z-index:2;
     background:linear-gradient(165deg, rgba(20,20,20,.58) 0%, rgba(20,20,20,.32) 45%, rgba(20,20,20,.6) 100%)
@@ -1025,39 +1069,45 @@
   }
   .auth-tagline-rule{
     width:56px;height:4px;border-radius:4px;margin:14px auto 0;
-    background:var(--grad)
+    background:linear-gradient(120deg,#F0C245 0%,#D4A017 55%,#B8860B 100%)
   }
   .auth-card{
     background:var(--surface);border-radius:22px;padding:clamp(18px,4vh,30px) clamp(18px,3.5vw,26px);
     max-width:340px;width:100%;box-shadow:0 24px 60px -18px rgba(0,0,0,.5);text-align:center;
-    max-height:calc(100vh - 20px);overflow-y:auto;scrollbar-width:thin
+    max-height:calc(100vh - 20px);overflow-y:auto;scrollbar-width:thin;
+    transform:translateY(8px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1) .08s,opacity .5s ease .08s
   }
+  .auth-gate.on .auth-card{transform:translateY(0);opacity:1}
   .auth-card::-webkit-scrollbar{width:5px}
   .auth-card::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
   .auth-card::-webkit-scrollbar-track{background:transparent}
-  @media(max-height:640px){
-    .auth-tagline-wrap{display:none}
+  .auth-icon{
+    width:clamp(40px,7vh,60px);height:clamp(40px,7vh,60px);border-radius:50%;background:#FDF1CE;
+    display:grid;place-items:center;font-size:clamp(20px,3.5vh,28px);margin:0 auto clamp(6px,1.6vh,14px)
   }
-  @media(max-width:520px){
-    .auth-tagline{font-size:19px}
-    .auth-tagline-wrap{padding:20px 18px}
-  }
-  .auth-icon{width:clamp(40px,7vh,60px);height:clamp(40px,7vh,60px);border-radius:50%;background:var(--accent-bg);display:grid;place-items:center;
-    font-size:clamp(20px,3.5vh,28px);margin:0 auto clamp(6px,1.6vh,14px)}
-  .auth-card h2{margin-bottom:4px;font-size:clamp(17px,3vh,20px)}
+  .auth-card h2{margin-bottom:4px;font-size:clamp(17px,3vh,20px);color:var(--ink)}
   .auth-sub{color:var(--muted);font-size:13.5px;margin-bottom:clamp(12px,3vh,22px)}
   .auth-card .field{text-align:left;margin-bottom:clamp(8px,1.8vh,15px)}
   .auth-card .field label{margin-bottom:clamp(3px,.8vh,6px)}
   .auth-card .field input{padding:clamp(9px,1.8vh,12px) 13px}
+  .auth-card .field input:focus{border-color:#EAD08A!important;box-shadow:0 0 0 4px #FDF1CE!important}
+  #auth-gate .field input:focus,#auth-gate .field select:focus,#auth-gate .field textarea:focus{
+    border-color:#EAD08A!important;box-shadow:0 0 0 4px #FDF1CE!important}
+  .auth-card .field-hint{text-align:left;margin-top:4px}
+  .auth-card .field-hint b{color:#A6790C}
   .auth-err{color:var(--rose);font-size:13px;font-weight:600;min-height:18px;margin:6px 0 4px}
   .auth-ok{color:var(--emerald)!important}
   .auth-btn{width:100%;margin-top:8px}
+  .auth-gate .btn-primary{
+    background:linear-gradient(120deg,#F0C245 0%,#D4A017 55%,#B8860B 100%)!important;
+    box-shadow:0 8px 20px -8px rgba(150,110,10,.55)!important
+  }
   .auth-offer-msg{font-size:13px;color:var(--ink);background:var(--emerald-bg);padding:10px 12px;border-radius:10px;margin-top:4px;text-align:left}
   .auth-link{
     display:block;width:100%;margin-top:clamp(6px,1.6vh,12px);background:none;border:0;
-    color:var(--violet);font-size:13px;font-weight:600;cursor:pointer;padding:4px
+    color:#A6790C;font-size:13px;font-weight:600;cursor:pointer;padding:4px
   }
-  .auth-link:hover{text-decoration:underline}
+  .auth-link:hover{text-decoration:underline;color:#8B6508}
   .auth-link-strong{display:inline;width:auto;margin:0 0 0 4px;font-weight:800}
   .pw-wrap{position:relative}
   .pw-wrap input{padding-right:42px!important}
@@ -1071,29 +1121,47 @@
     display:flex;align-items:center;gap:9px;margin:-4px 0 4px;cursor:pointer;
     font-size:13px;font-weight:600;color:var(--muted);text-align:left
   }
-  .auth-remember input{width:16px;height:16px;accent-color:var(--violet);flex:none;cursor:pointer}
-  /* tom neutro cinza claro, só nesta tela de login */
-  .auth-icon{background:#F0F0F0}
-  .auth-tagline-rule{background:linear-gradient(120deg,#B8B8BC 0%,#8A8A8E 55%,#5C5C60 100%)}
-  .auth-link{color:#6B6B6E}
-  .auth-link:hover{color:#3A3A3D}
-  .auth-remember input{accent-color:#6B6B6E}
-  .auth-gate .btn-primary{
-    background:linear-gradient(120deg,#8A8A8E 0%,#5C5C60 55%,#3A3A3D 100%)!important;
-    box-shadow:0 8px 20px -8px rgba(50,50,54,.5)!important
-  }
-  .auth-card .field input:focus{border-color:#D4D4D6!important;box-shadow:0 0 0 4px #F0F0F1!important}
-  #auth-gate .field input:focus,#auth-gate .field select:focus,#auth-gate .field textarea:focus{
-    border-color:#D4D4D6!important;box-shadow:0 0 0 4px #F0F0F1!important}
-  .auth-card .field-hint b{color:#6B6B6E}
+  .auth-remember input{width:16px;height:16px;accent-color:#C9971E;flex:none;cursor:pointer}
   .auth-divider{height:1px;background:var(--line);margin:clamp(10px,2.6vh,18px) 0 clamp(8px,2vh,14px)}
   .auth-foot{font-size:13px;color:var(--muted)}
-  .auth-card .field-hint{text-align:left;margin-top:4px}
   .login-status{display:flex;align-items:center;gap:12px}
   .login-status-ico{width:38px;height:38px;border-radius:50%;background:var(--emerald-bg);color:var(--emerald);
-    display:grid;place-items:center;font-weight:800;flex:none}
-  .login-status-lbl{font-size:12px;color:var(--muted);font-weight:600}
-  .login-status-val{font-size:15px;font-weight:700;color:var(--ink)}
+    display:grid;place-items:center;font-size:18px;flex:none}
+  .auth-btn-loading{opacity:.85;cursor:wait;pointer-events:none}
+  .auth-spinner{
+    display:inline-block;width:15px;height:15px;border-radius:50%;
+    border:2px solid rgba(255,255,255,.45);border-top-color:#fff;
+    margin-right:8px;vertical-align:-3px;
+    animation:authSpin .6s linear infinite
+  }
+  @keyframes authSpin{to{transform:rotate(360deg)}}
+  .auth-btn-success.btn-primary{
+    background:linear-gradient(120deg,#4ADE80,#16A34A)!important;
+    box-shadow:0 8px 20px -8px rgba(22,163,74,.55)!important
+  }
+  .auth-check-circle{
+    width:18px;height:18px;vertical-align:-4px;margin-right:8px;
+    fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round
+  }
+  .auth-check-circle circle{stroke-dasharray:63;stroke-dashoffset:63;animation:authCircleDraw .35s ease forwards}
+  .auth-check-circle path{stroke-dasharray:16;stroke-dashoffset:16;animation:authCheckDraw .25s ease .3s forwards}
+  @keyframes authCircleDraw{to{stroke-dashoffset:0}}
+  @keyframes authCheckDraw{to{stroke-dashoffset:0}}
+  .auth-btn-error.btn-primary{background:linear-gradient(120deg,#F87171,#DC2626)!important}
+  .auth-btn-error{animation:authShake .4s ease}
+  @keyframes authShake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-6px)} 40%{transform:translateX(6px)}
+    60%{transform:translateX(-4px)} 80%{transform:translateX(4px)}
+  }
+  .auth-gate.on.closing{opacity:0}
+  @media(max-height:640px){ .auth-tagline-wrap{display:none} }
+  @media(max-width:520px){ .auth-tagline{font-size:19px} .auth-tagline-wrap{padding:20px 18px} }
+  @media(max-width:900px){ }
+  @media(max-width:900px){
+  }
+  @media(max-width:900px){
+  }
   .modal .msub{color:var(--muted);font-size:13.5px;margin-bottom:20px}
   .field{margin-bottom:15px}
   .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink)}
@@ -1179,7 +1247,7 @@
     .content{margin-left:0}
     .nav{flex-direction:row;flex-wrap:wrap;gap:6px;flex:none;overflow:visible;min-height:0}
     .nav-group{display:contents}
-    .nav-group-label{display:none}
+    .nav button.nav-group-label{display:none}
     .nav-group-items{display:contents!important}
     .nav button{padding:9px 13px;width:auto}
     .shell{padding:24px 18px 96px}
@@ -2004,6 +2072,36 @@
     border-radius: 4px !important;
     display: inline-block !important;
     margin-right: 8px !important;
+  }
+  @keyframes spinnerRotate {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes checkCircleDraw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes checkPathDraw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes authShake {
+    0%,100% { transform: translateX(0); }
+    15% { transform: translateX(-6px); }
+    30% { transform: translateX(5px); }
+    45% { transform: translateX(-4px); }
+    60% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+  }
+  @keyframes errSlideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gateClose {
+    0%  { opacity: 1; }
+    40% { opacity: 1; }
+    100%{ opacity: 0; }
+  }
+  @keyframes cardClose {
+    0%  { transform: translateY(0) scale(1); opacity: 1; }
+    100%{ transform: translateY(-20px) scale(.96); opacity: 0; }
   }
 </style>
 
@@ -3031,6 +3129,7 @@ function renderAuthGate(){
   }, 50);
 }
 function authCardHTML(){
+  const svgStyle = `style="color: var(--violet); opacity: 0.85;"`;
   if(authView==='signup'){
     return `
       <div class="auth-icon">📝</div>
@@ -3120,30 +3219,81 @@ function handleRememberOnLogin(user, pass){
   if(cb && cb.checked) saveRememberedCreds(user, pass);
   else clearRememberedCreds();
 }
+/* ============================================================
+   AUTH ANIMATION HELPERS — pure WAAPI, no libraries
+============================================================ */
+function authGetBtn() {
+  const el = document.getElementById('auth-gate');
+  return el ? el.querySelector('.auth-btn') : null;
+}
+function authLoginStart() {
+  const btn = authGetBtn();
+  if (!btn) return;
+  btn.disabled = true;
+  btn.classList.add('auth-btn-loading');
+  btn.classList.remove('auth-btn-error', 'auth-btn-success');
+  btn.innerHTML = `<span class="auth-spinner"></span>${t('login.enter') || 'Entrando...'}`;
+  // Animate: scale down slightly for tactile feel
+  btn.animate([{transform:'scale(1)'},{transform:'scale(0.97)'},{transform:'scale(1)'}],
+    {duration:200, easing:'ease'});
+}
+function authLoginSuccess() {
+  const btn = authGetBtn();
+  if (!btn) return;
+  btn.classList.remove('auth-btn-loading');
+  btn.classList.add('auth-btn-success');
+  btn.innerHTML = `<svg class="auth-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8 5.2-5.2"/></svg>Acesso liberado`;
+  // Spring bounce on success
+  btn.animate(
+    [{transform:'scale(.95)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],
+    {duration:400, easing:'cubic-bezier(.34,1.56,.64,1)'}
+  );
+}
+function authLoginError(msg) {
+  const btn = authGetBtn();
+  const errEl = document.getElementById('auth-err');
+  if (btn) {
+    btn.disabled = false;
+    btn.classList.remove('auth-btn-loading', 'auth-btn-success');
+    // Reset to original label
+    const el = document.getElementById('auth-gate');
+    const savedLabel = t('login.enter') || 'Entrar';
+    btn.innerHTML = savedLabel;
+    // Add error state briefly, then remove
+    btn.classList.add('auth-btn-error');
+    setTimeout(() => btn.classList.remove('auth-btn-error'), 500);
+  }
+  if (errEl && msg) {
+    errEl.textContent = msg;
+  }
+}
+
 async function attemptLogin(){
   const errEl = document.getElementById('auth-err');
   if(errEl) errEl.textContent = '';
   const userRaw = document.getElementById('auth-user').value;
   const pass = document.getElementById('auth-pass').value||'';
 
+  authLoginStart();
+
   if(SUPABASE_CONFIGURED){
     const email = deriveAuthEmail(userRaw);
-    if(!email || !pass){ if(errEl) errEl.textContent = t('login.invalid'); return; }
+    if(!email || !pass){ authLoginError(t('login.invalid')); return; }
     try{
       const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
       if(error) throw error;
       handleRememberOnLogin(userRaw, pass);
       sbUid = data.user.id; sbEmail = data.user.email; authOk = true;
-      renderAuthGate();
-      await afterAuthReady();
+      authLoginSuccess();
+      setTimeout(() => { afterAuthReady(); }, 800);
     }catch(e){
       console.error('Supabase login error:', e);
       const msg = (e && e.message || '').toLowerCase();
-      if(errEl){
-        if(msg.includes('email not confirmed')) errEl.textContent = t('login.errNotConfirmed');
-        else if(msg.includes('invalid login') || msg.includes('invalid credentials')) errEl.textContent = t('login.invalid') + (userRaw && !userRaw.includes('@') ? ' '+t('login.tryEmailHint') : '');
-        else errEl.textContent = t('login.invalid') + ' (' + (e.message||'erro') + ')';
-      }
+      let errMsg;
+      if(msg.includes('email not confirmed')) errMsg = t('login.errNotConfirmed');
+      else if(msg.includes('invalid login') || msg.includes('invalid credentials')) errMsg = t('login.invalid') + (userRaw && !userRaw.includes('@') ? ' '+t('login.tryEmailHint') : '');
+      else errMsg = t('login.invalid') + ' (' + (e.message||'erro') + ')';
+      authLoginError(errMsg);
     }
     return;
   }
@@ -3157,10 +3307,10 @@ async function attemptLogin(){
   if(userOk && passHash === state.authHash){
     handleRememberOnLogin(userRaw, pass);
     authOk = true;
-    renderAuthGate();
-    renderAll();
+    authLoginSuccess();
+    setTimeout(() => { renderAuthGate(); renderAll(); }, 800);
   }else{
-    if(errEl) errEl.textContent = t('login.invalid');
+    authLoginError(t('login.invalid'));
   }
 }
 async function submitSignup(){
@@ -3966,6 +4116,7 @@ function renderTopicos(){
   const el = document.getElementById('v-topicos');
   const q = (state.q_topicos||'').toLowerCase();
   const list = state.topics.filter(t=>t.title.toLowerCase().includes(q));
+  const isDark = document.body.classList.contains('dark');
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('topicos.title')}</h2><div class="sub">${state.topics.length} ${t('topicos.inLibrary')}</div></div>
@@ -3980,7 +4131,7 @@ function renderTopicos(){
     ${state.topics.length ? `<div class="tp-board">
       ${TOPIC_CATEGORIES.map(cat=>{
         const colTopics = list.filter(tp=>topicCategory(tp)===cat.key);
-        return `<div class="tp-col" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
+        return `<div class="tp-col tp-col-${cat.key}" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
             ondragleave="this.classList.remove('tp-col-over')"
             ondrop="onTopicDrop(event,'${cat.key}')">
           <div class="tp-col-head">
@@ -3989,9 +4140,20 @@ function renderTopicos(){
           <div class="tp-col-body">
             ${colTopics.length ? colTopics.map(tp=>{
               const c = topicColor(tp.id);
-              return `<div class="tp-card" draggable="true" style="border-left-color:${c.ic}"
-                  ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)" title="${esc(tp.title)}">
-                <span class="tp-card-name">${esc(tp.title)}</span>
+              const cardStyle = isDark
+                ? `style="border-left-color:${c.ic}; background: var(--line-2); border-color: var(--line);"`
+                : `style="border-left-color:${c.ic}; background:${c.bg}; border-color:${c.bd};"`;
+              const textStyle = isDark ? '' : `style="color:${c.fg}"`;
+              return `<div class="tp-card" draggable="true" ${cardStyle}
+                  ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)">
+                <div class="tp-card-content">
+                  <span class="tp-card-icon">${topicIcon(tp.id)}</span>
+                  <span class="tp-card-name" ${textStyle}>${esc(tp.title)}</span>
+                </div>
+                <div class="tp-card-actions">
+                  <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
+                  <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
+                </div>
               </div>`;
             }).join('') : `<div class="tp-col-empty">${t('topicos.dropHere')}</div>`}
           </div>
@@ -4037,8 +4199,10 @@ function renderExpressoes(){
     </div>
     ${list.length ? `<div class="ex-list">${list.map(x=>`
       <div class="ex-row ${x.confirmed?'ex-row-on':''}">
-        <span class="ex-name ${x.confirmed?'ex-name-on':''}">${esc(x.title)}</span>
-        ${x.confirmed && x.confirmedDate ? `<span class="ex-date">📅 ${fmtDateBR(x.confirmedDate)}</span>` : ''}
+        <div class="ex-info">
+          <span class="ex-name ${x.confirmed?'ex-name-on':''}">${esc(x.title)}</span>
+          ${x.confirmed && x.confirmedDate ? `<span class="ex-date">📅 ${fmtDateBR(x.confirmedDate)}</span>` : ''}
+        </div>
         <span class="ex-acts">
           <button class="ex-confirm ${x.confirmed?'on':''}" title="${x.confirmed && x.confirmedDate ? t('expressoes.sentOn')+' '+fmtDateBR(x.confirmedDate) : t('expressoes.confirm')}" onclick="toggleExpressaoConfirm('${x.id}')">✓</button>
           <button class="tp-btn" title="${t('common.edit')}" onclick="openExpressaoForm('${x.id}')">✏️</button>
@@ -4050,12 +4214,68 @@ function renderExpressoes(){
         ${t('expressoes.empty')}<br>${t('expressoes.emptyCta')}
       </div></div>`}`;
 }
+let debounceTimer = null;
+function handleExpressionInput(val) {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    fetchExpressionSuggestions(val);
+  }, 250);
+}
+async function fetchExpressionSuggestions(q) {
+  const trimmed = q.trim();
+  const listEl = document.getElementById('ex-sug-list');
+  if (!listEl) return;
+  if (trimmed.length < 2) {
+    listEl.innerHTML = '';
+    listEl.style.display = 'none';
+    return;
+  }
+  try {
+    const res = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(trimmed)}`);
+    const data = await res.json();
+    const suggestions = data.slice(0, 5);
+    if (suggestions.length === 0) {
+      listEl.innerHTML = '';
+      listEl.style.display = 'none';
+      return;
+    }
+    listEl.innerHTML = suggestions.map(item => `
+      <div class="ex-sug-item" onclick="selectExpressionSuggestion('${esc(item.word)}')">${esc(item.word)}</div>
+    `).join('');
+    listEl.style.display = 'block';
+  } catch (e) {
+    console.error("Failed to fetch suggestions:", e);
+  }
+}
+function selectExpressionSuggestion(val) {
+  const inp = document.getElementById('ex-title');
+  if (inp) {
+    inp.value = val;
+    inp.focus();
+  }
+  const listEl = document.getElementById('ex-sug-list');
+  if (listEl) {
+    listEl.innerHTML = '';
+    listEl.style.display = 'none';
+  }
+}
+document.addEventListener('click', e => {
+  const listEl = document.getElementById('ex-sug-list');
+  const inp = document.getElementById('ex-title');
+  if (listEl && e.target !== inp && e.target !== listEl && !listEl.contains(e.target)) {
+    listEl.innerHTML = '';
+    listEl.style.display = 'none';
+  }
+});
+
 function openExpressaoForm(id){
   const x = id ? state.expressions.find(e=>e.id===id) : null;
   showModal(`
     <h3>${x?t('expressoes.formEdit'):t('expressoes.formNew')}</h3>
-    <div class="field"><label>${t('expressoes.titleField')}</label>
-      <input id="ex-title" value="${x?esc(x.title):''}" placeholder="${t('expressoes.titlePh')}"></div>
+    <div class="field" style="position:relative"><label>${t('expressoes.titleField')}</label>
+      <input id="ex-title" value="${x?esc(x.title):''}" placeholder="${t('expressoes.titlePh')}" oninput="handleExpressionInput(this.value)" autocomplete="off">
+      <div id="ex-sug-list" class="ex-sug-list" style="display:none"></div>
+    </div>
     <div class="modal-acts">
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
       <button class="btn btn-primary" onclick="saveExpressao('${id||''}')">${x?t('common.save'):t('expressoes.add')}</button>
@@ -5440,6 +5660,8 @@ function applyLang(lang){
   state.lang = lang;
   applyLangLabel(lang);
   applyNavLabels();
+  applyTheme(document.body.classList.contains('dark'));
+  applyColorMode(getColorMode());
   renderAll();
 }
 let navCollapsedGroups = new Set();
