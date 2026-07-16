@@ -1,6 +1,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>English Class System</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -994,6 +995,54 @@
   .ex-sug-item:hover{background:var(--line-2)}
   .ex-sug-item:first-of-type{border-top-left-radius:10px;border-top-right-radius:10px}
   .ex-sug-item:last-of-type{border-bottom-left-radius:10px;border-bottom-right-radius:10px}
+
+  /* ---------- monthly student report ---------- */
+  .rep-lesson-row {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.01);
+  }
+  .rep-lesson-row:hover {
+    border-color: var(--violet);
+    background: var(--accent-bg);
+  }
+  .rep-lesson-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .rep-lesson-date {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .rep-lesson-hour {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    color: var(--violet);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .rep-lesson-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media(max-width:480px){
+    .rep-lesson-fields {
+      grid-template-columns: 1fr;
+    }
+  }
 
   /* ---------- lessons ---------- */
   .daygroup{margin-bottom:18px}
@@ -2152,6 +2201,7 @@
         </button>
         <div class="nav-group-items" data-group-items="analise">
           <button data-view="estatisticas"><span class="ico">📈</span>Estatísticas</button>
+          <button data-view="relatorio_aluno"><span class="ico">📝</span>Relatório de Aluno</button>
         </div>
       </div>
       <div class="nav-group" data-group="sistema">
@@ -2191,6 +2241,7 @@
         <div id="v-info" class="view"></div>
         <div id="v-declaracao" class="view"></div>
         <div id="v-estatisticas" class="view"></div>
+        <div id="v-relatorio_aluno" class="view"></div>
       </main>
     </div>
   </div>
@@ -2819,6 +2870,32 @@ const I18N = {
     'info.uploadFile':'⬆️ Enviar arquivo', 'info.noDocs':'Nenhum documento enviado ainda.',
     'common.edit':'Editar', 'common.delete':'Excluir', 'common.cancel':'Cancelar', 'common.save':'Salvar',
     'common.close':'Fechar', 'common.today':'Hoje',
+    'nav.relatorio_aluno':'Relatório Mensal',
+    'rep.title':'Relatório Mensal do Aluno',
+    'rep.sub':'Gere relatórios de desempenho mensais em formato PDF de alta qualidade e envie via WhatsApp.',
+    'rep.student':'Aluno',
+    'rep.monthYear':'Mês e Ano',
+    'rep.teacher':'Professor',
+    'rep.save':'Salvar Rascunho',
+    'rep.pdf':'Gerar PDF',
+    'rep.wa':'Enviar via WhatsApp',
+    'rep.noLessons':'Nenhuma aula com presença registrada para este aluno neste mês.',
+    'rep.overallProgress':'Progresso Geral',
+    'rep.skillsDeveloped':'Habilidades Desenvolvidas',
+    'rep.vocabAcquired':'Vocabulário Adquirido',
+    'rep.grammarLearned':'Gramática Estudada',
+    'rep.pronunciation':'Melhorias de Pronúncia',
+    'rep.speaking':'Desenvolvimento da Fala',
+    'rep.date':'Data',
+    'rep.topic':'Tópico',
+    'rep.subtopic':'Subtópico',
+    'rep.attendance':'Frequência',
+    'rep.subtopicPh':'Detalhes da aula...',
+    'rep.saved':'Rascunho do relatório salvo com sucesso!',
+    'rep.studentInfo':'Dados do Aluno',
+    'rep.teacherInfo':'Dados do Professor',
+    'rep.lessonHistory':'Histórico de Aulas',
+    'rep.development':'Desenvolvimento Mensal',
   },
   en: {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
@@ -3018,6 +3095,32 @@ const I18N = {
     'info.uploadFile':'⬆️ Upload file', 'info.noDocs':'No documents uploaded yet.',
     'common.edit':'Edit', 'common.delete':'Delete', 'common.cancel':'Cancel', 'common.save':'Save',
     'common.close':'Close', 'common.today':'Today',
+    'nav.relatorio_aluno':'Monthly Report',
+    'rep.title':'Monthly Student Report',
+    'rep.sub':'Generate high-quality monthly performance reports in PDF format and send them via WhatsApp.',
+    'rep.student':'Student',
+    'rep.monthYear':'Month & Year',
+    'rep.teacher':'Teacher',
+    'rep.save':'Save Draft',
+    'rep.pdf':'Generate PDF',
+    'rep.wa':'Send via WhatsApp',
+    'rep.noLessons':'No classes with presence logged for this student in this month.',
+    'rep.overallProgress':'Overall Progress',
+    'rep.skillsDeveloped':'Skills Developed',
+    'rep.vocabAcquired':'Vocabulary Acquired',
+    'rep.grammarLearned':'Grammar Learned',
+    'rep.pronunciation':'Pronunciation Improvements',
+    'rep.speaking':'Speaking Development',
+    'rep.date':'Date',
+    'rep.topic':'Topic',
+    'rep.subtopic':'Subtopic',
+    'rep.attendance':'Attendance',
+    'rep.subtopicPh':'Class details...',
+    'rep.saved':'Report draft saved successfully!',
+    'rep.studentInfo':'Student Info',
+    'rep.teacherInfo':'Teacher Info',
+    'rep.lessonHistory':'Lesson History',
+    'rep.development':'Monthly Development',
   }
 };
 function t(key){
@@ -3027,7 +3130,7 @@ function t(key){
 
 /* ================= state ================= */
 const state = { students:[], topics:[], lessons:[], view:'painel', lang:'pt', authHash:'',
-  q_alunos:'', q_topicos:'' };
+  q_alunos:'', q_topicos:'', studentReports:{} };
 const uid = () => (Date.now().toString(36)+Math.random().toString(36).slice(2,7));
 
 function seedStudents(){
@@ -3657,6 +3760,7 @@ async function loadAppData(){
   state.despesasPagas = await read('despesasPagas', {});
   state.pagamentos = await read('pagamentos', {});
   state.financeiroAjustes = await read('financeiroAjustes', {});
+  state.studentReports = await read('studentReports', {});
   if(purgeAllOrphanedStudentData()){
     await save('lessons');
     await write('agendaRecurring', state.agendaRecurring);
@@ -3664,6 +3768,7 @@ async function loadAppData(){
     await write('presenca', state.presenca);
     await write('pagamentos', state.pagamentos);
     await write('financeiroAjustes', state.financeiroAjustes);
+    await write('studentReports', state.studentReports);
   }
 }
 
@@ -3690,6 +3795,11 @@ function startClock(){
 }
 const initials = n => n.trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
 const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtDate = iso => {
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return state.lang==='en' ? m+'/'+d+'/'+y : d+'/'+m+'/'+y;
+};
 function fmtBday(mmdd){
   if(!mmdd) return null;
   const [m,d] = mmdd.split('-').map(Number);
@@ -5616,6 +5726,397 @@ function renderEstatisticas(){
     </div>`;
 }
 
+}
+
+/* ================= render: RELATÓRIO ALUNO ================= */
+function renderRelatorioAluno(){
+  const el = document.getElementById('v-relatorio_aluno');
+  if(!el) return;
+
+  if (typeof state.selectedReportStudent === 'undefined') {
+    state.selectedReportStudent = state.students[0] ? state.students[0].id : '';
+  }
+  if (typeof state.selectedReportMonth === 'undefined') {
+    state.selectedReportMonth = new Date().getMonth();
+  }
+  if (typeof state.selectedReportYear === 'undefined') {
+    state.selectedReportYear = new Date().getFullYear();
+  }
+
+  const year = state.selectedReportYear;
+  const month = state.selectedReportMonth;
+  const studentId = state.selectedReportStudent;
+  const s = studentById(studentId);
+  const rKey = studentId + '_' + year + '_' + month;
+  const report = state.studentReports[rKey] || {};
+
+  // Build lessons list
+  const lessons = [];
+  if (studentId) {
+    const mk = year + '-' + String(month + 1).padStart(2, '0');
+    Object.keys(state.presenca).forEach(k => {
+      if (k.slice(0, 7) === mk && k.endsWith('_' + studentId)) {
+        const parts = k.split('_');
+        const pres = state.presenca[k];
+        if (pres.status) {
+          lessons.push({
+            iso: parts[0],
+            hour: parts[1],
+            topic: pres.content || '',
+            status: pres.status,
+            subtopic: pres.subtopic || '',
+            key: k
+          });
+        }
+      }
+    });
+  }
+  lessons.sort((a,b) => (a.iso + '_' + a.hour).localeCompare(b.iso + '_' + b.hour));
+
+  const studentOpts = state.students.map(st => `
+    <option value="${st.id}" ${st.id===studentId?'selected':''}>${esc(st.name)}</option>
+  `).join('');
+
+  const monthOpts = MONTHS_SHORT.map((m, idx) => `
+    <option value="${idx}" ${idx===month?'selected':''}>${m}</option>
+  `).join('');
+
+  const lessonsListHtml = lessons.length
+    ? lessons.map(l => `
+        <div class="rep-lesson-row card">
+          <div class="rep-lesson-meta">
+            <span class="rep-lesson-date">${fmtDate(l.iso)}</span>
+            <span class="rep-lesson-hour">${l.hour}</span>
+            <span class="stu-pill stu-${l.status==='p'?'ativo':l.status==='f'?'trancado':'cancelado'}">
+              ${t('presenca.' + (l.status==='p'?'pres':l.status==='f'?'abs':'cancel'))}
+            </span>
+          </div>
+          <div class="rep-lesson-fields">
+            <div class="field" style="margin-bottom:0"><label>${t('rep.topic')}</label>
+              <input value="${esc(l.topic)}" disabled style="opacity: 0.85;">
+            </div>
+            <div class="field" style="margin-bottom:0"><label>${t('rep.subtopic')}</label>
+              <input id="rep-subtopic-${l.key}" value="${esc(l.subtopic)}" placeholder="${t('rep.subtopicPh')}">
+            </div>
+          </div>
+        </div>
+      `).join('')
+    : `<div class="empty" style="padding: 24px 16px;">${t('rep.noLessons')}</div>`;
+
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>${t('rep.title')}</h2>
+      <div class="sub">${t('rep.sub')}</div>
+    </div></div>
+
+    <!-- Report Selectors Grid -->
+    <div class="card panel" style="padding: 16px 20px; margin-bottom: 20px;">
+      <div class="field-2">
+        <div class="field"><label>${t('rep.student')}</label>
+          <select id="rep-student-sel" onchange="state.selectedReportStudent=this.value;renderRelatorioAluno()">
+            ${studentOpts || `<option value="">—</option>`}
+          </select>
+        </div>
+        <div class="field-2" style="gap: 0 10px;">
+          <div class="field"><label>${t('rep.monthYear')}</label>
+            <select id="rep-month-sel" onchange="state.selectedReportMonth=Number(this.value);renderRelatorioAluno()">
+              ${monthOpts}
+            </select>
+          </div>
+          <div class="field"><label>&nbsp;</label>
+            <input type="number" id="rep-year-input" value="${year}" onchange="state.selectedReportYear=Number(this.value);renderRelatorioAluno()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ${studentId ? `
+      <!-- Report Body Grid Layout -->
+      <div class="two-col" style="gap: 20px; align-items: flex-start;">
+        <!-- Left Column: Lesson History & Subtopics -->
+        <div>
+          <div class="sec-head" style="margin: 0 0 10px;"><div>
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--ink);">${t('rep.lessonHistory')}</h3>
+          </div></div>
+          <div class="rep-lessons-list" style="display: flex; flex-direction: column; gap: 8px;">
+            ${lessonsListHtml}
+          </div>
+        </div>
+
+        <!-- Right Column: End of Month Feedback Textareas -->
+        <div>
+          <div class="sec-head" style="margin: 0 0 10px;"><div>
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--ink);">${t('rep.development')}</h3>
+          </div></div>
+          <div class="card panel" style="padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+            <div class="field"><label>${t('rep.overallProgress')}</label>
+              <textarea id="rep-progress" rows="3" placeholder="Ex: Demonstrou ótimo desempenho nesta unidade...">${esc(report.progress||'')}</textarea>
+            </div>
+            <div class="field"><label>${t('rep.skillsDeveloped')}</label>
+              <textarea id="rep-skills" rows="3" placeholder="Ex: Listening comprehension and reading fluency...">${esc(report.skills||'')}</textarea>
+            </div>
+            <div class="field"><label>${t('rep.vocabAcquired')}</label>
+              <textarea id="rep-vocab" rows="3" placeholder="Ex: Idioms, travel vocabulary...">${esc(report.vocab||'')}</textarea>
+            </div>
+            <div class="field"><label>${t('rep.grammarLearned')}</label>
+              <textarea id="rep-grammar" rows="3" placeholder="Ex: Past perfect and relative clauses...">${esc(report.grammar||'')}</textarea>
+            </div>
+            <div class="field"><label>${t('rep.pronunciation')}</label>
+              <textarea id="rep-pronunciation" rows="3" placeholder="Ex: Intonation on questions, /th/ sounds...">${esc(report.pronunciation||'')}</textarea>
+            </div>
+            <div class="field"><label>${t('rep.speaking')}</label>
+              <textarea id="rep-speaking" rows="3" placeholder="Ex: Fluency in open conversation loops...">${esc(report.speaking||'')}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Action Bar at the Bottom -->
+      <div class="card panel" style="margin-top: 24px; padding: 14px 20px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-ghost" onclick="saveReportData('${studentId}', ${year}, ${month})">💾 ${t('rep.save')}</button>
+        <button class="btn btn-primary" onclick="generateReportPDF('${studentId}', ${year}, ${month})">📄 ${t('rep.pdf')}</button>
+        <button class="btn btn-primary" onclick="sendReportWhatsApp('${studentId}', ${year}, ${month})" style="background: #25D366; border-color: #25D366;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align: middle; margin-right: 6px; display: inline-block; line-height: 1;"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.315zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.019-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          ${t('rep.wa')}
+        </button>
+      </div>
+    ` : ''}
+  `;
+}
+
+async function saveReportData(studentId, year, month) {
+  if (!studentId) return;
+  const rKey = studentId + '_' + year + '_' + month;
+
+  state.studentReports[rKey] = {
+    progress: document.getElementById('rep-progress').value || '',
+    skills: document.getElementById('rep-skills').value || '',
+    vocab: document.getElementById('rep-vocab').value || '',
+    grammar: document.getElementById('rep-grammar').value || '',
+    pronunciation: document.getElementById('rep-pronunciation').value || '',
+    speaking: document.getElementById('rep-speaking').value || ''
+  };
+
+  const mk = year + '-' + String(month + 1).padStart(2, '0');
+  Object.keys(state.presenca).forEach(k => {
+    if (k.slice(0, 7) === mk && k.endsWith('_' + studentId)) {
+      const input = document.getElementById('rep-subtopic-' + k);
+      if (input) {
+        state.presenca[k].subtopic = input.value || '';
+      }
+    }
+  });
+
+  await write('studentReports', state.studentReports);
+  await write('presenca', state.presenca);
+  alert(t('rep.saved'));
+  renderRelatorioAluno();
+}
+
+async function generateReportPDF(studentId, year, month) {
+  if (!studentId) return;
+  const s = studentById(studentId);
+  if (!s) return;
+
+  const rKey = studentId + '_' + year + '_' + month;
+  const progressVal = document.getElementById('rep-progress').value || '';
+  const skillsVal = document.getElementById('rep-skills').value || '';
+  const vocabVal = document.getElementById('rep-vocab').value || '';
+  const grammarVal = document.getElementById('rep-grammar').value || '';
+  const pronunciationVal = document.getElementById('rep-pronunciation').value || '';
+  const speakingVal = document.getElementById('rep-speaking').value || '';
+
+  state.studentReports[rKey] = {
+    progress: progressVal,
+    skills: skillsVal,
+    vocab: vocabVal,
+    grammar: grammarVal,
+    pronunciation: pronunciationVal,
+    speaking: speakingVal
+  };
+
+  const tempDiv = document.createElement('div');
+  tempDiv.id = 'pdf-render-template';
+  tempDiv.style.position = 'absolute';
+  tempDiv.style.left = '-9999px';
+  tempDiv.style.top = '-9999px';
+  tempDiv.style.width = '800px';
+  tempDiv.style.background = '#FFFFFF';
+  tempDiv.style.color = '#1E293B';
+  tempDiv.style.fontFamily = 'Inter, sans-serif';
+  tempDiv.style.padding = '40px';
+
+  const o = state.orgInfo || {};
+  const logoHtml = o.photo
+    ? `<img src="${o.photo}" style="max-height: 60px; max-width: 150px; border-radius: 8px; object-fit: contain;">`
+    : `<div style="font-size: 40px;">🎓</div>`;
+
+  const lessons = [];
+  const mk = year + '-' + String(month + 1).padStart(2, '0');
+  Object.keys(state.presenca).forEach(k => {
+    if (k.slice(0, 7) === mk && k.endsWith('_' + studentId)) {
+      const parts = k.split('_');
+      const pres = state.presenca[k];
+      if (pres.status) {
+        const input = document.getElementById('rep-subtopic-' + k);
+        const subtopicVal = input ? input.value : (pres.subtopic || '');
+        lessons.push({
+          date: fmtDate(parts[0]),
+          topic: pres.content || '—',
+          subtopic: subtopicVal || '—',
+          status: t('presenca.' + (pres.status === 'p' ? 'pres' : pres.status === 'f' ? 'abs' : 'cancel'))
+        });
+      }
+    }
+  });
+  lessons.sort((a,b) => a.date.localeCompare(b.date));
+
+  const lessonsHtml = lessons.length
+    ? lessons.map(l => `
+        <tr style="border-bottom: 1px solid #E2E8F0;">
+          <td style="padding: 10px 12px; font-size: 12.5px; font-weight: 600;">${l.date}</td>
+          <td style="padding: 10px 12px; font-size: 12.5px;">${l.topic}</td>
+          <td style="padding: 10px 12px; font-size: 12.5px; color: #475569;">${l.subtopic}</td>
+          <td style="padding: 10px 12px; font-size: 12px; font-weight: 700;">${l.status}</td>
+        </tr>
+      `).join('')
+    : `<tr><td colspan="4" style="padding: 20px; text-align: center; color: #94A3B8;">${t('rep.noLessons')}</td></tr>`;
+
+  const monthName = monthFull(month);
+
+  tempDiv.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #4F46E5; padding-bottom: 20px; margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        ${logoHtml}
+        <div>
+          <h2 style="margin: 0; font-size: 18px; font-weight: 800; color: #1E293B;">${esc(o.nome || 'English Class System')}</h2>
+          <p style="margin: 2px 0 0; font-size: 12px; color: #64748B;">${esc(o.email || '')} ${o.whatsapp ? '• ' + esc(o.whatsapp) : ''}</p>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <h1 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; color: #4F46E5; text-transform: uppercase;">${t('rep.title')}</h1>
+        <p style="margin: 4px 0 0; font-size: 14px; font-weight: 700; color: #1E293B;">${monthName} ${year}</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px;">
+      <div>
+        <h3 style="margin: 0 0 8px; font-size: 12px; font-weight: 800; text-transform: uppercase; color: #64748B; letter-spacing: 0.05em;">${t('rep.studentInfo')}</h3>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>${t('rep.student')}:</b> ${esc(s.name)}</p>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>${t('alunos.subject')}:</b> ${esc(s.subject || '—')}</p>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>${t('alunos.levelCat')}:</b> ${esc(s.level || '—')}</p>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 8px; font-size: 12px; font-weight: 800; text-transform: uppercase; color: #64748B; letter-spacing: 0.05em;">${t('rep.teacherInfo')}</h3>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>${t('rep.teacher')}:</b> ${esc(o.nome || '—')}</p>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>Email:</b> ${esc(o.email || '—')}</p>
+        <p style="margin: 2px 0; font-size: 13.5px;"><b>WhatsApp:</b> ${esc(o.whatsapp || '—')}</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <h3 style="margin: 0 0 10px; font-size: 14px; font-weight: 800; color: #1E293B; border-bottom: 1.5px solid #E2E8F0; padding-bottom: 6px;">${t('rep.lessonHistory')}</h3>
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr style="background: #F1F5F9; border-bottom: 1.5px solid #CBD5E1;">
+            <th style="padding: 10px 12px; font-size: 12px; font-weight: 700; color: #475569;">${t('rep.date')}</th>
+            <th style="padding: 10px 12px; font-size: 12px; font-weight: 700; color: #475569;">${t('rep.topic')}</th>
+            <th style="padding: 10px 12px; font-size: 12px; font-weight: 700; color: #475569;">${t('rep.subtopic')}</th>
+            <th style="padding: 10px 12px; font-size: 12px; font-weight: 700; color: #475569;">${t('rep.attendance')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lessonsHtml}
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3 style="margin: 0 0 14px; font-size: 14px; font-weight: 800; color: #1E293B; border-bottom: 1.5px solid #E2E8F0; padding-bottom: 6px;">${t('rep.development')}</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div style="border-left: 3px solid #4F46E5; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #4F46E5;">${t('rep.overallProgress')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(progressVal || '—')}</p>
+        </div>
+        <div style="border-left: 3px solid #0EA5E9; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #0EA5E9;">${t('rep.skillsDeveloped')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(skillsVal || '—')}</p>
+        </div>
+        <div style="border-left: 3px solid #10B981; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #10B981;">${t('rep.vocabAcquired')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(vocabVal || '—')}</p>
+        </div>
+        <div style="border-left: 3px solid #F59E0B; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #F59E0B;">${t('rep.grammarLearned')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(grammarVal || '—')}</p>
+        </div>
+        <div style="border-left: 3px solid #EC4899; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #EC4899;">${t('rep.pronunciation')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(pronunciationVal || '—')}</p>
+        </div>
+        <div style="border-left: 3px solid #6366F1; background: #F8FAFC; padding: 10px 14px; border-radius: 4px 8px 8px 4px; page-break-inside: avoid;">
+          <h4 style="margin: 0 0 6px; font-size: 12.5px; font-weight: 700; color: #6366F1;">${t('rep.speaking')}</h4>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; white-space: pre-wrap;">${esc(speakingVal || '—')}</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #E2E8F0; margin-top: 40px; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: #94A3B8;">
+      <span>${esc(o.nome || 'English Class System')} • ${new Date().toLocaleDateString(state.lang==='en' ? 'en-US' : 'pt-BR')}</span>
+      <span>${state.lang==='en' ? 'ECS Monthly Report Builder' : 'Gerador de Relatórios Mensais ECS'}</span>
+    </div>
+  `;
+
+  document.body.appendChild(tempDiv);
+
+  const pdfName = `ECS_Report_${s.name.replace(/\s+/g, '_')}_${monthName}_${year}.pdf`;
+  const opt = {
+    margin:       20,
+    filename:     pdfName,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'pt', format: 'a4', orientation: 'portrait' }
+  };
+
+  try {
+    await html2pdf().set(opt).from(tempDiv).save();
+  } catch (err) {
+    console.error("PDF generation failed:", err);
+  } finally {
+    document.body.removeChild(tempDiv);
+  }
+}
+
+function sendReportWhatsApp(studentId, year, month) {
+  if (!studentId) return;
+  const s = studentById(studentId);
+  if (!s) return;
+
+  const progressVal = document.getElementById('rep-progress').value || '';
+  const skillsVal = document.getElementById('rep-skills').value || '';
+  const monthName = monthFull(month);
+
+  const msgTemplate = state.lang === 'en'
+    ? `Hello, {name}! Your Monthly Report for {month} {year} is ready.\n\n📈 *Overall Progress*:\n{progress}\n\n🎯 *Skills Developed*:\n{skills}\n\nI have also generated a detailed PDF report for you. See you in class!`
+    : `Olá, {name}! Seu Relatório Mensal de acompanhamento de {month} de {year} está pronto.\n\n📈 *Progresso Geral*:\n{progress}\n\n🎯 *Habilidades Desenvolvidas*:\n{skills}\n\nAcabei de gerar seu relatório detalhado em PDF também. Nos vemos na aula!`;
+
+  const msg = msgTemplate
+    .replace('{name}', s.name.split(' ')[0])
+    .replace('{month}', monthName)
+    .replace('{year}', year)
+    .replace('{progress}', progressVal || '—')
+    .replace('{skills}', skillsVal || '—');
+
+  const d = (s.phone || '').replace(/\D/g, '');
+  if (!d) {
+    alert(state.lang === 'en' ? 'Student has no registered phone number!' : 'Aluno não possui telefone cadastrado!');
+    return;
+  }
+  const fullPhone = d.length <= 11 ? '55' + d : d;
+  const url = 'https://wa.me/' + fullPhone + '?text=' + encodeURIComponent(msg);
+  openWA(url);
+}
+
 /* ================= modals ================= */
 const overlay = document.getElementById('overlay');
 function closeModal(){ overlay.classList.remove('on'); overlay.innerHTML=''; }
@@ -5810,6 +6311,7 @@ async function doDelAluno(id){
   await write('presenca', state.presenca);
   await write('pagamentos', state.pagamentos);
   await write('financeiroAjustes', state.financeiroAjustes);
+  await write('studentReports', state.studentReports);
   closeModal(); renderAll();
 }
 function purgeAllOrphanedStudentData(){
@@ -5841,6 +6343,10 @@ function purgeAllOrphanedStudentData(){
     const sid = k.split('_')[0];
     if(!validIds.has(sid)){ delete state.financeiroAjustes[k]; changed = true; }
   });
+  Object.keys(state.studentReports).forEach(k=>{
+    const sid = k.split('_')[0];
+    if(!validIds.has(sid)){ delete state.studentReports[k]; changed = true; }
+  });
   return changed;
 }
 
@@ -5851,6 +6357,7 @@ function go(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+view).classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
+  if(view === 'relatorio_aluno') renderRelatorioAluno();
 }
 document.getElementById('nav').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(b && b.dataset.view) go(b.dataset.view);
@@ -5861,6 +6368,7 @@ function renderAll(){
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
   renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
+  renderRelatorioAluno();
   renderAuthGate();
 }
 boot();
