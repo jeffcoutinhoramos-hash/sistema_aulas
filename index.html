@@ -5,116 +5,117 @@
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap');
 
   :root{
-    --bg:#F6FAF6; --surface:#FFFFFF; --ink:#333333; --muted:#6B6B6E;
-    --line:#E1EDE1; --line-2:#EEF5EC;
-    --violet:#2F9E5D; --indigo:#62A580; --pink:#E2762B;
-    --emerald:#16A34A; --emerald-bg:#EFF9F2;
-    --amber:#D97706; --amber-bg:#FEF5E8;
-    --sky:#B7550E; --sky-bg:#FBF0E4;
-    --rose:#E11D48; --rose-bg:#FDEEF2;
-    --slate:#64748B; --slate-bg:#F3F5F9;
-    --grad:linear-gradient(120deg,#71C198 0%,#2F9E5D 46%,#EFA875 100%);
-    --accent-bg:#EFF9F2;
-    --shadow:0 10px 30px -12px rgba(28,70,42,.22);
-    --shadow-sm:0 4px 14px -8px rgba(28,70,42,.22);
-    --radius:20px;
+    --bg:#F4F7F4; --surface:#FFFFFF; --ink:#0F1713; --muted:#526056;
+    --line:#DCE4DC; --line-2:#EEF4EE;
+    --violet:#2E7D32; --indigo:#F97316; --pink:#E2762B;
+    --emerald:#2E7D32; --emerald-bg:#E8F5E9;
+    --amber:#EF6C00; --amber-bg:#FFF3E0;
+    --sky:#EA580C; --sky-bg:#FFF3E0;
+    --rose:#C62828; --rose-bg:#FFEBEE;
+    --slate:#64748B; --slate-bg:#F1F5F9;
+    --grad:linear-gradient(120deg,#2E7D32 0%,#1B5E20 50%,#F97316 100%);
+    --accent-bg:#EFF8F0;
+    --shadow:0 10px 30px -12px rgba(46,125,50,.12);
+    --shadow-sm:0 4px 14px -8px rgba(46,125,50,.12);
+    --radius:12px;
+    --sidebar-width:260px;
   }
   *{box-sizing:border-box}
   body.dark{
-    --bg:#141F18; --surface:#1C2A21; --ink:#F0F0F0; --muted:#ABABAD;
-    --line:#2B3D31; --line-2:#243528;
-    --violet:#3FBE78; --indigo:#2E9E5E; --pink:#F0913F;
-    --emerald:#34D399; --emerald-bg:#1E3A2B;
-    --amber:#F0B429; --amber-bg:#3D3320;
-    --sky:#E29B5C; --sky-bg:#3D2E1B;
-    --rose:#FB7185; --rose-bg:#3A2028;
-    --slate:#94A3B8; --slate-bg:#2A3138;
-    --grad:linear-gradient(120deg,#2E9E5E 0%,#1E7F49 46%,#C2570F 100%);
-    --accent-bg:#1E3A2B;
+    --bg:#121C16; --surface:#1C2B22; --ink:#F0FDF4; --muted:#9EAF9B;
+    --line:#2A3F33; --line-2:#203127;
+    --violet:#4CAF50; --indigo:#FF9800; --pink:#FB8C00;
+    --emerald:#81C784; --emerald-bg:#1B3520;
+    --amber:#FFB74D; --amber-bg:#3B2E1E;
+    --sky:#FF8A65; --sky-bg:#3B231D;
+    --rose:#E57373; --rose-bg:#3B1E22;
+    --slate:#94A3B8; --slate-bg:#263238;
+    --grad:linear-gradient(120deg,#4CAF50 0%,#388E3C 50%,#FF9800 100%);
+    --accent-bg:#1C2B22;
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
   body.allure{
-    --bg:#F6F8FD; --surface:#FFFFFF; --ink:#333333; --muted:#6B6B72;
-    --line:#E2E7F5; --line-2:#EEF1FB;
-    --violet:#3457D5; --indigo:#2540A0; --pink:#C99A2E;
+    --bg:#F3F6FC; --surface:#FFFFFF; --ink:#121926; --muted:#505A69;
+    --line:#D1DCF0; --line-2:#EBF0FA;
+    --violet:#2563EB; --indigo:#0EA5E9; --pink:#D97706;
     --emerald:#16A34A; --emerald-bg:#EFF9F2;
     --amber:#D97706; --amber-bg:#FEF5E8;
-    --sky:#B7550E; --sky-bg:#FBF0E4;
+    --sky:#0284C7; --sky-bg:#F0F9FF;
     --rose:#E11D48; --rose-bg:#FDEEF2;
     --slate:#64748B; --slate-bg:#F3F5F9;
-    --grad:linear-gradient(120deg,#5C7CE0 0%,#3457D5 46%,#E8C468 100%);
-    --accent-bg:#EEF3FE;
-    --shadow:0 10px 30px -12px rgba(30,55,120,.22);
-    --shadow-sm:0 4px 14px -8px rgba(30,55,120,.22);
+    --grad:linear-gradient(120deg,#2563EB 0%,#3B82F6 50%,#0EA5E9 100%);
+    --accent-bg:#EFF6FF;
+    --shadow:0 10px 30px -12px rgba(37,99,235,.12);
+    --shadow-sm:0 4px 14px -8px rgba(37,99,235,.12);
   }
   body.dark.allure{
-    --bg:#0F1220; --surface:#181D32; --ink:#F0F0F0; --muted:#ABABC0;
-    --line:#2A3050; --line-2:#232847;
-    --violet:#6B8AF5; --indigo:#5470E0; --pink:#F0D68A;
+    --bg:#151B2E; --surface:#202942; --ink:#F0F5FF; --muted:#A0AEC0;
+    --line:#2E3A5F; --line-2:#242E4C;
+    --violet:#60A5FA; --indigo:#38BDF8; --pink:#FBBF24;
     --emerald:#34D399; --emerald-bg:#1E3A2B;
-    --amber:#F0B429; --amber-bg:#3D3320;
-    --sky:#E29B5C; --sky-bg:#3D2E1B;
+    --amber:#FBBF24; --amber-bg:#3D3320;
+    --sky:#38BDF8; --sky-bg:#1A3A54;
     --rose:#FB7185; --rose-bg:#3A2028;
-    --slate:#94A3B8; --slate-bg:#2A3138;
-    --grad:linear-gradient(120deg,#5470E0 0%,#3457D5 46%,#D4A94A 100%);
-    --accent-bg:#232847;
+    --slate:#94A3B8; --slate-bg:#232B3E;
+    --grad:linear-gradient(120deg,#60A5FA 0%,#3B82F6 50%,#38BDF8 100%);
+    --accent-bg:#202942;
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
   body.sun{
-    --bg:#FDFAF0; --surface:#FFFFFF; --ink:#333333; --muted:#6B6B60;
-    --line:#F0E4C0; --line-2:#FAF3DC;
-    --violet:#B8860B; --indigo:#8B6508; --pink:#C9971E;
+    --bg:#FCFAF2; --surface:#FFFFFF; --ink:#241E12; --muted:#635C4E;
+    --line:#EFE2C3; --line-2:#FAF6E8;
+    --violet:#D97706; --indigo:#F59E0B; --pink:#EA580C;
     --emerald:#16A34A; --emerald-bg:#EFF9F2;
     --amber:#D97706; --amber-bg:#FEF5E8;
-    --sky:#B7550E; --sky-bg:#FBF0E4;
+    --sky:#EA580C; --sky-bg:#FBF0E4;
     --rose:#E11D48; --rose-bg:#FDEEF2;
     --slate:#64748B; --slate-bg:#F3F5F9;
-    --grad:linear-gradient(120deg,#F0C245 0%,#D4A017 46%,#B8860B 100%);
-    --accent-bg:#FDF1CE;
-    --shadow:0 10px 30px -12px rgba(120,90,10,.22);
-    --shadow-sm:0 4px 14px -8px rgba(120,90,10,.22);
+    --grad:linear-gradient(120deg,#D97706 0%,#F59E0B 50%,#EA580C 100%);
+    --accent-bg:#FEF8E6;
+    --shadow:0 10px 30px -12px rgba(217,119,6,.12);
+    --shadow-sm:0 4px 14px -8px rgba(217,119,6,.12);
   }
   body.dark.sun{
-    --bg:#1F1A0D; --surface:#2B2415; --ink:#F0F0F0; --muted:#B8AF95;
-    --line:#453A20; --line-2:#362D18;
-    --violet:#E8C468; --indigo:#D4A94A; --pink:#F0D68A;
+    --bg:#241E15; --surface:#332B1E; --ink:#FFFDF5; --muted:#B3A898;
+    --line:#4E422E; --line-2:#3D3324;
+    --violet:#FBBF24; --indigo:#F59E0B; --pink:#F97316;
     --emerald:#34D399; --emerald-bg:#1E3A2B;
-    --amber:#F0B429; --amber-bg:#3D3320;
-    --sky:#E29B5C; --sky-bg:#3D2E1B;
+    --amber:#FBBF24; --amber-bg:#3D3320;
+    --sky:#F97316; --sky-bg:#3D2E1B;
     --rose:#FB7185; --rose-bg:#3A2028;
-    --slate:#94A3B8; --slate-bg:#2A3138;
-    --grad:linear-gradient(120deg,#D4A94A 0%,#B8860B 46%,#8B6508 100%);
-    --accent-bg:#453A20;
+    --slate:#94A3B8; --slate-bg:#2E261D;
+    --grad:linear-gradient(120deg,#FBBF24 0%,#D97706 50%,#F97316 100%);
+    --accent-bg:#332B1E;
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
   body.flower{
-    --bg:#FAF7F7; --surface:#FFFFFF; --ink:#333333; --muted:#6B6B6E;
-    --line:#F0E0E0; --line-2:#FAF0F0;
-    --violet:#B91C3C; --indigo:#8B1029; --pink:#71717A;
+    --bg:#FCF6F8; --surface:#FFFFFF; --ink:#291017; --muted:#6E555C;
+    --line:#EED3DC; --line-2:#FAF0F3;
+    --violet:#DB2777; --indigo:#E11D48; --pink:#BE185D;
     --emerald:#16A34A; --emerald-bg:#EFF9F2;
     --amber:#D97706; --amber-bg:#FEF5E8;
-    --sky:#B7550E; --sky-bg:#FBF0E4;
+    --sky:#E11D48; --sky-bg:#FFF1F2;
     --rose:#E11D48; --rose-bg:#FDEEF2;
     --slate:#64748B; --slate-bg:#F3F5F9;
-    --grad:linear-gradient(120deg,#E85D75 0%,#B91C3C 46%,#71717A 100%);
-    --accent-bg:#FCE8EC;
-    --shadow:0 10px 30px -12px rgba(120,20,40,.22);
-    --shadow-sm:0 4px 14px -8px rgba(120,20,40,.22);
+    --grad:linear-gradient(120deg,#DB2777 0%,#E11D48 50%,#BE185D 100%);
+    --accent-bg:#FCE8EE;
+    --shadow:0 10px 30px -12px rgba(219,39,119,.12);
+    --shadow-sm:0 4px 14px -8px rgba(219,39,119,.12);
   }
   body.dark.flower{
-    --bg:#1A1414; --surface:#241C1C; --ink:#F0F0F0; --muted:#B0A8A8;
-    --line:#3D2E2E; --line-2:#302424;
-    --violet:#F0607A; --indigo:#E0405C; --pink:#A0A0A8;
+    --bg:#26161B; --surface:#382329; --ink:#FFF5F8; --muted:#B8A0A6;
+    --line:#54353E; --line-2:#422A31;
+    --violet:#F472B6; --indigo:#FB7185; --pink:#EC4899;
     --emerald:#34D399; --emerald-bg:#1E3A2B;
-    --amber:#F0B429; --amber-bg:#3D3320;
-    --sky:#E29B5C; --sky-bg:#3D2E1B;
+    --amber:#FBBF24; --amber-bg:#3D3320;
+    --sky:#FB7185; --sky-bg:#3D2028;
     --rose:#FB7185; --rose-bg:#3A2028;
-    --slate:#94A3B8; --slate-bg:#2A3138;
-    --grad:linear-gradient(120deg,#E0405C 0%,#B91C3C 46%,#71717A 100%);
-    --accent-bg:#3D2426;
+    --slate:#94A3B8; --slate-bg:#301B22;
+    --grad:linear-gradient(120deg,#F472B6 0%,#E11D48 50%,#FB7185 100%);
+    --accent-bg:#382329;
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
@@ -266,41 +267,42 @@
   body.dark.flower .alu-tag,body.dark.flower .chip-count,body.dark.flower .ag-week-count,body.dark.flower .ag-hourchip{
     background:#302424;color:#C77E8A}
   body.dark.flower .ag-hourchip:hover{background:#4A383870}
-  body.dark.flower .ag-hourchip.on{background:#B91C3C;color:#fff}
-  body.dark.flower .pn-today-topic{background:#302424;color:#C77E8A}
+  body.dark.flower .ag-hourchip.on{background:var(--violet);color:#fff}
+  body.dark.flower .pn-today-topic{background:var(--accent-bg);color:var(--violet)}
+  body.dark .sidebar{background-color:var(--surface);border-right:1px solid var(--line)}
   body.dark .card,body.dark .panel{background:var(--surface);border-color:var(--line)}
-  body.dark input,body.dark select,body.dark textarea{background:#1C2A21;color:var(--ink);border-color:var(--line)}
+  body.dark input,body.dark select,body.dark textarea{background:var(--bg);color:var(--ink);border-color:var(--line)}
   body.dark .modal{background:var(--surface)}
   body.dark .avatar{box-shadow:none}
-  body.dark ::placeholder{color:#5E7365}
+  body.dark ::placeholder{color:var(--muted)}
   body.dark .al-money,body.dark .cp-add input,body.dark #cp-search,body.dark .search input,
-  body.dark .field input,body.dark .field select,body.dark .field textarea{background:#1C2A21!important;color:var(--ink)}
+  body.dark .field input,body.dark .field select,body.dark .field textarea{background:var(--bg)!important;color:var(--ink)}
   body.dark .al-money:focus-within,body.dark .cp-add input:focus,body.dark #cp-search:focus,
   body.dark .search input:focus,body.dark .field input:focus,body.dark .field select:focus,
-  body.dark .field textarea:focus{background:#22332A!important}
+  body.dark .field textarea:focus{background:var(--accent-bg)!important}
   body.dark .ag-slot,body.dark .cp-item,body.dark .doc-row,body.dark .pn-today-chip,body.dark .tp-card,body.dark .ex-row{
-    background:#1C2A21;border-color:var(--line)}
-  body.dark .ag-slot:hover{background:#233428;border-color:#2E4536}
+    background:var(--surface);border-color:var(--line)}
+  body.dark .ag-slot:hover{background:var(--accent-bg);border-color:var(--line)}
   body.dark .cp-item:hover,body.dark .tp-card:hover,body.dark .btn-ghost:hover,body.dark .ag-nav:hover,
-  body.dark .org-photo-btn:hover,body.dark .ex-row:hover{background:#233428;border-color:#3A5C46}
-  body.dark .cp-item.sel{background:#1E3A2B}
-  body.dark .pr-topic-btn{background:#1C2A21;color:var(--muted)}
-  body.dark .pr-topic-btn:hover{background:#233428;border-color:#3A5C46}
-  body.dark .pr-topic-btn.has{background:#1E3A2B;color:#5FD98B;border-color:#2E4536}
-  body.dark .pr-topic-btn.has:hover{background:#26463A}
+  body.dark .org-photo-btn:hover,body.dark .ex-row:hover{background:var(--accent-bg);border-color:var(--line)}
+  body.dark .cp-item.sel{background:var(--accent-bg)}
+  body.dark .pr-topic-btn{background:var(--surface);color:var(--muted)}
+  body.dark .pr-topic-btn:hover{background:var(--accent-bg);border-color:var(--line)}
+  body.dark .pr-topic-btn.has{background:var(--accent-bg);color:var(--violet);border-color:var(--line)}
+  body.dark .pr-topic-btn.has:hover{background:var(--line)}
   body.dark .cp-current{color:var(--muted)}
-  body.dark .ex-confirm{background:#1C2A21;border-color:var(--line);color:var(--muted)}
-  body.dark .ex-confirm:hover{border-color:#3FBE78;color:#5FD98B}
-  body.dark .btn-ghost{background:#1C2A21;color:var(--violet);border-color:var(--line)}
-  body.dark .painel-login-btn{background:#1C2A21;color:var(--ink);border-color:var(--line)}
-  body.dark .painel-login-btn:hover{border-color:#3FBE78}
+  body.dark .ex-confirm{background:var(--surface);border-color:var(--line);color:var(--muted)}
+  body.dark .ex-confirm:hover{border-color:var(--violet);color:var(--violet)}
+  body.dark .btn-ghost{background:var(--surface);color:var(--violet);border-color:var(--line)}
+  body.dark .painel-login-btn{background:var(--surface);color:var(--ink);border-color:var(--line)}
+  body.dark .painel-login-btn:hover{border-color:var(--violet)}
   body.dark .alu-tag,body.dark .chip-count,body.dark .ag-week-count,body.dark .ag-hourchip{
-    background:#1E3A2B;color:#5FD98B}
-  body.dark .ag-hourchip:hover{background:#26463470}
-  body.dark .ag-hourchip.on{background:#2E9E5E;color:#fff}
-  body.dark .pn-today-topic{background:#1E3A2B;color:#5FD98B}
-  body.dark .pn-today-topic-none{background:#233428;color:var(--muted)}
-  body.dark .info-group.ig-violet{background:#132A1B;border-color:#2B4A38}
+    background:var(--accent-bg);color:var(--violet)}
+  body.dark .ag-hourchip:hover{background:var(--line)}
+  body.dark .ag-hourchip.on{background:var(--violet);color:#fff}
+  body.dark .pn-today-topic{background:var(--accent-bg);color:var(--violet)}
+  body.dark .pn-today-topic-none{background:var(--surface);color:var(--muted)}
+  body.dark .info-group.ig-violet{background:var(--accent-bg);border-color:var(--line)}
   body.dark .info-group.ig-pink{background:#2E2015;border-color:#4A3420}
   body.dark .info-group.ig-sky{background:#10202B;border-color:#244056}
   body.dark .info-group.ig-emerald{background:#10261C;border-color:#245239}
@@ -348,19 +350,20 @@
   .layout{display:block}
   .sidebar{
     position:fixed;top:0;left:0;bottom:0;flex:none;
-    width:236px;background:var(--surface);border-right:1px solid var(--line);overflow:hidden;
-    padding:22px 14px;display:flex;flex-direction:column;gap:14px;z-index:40
+    width:var(--sidebar-width);background:var(--violet);border-right:none;overflow:hidden;
+    padding:22px 14px;display:flex;flex-direction:column;gap:14px;z-index:40;
+    box-shadow:4px 0 10px rgba(0, 0, 0, 0.05);
   }
-  .content{margin-left:236px;min-height:100vh}
+  .content{margin-left:var(--sidebar-width);min-height:100vh}
   .shell{max-width:1440px;margin:0 auto;padding:24px 40px 96px}
 
-  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);padding:0 6px}
+  .brand{display:flex;align-items:center;gap:12px;color:#FFFFFF;padding:0 6px}
   .mark{
-    width:38px;height:38px;border-radius:10px;background:var(--accent-bg);
+    width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.12);
     display:grid;place-items:center;font-size:19px;flex:none;cursor:pointer;transition:.15s;
-    border:1px solid var(--line)
+    border:1px solid rgba(255,255,255,0.15);color:#FFFFFF;
   }
-  .mark:hover{filter:brightness(.97);transform:scale(1.05)}
+  .mark:hover{background:rgba(255,255,255,0.2);transform:scale(1.05)}
   .emoji-section{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 2px 9px}
   .emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:7px}
   .emoji-cell{font-size:24px;padding:8px 0;border-radius:11px;background:#FCFCFF;border:1px solid var(--line);transition:.12s;line-height:1}
@@ -629,22 +632,22 @@
   .ag-modal-rm:active{transform:scale(.98)}
   .ag-modal-rm-all{background:var(--rose-bg)}
   .ag-modal-rm-all:hover{background:#FBD8E0}
-  .brand h1{font-size:20px;font-weight:800;line-height:1.1}
-  .brand p{margin:2px 0 0;font-size:12px;opacity:.82;font-weight:500;letter-spacing:.01em}
+  .brand h1{font-size:20px;font-weight:800;line-height:1.1;color:#FFFFFF!important}
+  .brand p{margin:2px 0 0;font-size:12px;opacity:.7;font-weight:500;letter-spacing:.01em;color:#FFFFFF}
 
-  .nav{display:flex;flex-direction:column;gap:2px;flex:1;overflow-y:auto;min-height:0}
+  .nav{display:flex;flex-direction:column;gap:4px;flex:1;overflow-y:auto;min-height:0}
   .nav-group{display:flex;flex-direction:column}
   .nav button.nav-group-label{
     display:flex;align-items:center;gap:6px;width:100%;
-    font-size:11px;font-weight:800;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;
-    padding:8px 10px;margin-top:10px;border-radius:8px;background:var(--accent-bg);
+    font-size:10px;font-weight:800;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.06em;
+    padding:8px 10px;margin-top:10px;border-radius:8px;background:transparent;
     user-select:none;cursor:pointer;transition:filter .15s,transform .1s;
     opacity:1
   }
   .nav-group:first-of-type button.nav-group-label{margin-top:4px}
-  .nav button.nav-group-label:hover{filter:brightness(.95);opacity:1;background:var(--accent-bg)}
-  .nav button.nav-group-label:active{transform:scale(.98);background:var(--accent-bg)}
-  .nav-group-chevron{font-size:9px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:var(--violet);opacity:.85}
+  .nav button.nav-group-label:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.85);opacity:1}
+  .nav button.nav-group-label:active{transform:scale(.98)}
+  .nav-group-chevron{font-size:9px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:rgba(255,255,255,0.5);opacity:.85}
   .nav-group-items{
     display:flex;flex-direction:column;gap:2px;overflow:hidden;
     max-height:400px;opacity:1;
@@ -653,31 +656,31 @@
   .nav-group-collapsed .nav-group-chevron{transform:rotate(-90deg)}
   .nav-group-collapsed .nav-group-items{max-height:0;opacity:0}
   .nav button{
-    color:var(--ink);opacity:.85;padding:7px 10px;border-radius:7px;font-size:13.5px;font-weight:500;
+    color:rgba(255,255,255,0.8);opacity:.85;padding:8px 12px;border-radius:8px;font-size:13.5px;font-weight:500;
     display:flex;align-items:center;gap:10px;text-align:left;width:100%;
     background:none;transition:background .2s cubic-bezier(.4,0,.2,1),opacity .18s ease,color .18s ease
   }
-  .nav button .ico{font-size:15px;width:18px;text-align:center;opacity:.7;filter:saturate(.7)}
-  .nav button:hover{opacity:1;background:var(--line-2)}
-  .nav button:active{background:var(--line)}
+  .nav button .ico{font-size:15px;width:18px;text-align:center;opacity:.9;filter:none}
+  .nav button:hover{opacity:1;background:rgba(255,255,255,0.1);color:#FFFFFF}
+  .nav button:active{background:rgba(255,255,255,0.18)}
   .nav button.active{
-    opacity:1;background:var(--accent-bg);color:var(--violet);font-weight:700
+    opacity:1;background:rgba(255,255,255,0.18);color:#FFFFFF;font-weight:700
   }
   .nav button.active .ico{opacity:1;filter:none}
-  .nav button.active:hover{background:var(--accent-bg)}
+  .nav button.active:hover{background:rgba(255,255,255,0.18)}
   .nav button.active:active{filter:brightness(.96)}
   /* modo escuro: cor do texto do item ativo permanece igual ao passar/clicar */
   body.dark .nav button:active{color:#fff}
-  body.dark .nav button.active:active{color:var(--violet)}
+  body.dark .nav button.active:active{color:#fff}
 
   .theme-toggle{
-    color:var(--ink);opacity:.85;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:600;
+    color:rgba(255,255,255,0.85);opacity:.85;padding:8px 12px;border-radius:8px;font-size:12.5px;font-weight:600;
     display:flex;align-items:center;gap:9px;transition:.15s;text-align:left;width:100%;
-    background:var(--line-2);border:1px solid var(--line)!important
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)!important
   }
   .theme-toggle .ico{font-size:14px;width:18px;text-align:center}
-  .theme-toggle:hover{opacity:1;background:var(--line)}
-  .sidebar-toggles{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid var(--line);flex:none}
+  .theme-toggle:hover{opacity:1;background:rgba(255,255,255,0.15);color:#FFFFFF}
+  .sidebar-toggles{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.12);flex:none}
 
   main{position:relative;z-index:2}
   .view{display:none;animation:rise .4s cubic-bezier(.16,1,.3,1) both}
@@ -1000,6 +1003,30 @@
     color: #fff;
     border-color: var(--violet);
   }
+  .tp-pill-count{
+    display:inline-block;margin-left:4px;padding:1px 6px;border-radius:10px;
+    font-size:10px;font-weight:700;background:rgba(0,0,0,.08);
+  }
+  .tp-pill.active .tp-pill-count{background:rgba(255,255,255,.25)}
+  .tp-pill-over{
+    background:var(--emerald-bg)!important;border-color:var(--emerald)!important;
+    color:var(--emerald)!important;transform:scale(1.06);
+    box-shadow:0 0 0 3px var(--emerald-bg)
+  }
+  .tp-row-drag{cursor:grab;color:var(--muted);font-size:15px;flex:none;user-select:none}
+  .tp-row-simple:active .tp-row-drag{cursor:grabbing}
+
+  .tp-list-simple{display:flex;flex-direction:column;gap:8px}
+  .tp-row-simple{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;
+    border:1px solid var(--line);border-left:4px solid transparent;transition:all .15s ease
+  }
+  .tp-row-simple:hover{transform:translateX(2px);box-shadow:var(--shadow-sm)}
+  .tp-row-icon{font-size:19px;flex:none}
+  .tp-row-name{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--ink);word-break:break-word}
+  .tp-row-actions{display:flex;gap:5px;flex:none;opacity:0;transition:opacity .15s ease}
+  .tp-row-simple:hover .tp-row-actions{opacity:1}
+  @media(max-width:640px){ .tp-row-actions{opacity:1} }
   
   /* View Switcher */
   .tp-switcher {
@@ -1287,17 +1314,17 @@
   }
   .auth-card .field input:focus{
     outline:none;
-    border-color:rgba(184,134,11,.8)!important;
-    background-color:rgba(184,134,11,.08)!important;
-    box-shadow:0 0 0 1px rgba(184,134,11,.8), 0 0 0 4px rgba(184,134,11,.18)!important;
+    border-color:var(--indigo)!important;
+    background-color:rgba(59,130,246,.05)!important;
+    box-shadow:0 0 0 1px var(--indigo), 0 0 0 4px rgba(59,130,246,.18)!important;
   }
   #auth-gate .field input:focus,
   #auth-gate .field select:focus,
   #auth-gate .field textarea:focus{
     outline:none;
-    border-color:rgba(184,134,11,.8)!important;
+    border-color:var(--indigo)!important;
     background:rgba(255,255,255,.03)!important;
-    box-shadow:0 0 0 1px rgba(184,134,11,.8), 0 0 0 4px rgba(184,134,11,.18)!important;
+    box-shadow:0 0 0 1px var(--indigo), 0 0 0 4px rgba(59,130,246,.18)!important;
   }
 
   /* Field hint */
@@ -1319,7 +1346,7 @@
   .auth-btn{width:100%;margin-top:14px}
   .auth-gate .btn-primary{
     position:relative;overflow:hidden;
-    background:linear-gradient(120deg,#F0C245 0%,#D4A017 55%,#B8860B 100%)!important;
+    background:var(--grad)!important;
     border:none!important;
     color:#fff!important;
     font-family:Inter,system-ui,sans-serif!important;
@@ -1331,15 +1358,16 @@
     width:100%!important;
     box-shadow:
       0 1px 2px rgba(0,0,0,0.05),
-      0 4px 12px rgba(150,110,10,0.4)!important;
+      0 4px 12px rgba(30,58,138,0.3)!important;
     transition:transform .15s ease, background-color .15s ease, box-shadow .15s ease!important
   }
   .auth-gate .btn-primary:hover{
-    background:linear-gradient(120deg,#F7D372 0%,#D4A017 55%,#966E0A 100%)!important;
+    background:var(--grad)!important;
+    filter:brightness(1.15);
     transform:translateY(-1px)!important;
     box-shadow:
       0 1px 2px rgba(0,0,0,0.05),
-      0 6px 16px rgba(150,110,10,0.5)!important
+      0 6px 16px rgba(30,58,138,0.4)!important
   }
   .auth-gate .btn-primary:active{
     transform:scale(0.985) translateY(0)!important;
@@ -1469,6 +1497,246 @@
     .overlay{align-items:center}
     .modal{border-radius:24px;max-width:480px}
   }
+
+  /* ---------- REDESIGNED DASHBOARD & GLOBAL TABLE/BADGE STYLES ---------- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .stat-details h3 {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .stat-details p {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .stat-icon.primary { background-color: rgba(59, 130, 246, 0.1); color: var(--indigo); }
+  .stat-icon.success { background-color: rgba(16, 185, 129, 0.1); color: var(--emerald); }
+  .stat-icon.danger { background-color: rgba(239, 68, 68, 0.1); color: var(--rose); }
+  .stat-icon.warning { background-color: rgba(245, 158, 11, 0.1); color: var(--amber); }
+
+  .dashboard-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  @media(max-width: 1024px) {
+    .dashboard-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--violet);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  body.dark .card-title {
+    color: var(--indigo);
+  }
+  .btn-action {
+    background-color: var(--indigo);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-action:hover {
+    background-color: var(--violet);
+  }
+  .btn-action:active {
+    transform: scale(0.98);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 8px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  th {
+    padding: 12px 14px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 2px solid var(--line);
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.88rem;
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge.success { background-color: rgba(16, 185, 129, 0.1); color: var(--emerald); }
+  .badge.danger { background-color: rgba(239, 68, 68, 0.1); color: var(--rose); }
+  .badge.warning { background-color: rgba(245, 158, 11, 0.1); color: var(--amber); }
+
+  .chart-placeholder {
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 24px 12px 0;
+    position: relative;
+  }
+  .chart-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18%;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .chart-bar {
+    width: 100%;
+    background: var(--grad);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+    position: relative;
+    cursor: pointer;
+  }
+  .chart-bar:hover {
+    filter: brightness(1.15);
+  }
+  .chart-bar-value {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--violet);
+    white-space: nowrap;
+  }
+  body.dark .chart-bar-value {
+    color: var(--indigo);
+  }
+  .chart-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .action-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--surface);
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+  }
+  .action-card:hover {
+    background: var(--line-2);
+    border-color: var(--indigo);
+    transform: translateY(-1px);
+  }
+  .action-card:active {
+    transform: translateY(0);
+  }
+  .action-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--indigo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .action-card-icon.success {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: var(--emerald);
+  }
+  .action-card-info h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .action-card-info p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
 </style>
 
 <div class="layout">
@@ -1509,7 +1777,6 @@
           <button data-view="declaracao"><span class="ico">📄</span>Declarações</button>
           <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
           <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
-          <button data-view="relatorio-mensal"><span class="ico">📋</span>Relatório Mensal</button>
         </div>
       </div>
       <div class="nav-group" data-group="analise">
@@ -1552,7 +1819,6 @@
         <div id="v-expressoes" class="view"></div>
         <div id="v-agenda" class="view"></div>
         <div id="v-relatorio" class="view"></div>
-        <div id="v-relatorio-mensal" class="view"></div>
         <div id="v-financeiro" class="view"></div>
         <div id="v-despesas" class="view"></div>
         <div id="v-info" class="view"></div>
@@ -1585,7 +1851,7 @@ function initSupabaseSdk(){
   if(!SUPABASE_CONFIGURED) return false;
   try{
     sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
+      auth: { storage: window.sessionStorage, persistSession: false, autoRefreshToken: true }
     });
     sb.auth.onAuthStateChange((event, session)=>{
       if(event === 'PASSWORD_RECOVERY') showPasswordRecoveryPrompt();
@@ -1970,7 +2236,7 @@ const I18N = {
     'nav.painel':'Painel', 'nav.login':'Login', 'nav.alunos':'Alunos', 'nav.agenda':'Agenda', 'nav.presenca':'Frequência',
     'nav.group.gestao':'Gestão', 'nav.group.ensino':'Ensino', 'nav.group.administracao':'Administração',
     'nav.group.analise':'Análise', 'nav.group.sistema':'Sistema',
-    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.relatorio-mensal':'Relatório Mensal', 'nav.financeiro':'Financeiro',
+    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
     'nav.despesas':'Despesas', 'nav.declaracao':'Declarações', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
@@ -2168,7 +2434,7 @@ const I18N = {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
     'nav.group.gestao':'Management', 'nav.group.ensino':'Teaching', 'nav.group.administracao':'Administration',
     'nav.group.analise':'Analysis', 'nav.group.sistema':'System',
-    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.relatorio-mensal':'Monthly Report', 'nav.financeiro':'Finance',
+    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
     'nav.despesas':'Expenses', 'nav.declaracao':'Statements', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
@@ -2386,7 +2652,7 @@ const TOPIC_CATEGORIES = [
   {key:'master', label:'Master'},
   {key:'other', label:'Other'}
 ];
-function topicCategory(tp){ return (tp && tp.category) || 'other'; }
+function topicCategory(tp){ return (tp && tp.category) || null; }
 function seedTopics(){
   return SEED_TOPICS_RAW.map(t=>({ id:uid(), title:t, done:false, category:'other' }));
 }
@@ -2913,6 +3179,7 @@ async function afterAuthReady(){
   renderAll();
   renderAuthGate();
   startClock();
+  initWeather();
 }
 async function loadAppData(){
   state.students = await read('students', seedStudents());
@@ -2921,6 +3188,12 @@ async function loadAppData(){
   state.students = state.students.filter(s => !(s.code && /^S\d+$/.test(s.code)));
   if(state.students.length !== _before) await save('students');
   state.topics   = await read('topics', seedTopics());
+  const topicsCategoriesReset = await read('topicsCategoriesReset', false);
+  if(!topicsCategoriesReset){
+    state.topics.forEach(tp=>{ tp.category = null; });
+    await save('topics');
+    await write('topicsCategoriesReset', true);
+  }
   state.expressions = await read('expressions', seedExpressions());
   state.lessons  = await read('lessons', []);
   state.orgInfo  = await read('orgInfo', {});
@@ -2966,7 +3239,8 @@ function clockLine(){
   const locale = state.lang==='en' ? 'en-US' : 'pt-BR';
   const data = now.toLocaleDateString(locale,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const hora = now.toLocaleTimeString(locale,{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  return `${CIDADE} · ${data} · ${hora}`;
+  const capitalizedData = data.charAt(0).toUpperCase() + data.slice(1);
+  return `${capitalizedData} · ${hora}`;
 }
 function nowDateTime(){
   const now = new Date();
@@ -2980,6 +3254,53 @@ function startClock(){
     const ag = document.getElementById('ag-now');
     if(ag) ag.textContent = nowDateTime();
   }, 1000);
+}
+
+let weatherInfo = { city: CIDADE, temp: '22°C', icon: '☀️' };
+async function loadWeather(lat = -23.5228, lon = -46.1881, isCustomGeo = false) {
+  try {
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const tempVal = Math.round(data.current_weather.temperature);
+    const code = data.current_weather.weathercode;
+    let icon = '☀️';
+    if (code >= 1 && code <= 3) icon = '🌤️';
+    else if (code >= 45 && code <= 48) icon = '🌫️';
+    else if (code >= 51 && code <= 67) icon = '🌧️';
+    else if (code >= 71 && code <= 77) icon = '❄️';
+    else if (code >= 80 && code <= 82) icon = '🌦️';
+    else if (code >= 95) icon = '⛈️';
+    
+    weatherInfo.temp = tempVal + '°C';
+    weatherInfo.icon = icon;
+    
+    if (isCustomGeo) {
+      const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`);
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        const city = geoData.address.city || geoData.address.town || geoData.address.village || geoData.address.state || CIDADE;
+        weatherInfo.city = city;
+      }
+    }
+    
+    const cityEl = document.getElementById('dashboard-city');
+    const tempEl = document.getElementById('dashboard-temp');
+    if (cityEl) cityEl.textContent = weatherInfo.city;
+    if (tempEl) tempEl.textContent = weatherInfo.icon + ' ' + weatherInfo.temp;
+  } catch(e) {
+    console.error('Weather load error:', e);
+  }
+}
+
+function initWeather() {
+  loadWeather();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => loadWeather(pos.coords.latitude, pos.coords.longitude, true),
+      (err) => console.log('Geolocation skipped')
+    );
+  }
 }
 const initials = n => n.trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
 const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -3009,6 +3330,57 @@ const topicById = id => state.topics.find(t=>t.id===id);
 
 /* ================= persistence wrappers ================= */
 async function save(key){ await write(key, state[key]); }
+
+/* ================= dashboard helpers ================= */
+function getStudentWeeklySchedule(studentId) {
+  const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
+  const formattedDays = { seg: 'Seg', ter: 'Ter', qua: 'Qua', qui: 'Qui', sex: 'Sex', sab: 'Sáb', dom: 'Dom' };
+  const schedule = [];
+  
+  days.forEach(d => {
+    const list = state.agendaRecurring[d] || [];
+    list.forEach(e => {
+      if (e.studentId === studentId) {
+        schedule.push({ day: d, hour: e.hour });
+      }
+    });
+  });
+  
+  if (schedule.length === 0) return { hoursText: '0h', scheduleText: '—' };
+  
+  const groupedByHour = {};
+  schedule.forEach(item => {
+    if (!groupedByHour[item.hour]) groupedByHour[item.hour] = [];
+    groupedByHour[item.hour].push(formattedDays[item.day]);
+  });
+  
+  const parts = Object.keys(groupedByHour).map(hour => {
+    const daysStr = groupedByHour[hour].join('/');
+    return `${daysStr} ${hour}`;
+  });
+  
+  return {
+    hoursText: `${schedule.length}h / semana`,
+    scheduleText: parts.join(', ')
+  };
+}
+
+function getStudentNextObjective(studentId, level) {
+  const taughtTopicIds = new Set(
+    state.lessons
+      .filter(l => l.studentId === studentId && l.status === 'presente' && l.topicId)
+      .map(l => l.topicId)
+  );
+  
+  const filteredTopics = state.topics.filter(t => {
+    if (!level) return true;
+    if (!t.category) return true;
+    return t.category.toLowerCase() === level.toLowerCase();
+  });
+  
+  const nextTopic = filteredTopics.find(t => !taughtTopicIds.has(t.id));
+  return nextTopic ? nextTopic.title : 'Conversação & Revisão';
+}
 
 /* ================= render: PAINEL ================= */
 function renderPainel(){
@@ -3046,77 +3418,239 @@ function renderPainel(){
   const upcomingHolidays = nextHolidays(todayISO, 3);
   const todayHoliday = holidayInfo(todayISO);
 
+  // Calcule aulas dadas e faltas no mês corrente
+  const prefixoMes = todayISO.slice(0, 7);
+  const aulasMinistradasMes = state.lessons.filter(l => l.date && l.date.startsWith(prefixoMes) && l.status === 'presente').length;
+  const faltasMes = state.lessons.filter(l => l.date && l.date.startsWith(prefixoMes) && l.status === 'faltou').length;
+
+  // Calcule faturamento previsto baseado na agenda
+  const scheduled = countMonthlyClasses(today.getFullYear(), today.getMonth());
+  let faturamentoPrevisto = 0;
+  Object.keys(scheduled).forEach(sid => {
+    const s = studentById(sid);
+    const price = (s && s.price != null && s.price !== '') ? Number(s.price) : 0;
+    faturamentoPrevisto += scheduled[sid] * price;
+  });
+
+  // Gráfico de Faturamento dos últimos 4 meses
+  const monthsData = [];
+  for (let i = 3; i >= 0; i--) {
+    let m = today.getMonth() - i;
+    let y = today.getFullYear();
+    if (m < 0) { m += 12; y -= 1; }
+    const computedVals = computeYearlyRecebido(y);
+    const val = getMonthValue(y, m, computedVals[m]);
+    monthsData.push({ monthLabel: MONTHS_SHORT[m], val });
+  }
+  const maxValChart = Math.max(1, ...monthsData.map(x => x.val));
+
+  // Determine quais alunos exibir na segunda tabela (se não houver hoje, mostra os 4 primeiros ativos)
+  let listStudentsTable2 = todayRows.map(r => studentById(r.studentId)).filter(Boolean);
+  if (listStudentsTable2.length === 0) {
+    listStudentsTable2 = state.students.filter(s => !s.status || s.status === 'ativo').slice(0, 4);
+  }
+
   el.innerHTML = `
-    <div class="sec-head"><div>
-      <h2>${greet}!</h2>
-      <div class="sub" id="painel-clock">${clockLine()}</div>
-      <div class="ano-letivo">${t('painel.schoolYear')} ${ANO_LETIVO}</div>
-      <div class="pn-today">
-        <div class="pn-today-label">${t('painel.today')}</div>
-        ${todayRows.length ? `<div class="pn-today-list">${todayRows.map(r=>{
-          const s = studentById(r.studentId); const nm = s?s.name:'Aluno removido';
-          const topic = (getPres(todayISO, r.hour, r.studentId).content||'').trim();
-          return `<span class="pn-today-chip">
-            <span class="pn-today-hour">${r.hour}</span>
-            <span class="pn-today-dot" style="background:${studentColor(s)}"></span>${esc(nm)}
-            ${topic?`<span class="pn-today-topic">📘 ${esc(topic)}</span>`:`<span class="pn-today-topic pn-today-topic-none">${t('painel.noTopic')}</span>`}
-          </span>`;
-        }).join('')}</div>` : `<div class="pn-today-empty">${todayHoliday?t('painel.noClassToday'):t('painel.noToday')}</div>`}
+    <!-- GRADIENT THEME TOP BAR -->
+    <div class="dashboard-top-bar" style="background: var(--grad); color: #FFFFFF; padding: 22px 28px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <h2 style="color: #FFFFFF !important; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.02em;">${greet}, Professor Jefferson</h2>
+        <div style="font-size: 0.9rem; opacity: 0.95; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.85;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span id="painel-clock">${clockLine()}</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.88rem;">
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
+          <span>📍</span>
+          <span id="dashboard-city">${esc(weatherInfo.city)}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
+          <span id="dashboard-temp">${esc(weatherInfo.icon)} ${esc(weatherInfo.temp)}</span>
+        </div>
       </div>
     </div>
-    </div>
-    ${STORAGE_OK?'':'<div class="banner">⚠️ Salvamento automático indisponível fora do app Claude — os dados desta sessão não serão guardados.</div>'}
-    <div class="stat-grid">
-      <div class="stat s-violet stat-link" onclick="go('alunos')"><span class="em">👤</span><div class="n">${nA}</div><div class="l">${t('painel.activeStudents')}</div></div>
-      <div class="stat s-sky stat-link" onclick="go('expressoes')"><span class="em">💬</span><div class="n">${nE}</div><div class="l">${t('painel.expressionsCount')}</div></div>
-      <div class="stat s-pink stat-link" onclick="go('topicos')"><span class="em">📚</span><div class="n">${nT}</div><div class="l">${t('painel.topicsLib')}</div></div>
-      <div class="stat s-amber stat-link" onclick="go('presenca')"><span class="em">🗓️</span><div class="n">${nL}</div><div class="l">${t('painel.classesLogged')}</div></div>
-      <div class="stat s-emerald stat-link" onclick="go('relatorio')"><span class="em">✅</span><div class="n">${pct}%</div><div class="l">${t('painel.attendanceRate')}</div></div>
-    </div>
-    <div class="two-col">
-      <div class="card panel">
-        <h3><span class="dot" style="background:var(--amber)"></span>${t('painel.birthdays')}</h3>
-        ${upcoming.length ? upcoming.map(x=>`
-          <div class="row">
-            <div class="avatar" style="background:${studentColor(x.s)}">${esc(initials(x.s.name))}</div>
-            <div class="grow"><b>${esc(x.s.name)}</b><small>${fmtBday(x.mmdd)}</small></div>
-            <span class="chip ${x.d===0?'chip-bday':'chip-count'}">${x.d===0?t('painel.todayBday'):x.d===1?t('painel.tomorrow'):t('painel.inDaysPrefix')+' '+x.d+' '+t('painel.daysSuffix')}</span>
-          </div>`).join('') : `<div class="empty">${t('painel.noBirthdays60')}<br>${t('painel.addDatesIn')} <b>${t('nav.alunos')}</b>.</div>`}
+    
+    ${STORAGE_OK?'':'<div class="banner" style="margin-bottom: 24px;">⚠️ Salvamento automático indisponível fora do app Claude — os dados desta sessão não serão guardados.</div>'}
+    
+    <!-- METRICS GRID -->
+    <div class="stats-grid">
+      <div class="stat-card" onclick="go('alunos')" style="cursor: pointer;">
+        <div class="stat-details">
+          <h3>Alunos Ativos</h3>
+          <p>${nA}</p>
+        </div>
+        <div class="stat-icon primary">👤</div>
       </div>
-      <div class="card panel">
-        <h3><span class="dot" style="background:var(--violet)"></span>${t('painel.lastClasses')}</h3>
-        ${recent.length ? recent.map(l=>{
-          const st = studentById(l.studentId); const tp = topicById(l.topicId);
-          return `<div class="row">
-            <div class="avatar" style="background:${studentColor(st)}">${st?esc(initials(st.name)):'?'}</div>
-            <div class="grow"><b>${st?esc(st.name):'—'}</b><small>${esc(tp?tp.title:(l.topicText||'Aula'))}</small></div>
-            <span class="status st-${l.status}">${statusLabel(l.status)}</span>
-          </div>`;
-        }).join('') : `<div class="empty">${t('painel.noLessons')}</div>`}
+      <div class="stat-card" onclick="go('presenca')" style="cursor: pointer;">
+        <div class="stat-details">
+          <h3>Aulas Ministradas (Mês)</h3>
+          <p>${aulasMinistradasMes}</p>
+        </div>
+        <div class="stat-icon success">✔️</div>
+      </div>
+      <div class="stat-card" onclick="go('presenca')" style="cursor: pointer;">
+        <div class="stat-details">
+          <h3>Faltas Acumuladas</h3>
+          <p>${faltasMes}</p>
+        </div>
+        <div class="stat-icon danger">❌</div>
+      </div>
+      <div class="stat-card" onclick="go('financeiro')" style="cursor: pointer;">
+        <div class="stat-details">
+          <h3>Faturamento Previsto</h3>
+          <p>${fmtBRL(faturamentoPrevisto)}</p>
+        </div>
+        <div class="stat-icon warning">💰</div>
       </div>
     </div>
-    <div class="card panel pn-freq-panel">
-      <div class="pn-freq-head">
-        <h3><span class="dot" style="background:var(--emerald)"></span>${t('painel.attendanceShortcut')}</h3>
-        <button class="btn btn-ghost btn-sm" onclick="go('presenca')">${t('painel.goToAttendance')} →</button>
+
+    <!-- TWO COLUMN LAYOUT -->
+    <div class="dashboard-layout">
+      <!-- Left Main Dashboard Panel -->
+      <div class="left-panel">
+        <!-- Upcoming Classes Card -->
+        <div class="card" style="margin-bottom: 24px; padding: 24px;">
+          <div class="card-header">
+            <span class="card-title">Próximas Aulas & Frequência</span>
+            <button class="btn-action" onclick="go('presenca')">Lançar Presença</button>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Horário</th>
+                  <th>Carga Semanal</th>
+                  <th>Aulas Realizadas</th>
+                  <th>Frequência</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${todayRows.length ? todayRows.map(r => {
+                  const s = studentById(r.studentId);
+                  const nm = s ? s.name : 'Aluno removido';
+                  const sched = getStudentWeeklySchedule(s.id);
+                  const monthlyLessons = state.lessons.filter(l => l.studentId === s.id && l.date && l.date.startsWith(prefixoMes));
+                  const presentCount = monthlyLessons.filter(l => l.status === 'presente').length;
+                  const totalLogged = monthlyLessons.length;
+                  const freqPct = totalLogged ? Math.round((presentCount / totalLogged) * 100) : 100;
+                  const statusClass = freqPct >= 90 ? 'success' : freqPct >= 75 ? 'warning' : 'danger';
+                  const statusLabel = freqPct >= 90 ? 'Regular' : freqPct >= 75 ? 'Atentar' : 'Crítico';
+                  return `
+                  <tr>
+                    <td><strong>${esc(nm)}</strong></td>
+                    <td>Hoje às ${r.hour} (${esc(sched.scheduleText)})</td>
+                    <td>${esc(sched.hoursText)}</td>
+                    <td>${presentCount} ${presentCount === 1 ? 'aula' : 'aulas'}</td>
+                    <td>${freqPct}%</td>
+                    <td><span class="badge ${statusClass}">${statusLabel}</span></td>
+                  </tr>`;
+                }).join('') : `
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--muted); padding: 24px;">Nenhuma aula agendada para hoje.</td>
+                </tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Topics & Lesson Planning Card -->
+        <div class="card" style="padding: 24px;">
+          <div class="card-header">
+            <span class="card-title">Temas de Aula Recentes & Planejamento</span>
+            <button class="btn-action" onclick="go('topicos')">Novo Planejamento</button>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Último Tema Abordado</th>
+                  <th>Próximo Objetivo</th>
+                  <th>Material / Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${listStudentsTable2.length ? listStudentsTable2.map(s => {
+                  const studentLessons = state.lessons.filter(l => l.studentId === s.id && l.status === 'presente').sort((a,b) => b.date.localeCompare(a.date));
+                  const lastLesson = studentLessons[0];
+                  let lastTopic = '—';
+                  if (lastLesson) {
+                    const tp = topicById(lastLesson.topicId);
+                    lastTopic = tp ? tp.title : (lastLesson.topicText || 'Aula');
+                  }
+                  const nextObj = getStudentNextObjective(s.id, s.level);
+                  const linkText = state.orgInfo.meetLink ? 'Sala Virtual' : 'WhatsApp';
+                  const linkUrl = state.orgInfo.meetLink || (s.phone ? waUrl(s.phone, 'Olá! A aula está pronta.') : '#');
+                  return `
+                  <tr>
+                    <td><strong>${esc(s.name)}</strong></td>
+                    <td>${esc(lastTopic)}</td>
+                    <td>${esc(nextObj)}</td>
+                    <td><a href="${linkUrl}" target="_blank" style="color: var(--indigo); font-weight: 600; text-decoration: none;">📂 ${linkText}</a></td>
+                  </tr>`;
+                }).join('') : `
+                <tr>
+                  <td colspan="4" style="text-align: center; color: var(--muted); padding: 24px;">Nenhum aluno ativo encontrado.</td>
+                </tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      ${todayRows.length ? `<div class="pn-freq-list">${todayRows.map(r=>{
-        const s = studentById(r.studentId); const nm = s?s.name:'Aluno removido';
-        const pr = getPres(todayISO, r.hour, r.studentId);
-        const btn = (code,cls)=>`<button class="pr-btn ${cls} ${pr.status===code?'on':''}" onclick="setPresStatus('${todayISO}','${r.hour}','${r.studentId}','${code}')">${code.toUpperCase()}</button>`;
-        return `<div class="pn-freq-row">
-          <span class="pn-freq-hour">${r.hour}</span>
-          <div class="avatar pn-freq-avatar" style="background:${studentColor(s)}">${esc(initials(nm))}</div>
-          <span class="pn-freq-name">${esc(nm)}</span>
-          <span class="pn-freq-status">${btn('p','p')}${btn('f','f')}${btn('c','c')}</span>
-        </div>`;
-      }).join('')}</div>` : `<div class="empty">${t('painel.noToday')}</div>`}
+
+      <!-- Right Sidebar Dashboard Panel -->
+      <div class="right-panel">
+        <div class="card" style="margin-bottom: 24px; padding: 24px;">
+          <div class="card-header">
+            <span class="card-title">Faturamento Mensal</span>
+          </div>
+          <div class="chart-placeholder">
+            ${monthsData.map(m => {
+              const pctH = Math.round((m.val / maxValChart) * 100);
+              return `
+              <div class="chart-bar-container">
+                <div class="chart-bar" style="height: ${pctH}%;">
+                  <span class="chart-bar-value">${fmtBRL(m.val)}</span>
+                </div>
+                <span class="chart-label">${m.monthLabel}</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+
+        <div class="card" style="padding: 24px;">
+          <div class="card-header">
+            <span class="card-title">Ações Rápidas</span>
+          </div>
+          <div class="quick-actions">
+            <div class="action-card" onclick="go('financeiro')">
+              <div class="action-card-icon">💰</div>
+              <div class="action-card-info">
+                <h4>Gerar Recibo de Pagamento</h4>
+                <p>Criar recibo PDF para aluno</p>
+              </div>
+            </div>
+            <div class="action-card" onclick="go('declaracao')">
+              <div class="action-card-icon success">📄</div>
+              <div class="action-card-info">
+                <h4>Declaração de Presença</h4>
+                <p>Gerar PDF de frequência</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    ${todayHoliday ? `<div class="pn-holiday-banner pn-holiday-today-banner">
+
+    <!-- HOLIDAYS AND BANNERS -->
+    ${todayHoliday ? `<div class="pn-holiday-banner pn-holiday-today-banner" style="margin-top: 16px;">
       <span class="pn-holiday-ico">🎌</span>
       <div class="pn-holiday-text"><b>${t('painel.todayIsHoliday')}:</b> ${esc(todayHoliday.name)} — ${t('painel.noClassToday')}</div>
     </div>` : ''}
-    ${upcomingHolidays.length ? `<div class="pn-holiday-banner">
+    ${upcomingHolidays.length ? `<div class="pn-holiday-banner" style="margin-top: 16px;">
       <span class="pn-holiday-ico">🎌</span>
       <div class="pn-holiday-text">
         <b>${t('painel.upcomingHolidays')}:</b>
@@ -3226,40 +3760,37 @@ let dragTopicId = null;
 function renderTopicos(){
   const el = document.getElementById('v-topicos');
   if(!el) return;
-  
+
   if (state.selectedTopicCategoryFilter === undefined) state.selectedTopicCategoryFilter = 'all';
-  if (state.topicViewMode === undefined) state.topicViewMode = 'kanban';
-  
+
   const q = (state.q_topicos||'').toLowerCase();
   const list = state.topics.filter(t=>t.title.toLowerCase().includes(q));
   const isDark = document.body.classList.contains('dark');
   const isEn = state.lang === 'en';
-  
-  // 1. Build Filter Pills
-  let pillsHtml = `<button class="tp-pill ${state.selectedTopicCategoryFilter === 'all' ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = 'all'; renderTopicos();">${isEn ? 'All' : 'Todos'}</button>`;
+  const filter = state.selectedTopicCategoryFilter;
+
+  // conta quantos tópicos há em cada balde (sem categoria = "todos")
+  const countFor = key => list.filter(tp => key==='all' ? !topicCategory(tp) : topicCategory(tp)===key).length;
+
+  // 1. Pills no topo: "Todos" (não categorizados) + cada categoria — servem de filtro E de alvo de arrastar
+  let pillsHtml = `<button class="tp-pill ${filter==='all'?'active':''}" data-drop-cat="all"
+      onclick="state.selectedTopicCategoryFilter='all'; renderTopicos();"
+      ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
+      ondragleave="this.classList.remove('tp-pill-over')"
+      ondrop="onTopicDrop(event,null)">${isEn?'All':'Todos'} <span class="tp-pill-count">${countFor('all')}</span></button>`;
   TOPIC_CATEGORIES.forEach(cat => {
-    pillsHtml += `<button class="tp-pill ${state.selectedTopicCategoryFilter === cat.key ? 'active' : ''}" onclick="state.selectedTopicCategoryFilter = '${cat.key}'; renderTopicos();">${cat.label}</button>`;
+    pillsHtml += `<button class="tp-pill ${filter===cat.key?'active':''}" data-drop-cat="${cat.key}"
+      onclick="state.selectedTopicCategoryFilter='${cat.key}'; renderTopicos();"
+      ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
+      ondragleave="this.classList.remove('tp-pill-over')"
+      ondrop="onTopicDrop(event,'${cat.key}')">${cat.label} <span class="tp-pill-count">${countFor(cat.key)}</span></button>`;
   });
-  
-  // 2. Build View Switcher
-  const switcherHtml = `
-    <div class="tp-switcher">
-      <button class="tp-switch-btn ${state.topicViewMode === 'kanban' ? 'active' : ''}" onclick="state.topicViewMode = 'kanban'; renderTopicos();" title="${isEn ? 'Kanban Board' : 'Quadro Kanban'}">
-        📊 ${isEn ? 'Kanban' : 'Kanban'}
-      </button>
-      <button class="tp-switch-btn ${state.topicViewMode === 'table' ? 'active' : ''}" onclick="state.topicViewMode = 'table'; renderTopicos();" title="${isEn ? 'List View' : 'Visualização em Lista'}">
-        📋 ${isEn ? 'List' : 'Lista'}
-      </button>
-    </div>
-  `;
-  
-  // 3. Filter list by selected category pill
-  let filteredList = list;
-  if (state.selectedTopicCategoryFilter !== 'all') {
-    filteredList = list.filter(tp => topicCategory(tp) === state.selectedTopicCategoryFilter);
-  }
-  
-  // 4. Generate Body content based on View Mode
+
+  // 2. Lista filtrada (simples, sem agrupamento)
+  const filteredList = filter==='all'
+    ? list.filter(tp => !topicCategory(tp))
+    : list.filter(tp => topicCategory(tp)===filter);
+
   let bodyContent = '';
   if (state.topics.length === 0) {
     bodyContent = `
@@ -3268,102 +3799,52 @@ function renderTopicos(){
         ${t('topicos.empty')}<br>${t('topicos.emptyCta')}
       </div></div>
     `;
-  } else if (state.topicViewMode === 'table') {
-    if (filteredList.length === 0) {
-      bodyContent = `<div class="card panel" style="width:100%;"><div class="empty" style="padding:44px 16px">🔍 ${isEn ? 'No topics found matching the filters.' : 'Nenhum tópico encontrado correspondendo aos filtros.'}</div></div>`;
-    } else {
-      bodyContent = `
-        <div class="tp-grid-view">
-          ${filteredList.map(tp => {
-            const catObj = TOPIC_CATEGORIES.find(c => c.key === topicCategory(tp)) || { label: 'Other', key: 'other' };
-            const c = topicColor(tp.id);
-            const badgeBg = isDark ? 'var(--line-2)' : c.bg;
-            const badgeFg = isDark ? 'var(--muted)' : c.fg;
-            
-            return `
-              <div class="tp-grid-card">
-                <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-                  <span style="font-size: 18px; flex: none;">${topicIcon(tp.id)}</span>
-                  <div style="min-width: 0; flex: 1; text-align: left;">
-                    <div style="font-size: 13.5px; font-weight: 600; color: var(--ink); word-break: break-word; line-height: 1.3;">${esc(tp.title)}</div>
-                    <span class="tp-grid-badge" style="background: ${badgeBg}; color: ${badgeFg}; margin-top: 4px; display: inline-block;">${catObj.label}</span>
-                  </div>
-                </div>
-                <div class="tp-card-actions" style="opacity: 1; display: flex; gap: 4px; flex: none;">
-                  <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
-                  <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
+  } else if (filteredList.length === 0) {
+    bodyContent = `<div class="card panel"><div class="empty" style="padding:44px 16px">
+      ${filter==='all' ? `🎉 ${isEn?'Everything is sorted! Pick a category above to view its topics.':'Tudo já foi organizado! Escolha uma categoria acima para ver os tópicos dela.'}`
+                        : `🔍 ${t('topicos.noResults')}`}
+    </div></div>`;
   } else {
-    // Kanban mode - filter columns if a category filter is active
-    const activeColumns = TOPIC_CATEGORIES.filter(cat => state.selectedTopicCategoryFilter === 'all' || state.selectedTopicCategoryFilter === cat.key);
-    
     bodyContent = `
-      <div class="tp-board">
-        ${activeColumns.map(cat => {
-          const colTopics = list.filter(tp => topicCategory(tp) === cat.key);
+      <div class="tp-list-simple">
+        ${filteredList.map(tp=>{
+          const c = topicColor(tp.id);
+          const rowStyle = isDark
+            ? `style="border-left-color:${c.ic};background:var(--line-2);border-color:var(--line)"`
+            : `style="border-left-color:${c.ic};background:${c.bg};border-color:${c.bd}"`;
+          const textStyle = isDark ? '' : `style="color:${c.fg}"`;
           return `
-            <div class="tp-col tp-col-${cat.key}" ondragover="event.preventDefault();this.classList.add('tp-col-over')"
-                ondragleave="this.classList.remove('tp-col-over')"
-                ondrop="onTopicDrop(event,'${cat.key}')">
-              <div class="tp-col-head">
-                <span>${cat.label}</span><span class="tp-col-count">${colTopics.length}</span>
-              </div>
-              <div class="tp-col-body">
-                ${colTopics.length ? colTopics.map(tp => {
-                  const c = topicColor(tp.id);
-                  const cardStyle = isDark
-                    ? `style="border-left-color:${c.ic}; background: var(--line-2); border-color: var(--line);"`
-                    : `style="border-left-color:${c.ic}; background:${c.bg}; border-color:${c.bd};"`;
-                  const textStyle = isDark ? '' : `style="color:${c.fg}"`;
-                  return `
-                    <div class="tp-card" draggable="true" ${cardStyle}
-                        ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)">
-                      <div class="tp-card-content">
-                        <span class="tp-card-icon">${topicIcon(tp.id)}</span>
-                        <span class="tp-card-name" ${textStyle}>${esc(tp.title)}</span>
-                      </div>
-                      <div class="tp-card-actions">
-                        <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
-                        <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
-                      </div>
-                    </div>
-                  `;
-                }).join('') : `<div class="tp-col-empty">${t('topicos.dropHere')}</div>`}
-              </div>
+            <div class="tp-row-simple" draggable="true"
+                ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)" ${rowStyle}>
+              <span class="tp-row-drag" title="${isEn?'Drag to a category above':'Arraste para uma categoria acima'}">⠿</span>
+              <span class="tp-row-icon">${topicIcon(tp.id)}</span>
+              <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
+              <span class="tp-row-actions">
+                <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
+                <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
+              </span>
             </div>
           `;
         }).join('')}
       </div>
     `;
   }
-  
+
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('topicos.title')}</h2><div class="sub">${state.topics.length} ${t('topicos.inLibrary')}</div></div>
       <button class="btn btn-primary" onclick="openTopicForm()">${t('topicos.add')}</button>
     </div>
-    
+
     <div class="toolbar" style="margin-bottom: 12px;">
       <div class="search"><span class="mag">🔍</span>
         <input placeholder="${t('topicos.search')}" value="${esc(state.q_topicos||'')}" oninput="state.q_topicos=this.value;renderTopicos()">
       </div>
       <span class="count-pill">${filteredList.length} ${t('topicos.shown')}</span>
     </div>
-    
-    <!-- Filter pills & View Switcher Bar -->
-    <div class="tp-filter-bar">
-      <div class="tp-pills">
-        ${pillsHtml}
-      </div>
-      ${switcherHtml}
-    </div>
-    
+
+    <div class="tp-pills" style="margin-bottom:14px">${pillsHtml}</div>
+
     ${bodyContent}
   `;
 }
@@ -3376,17 +3857,19 @@ function onTopicDragStart(ev, id){
 function onTopicDragEnd(ev){
   ev.target.classList.remove('tp-card-dragging');
   document.querySelectorAll('.tp-col-over').forEach(c=>c.classList.remove('tp-col-over'));
+  document.querySelectorAll('.tp-pill-over').forEach(c=>c.classList.remove('tp-pill-over'));
 }
 async function onTopicDrop(ev, category){
   ev.preventDefault();
-  ev.currentTarget.classList.remove('tp-col-over');
+  ev.currentTarget.classList.remove('tp-col-over','tp-pill-over');
   const id = dragTopicId || ev.dataTransfer.getData('text/plain');
   if(!id) return;
   await moveTopicToCategory(id, category);
 }
 async function moveTopicToCategory(id, category){
   const tp = topicById(id); if(!tp) return;
-  if(tp.category === category) return;
+  const cur = tp.category || null;
+  if(cur === category) return;
   tp.category = category;
   await save('topics');
   renderTopicos();
@@ -3519,14 +4002,11 @@ async function doDelExpressao(id){
 }
 function openTopicForm(id){
   const tp = id ? topicById(id) : null;
-  const curCat = tp ? topicCategory(tp) : 'other';
   showModal(`
     <h3>${tp?t('topicos.formEdit'):t('topicos.formNew')}</h3>
     <div class="msub">${tp?t('topicos.changeTitle'):t('topicos.newTopicSub')}</div>
     <div class="field"><label>${t('topicos.name')}</label>
       <input id="tp-title" value="${tp?esc(tp.title):''}" placeholder="${t('topicos.namePh')}"></div>
-    <div class="field"><label>${t('topicos.category')}</label>
-      <select id="tp-category">${TOPIC_CATEGORIES.map(c=>`<option value="${c.key}" ${c.key===curCat?'selected':''}>${c.label}</option>`).join('')}</select></div>
     <div class="field" style="margin-top:6px">
       <label>${t('topicos.allTopics')} (${state.topics.length})</label>
       <input id="tp-manage-search" placeholder="${t('topicos.search')}" oninput="filterTopicManageList()">
@@ -3559,11 +4039,10 @@ function filterTopicManageList(){
 async function saveTopicForm(id){
   const title = (document.getElementById('tp-title').value||'').trim();
   if(!title) return;
-  const category = (document.getElementById('tp-category')||{}).value || 'other';
   if(id){
-    const tp = topicById(id); tp.title = title; tp.category = category;
+    const tp = topicById(id); tp.title = title;
   }else{
-    state.topics.unshift({id:uid(), title, done:false, category});
+    state.topics.unshift({id:uid(), title, done:false, category:null});
   }
   await save('topics'); closeModal(); renderTopicos(); renderPresenca();
 }
@@ -4134,422 +4613,6 @@ function fetchStudentLessons(studentId, year, month) {
   return lessons;
 }
 
-function onMonthlyReportSelectChange(type, value) {
-  if (type === 'student') state.monthlyReportStudent = value;
-  if (type === 'month') state.monthlyReportMonth = parseInt(value, 10);
-  if (type === 'year') state.monthlyReportYear = parseInt(value, 10);
-  renderRelatorioMensal();
-}
-
-function renderRelatorioMensal() {
-  const el = document.getElementById('v-relatorio-mensal');
-  if (!el) return;
-  
-  if (state.monthlyReportStudent === undefined) state.monthlyReportStudent = '';
-  if (state.monthlyReportMonth === undefined) state.monthlyReportMonth = new Date().getMonth();
-  if (state.monthlyReportYear === undefined) state.monthlyReportYear = new Date().getFullYear();
-  
-  const studentsList = state.alunos || [];
-  studentsList.sort((a,b) => a.name.localeCompare(b.name, 'pt-BR', {sensitivity: 'base'}));
-  
-  let studentOptions = `<option value="">${state.lang==='en' ? 'Select a student...' : 'Selecione um aluno...'}</option>`;
-  studentsList.forEach(s => {
-    const isSelected = s.id === state.monthlyReportStudent ? 'selected' : '';
-    studentOptions += `<option value="${s.id}" ${isSelected}>${esc(s.name)}</option>`;
-  });
-  
-  let monthOptions = '';
-  for (let i = 0; i < 12; i++) {
-    const isSelected = i === state.monthlyReportMonth ? 'selected' : '';
-    const label = state.lang === 'en' ? 
-      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][i] : 
-      ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][i];
-    monthOptions += `<option value="${i}" ${isSelected}>${label}</option>`;
-  }
-  
-  let yearOptions = '';
-  const currentYear = new Date().getFullYear();
-  for (let y = currentYear - 3; y <= currentYear + 2; y++) {
-    const isSelected = y === state.monthlyReportYear ? 'selected' : '';
-    yearOptions += `<option value="${y}" ${isSelected}>${y}</option>`;
-  }
-  
-  let lessonsSection = '';
-  if (state.monthlyReportStudent) {
-    const lessons = fetchStudentLessons(state.monthlyReportStudent, state.monthlyReportYear, state.monthlyReportMonth);
-    
-    if (lessons.length === 0) {
-      lessonsSection = `
-        <div class="card panel" style="margin-top: 20px; padding: 32px 16px; text-align: center;">
-          <div class="empty">
-            <span style="font-size: 32px; display: block; margin-bottom: 8px;">📅</span>
-            ${state.lang === 'en' ? 'No lessons recorded for this student in this period.' : 'Nenhuma aula registrada para este aluno neste período.'}
-          </div>
-        </div>
-      `;
-    } else {
-      lessonsSection = `
-        <div class="card panel" style="margin-top: 20px; padding: 20px; overflow-x: auto; text-align: left;">
-          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="dot" style="background: var(--violet);"></span>
-            ${state.lang === 'en' ? 'Lessons Log' : 'Registro de Aulas'}
-          </h3>
-          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
-            <thead>
-              <tr style="border-bottom: 1.5px solid var(--line); color: var(--muted); font-weight: 600;">
-                <th style="padding: 10px 12px;">${state.lang === 'en' ? 'Date' : 'Data'}</th>
-                <th style="padding: 10px 12px;">${state.lang === 'en' ? 'Topic' : 'Tópico'}</th>
-                <th style="padding: 10px 12px;">${state.lang === 'en' ? 'Attendance' : 'Frequência'}</th>
-                <th style="padding: 10px 12px;">${state.lang === 'en' ? 'Teacher Notes' : 'Observações'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${lessons.map(l => {
-                let statusBadge = '';
-                if (l.status === 'p') {
-                  statusBadge = `<span class="status st-presente" style="font-size: 11px; padding: 2px 8px;">${state.lang === 'en' ? 'Present' : 'Presente'}</span>`;
-                } else if (l.status === 'f') {
-                  statusBadge = `<span class="status st-faltou" style="font-size: 11px; padding: 2px 8px;">${state.lang === 'en' ? 'Absent' : 'Falta'}</span>`;
-                } else if (l.status === 'c') {
-                  statusBadge = `<span class="status st-dispensado" style="font-size: 11px; padding: 2px 8px;">${state.lang === 'en' ? 'Excused' : 'Dispensado'}</span>`;
-                } else {
-                  statusBadge = `<span class="status st-semaula" style="font-size: 11px; padding: 2px 8px;">—</span>`;
-                }
-                
-                return `
-                  <tr style="border-bottom: 1px solid var(--line-2); transition: background 0.15s ease;">
-                    <td style="padding: 12px 12px; font-weight: 500; white-space: nowrap;">
-                      ${fmtDateBR(l.date)} ${l.hour !== '—' ? `<span style="color: var(--muted); font-size: 11px; margin-left: 4px;">${l.hour}</span>` : ''}
-                    </td>
-                    <td style="padding: 12px 12px; color: var(--ink); font-weight: 500;">
-                      ${esc(l.topic || '—')}
-                    </td>
-                    <td style="padding: 12px 12px;">
-                      ${statusBadge}
-                    </td>
-                    <td style="padding: 12px 12px; color: var(--muted);" title="${esc(l.notes || '')}">
-                      ${esc(l.notes || '—')}
-                    </td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        </div>
-      `;
-    }
-  } else {
-    lessonsSection = `
-      <div class="card panel" style="margin-top: 20px; padding: 32px 16px; text-align: center;">
-        <div class="empty">
-          <span style="font-size: 32px; display: block; margin-bottom: 8px;">👤</span>
-          ${state.lang === 'en' ? 'Select a student to view lessons log.' : 'Selecione um aluno para visualizar o registro de aulas.'}
-        </div>
-      </div>
-    `;
-  }
-  
-  el.innerHTML = `
-    <div class="sec-head"><div>
-      <h2>${state.lang==='en' ? 'Monthly Report' : 'Relatório Mensal'}</h2>
-      <div class="sub">${state.lang==='en' ? 'Generate monthly attendance and performance reports for students' : 'Gere relatórios mensais de frequência e desempenho para os alunos'}</div>
-    </div></div>
-    
-    <div class="card panel" style="max-width: 600px; margin-top: 16px; padding: 24px;">
-      <div style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
-        
-        <!-- Student Selector -->
-        <div class="field">
-          <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
-            ${state.lang==='en' ? 'Select Student' : 'Selecionar Aluno'}
-          </label>
-          <select id="rep-monthly-student" onchange="onMonthlyReportSelectChange('student', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
-            ${studentOptions}
-          </select>
-        </div>
-        
-        <!-- Month and Year Row -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <!-- Month Selector -->
-          <div class="field">
-            <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
-              ${state.lang==='en' ? 'Month' : 'Mês'}
-            </label>
-            <select id="rep-monthly-month" onchange="onMonthlyReportSelectChange('month', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
-              ${monthOptions}
-            </select>
-          </div>
-          
-          <!-- Year Selector -->
-          <div class="field">
-            <label style="font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 6px; display: block;">
-              ${state.lang==='en' ? 'Year' : 'Ano'}
-            </label>
-            <select id="rep-monthly-year" onchange="onMonthlyReportSelectChange('year', this.value)" style="width: 100%; height: 42px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 0 12px; font-size: 14px;">
-              ${yearOptions}
-            </select>
-          </div>
-        </div>
-        
-        <!-- Actions Row -->
-        <div style="display: flex; gap: 12px; margin-top: 12px; justify-content: flex-end; align-items: center;">
-          <button class="btn btn-ghost" style="height: 42px; padding: 0 20px; font-size: 14px; border-radius: 8px; font-weight: 600;">
-            ${state.lang==='en' ? 'Preview Report' : 'Visualizar Relatório'}
-          </button>
-          <button class="btn btn-primary" onclick="generateMonthlyReportPDF()" style="height: 42px; padding: 0 20px; font-size: 14px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            <span>${state.lang==='en' ? 'Generate PDF' : 'Gerar PDF'}</span>
-          </button>
-        </div>
-        
-      </div>
-    </div>
-    
-    <!-- Dynamic Lessons List Section -->
-    <div style="max-width: 600px; width: 100%;">
-      ${lessonsSection}
-    </div>
-  `;
-}
-
-async function generateMonthlyReportPDF() {
-  const studentId = state.monthlyReportStudent;
-  if (!studentId) {
-    alert(state.lang === 'en' ? "Please select a student first!" : "Por favor, selecione um aluno primeiro!");
-    return;
-  }
-  
-  const student = studentById(studentId);
-  if (!student) return;
-  
-  const month = state.monthlyReportMonth;
-  const year = state.monthlyReportYear;
-  const lessons = fetchStudentLessons(studentId, year, month);
-  
-  if (lessons.length === 0) {
-    alert(state.lang === 'en' ? "No lessons found for this period to generate a PDF." : "Nenhuma aula encontrada para este período para gerar o PDF.");
-    return;
-  }
-  
-  const originalBtn = document.querySelector("#v-relatorio-mensal .btn-primary");
-  let oldHtml = '';
-  if (originalBtn) {
-    oldHtml = originalBtn.innerHTML;
-    originalBtn.disabled = true;
-    originalBtn.innerHTML = state.lang === 'en' ? 'Generating PDF...' : 'Gerando PDF...';
-  }
-  
-  try {
-    if (typeof window.jspdf === 'undefined') {
-      await new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
-    
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4'
-    });
-    
-    const margin = 20;
-    const width = 210;
-    const height = 297;
-    let y = 25;
-    
-    const primaryColor = [15, 23, 42]; 
-    const secondaryColor = [79, 70, 229]; 
-    const textColor = [51, 65, 85]; 
-    const lightBg = [248, 250, 252]; 
-    
-    doc.setFillColor(...primaryColor);
-    doc.rect(0, 0, width, 12, 'F');
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(20);
-    doc.setTextColor(...primaryColor);
-    doc.text(state.lang === 'en' ? "MONTHLY LEARNING SUMMARY" : "RESUMO MENSAL DE APRENDIZADO", margin, y);
-    y += 8;
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(100, 116, 139);
-    doc.text("English Class System · Private Instruction Report", margin, y);
-    y += 12;
-    
-    doc.setFillColor(...lightBg);
-    doc.roundedRect(margin, y, width - (margin * 2), 24, 3, 3, 'F');
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(...primaryColor);
-    doc.text(state.lang === 'en' ? "STUDENT:" : "ALUNO(A):", margin + 6, y + 8);
-    doc.text(state.lang === 'en' ? "LEVEL:" : "NÍVEL:", margin + 6, y + 16);
-    
-    const monthName = state.lang === 'en' ? 
-      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][month] : 
-      ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][month];
-      
-    doc.text(state.lang === 'en' ? "PERIOD:" : "PERÍODO:", margin + 110, y + 8);
-    doc.text(state.lang === 'en' ? "REPORT DATE:" : "DATA DE EMISSÃO:", margin + 110, y + 16);
-    
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(...textColor);
-    doc.text(student.name, margin + 28, y + 8);
-    doc.text(student.level || '—', margin + 28, y + 16);
-    doc.text(`${monthName} ${year}`, margin + 130, y + 8);
-    doc.text(new Date().toLocaleDateString(state.lang === 'en' ? 'en-US' : 'pt-BR'), margin + 150, y + 16);
-    y += 36;
-    
-    const presentCount = lessons.filter(l => l.status === 'p').length;
-    const absentCount = lessons.filter(l => l.status === 'f').length;
-    const canceledCount = lessons.filter(l => l.status === 'c').length;
-    
-    const topicsList = lessons.filter(l => l.topic).map(l => l.topic);
-    const distinctTopics = [...new Set(topicsList)];
-    
-    const notesList = lessons.filter(l => l.notes && l.notes !== '—').map(l => l.notes);
-    const distinctNotes = [...new Set(notesList)];
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...secondaryColor);
-    doc.text(state.lang === 'en' ? "1. Attendance & Class Statistics" : "1. Estatísticas de Presença", margin, y);
-    y += 4;
-    doc.setDrawColor(226, 232, 240);
-    doc.setLineWidth(0.5);
-    doc.line(margin, y, width - margin, y);
-    y += 6;
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(...textColor);
-    
-    const statsText = state.lang === 'en' ? 
-      `Total Scheduled: ${lessons.length} classes  |  Present: ${presentCount}  |  Absent: ${absentCount}  |  Excused: ${canceledCount}` :
-      `Total Agendado: ${lessons.length} aulas  |  Presenças: ${presentCount}  |  Faltas: ${absentCount}  |  Dispensadas: ${canceledCount}`;
-      
-    doc.text(statsText, margin + 4, y);
-    y += 12;
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...secondaryColor);
-    doc.text(state.lang === 'en' ? "2. Covered Topics & Skills" : "2. Tópicos e Conteúdos Desenvolvidos", margin, y);
-    y += 4;
-    doc.line(margin, y, width - margin, y);
-    y += 6;
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(...textColor);
-    
-    if (distinctTopics.length === 0) {
-      doc.text(state.lang === 'en' ? "No specific topics were logged for this month." : "Nenhum tópico específico foi registrado para este mês.", margin + 4, y);
-      y += 8;
-    } else {
-      distinctTopics.forEach(t => {
-        const lines = doc.splitTextToSize(`•  ${t}`, width - (margin * 2) - 8);
-        lines.forEach(line => {
-          doc.text(line, margin + 4, y);
-          y += 5.5;
-        });
-      });
-      y += 4;
-    }
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...secondaryColor);
-    doc.text(state.lang === 'en' ? "3. Teacher Assessment & Observations" : "3. Avaliação do Professor e Observações", margin, y);
-    y += 4;
-    doc.line(margin, y, width - margin, y);
-    y += 6;
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(...textColor);
-    
-    if (distinctNotes.length === 0) {
-      const defaultObs = state.lang === 'en' ?
-        "During this period, the student practiced conversation and pronunciation drills. Speaking flow and listening comprehension remain strong and on track." :
-        "Durante este período, o aluno praticou conversação livre e exercícios de escuta. A fluência verbal e a compreensão auditiva estão progredindo conforme o planejado.";
-      
-      const lines = doc.splitTextToSize(defaultObs, width - (margin * 2) - 8);
-      lines.forEach(line => {
-        doc.text(line, margin + 4, y);
-        y += 5.5;
-      });
-      y += 4;
-    } else {
-      distinctNotes.forEach(n => {
-        const lines = doc.splitTextToSize(`•  ${n}`, width - (margin * 2) - 8);
-        lines.forEach(line => {
-          doc.text(line, margin + 4, y);
-          y += 5.5;
-        });
-      });
-      y += 4;
-    }
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...secondaryColor);
-    doc.text(state.lang === 'en' ? "4. Action Plan & Recommendations" : "4. Plano de Ação e Recomendações", margin, y);
-    y += 4;
-    doc.line(margin, y, width - margin, y);
-    y += 6;
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(...textColor);
-    
-    const recs = state.lang === 'en' ? [
-      "Vocabulary Reinforcement: Review vocabulary sheets and expression lists studied this month.",
-      "Pronunciation Focus: Pay attention to linking sounds and silent letters during speaking exercises.",
-      "Fixation Activities: Complete the recommended worksheets to solidify grammar structures."
-    ] : [
-      "Reforço de Vocabulário: Revisar as expressões e termos estudados nas aulas deste mês.",
-      "Foco em Pronúncia: Atentar para a conexão de palavras (linking sounds) durante os diálogos.",
-      "Atividades de Fixação: Concluir as tarefas recomendadas para consolidação gramatical."
-    ];
-    
-    recs.forEach(r => {
-      const lines = doc.splitTextToSize(`•  ${r}`, width - (margin * 2) - 8);
-      lines.forEach(line => {
-        doc.text(line, margin + 4, y);
-        y += 5.5;
-      });
-    });
-    
-    y = height - 30;
-    doc.setDrawColor(226, 232, 240);
-    doc.line(margin, y, width - margin, y);
-    y += 6;
-    
-    doc.setFont("helvetica", "italic");
-    doc.setFontSize(8.5);
-    doc.setTextColor(148, 163, 184);
-    doc.text(state.lang === 'en' ? "Generated automatically by English Class System" : "Gerado automaticamente pelo English Class System", margin, y);
-    doc.text(state.lang === 'en' ? "Page 1 of 1" : "Página 1 de 1", width - margin - 20, y);
-    
-    const filename = `${student.name.replace(/\s+/g, '_')}_Monthly_Report_${monthName}_${year}.pdf`;
-    doc.save(filename);
-    
-  } catch (err) {
-    alert((state.lang === 'en' ? "Error generating PDF: " : "Erro ao gerar PDF: ") + err.message);
-  } finally {
-    if (originalBtn && oldHtml) {
-      originalBtn.disabled = false;
-      originalBtn.innerHTML = oldHtml;
-    }
-  }
-}
 function payKey(sid, year, month){ return sid+'_'+year+'-'+String(month+1).padStart(2,'0'); }
 function getPayStatus(sid, year, month){ return state.pagamentos[payKey(sid,year,month)] || 'pendente'; }
 async function setPayStatus(sid, year, month, status){
@@ -5554,7 +5617,6 @@ function go(view){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+view).classList.add('on');
-  if(view==='relatorio-mensal') renderRelatorioMensal();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.getElementById('nav').addEventListener('click', e=>{
@@ -5565,7 +5627,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderRelatorioMensal(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
   renderAuthGate();
 }
 boot();
