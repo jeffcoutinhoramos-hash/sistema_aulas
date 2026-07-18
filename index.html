@@ -430,6 +430,16 @@
   .pr-mini.f{background:var(--rose-bg);color:var(--rose)}
   .pr-mini.c{background:var(--amber-bg);color:var(--amber)}
   .pr-content-cell{flex:1;min-width:110px;display:flex;flex-direction:column;gap:4px}
+  .pr-content-row{display:flex;align-items:center;gap:8px}
+  .pr-wa-btn{
+    width:36px;height:36px;flex:none;border-radius:11px;border:1.5px solid var(--line);
+    background:var(--surface);display:grid;place-items:center;cursor:pointer;transition:.15s
+  }
+  .pr-wa-btn svg{width:18px;height:18px}
+  .pr-wa-btn:hover{border-color:#25D366;background:rgba(37,211,102,.1);transform:translateY(-1px)}
+  .pr-wa-btn:disabled{opacity:.35;cursor:not-allowed}
+  .pr-wa-btn:disabled:hover{border-color:var(--line);background:var(--surface);transform:none}
+  .pr-content-row .pr-topic-btn{flex:1}
   .pr-topic-btn{width:100%;text-align:left;padding:9px 12px;border-radius:11px;border:1.5px dashed var(--line);
     background:#FCFCFF;color:var(--muted);font-size:13.5px;font-weight:600;cursor:pointer;transition:.14s;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -714,8 +724,10 @@
   }
   .painel-login-btn:hover{border-color:#B1E0BF;transform:translateY(-1px)}
   .fixed-signout{position:fixed;top:18px;right:24px;z-index:40}
+  .fixed-back-home{position:fixed;top:18px;left:calc(var(--sidebar-width) + 24px);z-index:40}
   @media(max-width:880px){
     .fixed-signout{top:auto;bottom:16px;right:16px;z-index:70}
+    .fixed-back-home{top:auto;bottom:16px;left:16px;z-index:70}
   }
   .painel-login-ico{
     width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;
@@ -1834,9 +1846,40 @@
 <button class="painel-login-btn fixed-signout" id="global-signout-btn" onclick="logoutNow()" style="display:none">
   <span class="painel-login-ico">🚪</span><span id="global-signout-label">Sair</span>
 </button>
+<button class="painel-login-btn fixed-back-home" id="global-backhome-btn" onclick="go('painel')" style="display:none">
+  <span class="painel-login-ico">←</span><span id="global-backhome-label">Painel</span>
+</button>
 
 <!-- Supabase (Auth + Postgres) — veja SUPABASE_SETUP.md para o passo a passo -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- React, ReactDOM, Babel Standalone & Tailwind CSS CDN -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    corePlugins: {
+      preflight: false,
+    }
+  }
+</script>
+<style>
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+</style>
 
 <script>
 /* ================= supabase config =================
@@ -1851,7 +1894,7 @@ function initSupabaseSdk(){
   if(!SUPABASE_CONFIGURED) return false;
   try{
     sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { storage: window.sessionStorage, persistSession: false, autoRefreshToken: true }
+      auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
     });
     sb.auth.onAuthStateChange((event, session)=>{
       if(event === 'PASSWORD_RECOVERY') showPasswordRecoveryPrompt();
@@ -2004,6 +2047,11 @@ function ageFromDOB(dob){
   return (a>=0 && a<130) ? a : null;
 }
 const fmtBRL = n => (n||n===0) ? Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : '';
+function attendanceLetter(code){
+  // P/F/C em português; em inglês a falta vira "A" de Absent (Presente e Cancelado coincidem: P e C)
+  if(code === 'f') return state.lang === 'en' ? 'A' : 'F';
+  return code.toUpperCase();
+}
 /* ================= máscara de valores em dinheiro (formato brasileiro) ================= */
 function moneyToDisplay(n){
   if(n==null || n==='') return '';
@@ -2182,6 +2230,22 @@ function openWA(url, ev){
   // 4) deixa o link nativo tentar
   return true;
 }
+function sendClassReminder(iso, hour, studentId, ev){
+  if(ev) ev.stopPropagation();
+  const s = studentById(studentId);
+  if(!s || !s.phone){ alert(t('presenca.noPhoneForReminder')); return; }
+  const pr = getPres(iso, hour, studentId);
+  const topic = (pr.content||'').trim();
+  const d = (s.phone||'').replace(/\D/g,'');
+  if(!d) return;
+  const full = d.length<=11 ? '55'+d : d;
+  const firstName = (s.name||'').trim().split(/\s+/)[0] || '';
+  const msg = topic
+    ? `Hey ${firstName}! Just a quick reminder about our session today at ${hour}. We'll be diving into "*${topic}*". Grab your stuff and see you there!`
+    : `Hey ${firstName}! Just a quick reminder about our session today at ${hour}. Grab your stuff and see you there!`;
+  const url = 'https://wa.me/'+full+'?text='+encodeURIComponent(msg);
+  openWA(url, ev);
+}
 const STATUSES = [
   {key:'presente',   label:'Presente'},
   {key:'atrasado',   label:'Atrasado'},
@@ -2254,6 +2318,25 @@ const I18N = {
     'painel.classesLogged':'Aulas registradas', 'painel.attendanceRate':'Taxa de presença',
     'painel.todayBday':'🎂 Hoje!', 'painel.tomorrow':'amanhã', 'painel.inDaysPrefix':'em', 'painel.daysSuffix':'dias',
     'painel.noBirthdays60':'Nenhum aniversário nos próximos 60 dias.', 'painel.addDatesIn':'Adicione datas em',
+    'painel.lessonsGivenMonth':'Aulas Ministradas (Mês)', 'painel.absencesAccrued':'Faltas Acumuladas',
+    'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Próximas Aulas & Frequência',
+    'painel.logAttendance':'Lançar Presença', 'painel.studentCol':'Aluno', 'painel.scheduleCol':'Horário',
+    'painel.weeklyLoad':'Carga Semanal', 'painel.lessonsCompleted':'Aulas Realizadas', 'painel.attendanceCol':'Frequência',
+    'painel.statusCol':'Status', 'painel.removedStudent':'Aluno removido', 'painel.todayAt':'Hoje às',
+    'painel.lessonSingular':'aula', 'painel.lessonPlural':'aulas',
+    'painel.statusRegular':'Regular', 'painel.statusAttention':'Atentar', 'painel.statusCritical':'Crítico',
+    'painel.noClassesScheduledToday':'Nenhuma aula agendada para hoje.',
+    'painel.recentTopicsPlanning':'Temas de Aula Recentes & Planejamento', 'painel.newPlanning':'Novo Planejamento',
+    'painel.lastTopicCovered':'Último Tema Abordado', 'painel.nextObjective':'Próximo Objetivo',
+    'painel.materialLink':'Material / Link', 'painel.defaultLessonName':'Aula', 'painel.virtualRoom':'Sala Virtual',
+    'painel.classReadyMsg':'Olá! A aula está pronta.', 'painel.noActiveStudentsFound':'Nenhum aluno ativo encontrado.',
+    'painel.monthlyRevenue':'Faturamento Mensal', 'painel.quickActions':'Ações Rápidas',
+    'painel.generateReceipt':'Gerar Recibo de Pagamento', 'painel.createReceiptPdf':'Criar recibo PDF para aluno',
+    'painel.attendanceDeclaration':'Declaração de Presença', 'painel.generateAttendancePdf':'Gerar PDF de frequência',
+    'painel.defaultNextObjective':'Conversação & Revisão', 'painel.weeklyHoursSuffix':'h / semana',
+    'painel.dayMon':'Seg','painel.dayTue':'Ter','painel.dayWed':'Qua','painel.dayThu':'Qui',
+    'painel.dayFri':'Sex','painel.daySat':'Sáb','painel.daySun':'Dom',
+    'painel.storageWarning':'Salvamento automático indisponível fora do app Claude — os dados desta sessão não serão guardados.',
     'alunos.title':'Alunos', 'alunos.add':'＋ Adicionar aluno', 'alunos.search':'Buscar aluno...',
     'alunos.registered':'aluno cadastrado', 'alunos.registeredPl':'alunos cadastrados',
     'alunos.empty':'Nenhum aluno cadastrado ainda.', 'alunos.emptyCta':'Clique em <b>Adicionar aluno</b> para começar.',
@@ -2287,7 +2370,7 @@ const I18N = {
     'login.password':'Senha', 'login.passwordConfirm':'Confirmar senha',
     'login.passwordRule':'A senha deve começar com letra maiúscula e conter pelo menos um número.',
     'login.enter':'Entrar', 'login.welcomeTitle':'Bem-vindo de volta',
-    'login.tagline':'Suas aulas em um só lugar',
+    'login.tagline':'Simplifique a gestão das suas aulas particulares',
     'login.remember':'Lembrar usuário e senha', 'login.showPassword':'Mostrar/ocultar senha',
     'login.welcomeSub':'Faça login para acessar o sistema.',
     'login.invalid':'Usuário ou senha incorretos.',
@@ -2385,8 +2468,12 @@ const I18N = {
     'presenca.title':'Frequência', 'presenca.sub':'Chamada do dia — marque presença, falta ou cancelamento.',
     'presenca.today':'hoje', 'presenca.goToday':'Hoje',
     'presenca.pres':'Presença', 'presenca.abs':'Falta', 'presenca.cancel':'Cancelamento',
+    'presenca.presMonth':'Presenças no mês', 'presenca.absMonth':'Faltas no mês', 'presenca.cancelMonth':'Cancelamentos no mês',
+    'presenca.alreadyGivenOn':'Aula já dada em',
     'presenca.classesMonth':'aulas no mês', 'presenca.classMonth':'aula no mês',
     'presenca.chooseTopic':'＋ Escolher tópico', 'presenca.noClasses':'Nenhuma aula agendada para este dia.',
+    'presenca.noPhoneForReminder':'Este aluno não tem telefone cadastrado.',
+    'presenca.sendReminder':'Enviar lembrete da aula por WhatsApp',
     'presenca.noClassesCta':'Agende alunos na aba <b>Agenda</b> para eles aparecerem aqui.',
     'presenca.topicModalTitle':'Conteúdo da aula', 'presenca.searchTopic':'🔍 Buscar tópico...',
     'presenca.addManualTopic':'Adicionar tópico manualmente...', 'presenca.addBtn':'Adicionar',
@@ -2428,6 +2515,7 @@ const I18N = {
     'info.email':'E-mail', 'info.instagram':'Instagram', 'info.website':'Website', 'info.meetLink':'Link da reunião (Zoom, Teams, Google Meet...)',
     'info.uploadFile':'⬆️ Enviar arquivo', 'info.noDocs':'Nenhum documento enviado ainda.',
     'common.edit':'Editar', 'common.delete':'Excluir', 'common.cancel':'Cancelar', 'common.save':'Salvar',
+    'common.prevDay':'Dia anterior', 'common.nextDay':'Próximo dia', 'common.prevMonth':'Mês anterior', 'common.nextMonth':'Próximo mês',
     'common.close':'Fechar', 'common.today':'Hoje',
   },
   en: {
@@ -2452,6 +2540,25 @@ const I18N = {
     'painel.classesLogged':'Classes logged', 'painel.attendanceRate':'Attendance rate',
     'painel.todayBday':'🎂 Today!', 'painel.tomorrow':'tomorrow', 'painel.inDaysPrefix':'in', 'painel.daysSuffix':'days',
     'painel.noBirthdays60':'No birthdays in the next 60 days.', 'painel.addDatesIn':'Add dates in',
+    'painel.lessonsGivenMonth':'Lessons Given (Month)', 'painel.absencesAccrued':'Absences Accrued',
+    'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Upcoming Classes & Attendance',
+    'painel.logAttendance':'Log Attendance', 'painel.studentCol':'Student', 'painel.scheduleCol':'Schedule',
+    'painel.weeklyLoad':'Weekly Load', 'painel.lessonsCompleted':'Lessons Completed', 'painel.attendanceCol':'Attendance',
+    'painel.statusCol':'Status', 'painel.removedStudent':'Removed student', 'painel.todayAt':'Today at',
+    'painel.lessonSingular':'lesson', 'painel.lessonPlural':'lessons',
+    'painel.statusRegular':'Regular', 'painel.statusAttention':'Attention', 'painel.statusCritical':'Critical',
+    'painel.noClassesScheduledToday':'No classes scheduled for today.',
+    'painel.recentTopicsPlanning':'Recent Lesson Topics & Planning', 'painel.newPlanning':'New Planning',
+    'painel.lastTopicCovered':'Last Topic Covered', 'painel.nextObjective':'Next Objective',
+    'painel.materialLink':'Material / Link', 'painel.defaultLessonName':'Class', 'painel.virtualRoom':'Virtual Room',
+    'painel.classReadyMsg':'Hello! The class is ready.', 'painel.noActiveStudentsFound':'No active students found.',
+    'painel.monthlyRevenue':'Monthly Revenue', 'painel.quickActions':'Quick Actions',
+    'painel.generateReceipt':'Generate Payment Receipt', 'painel.createReceiptPdf':'Create PDF receipt for student',
+    'painel.attendanceDeclaration':'Attendance Declaration', 'painel.generateAttendancePdf':'Generate attendance PDF',
+    'painel.defaultNextObjective':'Conversation & Review', 'painel.weeklyHoursSuffix':'h / week',
+    'painel.dayMon':'Mon','painel.dayTue':'Tue','painel.dayWed':'Wed','painel.dayThu':'Thu',
+    'painel.dayFri':'Fri','painel.daySat':'Sat','painel.daySun':'Sun',
+    'painel.storageWarning':'Automatic saving is unavailable outside the Claude app — this session\'s data will not be saved.',
     'alunos.title':'Students', 'alunos.add':'＋ Add student', 'alunos.search':'Search student...',
     'alunos.registered':'student registered', 'alunos.registeredPl':'students registered',
     'alunos.empty':'No students registered yet.', 'alunos.emptyCta':'Click <b>Add student</b> to get started.',
@@ -2484,7 +2591,7 @@ const I18N = {
     'login.password':'Password', 'login.passwordConfirm':'Confirm password',
     'login.passwordRule':'The password must start with an uppercase letter and contain at least one number.',
     'login.enter':'Log in', 'login.welcomeTitle':'Welcome back',
-    'login.tagline':'All your classes in one place',
+    'login.tagline':'Simplify the management of your private classes',
     'login.remember':'Remember username and password', 'login.showPassword':'Show/hide password',
     'login.welcomeSub':'Log in to access the system.',
     'login.invalid':'Incorrect username or password.',
@@ -2584,8 +2691,12 @@ const I18N = {
     'presenca.title':'Attendance', 'presenca.sub':"Today's roll call — mark present, absent, or cancelled.",
     'presenca.today':'today', 'presenca.goToday':'Today',
     'presenca.pres':'Present', 'presenca.abs':'Absent', 'presenca.cancel':'Cancelled',
+    'presenca.presMonth':'Presences this month', 'presenca.absMonth':'Absences this month', 'presenca.cancelMonth':'Cancellations this month',
+    'presenca.alreadyGivenOn':'Class already given on',
     'presenca.classesMonth':'classes this month', 'presenca.classMonth':'class this month',
     'presenca.chooseTopic':'＋ Choose topic', 'presenca.noClasses':'No classes scheduled for this day.',
+    'presenca.noPhoneForReminder':'This student has no phone number on file.',
+    'presenca.sendReminder':'Send class reminder via WhatsApp',
     'presenca.noClassesCta':'Schedule students in the <b>Schedule</b> tab for them to show up here.',
     'presenca.topicModalTitle':'Class content', 'presenca.searchTopic':'🔍 Search topic...',
     'presenca.addManualTopic':'Add a topic manually...', 'presenca.addBtn':'Add',
@@ -2627,6 +2738,7 @@ const I18N = {
     'info.email':'Email', 'info.instagram':'Instagram', 'info.website':'Website', 'info.meetLink':'Meeting link (Zoom, Teams, Google Meet...)',
     'info.uploadFile':'⬆️ Upload file', 'info.noDocs':'No documents uploaded yet.',
     'common.edit':'Edit', 'common.delete':'Delete', 'common.cancel':'Cancel', 'common.save':'Save',
+    'common.prevDay':'Previous day', 'common.nextDay':'Next day', 'common.prevMonth':'Previous month', 'common.nextMonth':'Next month',
     'common.close':'Close', 'common.today':'Today',
   }
 };
@@ -2700,6 +2812,10 @@ function updateGlobalSignoutBtn(show){
   const label = document.getElementById('global-signout-label');
   if(label) label.textContent = t('login.signOut');
   if(btn) btn.style.display = show ? '' : 'none';
+  const backBtn = document.getElementById('global-backhome-btn');
+  const backLabel = document.getElementById('global-backhome-label');
+  if(backLabel) backLabel.textContent = t('nav.painel');
+  if(backBtn) backBtn.style.display = (show && state.view!=='painel') ? '' : 'none';
 }
 function renderAuthGate(){
   const el = document.getElementById('auth-gate');
@@ -2710,33 +2826,24 @@ function renderAuthGate(){
     const wasOn = el.classList.contains('on');
     el.classList.remove('on');
     authView='login';
-    if(wasOn) setTimeout(()=>{ if(!el.classList.contains('on')) el.innerHTML=''; }, 520);
-    else el.innerHTML='';
+    const clearGate = () => {
+      el.innerHTML = '';
+      if (window.reactRootInstance) {
+        try { window.reactRootInstance.unmount(); } catch(e){}
+        window.reactRootInstance = null;
+      }
+    };
+    if(wasOn) setTimeout(()=>{ if(!el.classList.contains('on')) clearGate(); }, 520);
+    else clearGate();
+    return;
+  }
+  if (!window.renderReactAuthGate) {
+    // React (tela nova) ainda não compilou via Babel: aguarda sem exibir a tela antiga
+    setTimeout(renderAuthGate, 25);
     return;
   }
   el.classList.add('on');
-  el.innerHTML = `
-    <div class="auth-bg" style="background-image:url('${LOGIN_IMG_DATAURL}')"></div>
-    <div class="auth-bg-scrim"></div>
-    <div class="auth-center">
-      <div class="auth-card">${authCardHTML()}</div>
-    </div>
-    <div class="auth-tagline-wrap">
-      <div class="auth-tagline">${t('login.tagline')}</div>
-      <div class="auth-tagline-rule"></div>
-    </div>`;
-  setTimeout(()=>{
-    const first = el.querySelector('.auth-card input');
-    if(first) first.focus();
-    el.querySelectorAll('.auth-card input').forEach(i=>{
-      i.onkeydown = e=>{
-        if(e.key!=='Enter') return;
-        if(authView==='login') attemptLogin();
-        else if(authView==='signup') submitSignup();
-        else submitRecover();
-      };
-    });
-  }, 50);
+  window.renderReactAuthGate();
 }
 function authCardHTML(){
   const svgStyle = `style="color: var(--violet); opacity: 0.85;"`;
@@ -3194,6 +3301,12 @@ async function loadAppData(){
     await save('topics');
     await write('topicsCategoriesReset', true);
   }
+  const pronunciationTopicAdded = await read('pronunciationTopicAdded', false);
+  if(!pronunciationTopicAdded){
+    state.topics.unshift({id:uid(), title:'Pronunciation', done:false, category:null});
+    await save('topics');
+    await write('pronunciationTopicAdded', true);
+  }
   state.expressions = await read('expressions', seedExpressions());
   state.lessons  = await read('lessons', []);
   state.orgInfo  = await read('orgInfo', {});
@@ -3276,10 +3389,11 @@ async function loadWeather(lat = -23.5228, lon = -46.1881, isCustomGeo = false) 
     weatherInfo.icon = icon;
     
     if (isCustomGeo) {
-      const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`);
+      const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=14&addressdetails=1`);
       if (geoRes.ok) {
         const geoData = await geoRes.json();
-        const city = geoData.address.city || geoData.address.town || geoData.address.village || geoData.address.state || CIDADE;
+        const addr = geoData.address || {};
+        const city = addr.city || addr.town || addr.village || addr.municipality || addr.suburb || addr.county || addr.state || CIDADE;
         weatherInfo.city = city;
       }
     }
@@ -3298,7 +3412,8 @@ function initWeather() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (pos) => loadWeather(pos.coords.latitude, pos.coords.longitude, true),
-      (err) => console.log('Geolocation skipped')
+      (err) => console.log('Geolocation skipped'),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
   }
 }
@@ -3334,7 +3449,10 @@ async function save(key){ await write(key, state[key]); }
 /* ================= dashboard helpers ================= */
 function getStudentWeeklySchedule(studentId) {
   const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
-  const formattedDays = { seg: 'Seg', ter: 'Ter', qua: 'Qua', qui: 'Qui', sex: 'Sex', sab: 'Sáb', dom: 'Dom' };
+  const formattedDays = {
+    seg: t('painel.dayMon'), ter: t('painel.dayTue'), qua: t('painel.dayWed'), qui: t('painel.dayThu'),
+    sex: t('painel.dayFri'), sab: t('painel.daySat'), dom: t('painel.daySun')
+  };
   const schedule = [];
   
   days.forEach(d => {
@@ -3360,7 +3478,7 @@ function getStudentWeeklySchedule(studentId) {
   });
   
   return {
-    hoursText: `${schedule.length}h / semana`,
+    hoursText: `${schedule.length}${t('painel.weeklyHoursSuffix')}`,
     scheduleText: parts.join(', ')
   };
 }
@@ -3379,7 +3497,7 @@ function getStudentNextObjective(studentId, level) {
   });
   
   const nextTopic = filteredTopics.find(t => !taughtTopicIds.has(t.id));
-  return nextTopic ? nextTopic.title : 'Conversação & Revisão';
+  return nextTopic ? nextTopic.title : t('painel.defaultNextObjective');
 }
 
 /* ================= render: PAINEL ================= */
@@ -3422,6 +3540,7 @@ function renderPainel(){
   const prefixoMes = todayISO.slice(0, 7);
   const aulasMinistradasMes = state.lessons.filter(l => l.date && l.date.startsWith(prefixoMes) && l.status === 'presente').length;
   const faltasMes = state.lessons.filter(l => l.date && l.date.startsWith(prefixoMes) && l.status === 'faltou').length;
+  const painelMonthStatus = monthlyStatusSummary(today.getFullYear(), today.getMonth());
 
   // Calcule faturamento previsto baseado na agenda
   const scheduled = countMonthlyClasses(today.getFullYear(), today.getMonth());
@@ -3444,12 +3563,6 @@ function renderPainel(){
   }
   const maxValChart = Math.max(1, ...monthsData.map(x => x.val));
 
-  // Determine quais alunos exibir na segunda tabela (se não houver hoje, mostra os 4 primeiros ativos)
-  let listStudentsTable2 = todayRows.map(r => studentById(r.studentId)).filter(Boolean);
-  if (listStudentsTable2.length === 0) {
-    listStudentsTable2 = state.students.filter(s => !s.status || s.status === 'ativo').slice(0, 4);
-  }
-
   el.innerHTML = `
     <!-- GRADIENT THEME TOP BAR -->
     <div class="dashboard-top-bar" style="background: var(--grad); color: #FFFFFF; padding: 22px 28px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;">
@@ -3471,141 +3584,125 @@ function renderPainel(){
       </div>
     </div>
     
-    ${STORAGE_OK?'':'<div class="banner" style="margin-bottom: 24px;">⚠️ Salvamento automático indisponível fora do app Claude — os dados desta sessão não serão guardados.</div>'}
+    <!-- FAIXA DE ALUNOS DO DIA -->
+    ${todayRows.length ? `
+    <div class="today-strip" style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">
+      ${todayRows.map(r=>{
+        const s = studentById(r.studentId);
+        const nm = s ? s.name : t('painel.removedStudent');
+        const pr = getPres(todayISO, r.hour, r.studentId);
+        const tema = pr.content ? esc(pr.content) : esc(getStudentNextObjective(r.studentId, s ? s.level : ''));
+        return `<div class="today-strip-row" style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 16px;box-shadow:var(--shadow-sm);">
+          <span style="font-weight:700;color:var(--ink);min-width:52px;font-size:0.85rem;">${r.hour}</span>
+          <span style="display:flex;align-items:center;gap:8px;min-width:150px;">
+            <span class="avatar" style="background:${studentColor(s)};width:24px;height:24px;font-size:0.68rem;">${esc(initials(nm))}</span>
+            <span style="font-weight:600;color:var(--ink);font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(nm)}</span>
+          </span>
+          <span style="color:var(--muted);font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">${tema}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    ` : ''}
+
+    ${STORAGE_OK?'':'<div class="banner" style="margin-bottom: 24px;">⚠️ '+t('painel.storageWarning')+'</div>'}
     
     <!-- METRICS GRID -->
     <div class="stats-grid">
       <div class="stat-card" onclick="go('alunos')" style="cursor: pointer;">
         <div class="stat-details">
-          <h3>Alunos Ativos</h3>
+          <h3>${t('painel.activeStudents')}</h3>
           <p>${nA}</p>
         </div>
         <div class="stat-icon primary">👤</div>
       </div>
       <div class="stat-card" onclick="go('presenca')" style="cursor: pointer;">
         <div class="stat-details">
-          <h3>Aulas Ministradas (Mês)</h3>
+          <h3>${t('painel.lessonsGivenMonth')}</h3>
           <p>${aulasMinistradasMes}</p>
         </div>
         <div class="stat-icon success">✔️</div>
       </div>
       <div class="stat-card" onclick="go('presenca')" style="cursor: pointer;">
         <div class="stat-details">
-          <h3>Faltas Acumuladas</h3>
+          <h3>${t('painel.absencesAccrued')}</h3>
           <p>${faltasMes}</p>
         </div>
         <div class="stat-icon danger">❌</div>
       </div>
-      <div class="stat-card" onclick="go('financeiro')" style="cursor: pointer;">
-        <div class="stat-details">
-          <h3>Faturamento Previsto</h3>
-          <p>${fmtBRL(faturamentoPrevisto)}</p>
-        </div>
-        <div class="stat-icon warning">💰</div>
-      </div>
     </div>
 
-    <!-- TWO COLUMN LAYOUT -->
+    <!-- SEÇÃO PEDAGÓGICA (topo) -->
     <div class="dashboard-layout">
       <!-- Left Main Dashboard Panel -->
       <div class="left-panel">
         <!-- Upcoming Classes Card -->
         <div class="card" style="margin-bottom: 24px; padding: 24px;">
           <div class="card-header">
-            <span class="card-title">Próximas Aulas & Frequência</span>
-            <button class="btn-action" onclick="go('presenca')">Lançar Presença</button>
+            <span class="card-title">${t('painel.upcomingClassesAttendance')}</span>
+            <button class="btn-action" onclick="go('presenca')">${t('painel.logAttendance')}</button>
           </div>
-          <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>Aluno</th>
-                  <th>Horário</th>
-                  <th>Carga Semanal</th>
-                  <th>Aulas Realizadas</th>
-                  <th>Frequência</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${todayRows.length ? todayRows.map(r => {
-                  const s = studentById(r.studentId);
-                  const nm = s ? s.name : 'Aluno removido';
-                  const sched = getStudentWeeklySchedule(s.id);
-                  const monthlyLessons = state.lessons.filter(l => l.studentId === s.id && l.date && l.date.startsWith(prefixoMes));
-                  const presentCount = monthlyLessons.filter(l => l.status === 'presente').length;
-                  const totalLogged = monthlyLessons.length;
-                  const freqPct = totalLogged ? Math.round((presentCount / totalLogged) * 100) : 100;
-                  const statusClass = freqPct >= 90 ? 'success' : freqPct >= 75 ? 'warning' : 'danger';
-                  const statusLabel = freqPct >= 90 ? 'Regular' : freqPct >= 75 ? 'Atentar' : 'Crítico';
-                  return `
-                  <tr>
-                    <td><strong>${esc(nm)}</strong></td>
-                    <td>Hoje às ${r.hour} (${esc(sched.scheduleText)})</td>
-                    <td>${esc(sched.hoursText)}</td>
-                    <td>${presentCount} ${presentCount === 1 ? 'aula' : 'aulas'}</td>
-                    <td>${freqPct}%</td>
-                    <td><span class="badge ${statusClass}">${statusLabel}</span></td>
-                  </tr>`;
-                }).join('') : `
-                <tr>
-                  <td colspan="6" style="text-align: center; color: var(--muted); padding: 24px;">Nenhuma aula agendada para hoje.</td>
-                </tr>`}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Topics & Lesson Planning Card -->
-        <div class="card" style="padding: 24px;">
-          <div class="card-header">
-            <span class="card-title">Temas de Aula Recentes & Planejamento</span>
-            <button class="btn-action" onclick="go('topicos')">Novo Planejamento</button>
-          </div>
-          <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>Aluno</th>
-                  <th>Último Tema Abordado</th>
-                  <th>Próximo Objetivo</th>
-                  <th>Material / Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${listStudentsTable2.length ? listStudentsTable2.map(s => {
-                  const studentLessons = state.lessons.filter(l => l.studentId === s.id && l.status === 'presente').sort((a,b) => b.date.localeCompare(a.date));
-                  const lastLesson = studentLessons[0];
-                  let lastTopic = '—';
-                  if (lastLesson) {
-                    const tp = topicById(lastLesson.topicId);
-                    lastTopic = tp ? tp.title : (lastLesson.topicText || 'Aula');
-                  }
-                  const nextObj = getStudentNextObjective(s.id, s.level);
-                  const linkText = state.orgInfo.meetLink ? 'Sala Virtual' : 'WhatsApp';
-                  const linkUrl = state.orgInfo.meetLink || (s.phone ? waUrl(s.phone, 'Olá! A aula está pronta.') : '#');
-                  return `
-                  <tr>
-                    <td><strong>${esc(s.name)}</strong></td>
-                    <td>${esc(lastTopic)}</td>
-                    <td>${esc(nextObj)}</td>
-                    <td><a href="${linkUrl}" target="_blank" style="color: var(--indigo); font-weight: 600; text-decoration: none;">📂 ${linkText}</a></td>
-                  </tr>`;
-                }).join('') : `
-                <tr>
-                  <td colspan="4" style="text-align: center; color: var(--muted); padding: 24px;">Nenhum aluno ativo encontrado.</td>
-                </tr>`}
-              </tbody>
-            </table>
+          <div class="pr-list">
+            ${todayRows.length ? todayRows.map(r => {
+              const s = studentById(r.studentId);
+              const nm = s ? s.name : t('painel.removedStudent');
+              const pr = getPres(todayISO, r.hour, r.studentId);
+              const ms = painelMonthStatus[r.studentId] || {p:0,f:0,c:0};
+              const key = presKey(todayISO, r.hour, r.studentId);
+              const hist = pr.content ? topicHistoryForStudent(r.studentId, pr.content, key) : [];
+              const btn = (code,label,cls)=>`<button class="pr-btn ${cls} ${pr.status===code?'on':''}" title="${label}" onclick="setPresStatus('${todayISO}','${r.hour}','${r.studentId}','${code}')">${attendanceLetter(code)}</button>`;
+              return `<div class="pr-row card ${pr.status?('pr-'+pr.status):''}">
+                <div class="pr-time">${r.hour}</div>
+                <div class="pr-main">
+                  <div class="avatar" style="background:${studentColor(s)}">${esc(initials(nm))}</div>
+                  <div class="pr-nm">
+                    <span class="pr-name">${esc(nm)}</span>
+                    <span class="pr-mini-stats">
+                      <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${ms.p}</span>
+                      <span class="pr-mini f" title="${t('presenca.absMonth')}">${attendanceLetter('f')} ${ms.f}</span>
+                      <span class="pr-mini c" title="${t('presenca.cancelMonth')}">${attendanceLetter('c')} ${ms.c}</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="pr-content-cell">
+                  <div class="pr-content-row">
+                    <button class="pr-wa-btn" onclick="sendClassReminder('${todayISO}','${r.hour}','${r.studentId}',event)" title="${t('presenca.sendReminder')}" ${s&&s.phone?'':'disabled'}>${WA_ICON}</button>
+                    <button class="pr-topic-btn ${pr.content?'has':''}" onclick="openContentPicker('${todayISO}','${r.hour}','${r.studentId}')">
+                      ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
+                  </div>
+                  ${hist.length?`<div class="pr-warn">⚠️ ${t('presenca.alreadyGivenOn')} ${hist.map(fmtDM).join(', ')}</div>`:''}
+                </div>
+                <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}</div>
+              </div>`;
+            }).join('') : `<div class="empty" style="padding:24px;text-align:center;color:var(--muted)">${t('painel.noClassesScheduledToday')}</div>`}
           </div>
         </div>
       </div>
 
-      <!-- Right Sidebar Dashboard Panel -->
+      <!-- Pedagogical Quick Action -->
       <div class="right-panel">
-        <div class="card" style="margin-bottom: 24px; padding: 24px;">
+        <div class="card" style="padding: 24px;">
           <div class="card-header">
-            <span class="card-title">Faturamento Mensal</span>
+            <span class="card-title">${t('painel.quickActions')}</span>
+          </div>
+          <div class="quick-actions">
+            <div class="action-card" onclick="go('declaracao')">
+              <div class="action-card-icon success">📄</div>
+              <div class="action-card-info">
+                <h4>${t('painel.attendanceDeclaration')}</h4>
+                <p>${t('painel.generateAttendancePdf')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO FINANCEIRA (parte inferior) -->
+    <div class="dashboard-layout">
+      <div class="left-panel">
+        <div class="card" style="padding: 24px;">
+          <div class="card-header">
+            <span class="card-title">${t('painel.monthlyRevenue')}</span>
           </div>
           <div class="chart-placeholder">
             ${monthsData.map(m => {
@@ -3620,29 +3717,34 @@ function renderPainel(){
             }).join('')}
           </div>
         </div>
+      </div>
 
+      <!-- Financial Quick Action -->
+      <div class="right-panel">
         <div class="card" style="padding: 24px;">
           <div class="card-header">
-            <span class="card-title">Ações Rápidas</span>
+            <span class="card-title">${t('painel.quickActions')}</span>
           </div>
           <div class="quick-actions">
             <div class="action-card" onclick="go('financeiro')">
               <div class="action-card-icon">💰</div>
               <div class="action-card-info">
-                <h4>Gerar Recibo de Pagamento</h4>
-                <p>Criar recibo PDF para aluno</p>
-              </div>
-            </div>
-            <div class="action-card" onclick="go('declaracao')">
-              <div class="action-card-icon success">📄</div>
-              <div class="action-card-info">
-                <h4>Declaração de Presença</h4>
-                <p>Gerar PDF de frequência</p>
+                <h4>${t('painel.generateReceipt')}</h4>
+                <p>${t('painel.createReceiptPdf')}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Faturamento Previsto (abaixo de Ações Rápidas) -->
+    <div class="stat-card" onclick="go('financeiro')" style="cursor: pointer; margin-bottom: 32px; max-width: 320px;">
+      <div class="stat-details">
+        <h3>${t('painel.expectedRevenue')}</h3>
+        <p>${fmtBRL(faturamentoPrevisto)}</p>
+      </div>
+      <div class="stat-icon warning">💰</div>
     </div>
 
     <!-- HOLIDAYS AND BANNERS -->
@@ -3817,7 +3919,6 @@ function renderTopicos(){
             <div class="tp-row-simple" draggable="true"
                 ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)" ${rowStyle}>
               <span class="tp-row-drag" title="${isEn?'Drag to a category above':'Arraste para uma categoria acima'}">⠿</span>
-              <span class="tp-row-icon">${topicIcon(tp.id)}</span>
               <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
               <span class="tp-row-actions">
                 <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
@@ -3978,7 +4079,7 @@ async function saveExpressao(id){
     state.expressions.push({id:uid(), title, confirmed:false});
   }
   await write('expressions', state.expressions);
-  closeModal(); renderExpressoes();
+  closeModal(); renderExpressoes(); renderPainel();
 }
 async function toggleExpressaoConfirm(id){
   const x = state.expressions.find(e=>e.id===id); if(!x) return;
@@ -3998,7 +4099,7 @@ function delExpressao(id){
 async function doDelExpressao(id){
   state.expressions = state.expressions.filter(e=>e.id!==id);
   await write('expressions', state.expressions);
-  closeModal(); renderExpressoes();
+  closeModal(); renderExpressoes(); renderPainel();
 }
 function openTopicForm(id){
   const tp = id ? topicById(id) : null;
@@ -4044,7 +4145,7 @@ async function saveTopicForm(id){
   }else{
     state.topics.unshift({id:uid(), title, done:false, category:null});
   }
-  await save('topics'); closeModal(); renderTopicos(); renderPresenca();
+  await save('topics'); closeModal(); renderTopicos(); renderPresenca(); renderPainel();
 }
 function delTopic(id){
   const tp = topicById(id); if(!tp) return;
@@ -4052,7 +4153,7 @@ function delTopic(id){
 }
 async function doDelTopic(id){
   state.topics = state.topics.filter(x=>x.id!==id);
-  await save('topics'); closeModal(); renderTopicos();
+  await save('topics'); closeModal(); renderTopicos(); renderPainel();
 }
 
 /* ================= render: AULAS ================= */
@@ -4139,7 +4240,7 @@ function renderPresenca(){
     const ms = monthStatus[r.studentId] || {p:0,f:0,c:0};
     const key = presKey(iso, r.hour, r.studentId);
     const hist = pr.content ? topicHistoryForStudent(r.studentId, pr.content, key) : [];
-    const btn = (code,label,cls)=>`<button class="pr-btn ${cls} ${pr.status===code?'on':''}" title="${label}" onclick="setPresStatus('${iso}','${r.hour}','${r.studentId}','${code}')">${code.toUpperCase()}</button>`;
+    const btn = (code,label,cls)=>`<button class="pr-btn ${cls} ${pr.status===code?'on':''}" title="${label}" onclick="setPresStatus('${iso}','${r.hour}','${r.studentId}','${code}')">${attendanceLetter(code)}</button>`;
     return `<div class="pr-row card ${pr.status?('pr-'+pr.status):''}">
       <div class="pr-time">${r.hour}</div>
       <div class="pr-main">
@@ -4147,16 +4248,19 @@ function renderPresenca(){
         <div class="pr-nm">
           <span class="pr-name">${esc(nm)}</span>
           <span class="pr-mini-stats">
-            <span class="pr-mini p" title="Presenças no mês">P ${ms.p}</span>
-            <span class="pr-mini f" title="Faltas no mês">F ${ms.f}</span>
-            <span class="pr-mini c" title="Cancelamentos no mês">C ${ms.c}</span>
+            <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${ms.p}</span>
+            <span class="pr-mini f" title="${t('presenca.absMonth')}">${attendanceLetter('f')} ${ms.f}</span>
+            <span class="pr-mini c" title="${t('presenca.cancelMonth')}">${attendanceLetter('c')} ${ms.c}</span>
           </span>
         </div>
       </div>
       <div class="pr-content-cell">
-        <button class="pr-topic-btn ${pr.content?'has':''}" onclick="openContentPicker('${iso}','${r.hour}','${r.studentId}')">
-          ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
-        ${hist.length?`<div class="pr-warn">⚠️ Aula já dada em ${hist.map(fmtDM).join(', ')}</div>`:''}
+        <div class="pr-content-row">
+          <button class="pr-wa-btn" onclick="sendClassReminder('${iso}','${r.hour}','${r.studentId}',event)" title="${t('presenca.sendReminder')}" ${s&&s.phone?'':'disabled'}>${WA_ICON}</button>
+          <button class="pr-topic-btn ${pr.content?'has':''}" onclick="openContentPicker('${iso}','${r.hour}','${r.studentId}')">
+            ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
+        </div>
+        ${hist.length?`<div class="pr-warn">⚠️ ${t('presenca.alreadyGivenOn')} ${hist.map(fmtDM).join(', ')}</div>`:''}
       </div>
       <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}</div>
     </div>`;
@@ -4171,15 +4275,15 @@ function renderPresenca(){
       <div class="sub">${t('presenca.sub')}</div>
     </div></div>
     <div class="pr-datebar">
-      <button class="ag-nav" onclick="navPresencaDay(-1)" title="Dia anterior">‹</button>
+      <button class="ag-nav" onclick="navPresencaDay(-1)" title="${t('common.prevDay')}">‹</button>
       <div class="pr-date-mid">${dateLabel}${holToday?` <span class="pr-holiday-tag">🎌 ${t('agenda.holiday')}</span>`:''}</div>
-      <button class="ag-nav" onclick="navPresencaDay(1)" title="Próximo dia">›</button>
+      <button class="ag-nav" onclick="navPresencaDay(1)" title="${t('common.nextDay')}">›</button>
       <button class="btn btn-ghost btn-sm pr-today-btn" onclick="presencaToday()" style="visibility:${isToday?'hidden':'visible'}">${t('presenca.goToday')}</button>
     </div>
     ${rows.length ? `<div class="pr-legend">
-      <span><b class="pr-key p">P</b> ${t('presenca.pres')}</span>
-      <span><b class="pr-key f">F</b> ${t('presenca.abs')}</span>
-      <span><b class="pr-key c">C</b> ${t('presenca.cancel')}</span>
+      <span><b class="pr-key p">${attendanceLetter('p')}</b> ${t('presenca.pres')}</span>
+      <span><b class="pr-key f">${attendanceLetter('f')}</b> ${t('presenca.abs')}</span>
+      <span><b class="pr-key c">${attendanceLetter('c')}</b> ${t('presenca.cancel')}</span>
     </div>` : ''}
     <div class="pr-list">${body}</div>`;
 }
@@ -4275,7 +4379,7 @@ async function doAssignContent(iso, hour, sid, title){
   cur.content = title;
   if(!cur.status && !title) delete state.presenca[key]; else state.presenca[key]=cur;
   await write('presenca', state.presenca);
-  closeModal(); renderPresenca();
+  closeModal(); renderPresenca(); renderPainel();
 }
 async function addManualTopic(iso, hour, sid){
   const inp = document.getElementById('cp-new');
@@ -4479,7 +4583,7 @@ async function addAgendaEntry(dateISO, dayKey, hour){
     state.agendaOverrides[ovKey].push({studentId});
     await write('agendaOverrides', state.agendaOverrides);
   }
-  closeModal(); renderAgenda();
+  closeModal(); renderAgenda(); renderPainel(); renderPresenca();
 }
 async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
   const recKey = dayKey+'_'+hour;
@@ -4495,7 +4599,7 @@ async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
     state.agendaOverrides[ovKey] = state.agendaOverrides[ovKey].filter(e=>e.studentId!==studentId);
     await write('agendaOverrides', state.agendaOverrides);
   }
-  closeModal(); renderAgenda();
+  closeModal(); renderAgenda(); renderPainel(); renderPresenca();
 }
 function renderRelatorio(){
   const el = document.getElementById('v-relatorio');
@@ -4546,9 +4650,9 @@ function renderRelatorio(){
       <div class="sub">${t('relatorio.sub')}</div>
     </div></div>
     <div class="rp-monthbar">
-      <button class="ag-nav" onclick="navRelatorioMonth(-1)" title="Mês anterior">‹</button>
+      <button class="ag-nav" onclick="navRelatorioMonth(-1)" title="${t('common.prevMonth')}">‹</button>
       <div class="rp-month-name">${monthLabel}</div>
-      <button class="ag-nav" onclick="navRelatorioMonth(1)" title="Próximo mês">›</button>
+      <button class="ag-nav" onclick="navRelatorioMonth(1)" title="${t('common.nextMonth')}">›</button>
     </div>
     ${ids.length ? `
     <div class="rp-legend">
@@ -4653,12 +4757,12 @@ async function saveValorAjuste(sid, year, month){
   if(raw==='') return;
   state.financeiroAjustes[ajusteKey(sid,year,month)] = parseCurrencyValue(raw);
   await write('financeiroAjustes', state.financeiroAjustes);
-  closeModal(); renderFinanceiro();
+  closeModal(); renderFinanceiro(); renderPainel();
 }
 async function clearValorAjuste(sid, year, month){
   delete state.financeiroAjustes[ajusteKey(sid,year,month)];
   await write('financeiroAjustes', state.financeiroAjustes);
-  closeModal(); renderFinanceiro();
+  closeModal(); renderFinanceiro(); renderPainel();
 }
 
 function renderFinanceiro(){
@@ -4717,9 +4821,9 @@ function renderFinanceiro(){
       <div class="sub">${t('financeiro.sub')}</div>
     </div></div>
     <div class="rp-monthbar">
-      <button class="ag-nav" onclick="navFinanceiroMonth(-1)" title="Mês anterior">‹</button>
+      <button class="ag-nav" onclick="navFinanceiroMonth(-1)" title="${t('common.prevMonth')}">‹</button>
       <div class="rp-month-name">${monthLabel}</div>
-      <button class="ag-nav" onclick="navFinanceiroMonth(1)" title="Próximo mês">›</button>
+      <button class="ag-nav" onclick="navFinanceiroMonth(1)" title="${t('common.nextMonth')}">›</button>
     </div>
     <div class="fn-totals">
       <div class="fn-tot fn-tot-total"><span class="fn-tot-lbl">${t('financeiro.total')}</span><span class="fn-tot-val">${fmtBRL(total)}</span></div>
@@ -4833,9 +4937,9 @@ function renderDespesas(){
       <button class="btn btn-primary" onclick="openDespesaForm()">${t('despesas.add')}</button>
     </div>
     <div class="rp-monthbar">
-      <button class="ag-nav" onclick="navDespesasMonth(-1)" title="Mês anterior">‹</button>
+      <button class="ag-nav" onclick="navDespesasMonth(-1)" title="${t('common.prevMonth')}">‹</button>
       <div class="rp-month-name">${mLabel}</div>
-      <button class="ag-nav" onclick="navDespesasMonth(1)" title="Próximo mês">›</button>
+      <button class="ag-nav" onclick="navDespesasMonth(1)" title="${t('common.nextMonth')}">›</button>
     </div>
     <div class="fn-totals">
       <div class="fn-tot fn-tot-total"><span class="fn-tot-lbl">${t('financeiro.total')}</span><span class="fn-tot-val">${fmtBRL(monthTotal)}</span></div>
@@ -5612,16 +5716,35 @@ function purgeAllOrphanedStudentData(){
 }
 
 /* ================= nav ================= */
-function go(view){
+function go(view, opts){
+  opts = opts || {};
+  if(!document.getElementById('v-'+view)) return;
   state.view=view;
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+view).classList.add('on');
+  const backBtn = document.getElementById('global-backhome-btn');
+  if(backBtn) backBtn.style.display = (view==='painel') ? 'none' : '';
   window.scrollTo({top:0,behavior:'smooth'});
+  if(!opts.skipHistory && location.hash !== '#'+view){
+    history.pushState({view:view}, '', '#'+view);
+  }
 }
 document.getElementById('nav').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(b && b.dataset.view) go(b.dataset.view);
 });
+
+// Sincroniza as setas de voltar/avançar do navegador com a navegação interna
+window.addEventListener('popstate', e=>{
+  const view = (e.state && e.state.view) || (location.hash ? location.hash.slice(1) : 'painel');
+  go(view, {skipHistory:true});
+});
+(function initHistoryNav(){
+  const initial = location.hash ? location.hash.slice(1) : null;
+  const startView = (initial && document.getElementById('v-'+initial)) ? initial : (state.view||'painel');
+  history.replaceState({view:startView}, '', '#'+startView);
+  if(startView !== (state.view||'painel')) go(startView, {skipHistory:true});
+})();
 
 function renderAll(){
   renderBrand();
@@ -5631,4 +5754,768 @@ function renderAll(){
   renderAuthGate();
 }
 boot();
+</script>
+
+
+<!-- React Auth Gate implementation -->
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+
+  // Custom Icon wrapper for Lucide icons SVG paths
+  const Icon = ({ name, className = '', size = 20 }) => {
+    const icons = {
+      user: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      ),
+      lock: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      ),
+      eye: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      ),
+      'eye-off': (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+          <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+          <path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+          <line x1="2" x2="22" y1="2" y2="22" />
+        </svg>
+      ),
+      mail: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+      ),
+      'arrow-left': (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m12 19-7-7 7-7" />
+          <path d="M19 12H5" />
+        </svg>
+      ),
+      'user-plus': (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <line x1="19" x2="19" y1="8" y2="14" />
+          <line x1="22" x2="16" y1="11" y2="11" />
+        </svg>
+      ),
+      key: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+        </svg>
+      ),
+      graduation: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+          <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+        </svg>
+      ),
+      shield: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      ),
+      check: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ),
+      info: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+      )
+    };
+
+    const svgElem = icons[name] || icons.info;
+    return React.cloneElement(svgElem, {
+      className: ("w-" + size + " h-" + size + " " + className).trim(),
+      style: { width: size + 'px', height: size + 'px' }
+    });
+  };
+
+  // Mock DOM element to intercept Vanilla JS writes to '#auth-err', '#auth-setup-msg', and '#pr-msg'
+  const mockErrEl = {
+    _val: '',
+    _isOk: false,
+    _setter: null,
+    get textContent() { return this._val; },
+    set textContent(val) {
+      this._val = val;
+      if (this._setter) this._setter(val, this._isOk);
+    },
+    get className() { return this._isOk ? 'auth-ok' : ''; },
+    set className(val) {
+      this._isOk = val.includes('auth-ok');
+      if (this._setter) this._setter(this._val, this._isOk);
+    },
+    classList: {
+      add(cls) {
+        if (cls === 'auth-ok') {
+          mockErrEl._isOk = true;
+          if (mockErrEl._setter) mockErrEl._setter(mockErrEl._val, true);
+        }
+      },
+      remove(cls) {
+        if (cls === 'auth-ok') {
+          mockErrEl._isOk = false;
+          if (mockErrEl._setter) mockErrEl._setter(mockErrEl._val, false);
+        }
+      }
+    }
+  };
+
+  // Override document.getElementById to return our interceptor mock when React is active
+  const originalGetElementById = document.getElementById;
+  document.getElementById = function(id) {
+    if (id === 'auth-err' || id === 'auth-setup-msg' || id === 'pr-msg') {
+      return mockErrEl;
+    }
+    return originalGetElementById.apply(document, arguments);
+  };
+
+  // Main React wrapper for the AuthGate
+  function AuthGateReact() {
+    const [view, setView] = useState('login');
+    const [errorMsg, setErrorMsg] = useState('');
+    const [isErrorOk, setIsErrorOk] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPass, setShowPass] = useState(false);
+    const [showPassConfirm, setShowPassConfirm] = useState(false);
+
+    // Initial pre-filled variables
+    const saved = getRememberedCreds();
+    const [username, setUsername] = useState(saved.user || '');
+    const [password, setPassword] = useState(saved.pass || '');
+    const [remember, setRemember] = useState(saved.on || false);
+
+    // Setup fields
+    const [setupPass, setSetupPass] = useState('');
+    const [setupPassConfirm, setSetupPassConfirm] = useState('');
+
+    // Signup fields
+    const [suName, setSuName] = useState('');
+    const [suEmail, setSuEmail] = useState('');
+    const [suDoc, setSuDoc] = useState('');
+    const [suPass, setSuPass] = useState('');
+    const [suPassConfirm, setSuPassConfirm] = useState('');
+
+    // Recover fields
+    const [rcEmail, setRcEmail] = useState('');
+    const [rcUser, setRcUser] = useState('');
+    const [rcPass, setRcPass] = useState('');
+    const [rcPassConfirm, setRcPassConfirm] = useState('');
+
+    // Determine the view on mount/render
+    useEffect(() => {
+      const hasPass = !!state.authHash;
+      if (!SUPABASE_CONFIGURED && !hasPass) {
+        setView('setup');
+      } else {
+        setView(authView);
+      }
+    }, [authView]);
+
+    // Bind mock elements setter to React state
+    useEffect(() => {
+      mockErrEl._setter = (msg, isOk) => {
+        setErrorMsg(msg);
+        setIsErrorOk(isOk);
+        setIsLoading(false);
+      };
+      return () => {
+        mockErrEl._setter = null;
+      };
+    }, []);
+
+    // Set hidden inputs in DOM for Vanilla JS functions to read
+    const syncHiddenInputs = () => {
+      // Sync login
+      const uIn = document.createElement('input'); uIn.id = 'auth-user'; uIn.value = username;
+      const pIn = document.createElement('input'); pIn.id = 'auth-pass'; pIn.value = password;
+      const rIn = document.createElement('input'); rIn.type = 'checkbox'; rIn.id = 'auth-remember'; rIn.checked = remember;
+
+      // Sync setup
+      const sP1 = document.createElement('input'); sP1.id = 'auth-new-pass'; sP1.value = setupPass;
+      const sP2 = document.createElement('input'); sP2.id = 'auth-new-pass2'; sP2.value = setupPassConfirm;
+
+      // Sync signup
+      const sN = document.createElement('input'); sN.id = 'su-name'; sN.value = suName;
+      const sE = document.createElement('input'); sE.id = 'su-email'; sE.value = suEmail;
+      const sD = document.createElement('input'); sD.id = 'su-doc'; sD.value = suDoc;
+      const sP = document.createElement('input'); sP.id = 'su-pass'; sP.value = suPass;
+      const sPC = document.createElement('input'); sPC.id = 'su-pass2'; sPC.value = suPassConfirm;
+
+      // Sync recover
+      const rE = document.createElement('input'); rE.id = 'rc-email'; rE.value = rcEmail;
+      const rU = document.createElement('input'); rU.id = 'rc-user'; rU.value = rcUser;
+      const rP = document.createElement('input'); rP.id = 'rc-pass'; rP.value = rcPass;
+      const rPC = document.createElement('input'); rPC.id = 'rc-pass2'; rPC.value = rcPassConfirm;
+
+      // Append temporarily if not in DOM, so document.getElementById queries work
+      let tempContainer = document.getElementById('auth-temp-inputs');
+      if (!tempContainer) {
+        tempContainer = document.createElement('div');
+        tempContainer.id = 'auth-temp-inputs';
+        tempContainer.style.display = 'none';
+        document.body.appendChild(tempContainer);
+      }
+      tempContainer.innerHTML = '';
+      tempContainer.appendChild(uIn);
+      tempContainer.appendChild(pIn);
+      tempContainer.appendChild(rIn);
+      tempContainer.appendChild(sP1);
+      tempContainer.appendChild(sP2);
+      tempContainer.appendChild(sN);
+      tempContainer.appendChild(sE);
+      tempContainer.appendChild(sD);
+      tempContainer.appendChild(sP);
+      tempContainer.appendChild(sPC);
+      tempContainer.appendChild(rE);
+      tempContainer.appendChild(rU);
+      tempContainer.appendChild(rP);
+      tempContainer.appendChild(rPC);
+    };
+
+    const handleSetView = (newView) => {
+      setErrorMsg('');
+      setIsErrorOk(false);
+      authView = newView;
+      setView(newView);
+    };
+
+    const handleSubmit = (e) => {
+      if (e) e.preventDefault();
+      setIsLoading(true);
+      setErrorMsg('');
+      setIsErrorOk(false);
+
+      // Sync values to DOM inputs for vanilla scripts to read
+      syncHiddenInputs();
+
+      // Trigger respective vanilla action
+      setTimeout(async () => {
+        try {
+          if (view === 'login') {
+            await attemptLogin();
+          } else if (view === 'signup') {
+            await submitSignup();
+          } else if (view === 'recover') {
+            await submitRecover();
+          } else if (view === 'setup') {
+            await createPassword();
+          }
+        } catch (err) {
+          console.error(err);
+          setErrorMsg(err.message || 'Erro de execução');
+          setIsLoading(false);
+        }
+      }, 50);
+    };
+
+    // CPF Masking Helper
+    const handleCpfInput = (e) => {
+      const masked = maskCpfCnpj(e.target.value);
+      setSuDoc(masked);
+    };
+
+    return (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto p-4 md:p-6 backdrop-blur-[16px] bg-white/40 select-none">
+        
+        {/* Blurred decorative control panel shapes in background of overlay to give a floating/premium aesthetic */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30 z-0">
+          <div className="absolute top-[10%] left-[15%] w-72 h-72 rounded-full bg-blue-400 blur-3xl"></div>
+          <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-indigo-300 blur-3xl"></div>
+        </div>
+
+        {/* Login Card */}
+        <div className="relative z-10 w-full max-w-[420px] bg-white rounded-[16px] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100/80 p-6 sm:p-8 animate-slide-up flex flex-col items-center">
+          
+          {/* Avatar Icon */}
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 mb-4 ring-4 ring-blue-50">
+            <Icon name="graduation" className="w-7 h-7 sm:w-8 sm:h-8" />
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 text-center font-sans tracking-tight">
+            Teacher Jeff Coutinho
+          </h2>
+          <p className="text-sm text-gray-500 mt-1 mb-6 text-center">
+            {view === 'login' && t('login.welcomeSub')}
+            {view === 'setup' && t('login.setupSub')}
+            {view === 'signup' && t('login.signupSub')}
+            {view === 'recover' && (SUPABASE_CONFIGURED ? t('login.recoverSub') : t('login.recoverLocalSub'))}
+          </p>
+
+          {/* Error / Feedback Banner */}
+          {errorMsg && (
+            <div className={"w-full flex gap-2 items-start p-3.5 mb-5 rounded-xl text-xs sm:text-sm font-medium border " + (
+              isErrorOk 
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-100' 
+                : 'bg-red-50 text-red-800 border-red-100'
+            )}>
+              <Icon name={isErrorOk ? 'check' : 'info'} className="shrink-0 mt-0.5" size={16} />
+              <div dangerouslySetInnerHTML={{ __html: errorMsg }}></div>
+            </div>
+          )}
+
+          {/* Views Forms */}
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+            
+            {/* VIEW: LOGIN */}
+            {view === 'login' && (
+              <>
+                {/* Username */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.usernameSimple')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="user" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type="text" 
+                      placeholder={t('login.usernameSimplePh')} 
+                      value={username}
+                      onChange={e => setUsername(e.target.value)}
+                      className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.password')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type={showPass ? 'text' : 'password'} 
+                      placeholder="••••••••" 
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowPass(!showPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                    >
+                      <Icon name={showPass ? 'eye-off' : 'eye'} size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Remember & Recover Row */}
+                <div className="flex items-center justify-between mt-1 mb-2 text-xs sm:text-sm">
+                  <label className="flex items-center gap-2 cursor-pointer text-gray-600 font-medium">
+                    <input 
+                      type="checkbox" 
+                      checked={remember}
+                      onChange={e => setRemember(e.target.checked)}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500/20 w-4 h-4"
+                    />
+                    <span>{t('login.remember')}</span>
+                  </label>
+                  <button 
+                    type="button" 
+                    onClick={() => handleSetView('recover')} 
+                    className="text-blue-600 hover:text-blue-700 font-semibold hover:underline"
+                  >
+                    {t('login.forgot')}?
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* VIEW: SETUP PASSWORD */}
+            {view === 'setup' && (
+              <>
+                <div className="bg-blue-50 text-blue-800 border border-blue-100 rounded-xl p-3.5 text-xs sm:text-sm font-medium mb-2">
+                  {t('login.setupCta')}
+                </div>
+                
+                {/* Username (Disabled display) */}
+                {state.orgInfo && (state.orgInfo.email || state.orgInfo.doc) && (
+                  <div className="flex flex-col gap-1.5 w-full">
+                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                      {t('login.usernameSimple')}
+                    </label>
+                    <div className="relative w-full">
+                      <Icon name="user" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <input 
+                        type="text" 
+                        value={state.orgInfo.email || state.orgInfo.doc || ''} 
+                        disabled
+                        className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl bg-gray-100 text-gray-500 text-sm select-none"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* New Password */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.password')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type={showPass ? 'text' : 'password'} 
+                      placeholder="••••••••" 
+                      value={setupPass}
+                      onChange={e => setSetupPass(e.target.value)}
+                      className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowPass(!showPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                    >
+                      <Icon name={showPass ? 'eye-off' : 'eye'} size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.passwordConfirm')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type={showPassConfirm ? 'text' : 'password'} 
+                      placeholder="••••••••" 
+                      value={setupPassConfirm}
+                      onChange={e => setSetupPassConfirm(e.target.value)}
+                      className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowPassConfirm(!showPassConfirm)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                    >
+                      <Icon name={showPassConfirm ? 'eye-off' : 'eye'} size={18} />
+                    </button>
+                  </div>
+                  <span className="text-[11px] text-gray-400 mt-1 pl-1 leading-normal">
+                    {t('login.passwordRule')}
+                  </span>
+                </div>
+              </>
+            )}
+
+            {/* VIEW: SIGNUP */}
+            {view === 'signup' && (
+              <>
+                {/* Full name */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.fullName')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="user" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type="text" 
+                      placeholder={t('login.fullNamePh')} 
+                      value={suName}
+                      onChange={e => setSuName(e.target.value)}
+                      className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.email')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="mail" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type="email" 
+                      placeholder={t('login.emailPh')} 
+                      value={suEmail}
+                      onChange={e => setSuEmail(e.target.value)}
+                      className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Tax ID (CPF/CNPJ) */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.cpf')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="shield" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type="text" 
+                      placeholder={t('login.cpfPh')} 
+                      value={suDoc}
+                      onChange={handleCpfInput}
+                      className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.password')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type={showPass ? 'text' : 'password'} 
+                      placeholder="••••••••" 
+                      value={suPass}
+                      onChange={e => setSuPass(e.target.value)}
+                      className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowPass(!showPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                    >
+                      <Icon name={showPass ? 'eye-off' : 'eye'} size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-col gap-1.5 w-full">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                    {t('login.passwordConfirm')}
+                  </label>
+                  <div className="relative w-full">
+                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                      type={showPassConfirm ? 'text' : 'password'} 
+                      placeholder="••••••••" 
+                      value={suPassConfirm}
+                      onChange={e => setSuPassConfirm(e.target.value)}
+                      className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowPassConfirm(!showPassConfirm)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                    >
+                      <Icon name={showPassConfirm ? 'eye-off' : 'eye'} size={18} />
+                    </button>
+                  </div>
+                  <span className="text-[11px] text-gray-400 mt-1 pl-1 leading-normal">
+                    {t('login.passwordRule')}
+                  </span>
+                </div>
+              </>
+            )}
+
+            {/* VIEW: RECOVER PASSWORD */}
+            {view === 'recover' && (
+              <>
+                {SUPABASE_CONFIGURED ? (
+                  /* Supabase Remote Reset */
+                  <div className="flex flex-col gap-1.5 w-full">
+                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                      {t('login.email')}
+                    </label>
+                    <div className="relative w-full">
+                      <Icon name="mail" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <input 
+                        type="email" 
+                        placeholder={t('login.emailPh')} 
+                        value={rcEmail}
+                        onChange={e => setRcEmail(e.target.value)}
+                        className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                        required
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  /* Local Reset */
+                  <>
+                    <div className="bg-blue-50 text-blue-800 border border-blue-100 rounded-xl p-3.5 text-xs sm:text-sm font-medium mb-2 leading-relaxed">
+                      {t('login.recoverLocalHint')}
+                    </div>
+
+                    {/* Username Simple */}
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                        {t('login.usernameSimple')}
+                      </label>
+                      <div className="relative w-full">
+                        <Icon name="user" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <input 
+                          type="text" 
+                          placeholder={t('login.usernameSimplePh')} 
+                          value={rcUser}
+                          onChange={e => setRcUser(e.target.value)}
+                          className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* New Password */}
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                        {t('login.newPassword')}
+                      </label>
+                      <div className="relative w-full">
+                        <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <input 
+                          type={showPass ? 'text' : 'password'} 
+                          placeholder="••••••••" 
+                          value={rcPass}
+                          onChange={e => setRcPass(e.target.value)}
+                          className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                          required
+                        />
+                        <button 
+                          type="button" 
+                          onClick={() => setShowPass(!showPass)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                        >
+                          <Icon name={showPass ? 'eye-off' : 'eye'} size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Confirm Password */}
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider pl-1">
+                        {t('login.passwordConfirm')}
+                      </label>
+                      <div className="relative w-full">
+                        <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <input 
+                          type={showPassConfirm ? 'text' : 'password'} 
+                          placeholder="••••••••" 
+                          value={rcPassConfirm}
+                          onChange={e => setRcPassConfirm(e.target.value)}
+                          className="pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm bg-gray-50/50 focus:bg-white text-gray-800"
+                          required
+                        />
+                        <button 
+                          type="button" 
+                          onClick={() => setShowPassConfirm(!showPassConfirm)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1"
+                        >
+                          <Icon name={showPassConfirm ? 'eye-off' : 'eye'} size={18} />
+                        </button>
+                      </div>
+                      <span className="text-[11px] text-gray-400 mt-1 pl-1 leading-normal">
+                        {t('login.passwordRule')}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+
+            {/* BUTTON: Submit */}
+            <button 
+              type="submit" 
+              disabled={isLoading}
+              className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.985] disabled:opacity-50 disabled:active:scale-100 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/15 hover:shadow-blue-500/25 transition-all text-sm flex items-center justify-center gap-2 cursor-pointer font-sans"
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                <>
+                  {view === 'login' && t('login.enter')}
+                  {view === 'setup' && t('login.createBtn')}
+                  {view === 'signup' && t('login.signupBtn')}
+                  {view === 'recover' && (SUPABASE_CONFIGURED ? t('login.recoverBtn') : t('login.resetBtn'))}
+                </>
+              )}
+            </button>
+
+            {/* Footer View Switchers */}
+            <div className="flex flex-col items-center gap-2 w-full mt-4 text-xs sm:text-sm text-gray-500 border-t border-gray-100 pt-4">
+              
+              {view === 'login' && (
+                <div className="flex items-center gap-1">
+                  <span>{t('login.noAccount')}</span>
+                  <button 
+                    type="button" 
+                    onClick={() => handleSetView('signup')} 
+                    className="text-blue-600 hover:text-blue-700 font-bold hover:underline"
+                  >
+                    {t('login.createAccount')}
+                  </button>
+                </div>
+              )}
+
+              {view === 'signup' && (
+                <button 
+                  type="button" 
+                  onClick={() => handleSetView('login')} 
+                  className="flex items-center gap-1.5 text-blue-600 hover:text-blue-700 font-semibold hover:underline"
+                >
+                  <Icon name="arrow-left" size={16} />
+                  {t('login.backToLogin')}
+                </button>
+              )}
+
+              {view === 'recover' && (
+                <button 
+                  type="button" 
+                  onClick={() => handleSetView('login')} 
+                  className="flex items-center gap-1.5 text-blue-600 hover:text-blue-700 font-semibold hover:underline"
+                >
+                  <Icon name="arrow-left" size={16} />
+                  {t('login.backToLogin')}
+                </button>
+              )}
+            </div>
+
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // Bind the react mount function to the window
+  window.reactRootInstance = null;
+  window.renderReactAuthGate = () => {
+    const el = document.getElementById('auth-gate');
+    if (!el) return;
+
+    if (!window.reactRootInstance) {
+      window.reactRootInstance = ReactDOM.createRoot(el);
+    }
+    window.reactRootInstance.render(<AuthGateReact />);
+  };
+
+  // If already shown on mount, trigger render
+  const gateEl = document.getElementById('auth-gate');
+  if (gateEl && gateEl.classList.contains('on')) {
+    window.renderReactAuthGate();
+  }
 </script>
