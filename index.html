@@ -430,7 +430,7 @@
   .pr-mini.f{background:var(--rose-bg);color:var(--rose)}
   .pr-mini.c{background:var(--amber-bg);color:var(--amber)}
   .pr-name-row{display:flex;align-items:center;gap:6px;min-width:0}
-  .pr-name-row .pr-name{flex:1;min-width:0}
+  .pr-name-row .pr-name{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .pr-credit-btn{
     display:inline-flex;align-items:center;gap:3px;flex:none;
     border:1px solid var(--amber);background:var(--amber-bg);color:var(--amber);
@@ -610,6 +610,14 @@
   .es-val{font-size:12px;font-weight:700;color:var(--ink);width:76px;flex:none;text-align:right}
   .es-pct{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:7px;width:40px;flex:none;text-align:center}
   .pr-datebar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .pn-sunday-banner{
+    display:flex;align-items:center;gap:12px;
+    background:var(--grad);color:#fff;
+    padding:16px 20px;border-radius:var(--radius);
+    font-weight:700;font-size:0.95rem;
+    margin:0 0 16px;box-shadow:var(--shadow-sm);
+  }
+  .pn-sunday-emoji{font-size:1.7rem;line-height:1}
   .pr-date-mid{flex:1;text-align:center;font-family:'Bricolage Grotesque';font-size:16px;font-weight:800;text-transform:capitalize}
   .pr-holiday-tag{font-family:Inter,sans-serif;font-size:11px;font-weight:700;text-transform:none;
     background:var(--amber-bg);color:var(--amber);padding:3px 9px;border-radius:20px;vertical-align:middle}
@@ -713,7 +721,7 @@
   .brand h1{font-size:20px;font-weight:800;line-height:1.1;color:#FFFFFF!important}
   .brand p{margin:2px 0 0;font-size:12px;opacity:.7;font-weight:500;letter-spacing:.01em;color:#FFFFFF}
 
-  .nav{display:flex;flex-direction:column;gap:4px;flex:1;overflow-y:auto;min-height:0}
+  .nav{display:flex;flex-direction:column;justify-content:center;gap:4px;flex:1;overflow-y:auto;min-height:0}
   .nav-group{display:flex;flex-direction:column}
   .nav button.nav-group-label{
     display:flex;align-items:center;gap:6px;width:100%;
@@ -2018,6 +2026,55 @@
     .pn-right-col { height: auto; }
     .pn-cal-card { min-height: 320px; }
   }
+
+  /* Print Styles */
+  @media print {
+    @page {
+      margin: 1.5cm;
+    }
+    body * {
+      visibility: hidden;
+    }
+    #v-relatorio, #v-relatorio * {
+      visibility: visible;
+    }
+    #v-relatorio {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background: white !important;
+      color: #000000 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+    }
+    #v-relatorio .card {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      background: transparent !important;
+    }
+    #v-relatorio .card-header select,
+    #v-relatorio .card-header button,
+    #v-relatorio .btn-action,
+    #v-relatorio .sec-head,
+    #v-relatorio select {
+      display: none !important;
+    }
+    #v-relatorio .print-only {
+      display: block !important;
+      visibility: visible !important;
+    }
+    #v-relatorio table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+    }
+    #v-relatorio th, #v-relatorio td {
+      border-bottom: 1px solid #ddd !important;
+      padding: 10px !important;
+    }
+  }
 </style>
 
 <div class="layout">
@@ -2055,7 +2112,7 @@
         </button>
         <div class="nav-group-items" data-group-items="administracao">
           <button data-view="financeiro"><span class="ico">💰</span>Financeiro</button>
-          <button data-view="declaracao"><span class="ico">📄</span>Declarações</button>
+          <button data-view="feedback"><span class="ico">💬</span>Feedback Mensal</button>
           <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
           <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
         </div>
@@ -2103,7 +2160,7 @@
         <div id="v-financeiro" class="view"></div>
         <div id="v-despesas" class="view"></div>
         <div id="v-info" class="view"></div>
-        <div id="v-declaracao" class="view"></div>
+        <div id="v-feedback" class="view"></div>
         <div id="v-estatisticas" class="view"></div>
       </main>
     </div>
@@ -2586,7 +2643,7 @@ const I18N = {
     'nav.group.gestao':'Gestão', 'nav.group.ensino':'Ensino', 'nav.group.administracao':'Administração',
     'nav.group.analise':'Análise', 'nav.group.sistema':'Sistema',
     'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
-    'nav.despesas':'Despesas', 'nav.declaracao':'Declarações', 'nav.estatisticas':'Estatísticas',
+    'nav.despesas':'Despesas', 'nav.feedback':'Feedback Mensal', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
     'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower',
@@ -2605,6 +2662,8 @@ const I18N = {
     'painel.noBirthdays60':'Nenhum aniversário nos próximos 60 dias.', 'painel.addDatesIn':'Adicione datas em',
     'painel.lessonsGivenMonth':'Aulas Ministradas', 'painel.absencesAccrued':'Faltas Acumuladas',
     'painel.lessonsGivenAllTime':'total acumulado, desde o início',
+    'painel.sundayMsgToday':'Hoje é domingo, hora de relaxar e curtir!',
+    'painel.sundayMsg':'Domingo é dia de relaxar e curtir!',
     'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Frequência',
     'painel.calToday':'Hoje', 'painel.calPrevMonth':'Mês anterior', 'painel.calNextMonth':'Próximo mês',
     'painel.calLegendClass':'Aula', 'painel.calLegendAbsence':'Falta', 'painel.calLegendHoliday':'Feriado',
@@ -2775,7 +2834,7 @@ const I18N = {
     'topicos.inLibrary':'tópicos na biblioteca', 'topicos.empty':'Nenhum tópico ainda.',
     'topicos.emptyCta':'Clique em <b>＋ Adicionar tópico</b> para começar.', 'topicos.noResults':'Nenhum tópico encontrado para essa busca.',
     'topicos.formNew':'Adicionar tópico', 'topicos.formEdit':'Editar tópico', 'topicos.name':'Nome do tópico',
-    'relatorio.title':'Relatórios', 'relatorio.sub':'Presenças, faltas e cancelamentos por aluno no mês.',
+    'relatorio.title':'Relatórios', 'relatorio.sub':'Resumos pedagógicos e frequência mensal de aulas por aluno.',
     'relatorio.presenceRate':'de presença', 'relatorio.noMarks':'sem marcações', 'relatorio.noData':'Nenhum dado para',
     'relatorio.noDataCta':'Marque presenças na aba <b>Frequência</b> para ver o gráfico aqui.',
     'financeiro.title':'Financeiro', 'financeiro.sub':'Valores do mês por aluno, de acordo com as aulas dadas.',
@@ -2798,6 +2857,8 @@ const I18N = {
     'despesas.dueIn':'vence em', 'despesas.day':'dia', 'despesas.days':'dias', 'despesas.dueLabel':'Vencimento',
     'declaracao.title':'Declarações', 'declaracao.totalYear':'Total recebido em',
     'declaracao.manual':'✎ manual', 'declaracao.currentMonth':'mês atual',
+    'feedback.title':'Feedback Mensal', 'feedback.sub':'Acompanhe aqui o feedback mensal dos seus alunos.',
+    'feedback.emptyTitle':'Em construção', 'feedback.emptyMsg':'Essa área ainda não tem nenhuma ação disponível. Em breve você poderá registrar e acompanhar o feedback mensal dos alunos por aqui.',
     'estatisticas.title':'Estatísticas', 'estatisticas.annualEarnings':'Ganho anual',
     'estatisticas.avgEarnings':'Média mensal (ganho)', 'estatisticas.annualHours':'Horas trabalhadas no ano',
     'estatisticas.avgHours':'Média mensal (horas)', 'estatisticas.monthlyEarnings':'💰 Ganhos mensais',
@@ -2817,7 +2878,7 @@ const I18N = {
     'nav.group.gestao':'Management', 'nav.group.ensino':'Teaching', 'nav.group.administracao':'Administration',
     'nav.group.analise':'Analysis', 'nav.group.sistema':'System',
     'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
-    'nav.despesas':'Expenses', 'nav.declaracao':'Statements', 'nav.estatisticas':'Statistics',
+    'nav.despesas':'Expenses', 'nav.feedback':'Monthly Feedback', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
     'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode',
@@ -2836,6 +2897,8 @@ const I18N = {
     'painel.noBirthdays60':'No birthdays in the next 60 days.', 'painel.addDatesIn':'Add dates in',
     'painel.lessonsGivenMonth':'Lessons Given', 'painel.absencesAccrued':'Absences Accrued',
     'painel.lessonsGivenAllTime':'all-time running total',
+    'painel.sundayMsgToday':'It\'s Sunday, time to relax and enjoy!',
+    'painel.sundayMsg':'Sunday is for relaxing and enjoying!',
     'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Attendance',
     'painel.calToday':'Today', 'painel.calPrevMonth':'Previous month', 'painel.calNextMonth':'Next month',
     'painel.calLegendClass':'Class', 'painel.calLegendAbsence':'Absence', 'painel.calLegendHoliday':'Holiday',
@@ -3007,7 +3070,7 @@ const I18N = {
     'topicos.inLibrary':'topics in the library', 'topicos.empty':'No topics yet.',
     'topicos.emptyCta':'Click <b>＋ Add topic</b> to get started.', 'topicos.noResults':'No topics found for that search.',
     'topicos.formNew':'Add topic', 'topicos.formEdit':'Edit topic', 'topicos.name':'Topic name',
-    'relatorio.title':'Reports', 'relatorio.sub':'Attendance, absences, and cancellations per student this month.',
+    'relatorio.title':'Reports', 'relatorio.sub':'Pedagogical content summaries and monthly attendance reports per student.',
     'relatorio.presenceRate':'attendance', 'relatorio.noMarks':'no records yet', 'relatorio.noData':'No data for',
     'relatorio.noDataCta':'Mark attendance in the <b>Attendance</b> tab to see the chart here.',
     'financeiro.title':'Finance', 'financeiro.sub':'Monthly amount per student, based on classes given.',
@@ -3030,6 +3093,8 @@ const I18N = {
     'despesas.dueIn':'due in', 'despesas.day':'day', 'despesas.days':'days', 'despesas.dueLabel':'Due date',
     'declaracao.title':'Statements', 'declaracao.totalYear':'Total received in',
     'declaracao.manual':'✎ manual', 'declaracao.currentMonth':'current month',
+    'feedback.title':'Monthly Feedback', 'feedback.sub':'Keep track of your students\' monthly feedback here.',
+    'feedback.emptyTitle':'Under construction', 'feedback.emptyMsg':'This area doesn\'t have any actions available yet. Soon you\'ll be able to record and track monthly student feedback here.',
     'estatisticas.title':'Statistics', 'estatisticas.annualEarnings':'Annual earnings',
     'estatisticas.avgEarnings':'Monthly average (earnings)', 'estatisticas.annualHours':'Hours worked this year',
     'estatisticas.avgHours':'Monthly average (hours)', 'estatisticas.monthlyEarnings':'💰 Monthly earnings',
@@ -3065,6 +3130,7 @@ const TOPIC_CATEGORIES = [
   {key:'pre-advanced', label:'Pre-Advanced'},
   {key:'advanced', label:'Advanced'},
   {key:'master', label:'Master'},
+  {key:'pronunciation', label:'Pronunciation'},
   {key:'other', label:'Other'}
 ];
 function topicCategory(tp){ return (tp && tp.category) || null; }
@@ -3625,6 +3691,7 @@ async function loadAppData(){
   state.agendaAnchor = new Date();  // mês/semana exibidos na Agenda
   state.presencaDate = new Date();  // dia exibido na Presença
   state.relatorioMonth = new Date();  // mês exibido no Relatório
+  state.reportStudentId = '';        // ID do aluno selecionado no Relatório Pedagógico
   state.financeiroMonth = new Date(); // mês exibido no Financeiro
   state.declaracaoChartYear = new Date().getFullYear(); // ano exibido no comparativo anual
   state.declaracaoAjustes = await read('declaracaoAjustes', {});
@@ -4044,6 +4111,10 @@ function renderPainel(){
             <button class="ag-nav" onclick="navPainelFreqDay(1)" title="${t('common.nextDay')}">›</button>
             <button class="btn btn-ghost btn-sm pr-today-btn" onclick="painelFreqToday()" style="visibility:${freqIsToday?'hidden':'visible'}">${t('presenca.goToday')}</button>
           </div>
+          ${freqView.getDay()===0 ? `<div class="pn-sunday-banner">
+            <span class="pn-sunday-emoji">☀️</span>
+            <span>${freqIsToday ? t('painel.sundayMsgToday') : t('painel.sundayMsg')}</span>
+          </div>` : ''}
           ${freqRows.length ? `<div class="pr-legend">
             <span><b class="pr-key p">${attendanceLetter('p')}</b> ${t('presenca.pres')}</span>
             <span><b class="pr-key f">${attendanceLetter('f')}</b> ${t('presenca.abs')}</span>
@@ -4061,11 +4132,11 @@ function renderPainel(){
             <span class="card-title">${t('painel.quickActions')}</span>
           </div>
           <div class="quick-actions">
-            <div class="action-card" onclick="go('declaracao')">
-              <div class="action-card-icon success">📄</div>
+            <div class="action-card" onclick="go('feedback')">
+              <div class="action-card-icon success">💬</div>
               <div class="action-card-info">
-                <h4>${t('painel.attendanceDeclaration')}</h4>
-                <p>${t('painel.generateAttendancePdf')}</p>
+                <h4>${t('feedback.title')}</h4>
+                <p>${t('feedback.sub')}</p>
               </div>
             </div>
           </div>
@@ -4628,10 +4699,10 @@ function attendanceRowsHTML(iso, rows, monthStatus){
         <div class="avatar" style="background:${studentColor(s)}">${esc(initials(nm))}</div>
         <div class="pr-nm">
           <div class="pr-name-row">
+            <span class="pr-name">${esc(nm)}</span>
             <button class="pr-credit-btn ${credits>0?'has':''}" onclick="openStudentCredits('${r.studentId}')" title="${t('presenca.credits')} — ${t('presenca.creditsTooltip')}">
               🎟️ <b>${credits}</b>
             </button>
-            <span class="pr-name">${esc(nm)}</span>
           </div>
           <span class="pr-mini-stats">
             <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${ms.p}</span>
@@ -4645,6 +4716,9 @@ function attendanceRowsHTML(iso, rows, monthStatus){
           <button class="pr-wa-btn" onclick="sendClassReminder('${iso}','${r.hour}','${r.studentId}',event)" title="${t('presenca.sendReminder')}" ${s&&s.phone?'':'disabled'}>${WA_ICON}</button>
           <button class="pr-topic-btn ${pr.content?'has':''}" onclick="openContentPicker('${iso}','${r.hour}','${r.studentId}')">
             ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
+        </div>
+        <div class="pr-notes-row" style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+          <input type="text" placeholder="Resumo da aula (conteúdo)..." value="${esc(pr.obs || pr.notes || '')}" onchange="savePresNotes('${iso}','${r.hour}','${r.studentId}',this.value)" style="flex:1; padding:6px 10px; border:1px solid var(--line); border-radius:6px; font-size:11.5px; background:var(--surface); color:var(--ink);" />
         </div>
         ${hist.length?`<div class="pr-warn">⚠️ ${t('presenca.alreadyGivenOn')} ${hist.map(fmtDM).join(', ')}</div>`:''}
       </div>
@@ -4734,6 +4808,16 @@ async function setPresStatus(iso,h,sid,status){
   renderFinanceiro();
   renderRelatorio();
   renderEstatisticas();
+}
+async function savePresNotes(iso,h,sid,val){
+  const k = presKey(iso,h,sid);
+  const cur = state.presenca[k] || {};
+  cur.obs = val.trim();
+  if(!cur.status && !cur.content && !cur.obs) delete state.presenca[k]; else state.presenca[k]=cur;
+  await write('presenca', state.presenca);
+  renderPresenca();
+  renderPainel();
+  renderRelatorio();
 }
 function fmtDM(iso){ const p=iso.split('-'); return p[2]+'/'+p[1]; }
 function fmtDMY(iso){ const p=iso.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
@@ -5065,6 +5149,7 @@ async function addAgendaEntry(dateISO, dayKey, hour){
   }
   closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
 }
+
 async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
   const recKey = dayKey+'_'+hour;
   const ovKey = dateISO+'_'+hour;
@@ -5081,74 +5166,343 @@ async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
   }
   closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
 }
+function fmtReportDate(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${m}/${d}/${y}`;
+}
+
+function fmtReportDateEN(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${m}/${d}/${y}`;
+}
+
+async function saveReportTopic(el) {
+  const dateISO = el.dataset.date;
+  const hour = el.dataset.hour;
+  const studentId = el.dataset.sid;
+  const newTitle = el.innerText.trim();
+
+  const key = presKey(dateISO, hour, studentId);
+  if (state.presenca[key]) {
+    state.presenca[key].content = newTitle;
+    await write('presenca', state.presenca);
+  } else {
+    const lesson = state.lessons.find(l => l.studentId === studentId && l.date === dateISO);
+    if (lesson) {
+      lesson.topicText = newTitle;
+      lesson.topicId = null;
+      await write('lessons', state.lessons);
+    } else {
+      state.presenca[key] = { status: 'p', content: newTitle, obs: '' };
+      await write('presenca', state.presenca);
+    }
+  }
+  renderPresenca();
+  renderPainel();
+}
+
+async function saveReportNotes(el) {
+  const dateISO = el.dataset.date;
+  const hour = el.dataset.hour;
+  const studentId = el.dataset.sid;
+  const newNotes = el.innerText.trim();
+
+  const key = presKey(dateISO, hour, studentId);
+  if (state.presenca[key]) {
+    state.presenca[key].obs = newNotes;
+    await write('presenca', state.presenca);
+  } else {
+    const lesson = state.lessons.find(l => l.studentId === studentId && l.date === dateISO);
+    if (lesson) {
+      lesson.obs = newNotes;
+      lesson.notes = newNotes;
+      await write('lessons', state.lessons);
+    } else {
+      state.presenca[key] = { status: 'p', content: '', obs: newNotes };
+      await write('presenca', state.presenca);
+    }
+  }
+  renderPresenca();
+  renderPainel();
+}
+
 function renderRelatorio(){
   const el = document.getElementById('v-relatorio');
   if(!el) return;
+
+  const texts = {
+    progressReport: 'Monthly Student Progress Report',
+    selectStudent: 'Select Student',
+    selectPeriod: 'Select Period',
+    generateReport: 'Generate Report',
+    noLessons: 'No completed lessons registered for this student in this period.',
+    selectCta: 'Select a student and a period to view the progress report.',
+    studentNotFound: 'Student not found or removed.',
+    printBtn: 'Print / PDF'
+  };
+
   const view = state.relatorioMonth || new Date();
   const year = view.getFullYear(), month = view.getMonth();
-  const monthLabel = MONTHS_FULL_CAP[month]+' '+year;
+  const monthValue = `${year}-${month}`;
 
-  const summary = monthlyStatusSummary(year, month);   // {sid:{p,f,c}}
-  const scheduled = countMonthlyClasses(year, month);  // {sid: total aulas agendadas}
-  const ids = [...new Set([...Object.keys(summary), ...Object.keys(scheduled)])]
-    .sort((a,b)=>{
-      const na=(studentById(a)||{}).name||'zzz', nb=(studentById(b)||{}).name||'zzz';
-      return na.localeCompare(nb,'pt-BR',{sensitivity:'base'});
-    });
-
-  let maxVal = 1;
-  ids.forEach(sid=>{ const v = summary[sid]||{p:0,f:0,c:0}; maxVal = Math.max(maxVal, v.p, v.f, v.c); });
-
-  const rows = ids.map(sid=>{
-    const s = studentById(sid); const nm = s ? s.name : 'Aluno removido';
-    const v = summary[sid] || {p:0,f:0,c:0};
-    const marked = v.p+v.f+v.c;
-    const pct = marked ? Math.round((v.p/marked)*100) : null;
-    const bar = (val,cls)=>{
-      const pctW = Math.round((val/maxVal)*100);
-      return `<div class="rp-bar-track"><div class="rp-bar-fill ${cls}" style="width:${val?Math.max(pctW,4):0}%"></div></div><span class="rp-bar-val">${val}</span>`;
-    };
-    return `<div class="rp-row card">
-      <div class="rp-who">
-        <div class="avatar" style="background:${studentColor(s)}">${esc(initials(nm))}</div>
-        <div class="rp-who-txt">
-          <div class="rp-nm">${esc(nm)}</div>
-          ${pct!==null ? `<div class="rp-pct">${pct}% ${t('relatorio.presenceRate')}</div>` : `<div class="rp-pct rp-pct-none">${t('relatorio.noMarks')}</div>`}
-        </div>
-      </div>
-      <div class="rp-bars">
-        <div class="rp-line"><span class="rp-lbl p">${t('presenca.pres')}</span>${bar(v.p,'p')}</div>
-        <div class="rp-line"><span class="rp-lbl f">${t('presenca.abs')}</span>${bar(v.f,'f')}</div>
-        <div class="rp-line"><span class="rp-lbl c">${t('presenca.cancel')}</span>${bar(v.c,'c')}</div>
-      </div>
-    </div>`;
+  const studentsList = [...state.students].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}));
+  const studentOptions = studentsList.map(s => {
+    return `<option value="${s.id}" ${state.reportStudentId === s.id ? 'selected' : ''}>${esc(s.name)}</option>`;
   }).join('');
 
+  const monthOptions = [];
+  const now = new Date();
+  for (let i = 0; i < 12; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const y = d.getFullYear();
+    const m = d.getMonth();
+    const val = `${y}-${m}`;
+    const MONTHS_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const label = MONTHS_FULL[m] + ' ' + y;
+    monthOptions.push(`<option value="${val}" ${monthValue === val ? 'selected' : ''}>${label}</option>`);
+  }
+
+  let reportBodyHtml = '';
+  if (state.reportStudentId) {
+    const student = studentById(state.reportStudentId);
+    if (student) {
+      const summary = monthlyStatusSummary(year, month);
+      const v = summary[state.reportStudentId] || {p:0,f:0,c:0};
+      const marked = v.p + v.f + v.c;
+      const pct = marked ? Math.round((v.p / marked) * 100) : 0;
+      const realizedCount = v.p;
+
+      const studentLessons = fetchStudentLessons(state.reportStudentId, year, month);
+      const presentLessons = studentLessons.filter(l => l.status === 'p');
+
+      const rowsHtml = presentLessons.length ? presentLessons.map(l => {
+        const formattedDate = fmtReportDateEN(l.date);
+        const levelLabel = student.level || 'English';
+        const topicTitle = l.topic || 'No topic';
+        const notesContent = l.notes || 'No summary recorded';
+        return `<tr>
+            <td class="date-col">${formattedDate}</td>
+            <td>
+              <span class="topic-badge">${esc(levelLabel)}</span>
+              <div contenteditable="true" class="report-editable-topic" data-date="${l.date}" data-hour="${l.hour}" data-sid="${state.reportStudentId}" style="font-size: 10pt; font-weight: 600; margin-top: 4px; color: #111827; padding: 2px 4px; border: 1px dashed transparent; border-radius: 4px;" onfocus="this.style.borderColor='var(--line)'" onblur="this.style.borderColor='transparent'; saveReportTopic(this)">${esc(topicTitle)}</div>
+            </td>
+            <td>
+              <div contenteditable="true" class="report-editable-notes" data-date="${l.date}" data-hour="${l.hour}" data-sid="${state.reportStudentId}" style="color: #4B5563; line-height: 1.4; font-size: 10pt; padding: 4px 6px; border: 1px dashed transparent; border-radius: 4px;" onfocus="this.style.borderColor='var(--line)'" onblur="this.style.borderColor='transparent'; saveReportNotes(this)">${esc(notesContent)}</div>
+            </td>
+        </tr>`;
+      }).join('') : `<tr><td colspan="3" style="text-align: center; color: #6B7280; padding: 32px 16px;">${texts.noLessons}</td></tr>`;
+
+      const studentName = student.name;
+      const schedule = [];
+      const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
+      days.forEach(d => {
+        const list = state.agendaRecurring[d] || [];
+        list.forEach(e => {
+          if (e.studentId === student.id) {
+            schedule.push(e);
+          }
+        });
+      });
+      const hoursCount = schedule.length;
+      const weeklyHours = `${hoursCount} ${hoursCount === 1 ? 'hour' : 'hours'}`;
+
+      const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const referencePeriod = `${MONTHS_EN[month]} ${year}`;
+      const today = new Date();
+      const formattedIssueDate = `${MONTHS_EN[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+
+      const completedLessonsText = `${realizedCount} ${realizedCount === 1 ? 'Lesson Completed with Full Participation' : 'Lessons Completed with Full Participation'}`;
+
+      reportBodyHtml = `
+        <div class="report-preview-container">
+            <div class="header-banner">
+                <h1>JCR English Lab</h1>
+                <p>Academic Progress Report & Attendance Log</p>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-row">
+                    <div class="meta-cell">
+                        <span class="meta-label">Student</span>
+                        <span class="meta-value">
+                            <input type="text" id="print-student-name" value="${esc(studentName)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
+                        </span>
+                    </div>
+                    <div class="meta-cell">
+                        <span class="meta-label">Issue Date</span>
+                        <span class="meta-value">
+                            <input type="text" id="print-issue-date" value="${esc(formattedIssueDate)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
+                        </span>
+                    </div>
+                </div>
+                <div class="meta-row">
+                    <div class="meta-cell" style="padding-top: 12px;">
+                        <span class="meta-label">Weekly Hours</span>
+                        <span class="meta-value">
+                            <input type="text" id="print-weekly-hours" value="${esc(weeklyHours)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
+                        </span>
+                    </div>
+                    <div class="meta-cell" style="padding-top: 12px;">
+                        <span class="meta-label">Reference Period</span>
+                        <span class="meta-value">
+                            <input type="text" id="print-ref-period" value="${esc(referencePeriod)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-banner">
+                <div class="summary-title">Computed Attendance Rate</div>
+                <div class="summary-main">
+                    ${pct}% <span class="summary-sub">(${completedLessonsText})</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; margin-bottom: 8px;">
+                <h2 style="font-size: 13pt; color: #1E3A8A; margin: 0; font-family: inherit; font-weight: 700;">Curriculum Timeline & Overview</h2>
+                <button class="btn-action" onclick="sendPedagogicalReport('${state.reportStudentId}', ${year}, ${month})" style="background-color: #25D366; border: none; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.11 1.01 11.48 1.01c-5.43 0-9.855 4.37-9.859 9.8.002 2.1.582 4.113 1.694 5.925L2.247 21l4.4-1.846z"/></svg>
+                    Send via WhatsApp
+                </button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Date</th>
+                        <th style="width: 30%;">Lesson Topic</th>
+                        <th style="width: 55%;">Content Summary & Key Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rowsHtml}
+                </tbody>
+            </table>
+        </div>
+      `;
+    } else {
+      reportBodyHtml = `<div class="empty" style="padding:44px 16px; text-align: center; color: var(--muted);">${texts.studentNotFound}</div>`;
+    }
+  } else {
+    reportBodyHtml = `
+      <div class="empty" style="padding:44px 16px; text-align: center;">
+          <div style="font-size:40px;margin-bottom:10px">📋</div>
+          <span style="color: var(--muted); font-size: 0.95rem;">${texts.selectCta}</span>
+      </div>
+    `;
+  }
+
   el.innerHTML = `
+    <style>
+        .report-preview-container { background-color: #F9FAFB; padding: 24px; border-radius: 8px; font-family: 'Segoe UI', Arial, sans-serif; color: #111827; border: 1px solid #E5E7EB; box-shadow: var(--shadow-sm); margin-top: 16px; }
+        .header-banner { background-color: #1E3A8A; color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+        .header-banner h1 { font-size: 20pt; margin: 0; font-weight: 700; letter-spacing: 0.5px; color: white !important; }
+        .header-banner p { font-size: 10pt; margin: 4px 0 0 0; opacity: 0.85; color: white !important; }
+        .meta-grid { display: table; width: 100%; margin-bottom: 24px; background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px; box-sizing: border-box; }
+        .meta-row { display: table-row; }
+        .meta-cell { display: table-cell; padding: 8px 16px; width: 50%; }
+        .meta-label { font-size: 8pt; text-transform: uppercase; color: #6B7280; font-weight: 600; display: block; margin-bottom: 2px; }
+        .meta-value { font-size: 11pt; font-weight: 600; color: #111827; }
+        .summary-banner { background-color: white; border: 1px solid #E5E7EB; border-left: 5px solid #10B981; padding: 16px; border-radius: 4px 8px 8px 4px; margin-bottom: 24px; }
+        .summary-title { font-size: 9pt; text-transform: uppercase; color: #6B7280; font-weight: 600; }
+        .summary-main { font-size: 16pt; font-weight: 700; color: #10B981; margin-top: 4px; }
+        .summary-sub { font-size: 10pt; font-weight: normal; color: #4B5563; }
+        .report-preview-container table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #E5E7EB; border-radius: 8px; margin-top: 16px; }
+        .report-preview-container th { background-color: #F3F4F6; color: #374151; padding: 12px 16px; font-size: 9pt; text-transform: uppercase; font-weight: 600; border-bottom: 2px solid #E5E7EB; text-align: left; }
+        .report-preview-container td { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; font-size: 10pt; vertical-align: top; line-height: 1.4; color: #111827; }
+        .topic-badge { display: inline-block; background-color: rgba(30, 58, 186, 0.08); color: #1E3A8A; padding: 4px 8px; border-radius: 4px; font-size: 9pt; font-weight: 600; }
+        .date-col { font-weight: 600; color: #4B5563; }
+        @media print {
+            @page { size: A4; margin: 18mm 15mm; background-color: #F9FAFB; }
+            body { background-color: #F9FAFB !important; margin: 0 !important; }
+            .layout, .sidebar, .sec-head, .card-header, button { display: none !important; }
+            .report-preview-container { border: none !important; padding: 0 !important; background: transparent !important; box-shadow: none !important; }
+            .meta-value input { border: none !important; padding: 0 !important; outline: none !important; width: 100% !important; font-weight: 600 !important; color: #111827 !important; }
+            .report-editable-topic, .report-editable-notes { border: none !important; padding: 0 !important; outline: none !important; }
+        }
+    </style>
     <div class="sec-head"><div>
       <h2>${t('relatorio.title')}</h2>
       <div class="sub">${t('relatorio.sub')}</div>
     </div></div>
-    <div class="rp-monthbar">
-      <button class="ag-nav" onclick="navRelatorioMonth(-1)" title="${t('common.prevMonth')}">‹</button>
-      <div class="rp-month-name">${monthLabel}</div>
-      <button class="ag-nav" onclick="navRelatorioMonth(1)" title="${t('common.nextMonth')}">›</button>
-    </div>
-    ${ids.length ? `
-    <div class="rp-legend">
-      <span><i class="rp-dot p"></i>${t('presenca.pres')}</span>
-      <span><i class="rp-dot f"></i>${t('presenca.abs')}</span>
-      <span><i class="rp-dot c"></i>${t('presenca.cancel')}</span>
-    </div>
-    <div class="rp-list">${rows}</div>`
-    : `<div class="card panel"><div class="empty" style="padding:44px 16px">
-        <div style="font-size:40px;margin-bottom:10px">📊</div>
-        ${t('relatorio.noData')} ${monthLabel}.<br>${t('relatorio.noDataCta')}
-      </div></div>`}`;
+    <div class="card">
+        <div class="card-header" style="flex-wrap: wrap; gap: 14px;">
+            <span class="card-title">Progress Report</span>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <select id="rep-student-select" onchange="changeReportStudent(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem;">
+                    <option value="">${texts.selectStudent}</option>${studentOptions}
+                </select>
+                <select id="rep-month-select" onchange="changeReportMonth(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem;">
+                    ${monthOptions.join('')}
+                </select>
+                <button class="btn-action" onclick="renderRelatorio()">${texts.generateReport}</button>
+                ${state.reportStudentId ? `<button class="btn-action" onclick="window.print()" style="background-color: var(--violet); border: none; display: flex; align-items: center; gap: 4px;">Print / PDF</button>` : ''}
+            </div>
+        </div>
+        ${reportBodyHtml}
+    </div>`;
 }
-function navRelatorioMonth(delta){
-  state.relatorioMonth = addMonths(state.relatorioMonth, delta);
-  renderRelatorio();
+
+function sendPedagogicalReport(studentId, year, month) {
+  const student = studentById(studentId);
+  if (!student) return;
+
+  const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  const customStudentName = document.getElementById('print-student-name')?.value || student.name;
+  
+  const schedule = [];
+  const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
+  days.forEach(d => {
+    const list = state.agendaRecurring[d] || [];
+    list.forEach(e => {
+      if (e.studentId === student.id) {
+        schedule.push(e);
+      }
+    });
+  });
+  const hoursCount = schedule.length;
+  const defaultHours = `${hoursCount} ${hoursCount === 1 ? 'hour' : 'hours'}`;
+
+  const customWeeklyHours = document.getElementById('print-weekly-hours')?.value || defaultHours;
+  const customRefPeriod = document.getElementById('print-ref-period')?.value || `${MONTHS_EN[month]} ${year}`;
+  
+  const studentLessons = fetchStudentLessons(studentId, year, month);
+  const presentLessons = studentLessons.filter(l => l.status === 'p');
+  
+  const summary = monthlyStatusSummary(year, month);
+  const v = summary[studentId] || {p:0,f:0,c:0};
+  const marked = v.p + v.f + v.c;
+  const pct = marked ? Math.round((v.p / marked) * 100) : 0;
+  const realizedCount = v.p;
+
+  const completedLabel = realizedCount === 1 
+    ? 'Lesson Completed with Full Participation' 
+    : 'Lessons Completed with Full Participation';
+
+  let msg = `*JCR English Lab - Student Progress Report - ${customRefPeriod}*\n`;
+  msg += `*Student:* ${customStudentName}\n`;
+  msg += `*Weekly Hours:* ${customWeeklyHours}\n`;
+  msg += `*Attendance Rate:* ${pct}% (${realizedCount} ${completedLabel})\n\n`;
+  msg += `*Curriculum Timeline & Overview:*\n`;
+  
+  if (presentLessons.length === 0) {
+    msg += `No classes registered in this period.\n`;
+  } else {
+    presentLessons.forEach(l => {
+      const formattedDate = fmtReportDateEN(l.date);
+      const topicText = l.topic ? `*${l.topic}*` : 'Class';
+      const notesText = l.notes ? `: ${l.notes}` : '';
+      msg += `• *${formattedDate}* - ${topicText}${notesText}\n`;
+    });
+  }
+
+  const phone = (student.phone || '').replace(/\D/g, '');
+  const fullPhone = phone.length <= 11 ? '55' + phone : phone;
+  const waUrl = 'https://wa.me/' + fullPhone + '?text=' + encodeURIComponent(msg);
+  openWA(waUrl);
 }
 
 /* ================= MONTHLY REPORT MODULE ================= */
@@ -5818,6 +6172,22 @@ const DC_MONTH_COLORS = new Proxy([], { get(_,prop){
   const arr = m==='sun'?DC_MONTH_COLORS_SUN:m==='allure'?DC_MONTH_COLORS_ALLURE:m==='flower'?DC_MONTH_COLORS_FLOWER:DC_MONTH_COLORS_NATURE;
   return arr[prop];
 } });
+/* ================= render: FEEDBACK MENSAL (em construção) ================= */
+function renderFeedback(){
+  const el = document.getElementById('v-feedback');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>${t('feedback.title')}</h2>
+      <div class="sub">${t('feedback.sub')}</div>
+    </div></div>
+    <div class="card panel"><div class="empty" style="padding:60px 16px">
+      <div style="font-size:44px;margin-bottom:12px">🚧</div>
+      <div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:6px">${t('feedback.emptyTitle')}</div>
+      <div style="max-width:420px;margin:0 auto">${t('feedback.emptyMsg')}</div>
+    </div></div>`;
+}
+
 function renderDeclaracao(){
   const el = document.getElementById('v-declaracao');
   if(!el) return;
@@ -6243,7 +6613,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderDeclaracao(); renderEstatisticas();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderFeedback(); renderEstatisticas();
   renderAuthGate();
 }
 boot();
