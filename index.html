@@ -702,6 +702,19 @@
   .ag-credit-note{display:flex;align-items:center;gap:8px;background:var(--amber-bg);color:var(--amber);
     font-weight:700;font-size:13px;padding:10px 14px;border-radius:10px;margin-top:6px}
   .ag-credit-note b{font-size:16px}
+  .ag-remove-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+    display:flex;flex-direction:column;gap:8px}
+  .ag-remove-title{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+    color:var(--muted);margin-bottom:8px}
+  .ag-remove-day-btn{width:100%;font-size:14px;font-weight:800;color:#fff;padding:12px 14px;
+    border-radius:12px;border:none;background:var(--rose);text-align:center;cursor:pointer;
+    transition:transform .1s,filter .15s}
+  .ag-remove-day-btn:hover{filter:brightness(.94);transform:translateY(-1px)}
+  .ag-remove-day-btn:active{transform:scale(.98)}
+  .ag-remove-all-link{width:100%;font-size:12px;font-weight:600;color:var(--muted);background:none;
+    border:none;text-align:center;cursor:pointer;padding:2px 4px;text-decoration:underline;
+    text-underline-offset:2px}
+  .ag-remove-all-link:hover{color:var(--rose)}
   @media(max-width:640px){
     .ag-week-nav{width:100%;justify-content:space-between}
     .ag-week-range{order:-1;width:100%;text-align:center;margin-bottom:4px}
@@ -2764,6 +2777,8 @@ const I18N = {
     'agenda.prevWeek':'Semana anterior', 'agenda.nextWeek':'Próxima semana', 'agenda.goToday':'Hoje',
     'agenda.weekRange':'Semana de', 'agenda.cancelGeneratedCredit':'Este cancelamento gerou crédito acumulado:',
     'agenda.viewStatus':'Ver status da aula', 'agenda.statusModalSub':'Marque a presença deste aluno nesta aula.',
+    'agenda.removeFromSlot':'Remover deste horário', 'agenda.removeThisDay':'Excluir aluno deste dia',
+    'agenda.slotRemoveAllHint':'(remover de todas as semanas)',
     'agenda.hoursModalTitle':'Horários da agenda', 'agenda.hoursModalSub':'Escolha um horário e adicione ou remova da grade.',
     'agenda.hourLabel':'Horário', 'agenda.addHour':'＋ Adicionar horário', 'agenda.delHour':'🗑 Excluir horário',
     'agenda.currentHours':'Horários atuais (toque para selecionar)', 'agenda.noHours':'Nenhum horário na grade ainda.',
@@ -3000,6 +3015,8 @@ const I18N = {
     'agenda.prevWeek':'Previous week', 'agenda.nextWeek':'Next week', 'agenda.goToday':'Today',
     'agenda.weekRange':'Week of', 'agenda.cancelGeneratedCredit':'This cancellation generated accrued credit:',
     'agenda.viewStatus':'View class status', 'agenda.statusModalSub':'Mark this student\'s attendance for this class.',
+    'agenda.removeFromSlot':'Remove from this time slot', 'agenda.removeThisDay':'Delete student from this day',
+    'agenda.slotRemoveAllHint':'(remove from every week)',
     'agenda.hoursModalTitle':'Schedule time slots', 'agenda.hoursModalSub':'Choose a time and add or remove it from the grid.',
     'agenda.hourLabel':'Time', 'agenda.addHour':'＋ Add time slot', 'agenda.delHour':'🗑 Delete time slot',
     'agenda.currentHours':'Current time slots (tap to select)', 'agenda.noHours':'No time slots on the grid yet.',
@@ -4512,7 +4529,7 @@ function openExpressaoForm(id){
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
       <button class="btn btn-primary" onclick="saveExpressao('${id||''}')">${x?t('common.save'):t('expressoes.add')}</button>
     </div>`);
-  setTimeout(()=>{ const i=document.getElementById('ex-title'); if(i){ i.focus(); i.onkeydown=e=>{ if(e.key==='Enter') saveExpressao(id||''); }; } }, 50);
+  setTimeout(()=>{ const i=document.getElementById('ex-title'); if(i) i.focus(); }, 50);
 }
 async function saveExpressao(id){
   const title = fv('ex-title');
@@ -4562,7 +4579,7 @@ function openTopicForm(id){
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
       <button class="btn btn-primary" onclick="saveTopicForm('${id||''}')">${tp?t('topicos.saveEdit'):t('topicos.saveNew')}</button>
     </div>`);
-  setTimeout(()=>{ const i=document.getElementById('tp-title'); if(i){ i.focus(); i.onkeydown=e=>{ if(e.key==='Enter') saveTopicForm(id||''); }; } }, 50);
+  setTimeout(()=>{ const i=document.getElementById('tp-title'); if(i) i.focus(); }, 50);
 }
 function renderTopicManageRows(query){
   const q = (query||'').toLowerCase();
@@ -5007,6 +5024,7 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
   const dt = new Date(y, m-1, dd);
   const dayKeys = ['agenda.sun','agenda.mon','agenda.tue','agenda.wed','agenda.thu','agenda.fri','agenda.sat'];
   const dayName = t(dayKeys[dt.getDay()]);
+  const dayKey = DAYKEY_BY_GETDAY[dt.getDay()];
   const label = state.lang==='en' ? `${dayName}, ${monthFull(m-1)} ${dd}` : `${dayName}, ${dd} de ${monthFull(m-1).toLowerCase()}`;
   const pr = getPres(dateISO, hour, studentId);
   const credits = studentCreditCount(studentId);
@@ -5021,6 +5039,10 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
       ${sbtn('c', t('presenca.cancel'), 'c')}
     </div>
     ${pr.status==='c' ? `<div class="ag-credit-note">🎟️ ${t('agenda.cancelGeneratedCredit')} <b>${credits}</b></div>` : ''}
+    <div class="ag-remove-section">
+      <button class="ag-remove-day-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">🗑️ ${t('agenda.removeThisDay')}</button>
+      <button class="ag-remove-all-link" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','all')">${t('agenda.slotRemoveAll')} ${t('agenda.slotRemoveAllHint')}</button>
+    </div>
     <div class="modal-acts">
       ${credits>0?`<button class="btn btn-ghost" onclick="openStudentCredits('${studentId}')">🎟️ ${t('presenca.credits')} (${credits})</button>`:''}
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.close')}</button>
