@@ -330,9 +330,10 @@
   body.dark .stat{color:#fff}
   body.dark .es-stat-lbl,body.dark .fn-tot-lbl,body.dark .dc-total-lbl{color:#fff}
   html,body{margin:0}
+  html{overflow-x:hidden;max-width:100%}
   body{
     font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);
-    -webkit-font-smoothing:antialiased;line-height:1.5;
+    -webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;max-width:100%;
   }
   /* Sleek modern scrollbar for the application */
   ::-webkit-scrollbar{width:8px;height:8px}
@@ -424,7 +425,7 @@
   .pr-main{display:flex;align-items:center;gap:11px;flex:none;width:252px;min-width:0}
   .pr-nm{min-width:0}
   .pr-name{display:block;font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pr-mini-stats{display:flex;gap:5px;margin-top:3px}
+  .pr-mini-stats{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
   .pr-mini{font-size:10.5px;font-weight:800;padding:2px 6px;border-radius:6px;line-height:1.4}
   .pr-mini.p{background:var(--emerald-bg);color:var(--emerald)}
   .pr-mini.f{background:var(--rose-bg);color:var(--rose)}
@@ -702,19 +703,15 @@
   .ag-credit-note{display:flex;align-items:center;gap:8px;background:var(--amber-bg);color:var(--amber);
     font-weight:700;font-size:13px;padding:10px 14px;border-radius:10px;margin-top:6px}
   .ag-credit-note b{font-size:16px}
-  .ag-remove-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
-    display:flex;flex-direction:column;gap:8px}
-  .ag-remove-title{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
-    color:var(--muted);margin-bottom:8px}
-  .ag-remove-day-btn{width:100%;font-size:14px;font-weight:800;color:#fff;padding:12px 14px;
-    border-radius:12px;border:none;background:var(--rose);text-align:center;cursor:pointer;
-    transition:transform .1s,filter .15s}
-  .ag-remove-day-btn:hover{filter:brightness(.94);transform:translateY(-1px)}
-  .ag-remove-day-btn:active{transform:scale(.98)}
-  .ag-remove-all-link{width:100%;font-size:12px;font-weight:600;color:var(--muted);background:none;
-    border:none;text-align:center;cursor:pointer;padding:2px 4px;text-decoration:underline;
-    text-underline-offset:2px}
-  .ag-remove-all-link:hover{color:var(--rose)}
+  .ag-remove-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .ag-remove-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:4px}
+  .ag-remove-hint{font-size:11.5px;color:var(--muted);margin-bottom:10px;line-height:1.4}
+  .ag-remove-btn-group{display:flex;gap:8px;flex-wrap:wrap}
+  .ag-remove-opt-btn{flex:1;min-width:130px;font-size:13px;font-weight:800;color:var(--rose);
+    padding:11px 12px;border-radius:12px;border:1.5px solid var(--rose);background:var(--rose-bg);
+    text-align:center;cursor:pointer;transition:transform .1s,background .15s,color .15s}
+  .ag-remove-opt-btn:hover{background:var(--rose);color:#fff;transform:translateY(-1px)}
+  .ag-remove-opt-btn:active{transform:scale(.98)}
   @media(max-width:640px){
     .ag-week-nav{width:100%;justify-content:space-between}
     .ag-week-range{order:-1;width:100%;text-align:center;margin-bottom:4px}
@@ -1576,8 +1573,10 @@
     .field-2{grid-template-columns:1fr}
     .rp-list{grid-template-columns:1fr}
     .fn-grid{grid-template-columns:1fr}
+    .pr-row{flex-wrap:wrap; row-gap:10px}
     .pr-main{width:180px}
     .pr-content-cell{flex-basis:100%;order:3}
+    .pr-status{margin-left:auto}
     .brand p{display:none}
     .stat .n{font-size:28px}
   }
@@ -1593,6 +1592,8 @@
     .btn{padding:10px 16px;font-size:13.5px}
     .field-2{gap:10px}
     .nav button{padding:8px 11px;font-size:13px}
+    .pr-row{gap:8px 10px;padding:10px 12px}
+    .pr-main{width:150px}
   }
   @media(min-width:560px){
     .overlay{align-items:center}
@@ -1634,6 +1635,23 @@
     font-weight: 700;
     color: var(--ink);
   }
+  .pn-lessons-card{align-items:flex-start}
+  .pn-lessons-breakdown{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;margin-left:0;padding-left:0}
+  .pn-lb-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+    padding:4px 9px;border-radius:20px;white-space:nowrap}
+  .pn-lb-chip.f{background:var(--rose-bg);color:var(--rose)}
+  .pn-lb-chip.c{background:var(--amber-bg);color:var(--amber)}
+  .pn-lb-chip.cr{background:var(--emerald-bg);color:var(--emerald)}
+  .pn-students-card{align-items:flex-start}
+  .pn-ranking{margin-top:10px;display:flex;flex-direction:column;gap:5px}
+  .pn-ranking-title{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--muted);opacity:.85;margin-bottom:3px}
+  .pn-ranking-row{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+    color:var(--ink);padding:2px 0}
+  .pn-ranking-medal{font-size:13px;flex:none}
+  .pn-ranking-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}
+  .pn-ranking-count{flex:none;font-size:10.5px;font-weight:600;color:var(--muted);opacity:.85}
+  .pn-rank-1 .pn-ranking-name{color:var(--amber);font-weight:700}
   .stat-icon {
     width: 46px;
     height: 46px;
@@ -1667,6 +1685,8 @@
     margin-bottom: 18px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .card-title {
     font-size: 1.05rem;
@@ -1746,7 +1766,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: 24px 12px 0;
+    padding: 24px 12px 24px;
     position: relative;
   }
   .chart-bar-container {
@@ -2675,6 +2695,8 @@ const I18N = {
     'painel.noBirthdays60':'Nenhum aniversário nos próximos 60 dias.', 'painel.addDatesIn':'Adicione datas em',
     'painel.lessonsGivenMonth':'Aulas Ministradas', 'painel.absencesAccrued':'Faltas Acumuladas',
     'painel.lessonsGivenAllTime':'total acumulado, desde o início',
+    'painel.classesAsCreditPl':'aulas como crédito',
+    'painel.topStudentsTitle':'🏆 Top 3 em presença', 'painel.presenceSingular':'presença', 'painel.presencePlural':'presenças',
     'painel.sundayMsgToday':'Hoje é domingo, hora de relaxar e curtir!',
     'painel.sundayMsg':'Domingo é dia de relaxar e curtir!',
     'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Frequência',
@@ -2690,7 +2712,7 @@ const I18N = {
     'painel.lastTopicCovered':'Último Tema Abordado', 'painel.nextObjective':'Próximo Objetivo',
     'painel.materialLink':'Material / Link', 'painel.defaultLessonName':'Aula', 'painel.virtualRoom':'Sala Virtual',
     'painel.classReadyMsg':'Olá! A aula está pronta.', 'painel.noActiveStudentsFound':'Nenhum aluno ativo encontrado.',
-    'painel.monthlyRevenue':'Faturamento Mensal', 'painel.quickActions':'Ações Rápidas',
+    'painel.monthlyRevenue':'Faturamento Mensal', 'painel.quickActions':'Ações Rápidas', 'painel.shortcuts':'Atalhos',
     'painel.generateReceipt':'Gerar Recibo de Pagamento', 'painel.createReceiptPdf':'Criar recibo PDF para aluno',
     'painel.attendanceDeclaration':'Declaração de Presença', 'painel.generateAttendancePdf':'Gerar PDF de frequência',
     'painel.defaultNextObjective':'Conversação & Revisão', 'painel.weeklyHoursSuffix':'h / semana',
@@ -2779,6 +2801,8 @@ const I18N = {
     'agenda.viewStatus':'Ver status da aula', 'agenda.statusModalSub':'Marque a presença deste aluno nesta aula.',
     'agenda.removeFromSlot':'Remover deste horário', 'agenda.removeThisDay':'Excluir aluno deste dia',
     'agenda.slotRemoveAllHint':'(remover de todas as semanas)',
+    'agenda.removeStudentTitle':'🗑️ Excluir aluno', 'agenda.removeStudentHint':'Remova o aluno deste horário para poder colocar outro no lugar.',
+    'agenda.thisWeekOnly':'Apenas essa semana', 'agenda.everyWeek':'Toda semana',
     'agenda.hoursModalTitle':'Horários da agenda', 'agenda.hoursModalSub':'Escolha um horário e adicione ou remova da grade.',
     'agenda.hourLabel':'Horário', 'agenda.addHour':'＋ Adicionar horário', 'agenda.delHour':'🗑 Excluir horário',
     'agenda.currentHours':'Horários atuais (toque para selecionar)', 'agenda.noHours':'Nenhum horário na grade ainda.',
@@ -2912,6 +2936,8 @@ const I18N = {
     'painel.noBirthdays60':'No birthdays in the next 60 days.', 'painel.addDatesIn':'Add dates in',
     'painel.lessonsGivenMonth':'Lessons Given', 'painel.absencesAccrued':'Absences Accrued',
     'painel.lessonsGivenAllTime':'all-time running total',
+    'painel.classesAsCreditPl':'classes as credit',
+    'painel.topStudentsTitle':'🏆 Top 3 attendance', 'painel.presenceSingular':'presence', 'painel.presencePlural':'presences',
     'painel.sundayMsgToday':'It\'s Sunday, time to relax and enjoy!',
     'painel.sundayMsg':'Sunday is for relaxing and enjoying!',
     'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Attendance',
@@ -2927,7 +2953,7 @@ const I18N = {
     'painel.lastTopicCovered':'Last Topic Covered', 'painel.nextObjective':'Next Objective',
     'painel.materialLink':'Material / Link', 'painel.defaultLessonName':'Class', 'painel.virtualRoom':'Virtual Room',
     'painel.classReadyMsg':'Hello! The class is ready.', 'painel.noActiveStudentsFound':'No active students found.',
-    'painel.monthlyRevenue':'Monthly Revenue', 'painel.quickActions':'Quick Actions',
+    'painel.monthlyRevenue':'Monthly Revenue', 'painel.quickActions':'Quick Actions', 'painel.shortcuts':'Shortcuts',
     'painel.generateReceipt':'Generate Payment Receipt', 'painel.createReceiptPdf':'Create PDF receipt for student',
     'painel.attendanceDeclaration':'Attendance Declaration', 'painel.generateAttendancePdf':'Generate attendance PDF',
     'painel.defaultNextObjective':'Conversation & Review', 'painel.weeklyHoursSuffix':'h / week',
@@ -3017,6 +3043,8 @@ const I18N = {
     'agenda.viewStatus':'View class status', 'agenda.statusModalSub':'Mark this student\'s attendance for this class.',
     'agenda.removeFromSlot':'Remove from this time slot', 'agenda.removeThisDay':'Delete student from this day',
     'agenda.slotRemoveAllHint':'(remove from every week)',
+    'agenda.removeStudentTitle':'🗑️ Delete student', 'agenda.removeStudentHint':'Remove the student from this time slot so you can put another one in.',
+    'agenda.thisWeekOnly':'This week only', 'agenda.everyWeek':'Every week',
     'agenda.hoursModalTitle':'Schedule time slots', 'agenda.hoursModalSub':'Choose a time and add or remove it from the grid.',
     'agenda.hourLabel':'Time', 'agenda.addHour':'＋ Add time slot', 'agenda.delHour':'🗑 Delete time slot',
     'agenda.currentHours':'Current time slots (tap to select)', 'agenda.noHours':'No time slots on the grid yet.',
@@ -4028,6 +4056,24 @@ function renderPainel(){
 
   // Total de aulas ministradas (todas as presenças registradas, em qualquer data)
   const aulasMinistradasTotal = Object.values(state.presenca).filter(r => r && r.status === 'p').length;
+  const faltasTotal = Object.values(state.presenca).filter(r => r && r.status === 'f').length;
+  const canceladasTotal = Object.values(state.presenca).filter(r => r && r.status === 'c').length;
+  const creditosTotal = canceladasTotal; // 1 crédito por aula cancelada
+
+  // Ranking dos 3 alunos com mais presenças (todas as datas)
+  const presenceCountByStudent = {};
+  Object.keys(state.presenca).forEach(k=>{
+    const rec = state.presenca[k];
+    if(!rec || rec.status !== 'p') return;
+    const parts = k.split('_');
+    const sid = parts.slice(2).join('_');
+    presenceCountByStudent[sid] = (presenceCountByStudent[sid]||0) + 1;
+  });
+  const topStudentsRanking = Object.keys(presenceCountByStudent)
+    .map(sid => ({sid, count: presenceCountByStudent[sid], s: studentById(sid)}))
+    .filter(x => x.s)
+    .sort((a,b)=> b.count - a.count)
+    .slice(0,3);
 
   // Calcule faturamento previsto baseado na agenda
   const scheduled = countMonthlyClasses(today.getFullYear(), today.getMonth());
@@ -4052,20 +4098,20 @@ function renderPainel(){
 
   el.innerHTML = `
     <!-- GRADIENT THEME TOP BAR -->
-    <div class="dashboard-top-bar" style="background: var(--grad); color: #FFFFFF; padding: 22px 28px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;">
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <h2 style="color: #FFFFFF !important; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.02em;">${greet}, Professor Jefferson</h2>
-        <div style="font-size: 0.9rem; opacity: 0.95; font-weight: 500; display: flex; align-items: center; gap: 8px;">
-          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.85;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+    <div class="dashboard-top-bar" style="background: var(--grad); color: #FFFFFF; padding: 14px 24px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <h2 style="color: #FFFFFF !important; font-size: 1.35rem; font-weight: 700; margin: 0; letter-spacing: -0.02em;">${greet}, Professor Jefferson</h2>
+        <div style="font-size: 0.85rem; opacity: 0.95; font-weight: 500; display: flex; align-items: center; gap: 6px;">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.85;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           <span id="painel-clock">${clockLine()}</span>
         </div>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.88rem;">
-        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
+      <div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.85rem;">
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
           <span>📍</span>
           <span id="dashboard-city">${esc(weatherInfo.city)}</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
           <span id="dashboard-temp">${esc(weatherInfo.icon)} ${esc(weatherInfo.temp)}</span>
         </div>
       </div>
@@ -4095,18 +4141,36 @@ function renderPainel(){
     
     <!-- METRICS GRID -->
     <div class="stats-grid">
-      <div class="stat-card" onclick="go('alunos')" style="cursor: pointer;">
-        <div class="stat-details">
+      <div class="stat-card pn-students-card" onclick="go('alunos')" style="cursor: pointer;">
+        <div class="stat-details" style="flex:1;min-width:0;">
           <h3>${t('painel.activeStudents')}</h3>
           <p>${nA}</p>
+          ${topStudentsRanking.length ? `<div class="pn-ranking">
+            <div class="pn-ranking-title">${t('painel.topStudentsTitle')}</div>
+            ${topStudentsRanking.map((r,i)=>{
+              const medal = ['🥇','🥈','🥉'][i];
+              return `<div class="pn-ranking-row pn-rank-${i+1}">
+                <span class="pn-ranking-medal">${medal}</span>
+                <span class="pn-ranking-name">${esc(r.s.name)}</span>
+                <span class="pn-ranking-count">${r.count} ${r.count===1?t('painel.presenceSingular'):t('painel.presencePlural')}</span>
+              </div>`;
+            }).join('')}
+          </div>` : ''}
         </div>
         <div class="stat-icon primary">👤</div>
       </div>
-      <div class="stat-card" onclick="go('presenca')" style="cursor: pointer;">
-        <div class="stat-details">
+      <div class="stat-card pn-lessons-card" onclick="go('presenca')" style="cursor: pointer;">
+        <div class="stat-details" style="flex:1;min-width:0;">
           <h3>${t('painel.lessonsGivenMonth')}</h3>
-          <p>${aulasMinistradasTotal}</p>
-          <span style="display:block;font-size:0.68rem;color:var(--muted);font-weight:600;margin-top:2px;">${t('painel.lessonsGivenAllTime')}</span>
+          <div style="display:flex;align-items:flex-end;gap:10px;">
+            <p style="margin:0;">${aulasMinistradasTotal}</p>
+            <span style="display:block;font-size:0.68rem;color:var(--muted);font-weight:600;margin-bottom:4px;">${t('painel.lessonsGivenAllTime')}</span>
+          </div>
+          <div class="pn-lessons-breakdown">
+            <span class="pn-lb-chip f" title="${t('presenca.absMonth')}">❌ ${faltasTotal} ${t('financeiro.classesAbsentPl')}</span>
+            <span class="pn-lb-chip c" title="${t('presenca.cancelMonth')}">🚫 ${canceladasTotal} ${t('financeiro.classesCancelledPl')}</span>
+            <span class="pn-lb-chip cr" title="${t('presenca.creditsTooltip')}">🎟️ ${creditosTotal} ${t('painel.classesAsCreditPl')}</span>
+          </div>
         </div>
         <div class="stat-icon success">✔️</div>
       </div>
@@ -4194,7 +4258,7 @@ function renderPainel(){
         </div>
         <div class="card" style="padding: 24px;">
           <div class="card-header">
-            <span class="card-title">${t('painel.quickActions')}</span>
+            <span class="card-title">${t('painel.shortcuts')}</span>
           </div>
           <div class="quick-actions">
             <div class="action-card" onclick="go('financeiro')">
@@ -5040,8 +5104,12 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
     </div>
     ${pr.status==='c' ? `<div class="ag-credit-note">🎟️ ${t('agenda.cancelGeneratedCredit')} <b>${credits}</b></div>` : ''}
     <div class="ag-remove-section">
-      <button class="ag-remove-day-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">🗑️ ${t('agenda.removeThisDay')}</button>
-      <button class="ag-remove-all-link" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','all')">${t('agenda.slotRemoveAll')} ${t('agenda.slotRemoveAllHint')}</button>
+      <div class="ag-remove-title">${t('agenda.removeStudentTitle')}</div>
+      <div class="ag-remove-hint">${t('agenda.removeStudentHint')}</div>
+      <div class="ag-remove-btn-group">
+        <button class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">📅 ${t('agenda.thisWeekOnly')}</button>
+        <button class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','all')">🗓️ ${t('agenda.everyWeek')}</button>
+      </div>
     </div>
     <div class="modal-acts">
       ${credits>0?`<button class="btn btn-ghost" onclick="openStudentCredits('${studentId}')">🎟️ ${t('presenca.credits')} (${credits})</button>`:''}
