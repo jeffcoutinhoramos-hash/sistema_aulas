@@ -2063,23 +2063,36 @@
   /* Print Styles */
   @media print {
     @page {
-      margin: 1.5cm;
+      size: A4;
+      margin: 12mm 15mm;
     }
-    body * {
-      visibility: hidden;
+    body {
+      background: white !important;
+      color: #111827 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
-    #v-relatorio, #v-relatorio * {
-      visibility: visible;
+    .sidebar, .top-header, .sec-head, .card-header, button, .btn-action, .btn-ai-row, .ag-nav {
+      display: none !important;
+    }
+    .layout, .main-content {
+      display: block !important;
+      position: static !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
     }
     #v-relatorio {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      background: white !important;
-      color: #000000 !important;
-      padding: 0 !important;
+      display: block !important;
+      position: static !important;
+      width: 100% !important;
       margin: 0 !important;
+      padding: 0 !important;
+      background: white !important;
       box-shadow: none !important;
     }
     #v-relatorio .card {
@@ -2087,17 +2100,6 @@
       box-shadow: none !important;
       padding: 0 !important;
       background: transparent !important;
-    }
-    #v-relatorio .card-header select,
-    #v-relatorio .card-header button,
-    #v-relatorio .btn-action,
-    #v-relatorio .sec-head,
-    #v-relatorio select {
-      display: none !important;
-    }
-    #v-relatorio .print-only {
-      display: block !important;
-      visibility: visible !important;
     }
     #v-relatorio table {
       width: 100% !important;
@@ -2145,7 +2147,6 @@
         </button>
         <div class="nav-group-items" data-group-items="administracao">
           <button data-view="financeiro"><span class="ico">💰</span>Financeiro</button>
-          <button data-view="feedback"><span class="ico">💬</span>Feedback Mensal</button>
           <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
           <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
         </div>
@@ -2193,7 +2194,6 @@
         <div id="v-financeiro" class="view"></div>
         <div id="v-despesas" class="view"></div>
         <div id="v-info" class="view"></div>
-        <div id="v-feedback" class="view"></div>
         <div id="v-estatisticas" class="view"></div>
       </main>
     </div>
@@ -2676,7 +2676,7 @@ const I18N = {
     'nav.group.gestao':'Gestão', 'nav.group.ensino':'Ensino', 'nav.group.administracao':'Administração',
     'nav.group.analise':'Análise', 'nav.group.sistema':'Sistema',
     'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
-    'nav.despesas':'Despesas', 'nav.feedback':'Feedback Mensal', 'nav.estatisticas':'Estatísticas',
+    'nav.despesas':'Despesas', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
     'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower',
@@ -2896,8 +2896,6 @@ const I18N = {
     'despesas.dueIn':'vence em', 'despesas.day':'dia', 'despesas.days':'dias', 'despesas.dueLabel':'Vencimento',
     'declaracao.title':'Declarações', 'declaracao.totalYear':'Total recebido em',
     'declaracao.manual':'✎ manual', 'declaracao.currentMonth':'mês atual',
-    'feedback.title':'Feedback Mensal', 'feedback.sub':'Acompanhe aqui o feedback mensal dos seus alunos.',
-    'feedback.emptyTitle':'Em construção', 'feedback.emptyMsg':'Essa área ainda não tem nenhuma ação disponível. Em breve você poderá registrar e acompanhar o feedback mensal dos alunos por aqui.',
     'estatisticas.title':'Estatísticas', 'estatisticas.annualEarnings':'Ganho anual',
     'estatisticas.avgEarnings':'Média mensal (ganho)', 'estatisticas.annualHours':'Horas trabalhadas no ano',
     'estatisticas.avgHours':'Média mensal (horas)', 'estatisticas.monthlyEarnings':'💰 Ganhos mensais',
@@ -2917,7 +2915,7 @@ const I18N = {
     'nav.group.gestao':'Management', 'nav.group.ensino':'Teaching', 'nav.group.administracao':'Administration',
     'nav.group.analise':'Analysis', 'nav.group.sistema':'System',
     'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
-    'nav.despesas':'Expenses', 'nav.feedback':'Monthly Feedback', 'nav.estatisticas':'Statistics',
+    'nav.despesas':'Expenses', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
     'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode',
@@ -3138,8 +3136,6 @@ const I18N = {
     'despesas.dueIn':'due in', 'despesas.day':'day', 'despesas.days':'days', 'despesas.dueLabel':'Due date',
     'declaracao.title':'Statements', 'declaracao.totalYear':'Total received in',
     'declaracao.manual':'✎ manual', 'declaracao.currentMonth':'current month',
-    'feedback.title':'Monthly Feedback', 'feedback.sub':'Keep track of your students\' monthly feedback here.',
-    'feedback.emptyTitle':'Under construction', 'feedback.emptyMsg':'This area doesn\'t have any actions available yet. Soon you\'ll be able to record and track monthly student feedback here.',
     'estatisticas.title':'Statistics', 'estatisticas.annualEarnings':'Annual earnings',
     'estatisticas.avgEarnings':'Monthly average (earnings)', 'estatisticas.annualHours':'Hours worked this year',
     'estatisticas.avgHours':'Monthly average (hours)', 'estatisticas.monthlyEarnings':'💰 Monthly earnings',
@@ -4205,23 +4201,9 @@ function renderPainel(){
         </div>
       </div>
 
-      <!-- Calendário + Pedagogical Quick Action -->
+      <!-- Calendário -->
       <div class="right-panel pn-right-col">
         ${renderPainelCalendar()}
-        <div class="card" style="padding: 24px;">
-          <div class="card-header">
-            <span class="card-title">${t('painel.quickActions')}</span>
-          </div>
-          <div class="quick-actions">
-            <div class="action-card" onclick="go('feedback')">
-              <div class="action-card-icon success">💬</div>
-              <div class="action-card-info">
-                <h4>${t('feedback.title')}</h4>
-                <p>${t('feedback.sub')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -4798,9 +4780,6 @@ function attendanceRowsHTML(iso, rows, monthStatus){
           <button class="pr-topic-btn ${pr.content?'has':''}" onclick="openContentPicker('${iso}','${r.hour}','${r.studentId}')">
             ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
         </div>
-        <div class="pr-notes-row" style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-          <input type="text" placeholder="Resumo da aula (conteúdo)..." value="${esc(pr.obs || pr.notes || '')}" onchange="savePresNotes('${iso}','${r.hour}','${r.studentId}',this.value)" style="flex:1; padding:6px 10px; border:1px solid var(--line); border-radius:6px; font-size:11.5px; background:var(--surface); color:var(--ink);" />
-        </div>
         ${hist.length?`<div class="pr-warn">⚠️ ${t('presenca.alreadyGivenOn')} ${hist.map(fmtDM).join(', ')}</div>`:''}
       </div>
       <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}</div>
@@ -5318,6 +5297,173 @@ async function saveReportNotes(el) {
   renderPainel();
 }
 
+function changeReportStudent(sid){
+  state.reportStudentId = sid || '';
+  renderRelatorio();
+}
+function changeReportMonth(val){
+  if(!val) return;
+  const parts = val.split('-').map(Number);
+  const y = parts[0], m = parts[1];
+  state.relatorioMonth = new Date(y, m, 1);
+  renderRelatorio();
+}
+/* ================= AI LESSON SUMMARY & REPORT PDF HELPERS ================= */
+/* ================= AI LESSON SUMMARY & REPORT PDF HELPERS ================= */
+function generateAISummaryForLesson(topicTitle, studentLevel, studentName) {
+  const level = studentLevel || 'General';
+  const topic = (topicTitle && topicTitle !== 'No topic' && topicTitle !== 'Sem tópico') ? topicTitle.trim() : '';
+
+  if (!topic) {
+    return `Review of core grammar structures and guided conversation practice focused on fluency and pronunciation at the ${level} level.`;
+  }
+
+  const t = topic.toLowerCase();
+
+  if (t.includes('present continuous') || t.includes('continuous') || t.includes('ing')) {
+    return `Study of Present Continuous structures to describe ongoing activities. Guided oral practice and reinforcement exercises.`;
+  }
+  if (t.includes('past') || t.includes('passed') || t.includes('simple past')) {
+    return `Practice of Simple Past tense for recounting past events. Key focus on regular and irregular verb conjugations.`;
+  }
+  if (t.includes('future') || t.includes('will') || t.includes('going to')) {
+    return `Formulating sentences about future plans and predictions using 'will' and 'going to'. Pair speaking exercises.`;
+  }
+  if (t.includes('present perfect') || t.includes('perfect')) {
+    return `Applying Present Perfect for life experiences connected to the present. Time markers analysis and speaking drills.`;
+  }
+  if (t.includes('business') || t.includes('reuniã') || t.includes('meeting') || t.includes('email') || t.includes('negotiat')) {
+    return `Business English vocabulary for professional meetings and email writing. Role-play simulations of workplace scenarios.`;
+  }
+  if (t.includes('travel') || t.includes('viagem') || t.includes('airport') || t.includes('hotel')) {
+    return `Essential vocabulary for travel, airports, and hotel check-ins. Interactive dialogue practice and listening skills.`;
+  }
+  if (t.includes('vocabular') || t.includes('phrasal') || t.includes('idiom') || t.includes('express')) {
+    return `Introduction and mastery of high-frequency phrasal verbs and idioms. Application in real-life conversational contexts.`;
+  }
+  if (t.includes('convers') || t.includes('speaking') || t.includes('fluency') || t.includes('discussion')) {
+    return `Dedicated fluency session focused on free conversation, pronunciation, and active error correction.`;
+  }
+  if (t.includes('listen') || t.includes('audio') || t.includes('comprehens')) {
+    return `Listening comprehension practice using authentic audio materials. Extracting key information and new expressions.`;
+  }
+  if (t.includes('read') || t.includes('leitura') || t.includes('text')) {
+    return `Guided reading and text analysis in English. Vocabulary expansion and critical discussion of main ideas.`;
+  }
+  if (t.includes('grammar') || t.includes('gramát') || t.includes('preposition') || t.includes('pronoun')) {
+    return `Comprehensive review of foundational grammar concepts targeting ${level} level structures and practical application.`;
+  }
+  if (t.includes('basic') || t.includes('iniciante') || t.includes('alphabet') || t.includes('number') || t.includes('greeting')) {
+    return `Foundations of beginner English communication: greetings, personal introductions, and essential sentence patterns.`;
+  }
+
+  return `Exploration of "${topic}" with interactive reading and targeted speaking exercises. Practical in-class application.`;
+}
+
+async function getAISummaryForLesson(topicTitle, studentLevel, studentName) {
+  const apiKey = localStorage.getItem('gemini_api_key') || (typeof window !== 'undefined' && window.GEMINI_API_KEY);
+  if (apiKey && topicTitle) {
+    try {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `Write a concise 1 to 2 line pedagogical lesson summary in ENGLISH (maximum 25 words) for an English class covering topic: "${topicTitle}", student level: "${studentLevel || 'English'}". Do not use quotes, bullet points, or titles, just the summary text in English.`
+            }]
+          }]
+        })
+      });
+      const data = await res.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (text) return text.trim();
+    } catch (e) {
+      console.warn('Gemini API error, falling back to built-in generator:', e);
+    }
+  }
+  return generateAISummaryForLesson(topicTitle, studentLevel, studentName);
+}
+
+async function generateAllAISummaries(studentId) {
+  if (!studentId) {
+    alert('Please select a student to generate AI lesson summaries.');
+    return;
+  }
+  const student = studentById(studentId);
+  if (!student) return;
+
+  const view = state.relatorioMonth || new Date();
+  const year = view.getFullYear(), month = view.getMonth();
+  const studentLessons = fetchStudentLessons(studentId, year, month);
+  const presentLessons = studentLessons.filter(l => l.status === 'p');
+
+  if (presentLessons.length === 0) {
+    alert('No completed lessons found for this student in the selected period.');
+    return;
+  }
+
+  for (const l of presentLessons) {
+    const aiSummary = await getAISummaryForLesson(l.topic, student.level, student.name);
+    const key = presKey(l.date, l.hour, studentId);
+    if (state.presenca[key]) {
+      state.presenca[key].obs = aiSummary;
+    } else {
+      const lesObj = state.lessons.find(ls => ls.studentId === studentId && ls.date === l.date);
+      if (lesObj) {
+        lesObj.obs = aiSummary;
+        lesObj.notes = aiSummary;
+      } else {
+        state.presenca[key] = { status: 'p', content: l.topic || '', obs: aiSummary };
+      }
+    }
+  }
+
+  await write('presenca', state.presenca);
+  await write('lessons', state.lessons);
+  renderRelatorio();
+}
+
+async function regenerateSingleAISummary(dateISO, hour, studentId) {
+  const student = studentById(studentId);
+  if (!student) return;
+
+  const key = presKey(dateISO, hour, studentId);
+  let currentTopic = '';
+  if (state.presenca[key]) {
+    currentTopic = state.presenca[key].content;
+  } else {
+    const lesObj = state.lessons.find(ls => ls.studentId === studentId && ls.date === dateISO);
+    if (lesObj) currentTopic = lesObj.topicText || '';
+  }
+
+  const aiSummary = await getAISummaryForLesson(currentTopic, student.level, student.name);
+
+  if (state.presenca[key]) {
+    state.presenca[key].obs = aiSummary;
+  } else {
+    const lesObj = state.lessons.find(ls => ls.studentId === studentId && ls.date === dateISO);
+    if (lesObj) {
+      lesObj.obs = aiSummary;
+      lesObj.notes = aiSummary;
+    } else {
+      state.presenca[key] = { status: 'p', content: currentTopic, obs: aiSummary };
+    }
+  }
+
+  await write('presenca', state.presenca);
+  await write('lessons', state.lessons);
+  renderRelatorio();
+}
+
+function handleGeneratePDF() {
+  if (!state.reportStudentId) {
+    alert('Please select a student to generate the PDF report.');
+    return;
+  }
+  window.print();
+}
+
 function renderRelatorio(){
   const el = document.getElementById('v-relatorio');
   if(!el) return;
@@ -5330,7 +5476,7 @@ function renderRelatorio(){
     noLessons: 'No completed lessons registered for this student in this period.',
     selectCta: 'Select a student and a period to view the progress report.',
     studentNotFound: 'Student not found or removed.',
-    printBtn: 'Print / PDF'
+    printBtn: 'Gerar PDF'
   };
 
   const view = state.relatorioMonth || new Date();
@@ -5367,11 +5513,39 @@ function renderRelatorio(){
       const studentLessons = fetchStudentLessons(state.reportStudentId, year, month);
       const presentLessons = studentLessons.filter(l => l.status === 'p');
 
+      // Auto-fill empty or Portuguese lesson summaries with AI in English (max 2 lines)
+      const isPtOrEmptySummary = (text) => !text || text === 'No summary recorded' || text === 'Sem resumo registrado' || /Revisão|Estudo|Prática|Construção|Aplicação|Desenvolvimento|Vocabulário|Introdução|Sessão|Treino|Leitura|Fundamentos/i.test(text);
+
+      let hasAutoFilled = false;
+      presentLessons.forEach(l => {
+        if (isPtOrEmptySummary(l.notes)) {
+          const aiSummary = generateAISummaryForLesson(l.topic, student.level, student.name);
+          l.notes = aiSummary;
+          hasAutoFilled = true;
+          const key = presKey(l.date, l.hour, state.reportStudentId);
+          if (state.presenca[key]) {
+            state.presenca[key].obs = aiSummary;
+          } else {
+            const lesObj = state.lessons.find(ls => ls.studentId === state.reportStudentId && ls.date === l.date);
+            if (lesObj) {
+              lesObj.obs = aiSummary;
+              lesObj.notes = aiSummary;
+            } else {
+              state.presenca[key] = { status: 'p', content: l.topic || '', obs: aiSummary };
+            }
+          }
+        }
+      });
+      if (hasAutoFilled) {
+        write('presenca', state.presenca);
+        write('lessons', state.lessons);
+      }
+
       const rowsHtml = presentLessons.length ? presentLessons.map(l => {
         const formattedDate = fmtReportDateEN(l.date);
         const levelLabel = student.level || 'English';
         const topicTitle = l.topic || 'No topic';
-        const notesContent = l.notes || 'No summary recorded';
+        const notesContent = l.notes || generateAISummaryForLesson(l.topic, student.level, student.name);
         return `<tr>
             <td class="date-col">${formattedDate}</td>
             <td>
@@ -5379,24 +5553,16 @@ function renderRelatorio(){
               <div contenteditable="true" class="report-editable-topic" data-date="${l.date}" data-hour="${l.hour}" data-sid="${state.reportStudentId}" style="font-size: 10pt; font-weight: 600; margin-top: 4px; color: #111827; padding: 2px 4px; border: 1px dashed transparent; border-radius: 4px;" onfocus="this.style.borderColor='var(--line)'" onblur="this.style.borderColor='transparent'; saveReportTopic(this)">${esc(topicTitle)}</div>
             </td>
             <td>
-              <div contenteditable="true" class="report-editable-notes" data-date="${l.date}" data-hour="${l.hour}" data-sid="${state.reportStudentId}" style="color: #4B5563; line-height: 1.4; font-size: 10pt; padding: 4px 6px; border: 1px dashed transparent; border-radius: 4px;" onfocus="this.style.borderColor='var(--line)'" onblur="this.style.borderColor='transparent'; saveReportNotes(this)">${esc(notesContent)}</div>
+              <div style="display: flex; gap: 6px; align-items: flex-start;">
+                <div contenteditable="true" class="report-editable-notes" data-date="${l.date}" data-hour="${l.hour}" data-sid="${state.reportStudentId}" style="color: #4B5563; line-height: 1.4; font-size: 10pt; padding: 4px 6px; border: 1px dashed transparent; border-radius: 4px; flex: 1; max-height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" onfocus="this.style.borderColor='var(--line)'" onblur="this.style.borderColor='transparent'; saveReportNotes(this)">${esc(notesContent)}</div>
+                <button class="btn-ai-row" onclick="regenerateSingleAISummary('${l.date}', '${l.hour}', '${state.reportStudentId}')" title="Generate/Refresh English AI summary (max 2 lines)" style="background: rgba(99,102,241,0.1); color: #4f46e5; border: 1px solid rgba(99,102,241,0.3); border-radius: 4px; padding: 2px 6px; font-size: 8pt; font-weight: 600; cursor: pointer; flex-shrink: 0; margin-top: 2px;">✨ AI</button>
+              </div>
             </td>
         </tr>`;
       }).join('') : `<tr><td colspan="3" style="text-align: center; color: #6B7280; padding: 32px 16px;">${texts.noLessons}</td></tr>`;
 
       const studentName = student.name;
-      const schedule = [];
-      const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
-      days.forEach(d => {
-        const list = state.agendaRecurring[d] || [];
-        list.forEach(e => {
-          if (e.studentId === student.id) {
-            schedule.push(e);
-          }
-        });
-      });
-      const hoursCount = schedule.length;
-      const weeklyHours = `${hoursCount} ${hoursCount === 1 ? 'hour' : 'hours'}`;
+      const monthlyHours = `${realizedCount} ${realizedCount === 1 ? 'hour' : 'hours'}`;
 
       const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       const referencePeriod = `${MONTHS_EN[month]} ${year}`;
@@ -5408,51 +5574,52 @@ function renderRelatorio(){
       reportBodyHtml = `
         <div class="report-preview-container">
             <div class="header-banner">
-                <h1>JCR English Lab</h1>
-                <p>Academic Progress Report & Attendance Log</p>
+                <div class="header-banner-text">
+                    <h1>JCR English Lab</h1>
+                    <p>Academic Progress Report & Attendance Log</p>
+                </div>
+                <div class="header-banner-badge">Official Report</div>
             </div>
 
             <div class="meta-grid">
-                <div class="meta-row">
-                    <div class="meta-cell">
-                        <span class="meta-label">Student</span>
-                        <span class="meta-value">
-                            <input type="text" id="print-student-name" value="${esc(studentName)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
-                        </span>
-                    </div>
-                    <div class="meta-cell">
-                        <span class="meta-label">Issue Date</span>
-                        <span class="meta-value">
-                            <input type="text" id="print-issue-date" value="${esc(formattedIssueDate)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
-                        </span>
-                    </div>
+                <div class="meta-cell">
+                    <span class="meta-label">Student</span>
+                    <span class="meta-value">
+                        <input type="text" id="print-student-name" class="meta-value-input" value="${esc(studentName)}" />
+                    </span>
                 </div>
-                <div class="meta-row">
-                    <div class="meta-cell" style="padding-top: 12px;">
-                        <span class="meta-label">Weekly Hours</span>
-                        <span class="meta-value">
-                            <input type="text" id="print-weekly-hours" value="${esc(weeklyHours)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
-                        </span>
-                    </div>
-                    <div class="meta-cell" style="padding-top: 12px;">
-                        <span class="meta-label">Reference Period</span>
-                        <span class="meta-value">
-                            <input type="text" id="print-ref-period" value="${esc(referencePeriod)}" style="border: 1px dashed var(--line); border-radius: 4px; background: transparent; font-size: 11pt; font-weight: 600; color: #111827; width: 90%; padding: 2px 6px; font-family: inherit;" />
-                        </span>
-                    </div>
+                <div class="meta-cell">
+                    <span class="meta-label">Issue Date</span>
+                    <span class="meta-value">
+                        <input type="text" id="print-issue-date" class="meta-value-input" value="${esc(formattedIssueDate)}" />
+                    </span>
+                </div>
+                <div class="meta-cell">
+                    <span class="meta-label">Monthly Hours</span>
+                    <span class="meta-value">
+                        <input type="text" id="print-monthly-hours" class="meta-value-input" value="${esc(monthlyHours)}" />
+                    </span>
+                </div>
+                <div class="meta-cell">
+                    <span class="meta-label">Reference Period</span>
+                    <span class="meta-value">
+                        <input type="text" id="print-ref-period" class="meta-value-input" value="${esc(referencePeriod)}" />
+                    </span>
                 </div>
             </div>
 
             <div class="summary-banner">
-                <div class="summary-title">Computed Attendance Rate</div>
-                <div class="summary-main">
-                    ${pct}% <span class="summary-sub">(${completedLessonsText})</span>
+                <div>
+                    <div class="summary-title">Computed Attendance Rate</div>
+                    <div class="summary-main">
+                        ${pct}% <span class="summary-sub">(${completedLessonsText})</span>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; margin-bottom: 8px;">
-                <h2 style="font-size: 13pt; color: #1E3A8A; margin: 0; font-family: inherit; font-weight: 700;">Curriculum Timeline & Overview</h2>
-                <button class="btn-action" onclick="sendPedagogicalReport('${state.reportStudentId}', ${year}, ${month})" style="background-color: #25D366; border: none; display: flex; align-items: center; gap: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; margin-bottom: 12px;">
+                <h2 style="font-size: 13pt; color: #1E3A8A; margin: 0; font-family: inherit; font-weight: 700; letter-spacing: -0.3px;">Curriculum Timeline & Overview</h2>
+                <button class="btn-action" onclick="sendPedagogicalReport('${state.reportStudentId}', ${year}, ${month})" style="background-color: #25D366; border: none; color: white; display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 6px rgba(37,211,102,0.2);">
                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.11 1.01 11.48 1.01c-5.43 0-9.855 4.37-9.859 9.8.002 2.1.582 4.113 1.694 5.925L2.247 21l4.4-1.846z"/></svg>
                     Send via WhatsApp
                 </button>
@@ -5470,6 +5637,11 @@ function renderRelatorio(){
                     ${rowsHtml}
                 </tbody>
             </table>
+
+            <div class="report-signature" style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #E2E8F0; display: flex; flex-direction: column; align-items: flex-end; text-align: right;">
+                <div style="font-size: 11pt; font-style: italic; color: #475569; margin-bottom: 4px; font-family: inherit;">Thank you so much</div>
+                <div style="font-size: 12.5pt; font-weight: 700; color: #1E3A8A; font-family: inherit; letter-spacing: -0.2px;">Teacher Jefferson Coutinho</div>
+            </div>
         </div>
       `;
     } else {
@@ -5486,49 +5658,210 @@ function renderRelatorio(){
 
   el.innerHTML = `
     <style>
-        .report-preview-container { background-color: #F9FAFB; padding: 24px; border-radius: 8px; font-family: 'Segoe UI', Arial, sans-serif; color: #111827; border: 1px solid #E5E7EB; box-shadow: var(--shadow-sm); margin-top: 16px; }
-        .header-banner { background-color: #1E3A8A; color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
-        .header-banner h1 { font-size: 20pt; margin: 0; font-weight: 700; letter-spacing: 0.5px; color: white !important; }
-        .header-banner p { font-size: 10pt; margin: 4px 0 0 0; opacity: 0.85; color: white !important; }
-        .meta-grid { display: table; width: 100%; margin-bottom: 24px; background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px; box-sizing: border-box; }
-        .meta-row { display: table-row; }
-        .meta-cell { display: table-cell; padding: 8px 16px; width: 50%; }
-        .meta-label { font-size: 8pt; text-transform: uppercase; color: #6B7280; font-weight: 600; display: block; margin-bottom: 2px; }
-        .meta-value { font-size: 11pt; font-weight: 600; color: #111827; }
-        .summary-banner { background-color: white; border: 1px solid #E5E7EB; border-left: 5px solid #10B981; padding: 16px; border-radius: 4px 8px 8px 4px; margin-bottom: 24px; }
-        .summary-title { font-size: 9pt; text-transform: uppercase; color: #6B7280; font-weight: 600; }
-        .summary-main { font-size: 16pt; font-weight: 700; color: #10B981; margin-top: 4px; }
-        .summary-sub { font-size: 10pt; font-weight: normal; color: #4B5563; }
-        .report-preview-container table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #E5E7EB; border-radius: 8px; margin-top: 16px; }
-        .report-preview-container th { background-color: #F3F4F6; color: #374151; padding: 12px 16px; font-size: 9pt; text-transform: uppercase; font-weight: 600; border-bottom: 2px solid #E5E7EB; text-align: left; }
-        .report-preview-container td { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; font-size: 10pt; vertical-align: top; line-height: 1.4; color: #111827; }
-        .topic-badge { display: inline-block; background-color: rgba(30, 58, 186, 0.08); color: #1E3A8A; padding: 4px 8px; border-radius: 4px; font-size: 9pt; font-weight: 600; }
-        .date-col { font-weight: 600; color: #4B5563; }
+        .report-preview-container {
+            background-color: #ffffff;
+            padding: 32px;
+            border-radius: 12px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1E293B;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            margin-top: 16px;
+        }
+        .header-banner {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-banner-text h1 {
+            font-size: 20pt;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #FFFFFF !important;
+        }
+        .header-banner-text p {
+            font-size: 10pt;
+            margin: 4px 0 0 0;
+            opacity: 0.88;
+            color: #E2E8F0 !important;
+            font-weight: 400;
+        }
+        .header-banner-badge {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 9pt;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .meta-cell {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.15s ease;
+        }
+        .meta-cell:focus-within {
+            border-color: #3B82F6;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .meta-label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            color: #64748B;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .meta-value-input {
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: transparent;
+            font-size: 11pt;
+            font-weight: 600;
+            color: #0F172A;
+            width: 100%;
+            padding: 2px 4px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+        .meta-value-input:focus {
+            border-color: #CBD5E1;
+            background: #FFFFFF;
+        }
+        .summary-banner {
+            background: linear-gradient(to right, #F0FDF4, #FFFFFF);
+            border: 1px solid #BBF7D0;
+            border-left: 5px solid #10B981;
+            padding: 18px 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .summary-title {
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            color: #166534;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .summary-main {
+            font-size: 18pt;
+            font-weight: 800;
+            color: #15803D;
+            margin-top: 2px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .summary-sub {
+            font-size: 10pt;
+            font-weight: 500;
+            color: #475569;
+        }
+        .report-preview-container table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .report-preview-container th {
+            background-color: #F8FAFC;
+            color: #334155;
+            padding: 12px 16px;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #E2E8F0;
+            text-align: left;
+        }
+        .report-preview-container td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 10pt;
+            vertical-align: top;
+            line-height: 1.5;
+            color: #1E293B;
+        }
+        .report-preview-container tr:last-child td {
+            border-bottom: none;
+        }
+        .topic-badge {
+            display: inline-block;
+            background-color: #EFF6FF;
+            color: #1E40AF;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 8.5pt;
+            font-weight: 600;
+            border: 1px solid #DBEAFE;
+        }
+        .date-col {
+            font-weight: 600;
+            color: #475569;
+            white-space: nowrap;
+        }
         @media print {
-            @page { size: A4; margin: 18mm 15mm; background-color: #F9FAFB; }
-            body { background-color: #F9FAFB !important; margin: 0 !important; }
-            .layout, .sidebar, .sec-head, .card-header, button { display: none !important; }
-            .report-preview-container { border: none !important; padding: 0 !important; background: transparent !important; box-shadow: none !important; }
-            .meta-value input { border: none !important; padding: 0 !important; outline: none !important; width: 100% !important; font-weight: 600 !important; color: #111827 !important; }
-            .report-editable-topic, .report-editable-notes { border: none !important; padding: 0 !important; outline: none !important; }
+            @page { size: A4; margin: 12mm 15mm; }
+            body { background-color: #ffffff !important; color: #111827 !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .sidebar, .sec-head, .card-header, button, .btn-action, .btn-ai-row, .ag-nav { display: none !important; }
+            .layout, .main-content, #v-relatorio, #v-relatorio .card { display: block !important; position: static !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; box-shadow: none !important; background: transparent !important; }
+            .report-preview-container { border: 1px solid #CBD5E1 !important; box-shadow: none !important; padding: 20px !important; background: #ffffff !important; margin: 0 !important; }
+            .meta-cell { background: #ffffff !important; border-color: #E2E8F0 !important; }
+            .meta-value-input { border: none !important; padding: 0 !important; outline: none !important; width: 100% !important; font-weight: 600 !important; color: #111827 !important; background: transparent !important; }
+            .report-editable-topic, .report-editable-notes { border: none !important; padding: 0 !important; outline: none !important; max-height: none !important; -webkit-line-clamp: unset !important; }
+            .report-signature { border-top: 1px solid #CBD5E1 !important; margin-top: 28px !important; padding-top: 16px !important; }
         }
     </style>
     <div class="sec-head"><div>
       <h2>${t('relatorio.title')}</h2>
       <div class="sub">${t('relatorio.sub')}</div>
     </div></div>
-    <div class="card">
-        <div class="card-header" style="flex-wrap: wrap; gap: 14px;">
-            <span class="card-title">Progress Report</span>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <select id="rep-student-select" onchange="changeReportStudent(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem;">
+    <div class="card" style="border-radius: 12px; overflow: hidden; border: 1px solid var(--line);">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding: 16px 20px; background: var(--surface); border-bottom: 1px solid var(--line);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.25rem;">📊</span>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--ink);">Progress Report</div>
+                    <div style="font-size: 0.8rem; color: var(--muted);">Gerador de relatório pedagógico e frequência</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <select id="rep-student-select" onchange="changeReportStudent(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem; font-weight: 500;">
                     <option value="">${texts.selectStudent}</option>${studentOptions}
                 </select>
-                <select id="rep-month-select" onchange="changeReportMonth(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem;">
+                <select id="rep-month-select" onchange="changeReportMonth(this.value)" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.9rem; font-weight: 500;">
                     ${monthOptions.join('')}
                 </select>
                 <button class="btn-action" onclick="renderRelatorio()">${texts.generateReport}</button>
-                ${state.reportStudentId ? `<button class="btn-action" onclick="window.print()" style="background-color: var(--violet); border: none; display: flex; align-items: center; gap: 4px;">Print / PDF</button>` : ''}
+                ${state.reportStudentId ? `<button class="btn-action" onclick="generateAllAISummaries('${state.reportStudentId}')" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; color: white; display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;" title="Preencher resumos de todas as aulas com IA (em inglês)">✨ Preencher com IA</button>` : ''}
+                <button class="btn-action" onclick="handleGeneratePDF()" style="background-color: var(--violet); border: none; color: white; display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;" title="Gerar documento PDF do relatório">📄 Gerar PDF</button>
             </div>
         </div>
         ${reportBodyHtml}
@@ -5543,22 +5876,6 @@ function sendPedagogicalReport(studentId, year, month) {
 
   const customStudentName = document.getElementById('print-student-name')?.value || student.name;
   
-  const schedule = [];
-  const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
-  days.forEach(d => {
-    const list = state.agendaRecurring[d] || [];
-    list.forEach(e => {
-      if (e.studentId === student.id) {
-        schedule.push(e);
-      }
-    });
-  });
-  const hoursCount = schedule.length;
-  const defaultHours = `${hoursCount} ${hoursCount === 1 ? 'hour' : 'hours'}`;
-
-  const customWeeklyHours = document.getElementById('print-weekly-hours')?.value || defaultHours;
-  const customRefPeriod = document.getElementById('print-ref-period')?.value || `${MONTHS_EN[month]} ${year}`;
-  
   const studentLessons = fetchStudentLessons(studentId, year, month);
   const presentLessons = studentLessons.filter(l => l.status === 'p');
   
@@ -5568,13 +5885,17 @@ function sendPedagogicalReport(studentId, year, month) {
   const pct = marked ? Math.round((v.p / marked) * 100) : 0;
   const realizedCount = v.p;
 
+  const defaultMonthlyHours = `${realizedCount} ${realizedCount === 1 ? 'hour' : 'hours'}`;
+  const customMonthlyHours = document.getElementById('print-monthly-hours')?.value || document.getElementById('print-weekly-hours')?.value || defaultMonthlyHours;
+  const customRefPeriod = document.getElementById('print-ref-period')?.value || `${MONTHS_EN[month]} ${year}`;
+
   const completedLabel = realizedCount === 1 
     ? 'Lesson Completed with Full Participation' 
     : 'Lessons Completed with Full Participation';
 
   let msg = `*JCR English Lab - Student Progress Report - ${customRefPeriod}*\n`;
   msg += `*Student:* ${customStudentName}\n`;
-  msg += `*Weekly Hours:* ${customWeeklyHours}\n`;
+  msg += `*Monthly Hours:* ${customMonthlyHours}\n`;
   msg += `*Attendance Rate:* ${pct}% (${realizedCount} ${completedLabel})\n\n`;
   msg += `*Curriculum Timeline & Overview:*\n`;
   
@@ -5588,6 +5909,8 @@ function sendPedagogicalReport(studentId, year, month) {
       msg += `• *${formattedDate}* - ${topicText}${notesText}\n`;
     });
   }
+
+  msg += `\nThank you so much\n*Teacher Jefferson Coutinho*\n`;
 
   const phone = (student.phone || '').replace(/\D/g, '');
   const fullPhone = phone.length <= 11 ? '55' + phone : phone;
@@ -6262,22 +6585,6 @@ const DC_MONTH_COLORS = new Proxy([], { get(_,prop){
   const arr = m==='sun'?DC_MONTH_COLORS_SUN:m==='allure'?DC_MONTH_COLORS_ALLURE:m==='flower'?DC_MONTH_COLORS_FLOWER:DC_MONTH_COLORS_NATURE;
   return arr[prop];
 } });
-/* ================= render: FEEDBACK MENSAL (em construção) ================= */
-function renderFeedback(){
-  const el = document.getElementById('v-feedback');
-  if(!el) return;
-  el.innerHTML = `
-    <div class="sec-head"><div>
-      <h2>${t('feedback.title')}</h2>
-      <div class="sub">${t('feedback.sub')}</div>
-    </div></div>
-    <div class="card panel"><div class="empty" style="padding:60px 16px">
-      <div style="font-size:44px;margin-bottom:12px">🚧</div>
-      <div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:6px">${t('feedback.emptyTitle')}</div>
-      <div style="max-width:420px;margin:0 auto">${t('feedback.emptyMsg')}</div>
-    </div></div>`;
-}
-
 function renderDeclaracao(){
   const el = document.getElementById('v-declaracao');
   if(!el) return;
@@ -6703,7 +7010,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderFeedback(); renderEstatisticas();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas();
   renderAuthGate();
 }
 boot();
