@@ -752,6 +752,17 @@
     text-align:center;cursor:pointer;transition:transform .1s,background .15s,color .15s}
   .ag-remove-opt-btn:hover{background:var(--rose);color:#fff;transform:translateY(-1px)}
   .ag-remove-opt-btn:active{transform:scale(.98)}
+  .ag-scope-btn{flex:1;min-width:130px;font-size:13px;font-weight:800;color:var(--violet);
+    padding:11px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);
+    text-align:center;cursor:pointer;transition:transform .1s,background .15s,color .15s,border-color .15s}
+  .ag-scope-btn:hover{border-color:var(--violet);transform:translateY(-1px)}
+  .ag-scope-btn:active{transform:scale(.98)}
+  .ag-scope-btn.on{background:var(--violet);border-color:transparent;color:#fff}
+  .ag-delete-day-btn{width:100%;font-size:14px;font-weight:800;color:#fff;padding:12px 14px;
+    border-radius:12px;border:none;background:var(--rose);text-align:center;cursor:pointer;
+    transition:transform .1s,filter .15s}
+  .ag-delete-day-btn:hover{filter:brightness(.94);transform:translateY(-1px)}
+  .ag-delete-day-btn:active{transform:scale(.98)}
   @media(max-width:640px){
     .ag-week-nav{width:100%;justify-content:space-between}
     .ag-week-range{order:-1;width:100%;text-align:center;margin-bottom:4px}
@@ -2846,6 +2857,8 @@ const I18N = {
     'agenda.removeFromSlot':'Remover deste horário', 'agenda.removeThisDay':'Excluir aluno deste dia',
     'agenda.slotRemoveAllHint':'(remover de todas as semanas)',
     'agenda.removeStudentTitle':'🗑️ Excluir aluno', 'agenda.removeStudentHint':'Remova o aluno deste horário para poder colocar outro no lugar.',
+    'agenda.scopeTitle':'🔁 Repetição do agendamento', 'agenda.scopeHint':'Defina se esta aula acontece só nesta semana ou toda semana, sem excluir o aluno.',
+    'agenda.deleteThisDayTitle':'🗑️ Excluir deste dia', 'agenda.deleteThisDay':'Excluir aluno deste dia',
     'agenda.thisWeekOnly':'Apenas essa semana', 'agenda.everyWeek':'Toda semana',
     'agenda.hoursModalTitle':'Horários da agenda', 'agenda.hoursModalSub':'Escolha um horário e adicione ou remova da grade.',
     'agenda.hourLabel':'Horário', 'agenda.addHour':'＋ Adicionar horário', 'agenda.delHour':'🗑 Excluir horário',
@@ -3086,6 +3099,8 @@ const I18N = {
     'agenda.removeFromSlot':'Remove from this time slot', 'agenda.removeThisDay':'Delete student from this day',
     'agenda.slotRemoveAllHint':'(remove from every week)',
     'agenda.removeStudentTitle':'🗑️ Delete student', 'agenda.removeStudentHint':'Remove the student from this time slot so you can put another one in.',
+    'agenda.scopeTitle':'🔁 Schedule repetition', 'agenda.scopeHint':'Set whether this class happens only this week or every week, without deleting the student.',
+    'agenda.deleteThisDayTitle':'🗑️ Delete from this day', 'agenda.deleteThisDay':'Delete student from this day',
     'agenda.thisWeekOnly':'This week only', 'agenda.everyWeek':'Every week',
     'agenda.hoursModalTitle':'Schedule time slots', 'agenda.hoursModalSub':'Choose a time and add or remove it from the grid.',
     'agenda.hourLabel':'Time', 'agenda.addHour':'＋ Add time slot', 'agenda.delHour':'🗑 Delete time slot',
@@ -5112,9 +5127,11 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
   const dayKeys = ['agenda.sun','agenda.mon','agenda.tue','agenda.wed','agenda.thu','agenda.fri','agenda.sat'];
   const dayName = t(dayKeys[dt.getDay()]);
   const dayKey = DAYKEY_BY_GETDAY[dt.getDay()];
+  const recKey = dayKey+'_'+hour;
   const label = state.lang==='en' ? `${dayName}, ${monthFull(m-1)} ${dd}` : `${dayName}, ${dd} de ${monthFull(m-1).toLowerCase()}`;
   const pr = getPres(dateISO, hour, studentId);
   const credits = studentCreditCount(studentId);
+  const inRecurring = (state.agendaRecurring[recKey]||[]).some(e=>e.studentId===studentId);
   const sbtn = (code,lbl,cls)=>`<button class="ag-status-btn ${cls} ${pr.status===code?'on':''}" onclick="agendaSetStatus('${dateISO}','${hour}','${studentId}','${code}')">
       <span class="ag-status-letter">${attendanceLetter(code)}</span> ${lbl}</button>`;
   showModal(`
@@ -5127,17 +5144,52 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
     </div>
     ${pr.status==='c' ? `<div class="ag-credit-note">🎟️ ${t('agenda.cancelGeneratedCredit')} <b>${credits}</b></div>` : ''}
     <div class="ag-remove-section">
-      <div class="ag-remove-title">${t('agenda.removeStudentTitle')}</div>
-      <div class="ag-remove-hint">${t('agenda.removeStudentHint')}</div>
+      <div class="ag-remove-title">${t('agenda.scopeTitle')}</div>
+      <div class="ag-remove-hint">${t('agenda.scopeHint')}</div>
       <div class="ag-remove-btn-group">
-        <button class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">📅 ${t('agenda.thisWeekOnly')}</button>
-        <button class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','all')">🗓️ ${t('agenda.everyWeek')}</button>
+        <button class="ag-scope-btn ${!inRecurring?'on':''}" onclick="agendaSetScope('${dateISO}','${dayKey}','${hour}','${studentId}','week')">📅 ${t('agenda.thisWeekOnly')}</button>
+        <button class="ag-scope-btn ${inRecurring?'on':''}" onclick="agendaSetScope('${dateISO}','${dayKey}','${hour}','${studentId}','all')">🗓️ ${t('agenda.everyWeek')}</button>
       </div>
+    </div>
+    <div class="ag-remove-section">
+      <div class="ag-remove-title">${t('agenda.deleteThisDayTitle')}</div>
+      <button class="ag-delete-day-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">🗑️ ${t('agenda.deleteThisDay')}</button>
     </div>
     <div class="modal-acts">
       ${credits>0?`<button class="btn btn-ghost" onclick="openStudentCredits('${studentId}')">🎟️ ${t('presenca.credits')} (${credits})</button>`:''}
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.close')}</button>
     </div>`);
+}
+async function agendaSetScope(dateISO, dayKey, hour, studentId, scope){
+  const recKey = dayKey+'_'+hour;
+  const ovKey = dateISO+'_'+hour;
+  const inRecurring = (state.agendaRecurring[recKey]||[]).some(e=>e.studentId===studentId);
+  if(scope==='all'){
+    if(!inRecurring){
+      if(!state.agendaRecurring[recKey]) state.agendaRecurring[recKey] = [];
+      state.agendaRecurring[recKey].push({studentId});
+      await write('agendaRecurring', state.agendaRecurring);
+    }
+    if(Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
+      delete state.agendaOverrides[ovKey];
+      await write('agendaOverrides', state.agendaOverrides);
+    }
+  }else{
+    if(!Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
+      state.agendaOverrides[ovKey] = (state.agendaRecurring[recKey] || []).slice();
+    }
+    if(!state.agendaOverrides[ovKey].some(e=>e.studentId===studentId)){
+      state.agendaOverrides[ovKey].push({studentId});
+    }
+    await write('agendaOverrides', state.agendaOverrides);
+    if(inRecurring){
+      state.agendaRecurring[recKey] = state.agendaRecurring[recKey].filter(e=>e.studentId!==studentId);
+      if(!state.agendaRecurring[recKey].length) delete state.agendaRecurring[recKey];
+      await write('agendaRecurring', state.agendaRecurring);
+    }
+  }
+  renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+  openAgendaStudentStatus(dateISO, hour, studentId);
 }
 async function agendaSetStatus(iso, hour, sid, status){
   await setPresStatus(iso, hour, sid, status);
@@ -5215,9 +5267,9 @@ function openAgendaSlot(dateISO, dayKey, hour){
         <div class="ag-modal-row-top">
           <span class="ag-chip" style="background:${pastelFor(e.studentId||nm)}">${esc(nm)}</span>
         </div>
-        <div class="ag-modal-rm-group">
-          <button class="ag-modal-rm" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${e.studentId}','week')">🗑️ ${t('agenda.slotRemoveWeek')}</button>
-          <button class="ag-modal-rm ag-modal-rm-all" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${e.studentId}','all')">🗑️ ${t('agenda.slotRemoveAll')}</button>
+        <div class="ag-remove-btn-group">
+          <button type="button" class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${e.studentId}','week')">🗑️ ${t('agenda.slotRemoveWeek')}</button>
+          <button type="button" class="ag-remove-opt-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${e.studentId}','all')">🗑️ ${t('agenda.slotRemoveAll')}</button>
         </div>
       </div>`;
     }).join('')}</div>` : `<div class="empty" style="padding:14px 0">${t('agenda.slotNoStudents')}</div>`}
@@ -6404,6 +6456,16 @@ function previewReceiptPDF() {
   const p = collectReceiptDataFromModal();
   activeReceiptData = p;
 
+  // Lembra os dados institucionais/Pix para não precisar redigitar da próxima vez
+  state.orgInfo = Object.assign({}, state.orgInfo, {
+    nome: p.instNome,
+    cnpj: p.instDoc,
+    cidade: p.instCidade,
+    pixChave: p.pixChave,
+    pixQrCode: p.pixQRDataUrl || state.orgInfo.pixQrCode || ''
+  });
+  write('orgInfo', state.orgInfo);
+
   const html = buildReceiptHTML(p);
 
   showModal(`
@@ -6909,13 +6971,14 @@ function onOrgPhoto(e){
       const c = document.createElement('canvas'); c.width = w; c.height = h;
       c.getContext('2d').drawImage(img,0,0,w,h);
       state.orgInfo.photo = c.toDataURL('image/jpeg',0.85);
+      write('orgInfo', state.orgInfo);
       renderInfo();
     };
     img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
-function removeOrgPhoto(){ state.orgInfo.photo = ''; renderInfo(); }
+function removeOrgPhoto(){ state.orgInfo.photo = ''; write('orgInfo', state.orgInfo); renderInfo(); }
 const fv = id => { const e = document.getElementById(id); return e ? e.value.trim() : ''; };
 async function saveOrgInfo(){
   state.orgInfo = {
