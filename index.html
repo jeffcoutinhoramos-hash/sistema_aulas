@@ -4745,14 +4745,23 @@ function getPres(iso,h,sid){ return state.presenca[presKey(iso,h,sid)] || {}; }
 function countMonthlyClasses(year, month){
   const counts = {};
   const daysInMonth = new Date(year, month+1, 0).getDate();
+  const todayISO = isoDate(new Date());
   for(let d=1; d<=daysInMonth; d++){
     const dt = new Date(year, month, d);
     const iso = isoDate(dt);
     const dk = DAYKEY_BY_GETDAY[dt.getDay()];
+    const isPastOrToday = iso <= todayISO;
     state.agendaHours.forEach(h=>{
       effectiveEntries(iso, dk, h).forEach(e=>{
         const s = studentById(e.studentId);
         if(s && s.startDate && iso < s.startDate) return; // antes do início do curso do aluno
+        if(isPastOrToday){
+          // Para dias já ocorridos, usa o que foi de fato registrado na Frequência:
+          // aula cancelada gera crédito (não conta como faturamento); presença ou
+          // falta (ou dia ainda não marcado) contam normalmente como agendados/realizados.
+          const pr = getPres(iso, h, e.studentId);
+          if(pr && pr.status === 'c') return;
+        }
         counts[e.studentId] = (counts[e.studentId]||0)+1;
       });
     });
