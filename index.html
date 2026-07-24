@@ -2306,7 +2306,13 @@ function initSupabaseSdk(){
   if(!SUPABASE_CONFIGURED) return false;
   try{
     sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
+      auth: {
+        storage: window.localStorage,   // precisa sobreviver ao redirect do Google
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        flowType: 'pkce'
+      }
     });
     sb.auth.onAuthStateChange((event, session)=>{
       if(event === 'PASSWORD_RECOVERY') showPasswordRecoveryPrompt();
@@ -2314,9 +2320,76 @@ function initSupabaseSdk(){
     return true;
   }catch(e){ console.error('Supabase init failed:', e); return false; }
 }
+/* Guarda o erro que o Google/Supabase devolveu na URL, para exibir no login
+   em vez de simplesmente voltar para a tela inicial sem explicação. */
+let oauthReturnError = '';
+function readOAuthErrorFromUrl(){
+  try{
+    const qs = new URLSearchParams(window.location.search);
+    const hs = new URLSearchParams((window.location.hash||'').replace(/^#/, ''));
+    const err = qs.get('error') || hs.get('error');
+    if(!err) return '';
+    const desc = qs.get('error_description') || hs.get('error_description') || '';
+    return decodeURIComponent((desc || err).replace(/\+/g, ' '));
+  }catch(e){ return ''; }
+}
+function cleanAuthParamsFromUrl(){
+  try{
+    const url = new URL(window.location.href);
+    ['code','error','error_description','error_code','state','provider_token'].forEach(k=>url.searchParams.delete(k));
+    const clean = url.origin + url.pathname + (url.searchParams.toString() ? '?'+url.searchParams.toString() : '');
+    window.history.replaceState({}, document.title, clean);
+  }catch(e){}
+}
 async function waitForAuthState(){
-  const { data } = await sb.auth.getSession();
-  return data && data.session ? data.session.user : null;
+  oauthReturnError = readOAuthErrorFromUrl();
+  if(oauthReturnError){ cleanAuthParamsFromUrl(); return null; }
+
+  let { data } = await sb.auth.getSession();
+  if(data && data.session) { cleanAuthParamsFromUrl(); return data.session.user; }
+
+  // Retorno do Google: às vezes o código ainda não foi trocado por sessão.
+  const hasCode = new URLSearchParams(window.location.search).has('code');
+  const hasToken = (window.location.hash||'').includes('access_token');
+  if(hasCode || hasToken){
+    if(hasCode && sb.auth.exchangeCodeForSession){
+      try{
+        const { data: ex, error } = await sb.auth.exchangeCodeForSession(window.location.href);
+        if(!error && ex && ex.session){ cleanAuthParamsFromUrl(); return ex.session.user; }
+        if(error) oauthReturnError = error.message || '';
+      }catch(e){ oauthReturnError = (e && e.message) || ''; }
+    }
+    // pequena espera para o SDK concluir o processamento automático da URL
+    for(let i=0; i<10; i++){
+      await new Promise(r=>setTimeout(r, 250));
+      const res = await sb.auth.getSession();
+      if(res.data && res.data.session){ cleanAuthParamsFromUrl(); return res.data.session.user; }
+    }
+    if(!oauthReturnError) oauthReturnError = t('login.googleNoSession');
+    cleanAuthParamsFromUrl();
+  }
+  return null;
+}
+/* ---- login rápido com Google (OAuth via Supabase) ---- */
+async function loginWithGoogle(){
+  const errEl = document.getElementById('auth-err');
+  if(!SUPABASE_CONFIGURED || !sb){
+    if(errEl) errEl.textContent = t('login.googleUnavailable');
+    return;
+  }
+  try{
+    const redirectTo = window.location.origin + window.location.pathname;
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo, queryParams: { prompt: 'select_account' } }
+    });
+    if(error) throw error;
+    // o navegador é redirecionado para o Google; ao voltar, a sessão é
+    // restaurada automaticamente pelo boot (waitForAuthState).
+  }catch(e){
+    console.error('Google login error:', e);
+    if(errEl) errEl.textContent = t('login.googleError') + ' (' + (e.message||'erro') + ')';
+  }
 }
 // deriva um "e-mail" válido para o login a partir de um e-mail real ou de um CPF/CNPJ
 function deriveAuthEmail(raw){
@@ -2755,6 +2828,7 @@ const I18N = {
     'painel.sundayMsgToday':'Hoje é domingo, hora de relaxar e curtir!',
     'painel.sundayMsg':'Domingo é dia de relaxar e curtir!',
     'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Frequência',
+    'painel.expectedRevenueHint':'atualiza com presenças e agendamentos · cancelados não contam',
     'painel.calToday':'Hoje', 'painel.calPrevMonth':'Mês anterior', 'painel.calNextMonth':'Próximo mês',
     'painel.calLegendClass':'Aula', 'painel.calLegendAbsence':'Falta', 'painel.calLegendHoliday':'Feriado',
     'painel.logAttendance':'Lançar Presença', 'painel.studentCol':'Aluno', 'painel.scheduleCol':'Horário',
@@ -2826,6 +2900,10 @@ const I18N = {
     'login.offerCreate':'Esse usuário ainda não tem conta. Deseja criar agora com essa senha?',
     'login.usernameSimple':'Usuário', 'login.usernameSimplePh':'E-mail ou CPF',
     'login.noAccount':'Não tem uma conta?', 'login.createAccount':'Criar conta',
+    'login.orDivider':'ou', 'login.googleBtn':'Continuar com o Google',
+    'login.googleUnavailable':'Login com Google indisponível neste modo.',
+    'login.googleError':'Não foi possível entrar com o Google.',
+    'login.googleNoSession':'O Google respondeu, mas a sessão não foi criada. Confira as URLs autorizadas no Supabase e no Google Cloud.',
     'login.forgot':'Esqueci minha senha', 'login.backToLogin':'← Voltar para o login',
     'login.signupTitle':'Criar conta', 'login.signupSub':'Preencha os dados para acessar o sistema.',
     'login.fullName':'Nome completo', 'login.fullNamePh':'Ex: Jefferson Coutinho',
@@ -2996,6 +3074,7 @@ const I18N = {
     'painel.sundayMsgToday':'It\'s Sunday, time to relax and enjoy!',
     'painel.sundayMsg':'Sunday is for relaxing and enjoying!',
     'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Attendance',
+    'painel.expectedRevenueHint':'updates with attendance & scheduling · cancelled don\'t count',
     'painel.calToday':'Today', 'painel.calPrevMonth':'Previous month', 'painel.calNextMonth':'Next month',
     'painel.calLegendClass':'Class', 'painel.calLegendAbsence':'Absence', 'painel.calLegendHoliday':'Holiday',
     'painel.logAttendance':'Log Attendance', 'painel.studentCol':'Student', 'painel.scheduleCol':'Schedule',
@@ -3066,6 +3145,10 @@ const I18N = {
     'login.offerCreate':'This username does not have an account yet. Create one now with this password?',
     'login.usernameSimple':'Username', 'login.usernameSimplePh':'Email or Tax ID',
     'login.noAccount':"Don't have an account?", 'login.createAccount':'Create account',
+    'login.orDivider':'or', 'login.googleBtn':'Continue with Google',
+    'login.googleUnavailable':'Google sign-in is unavailable in this mode.',
+    'login.googleError':'Could not sign in with Google.',
+    'login.googleNoSession':'Google responded, but no session was created. Check the authorized URLs in Supabase and Google Cloud.',
     'login.forgot':'Forgot my password', 'login.backToLogin':'← Back to login',
     'login.signupTitle':'Create account', 'login.signupSub':'Fill in your details to access the system.',
     'login.fullName':'Full name', 'login.fullNamePh':'E.g.: Jefferson Coutinho',
@@ -3731,15 +3814,40 @@ async function boot(){
     if(user){
       sbUid = user.id; sbEmail = user.email; authOk = true;
       await afterAuthReady();
+      await prefillProfileFromOAuth(user);
     }else{
       authOk = false;
       renderAuthGate();
+      if(oauthReturnError){
+        const msg = t('login.googleError') + ' ' + oauthReturnError;
+        oauthReturnError = '';
+        setTimeout(()=>{
+          const el = document.getElementById('auth-err');
+          if(el) el.textContent = msg;
+        }, 400);
+      }
     }
   }else{
     state.authHash = await read('authHash', '');
     await afterAuthReady();
     renderAuthGate();
   }
+}
+async function prefillProfileFromOAuth(user){
+  try{
+    const meta = (user && user.user_metadata) || {};
+    const isOAuth = !!(meta.full_name || meta.name || meta.avatar_url || meta.picture);
+    if(!isOAuth) return;
+    const o = state.orgInfo || {};
+    const patch = {};
+    if(!o.nome && (meta.full_name || meta.name)) patch.nome = meta.full_name || meta.name;
+    if(!o.email && user.email) patch.email = user.email;
+    if(!o.photo && (meta.avatar_url || meta.picture)) patch.photo = meta.avatar_url || meta.picture;
+    if(!Object.keys(patch).length) return;
+    state.orgInfo = Object.assign({}, o, patch);
+    await write('orgInfo', state.orgInfo);
+    renderBrand(); renderInfo();
+  }catch(e){ console.error('prefillProfileFromOAuth:', e); }
 }
 async function afterAuthReady(){
   setupRealtimeSync();
@@ -4294,6 +4402,7 @@ function renderPainel(){
           <div class="stat-details">
             <h3>${t('painel.expectedRevenue')}</h3>
             <p>${fmtBRL(faturamentoPrevisto)}</p>
+            <span style="display:block;font-size:0.68rem;color:var(--muted);font-weight:600;margin-top:2px;">${t('painel.expectedRevenueHint')}</span>
           </div>
           <div class="stat-icon warning">💰</div>
         </div>
@@ -4956,7 +5065,9 @@ function topicHistoryForStudent(sid, title, excludeKey){
     const parts = k.split('_');           // [date, hour, sid]
     if(parts[2]!==sid) return;
     const rec = state.presenca[k];
-    if(rec.content && rec.content===title) dates.push(parts[0]);
+    // só conta como "já dado" quando a aula foi oficialmente registrada como presença;
+    // se a aula foi cancelada, faltou, ou o registro foi removido, o tópico volta a ser novo
+    if(rec.content && rec.content===title && rec.status==='p') dates.push(parts[0]);
   });
   return [...new Set(dates)].sort();
 }
@@ -5337,6 +5448,14 @@ async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
     }
     state.agendaOverrides[ovKey] = state.agendaOverrides[ovKey].filter(e=>e.studentId!==studentId);
     await write('agendaOverrides', state.agendaOverrides);
+  }
+  // A aula deste dia deixou de existir na agenda: limpa qualquer presença/tópico
+  // já registrado nesse horário específico, para que ele volte a contar como
+  // "ainda não dado" (só fica oficialmente dado quando realmente marcado de novo).
+  const presK = presKey(dateISO, hour, studentId);
+  if(state.presenca[presK]){
+    delete state.presenca[presK];
+    await write('presenca', state.presenca);
   }
   closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
 }
@@ -8248,6 +8367,32 @@ boot();
                 </>
               )}
             </button>
+
+            {/* BUTTON: Google Sign-In (login/signup rápido) */}
+            {(view === 'login' || view === 'signup') && SUPABASE_CONFIGURED && (
+              <>
+                <div className="flex items-center gap-3 w-full mt-3">
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                    {t('login.orDivider')}
+                  </span>
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => { setErrorMsg(''); setIsErrorOk(false); loginWithGoogle(); }}
+                  className="w-full py-3.5 px-4 bg-white hover:bg-gray-50 active:scale-[0.985] border border-gray-300 text-gray-700 font-semibold rounded-xl shadow-sm hover:shadow transition-all text-sm flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                >
+                  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  </svg>
+                  {t('login.googleBtn')}
+                </button>
+              </>
+            )}
 
             {/* Footer View Switchers */}
             <div className="flex flex-col items-center gap-2 w-full mt-4 text-xs sm:text-sm text-gray-500 border-t border-gray-100 pt-4">
