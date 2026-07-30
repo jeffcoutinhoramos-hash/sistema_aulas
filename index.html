@@ -2153,6 +2153,17 @@
     border-color: var(--violet);
     background: var(--accent-bg);
   }
+  .pn-cal-day.pn-cal-vacation:not(.pn-cal-today) {
+    background: var(--amber-bg);
+    color: var(--amber);
+    border-color: transparent;
+    font-weight: 800;
+  }
+  .pn-cal-day.pn-cal-selecting {
+    border: 2px dashed var(--violet) !important;
+    background: var(--accent-bg);
+    color: var(--violet);
+  }
   .pn-cal-dots {
     display: flex;
     align-items: center;
@@ -2201,7 +2212,39 @@
   }
   .pn-cal-legend i.emerald { background: var(--emerald); }
   .pn-cal-legend i.rose { background: var(--rose); }
+  .pn-cal-legend i.amber { background: var(--amber); }
   .pn-cal-legend i.holiday { background: var(--rose-bg); border: 1px solid var(--rose); }
+  .ferias-hint{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--accent-bg); color:var(--ink); font-size:0.82rem; font-weight:600;
+    padding:9px 14px; border-radius:10px; margin-bottom:12px;
+  }
+  .ferias-hint.active{ background:var(--amber-bg); color:var(--amber); }
+  .ferias-hint-cancel{
+    font-size:0.72rem; font-weight:700; color:var(--rose); background:none; border:1px solid var(--rose);
+    padding:3px 10px; border-radius:20px; cursor:pointer;
+  }
+  .ferias-hint-cancel:hover{ background:var(--rose); color:#fff; }
+  .ferias-toast{
+    max-width:520px; margin:0 auto 0; padding:0 24px; max-height:0; overflow:hidden;
+    background:var(--emerald-bg); color:var(--emerald); font-weight:700; font-size:0.85rem;
+    border-radius:12px; text-align:center; transition:max-height .3s ease, padding .3s ease, margin .3s ease;
+  }
+  .ferias-toast.show{ max-height:60px; padding:12px 24px; margin:0 auto 16px; }
+  .ferias-period-list{ display:flex; flex-direction:column; gap:8px; }
+  .ferias-period-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:var(--surface);
+  }
+  .ferias-period-info{ display:flex; align-items:center; gap:12px; }
+  .ferias-period-ico{ font-size:1.4rem; }
+  .ferias-period-range{ font-weight:700; color:var(--ink); font-size:0.9rem; text-transform:capitalize; }
+  .ferias-period-days{ font-size:0.74rem; color:var(--muted); font-weight:600; margin-top:1px; }
+  .ferias-period-del{
+    background:none; border:1px solid var(--line); border-radius:8px; padding:7px 10px; cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .ferias-period-del:hover{ background:var(--rose-bg); border-color:var(--rose); }
   @media (max-width: 1024px) {
     .pn-right-col { height: auto; }
     .pn-cal-card { min-height: 320px; }
@@ -2296,6 +2339,7 @@
           <button data-view="financeiro"><span class="ico">💰</span>Financeiro</button>
           <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
           <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
+          <button data-view="ferias"><span class="ico">🏖️</span>Férias</button>
         </div>
       </div>
       <div class="nav-group" data-group="analise">
@@ -2341,6 +2385,7 @@
         <div id="v-financeiro" class="view"></div>
         <div id="v-despesas" class="view"></div>
         <div id="v-info" class="view"></div>
+        <div id="v-ferias" class="view"></div>
         <div id="v-estatisticas" class="view"></div>
       </main>
     </div>
@@ -2720,11 +2765,17 @@ function holidaysForYear(year){
   if(!_holidaysCache[year]) _holidaysCache[year] = getBrazilianHolidays(year);
   return _holidaysCache[year];
 }
+function feriasInfo(iso){
+  if(!iso || !state.ferias) return null;
+  const p = state.ferias.find(f => iso >= f.start && iso <= f.end);
+  return p ? { date: iso, name: t('ferias.periodLabel'), isVacation: true, id: p.id } : null;
+}
 function holidayInfo(iso){
   if(!iso) return null;
   const year = Number(iso.slice(0,4));
   const found = holidaysForYear(year).find(h => h.date === iso);
-  return found || null;
+  if(found) return found;
+  return feriasInfo(iso);
 }
 function isHoliday(iso){ return !!holidayInfo(iso); }
 function nextHolidays(fromISO, count){
@@ -2738,7 +2789,10 @@ function effectiveEntries(dateISO, dayKey, hour){
   if(isHoliday(dateISO)) return [];
   const ovKey = dateISO+'_'+hour;
   if(Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)) return state.agendaOverrides[ovKey];
-  return state.agendaRecurring[dayKey+'_'+hour] || [];
+  const recurring = state.agendaRecurring[dayKey+'_'+hour] || [];
+  // um aluno com aula fixa (toda semana) só aparece a partir da data em que foi
+  // colocado nesse horário — datas/semanas anteriores a isso ficam sem ele.
+  return recurring.filter(e => !e.addedOn || dateISO >= e.addedOn);
 }
 function hasOverride(dateISO, hour){
   return Object.prototype.hasOwnProperty.call(state.agendaOverrides, dateISO+'_'+hour);
@@ -3028,6 +3082,16 @@ const I18N = {
     'login.recoverNeedsFirebase':'A recuperação por e-mail exige o Firebase configurado. Use a opção abaixo, confirmando suas credenciais.',
     'agenda.title':'Agenda', 'agenda.hours':'🕐 Horário', 'agenda.weekClasses':'aulas agendadas nesta semana',
     'agenda.holiday':'Feriado', 'agenda.noClassHoliday':'🎌 Feriado — sem aula',
+    'nav.ferias':'Férias',
+    'ferias.title':'Férias', 'ferias.sub':'Defina o período de férias do professor. As aulas da agenda nesse período são automaticamente excluídas e não contam como aulas dadas.',
+    'ferias.periodLabel':'Férias', 'ferias.noClassVacation':'🏖️ Férias — sem aula',
+    'ferias.calHint':'Toque no primeiro dia das férias e depois no último dia para criar o período.',
+    'ferias.pickStart':'Toque no dia de início das férias', 'ferias.pickEnd':'Agora toque no dia de término das férias',
+    'ferias.cancelSelection':'Cancelar seleção', 'ferias.currentPeriods':'Períodos de férias cadastrados',
+    'ferias.noPeriods':'Nenhum período de férias cadastrado ainda.',
+    'ferias.deletePeriod':'Excluir período', 'ferias.confirmDelete':'Excluir este período de férias? As aulas voltarão a ser exibidas normalmente na agenda.',
+    'ferias.periodCreated':'Período de férias criado! As aulas da agenda nesse intervalo já foram excluídas.',
+    'ferias.days':'dias', 'ferias.day':'dia',
     'agenda.weekClass1':'aula agendada',
     'agenda.prevWeek':'Semana anterior', 'agenda.nextWeek':'Próxima semana', 'agenda.goToday':'Hoje',
     'agenda.weekRange':'Semana de', 'agenda.cancelGeneratedCredit':'Este cancelamento gerou crédito acumulado:',
@@ -3276,6 +3340,16 @@ const I18N = {
     'declaracao.centsHint':'Use a comma or period for cents. Amount between $0.00 and $100,000.00',
     'agenda.title':'Schedule', 'agenda.hours':'🕐 Time slots', 'agenda.weekClasses':'classes scheduled this week',
     'agenda.holiday':'Holiday', 'agenda.noClassHoliday':'🎌 Holiday — no class',
+    'nav.ferias':'Vacation',
+    'ferias.title':'Vacation', 'ferias.sub':"Set the teacher's vacation period. Scheduled classes within this range are automatically excluded and won't count as classes given.",
+    'ferias.periodLabel':'Vacation', 'ferias.noClassVacation':'🏖️ Vacation — no class',
+    'ferias.calHint':'Tap the first day of vacation, then the last day, to create the period.',
+    'ferias.pickStart':'Tap the vacation start day', 'ferias.pickEnd':'Now tap the vacation end day',
+    'ferias.cancelSelection':'Cancel selection', 'ferias.currentPeriods':'Registered vacation periods',
+    'ferias.noPeriods':'No vacation periods registered yet.',
+    'ferias.deletePeriod':'Delete period', 'ferias.confirmDelete':'Delete this vacation period? Classes will show normally again on the schedule.',
+    'ferias.periodCreated':'Vacation period created! Scheduled classes in this range have been excluded.',
+    'ferias.days':'days', 'ferias.day':'day',
     'agenda.weekClass1':'class scheduled',
     'agenda.prevWeek':'Previous week', 'agenda.nextWeek':'Next week', 'agenda.goToday':'Today',
     'agenda.weekRange':'Week of', 'agenda.cancelGeneratedCredit':'This cancellation generated accrued credit:',
@@ -4004,6 +4078,7 @@ async function loadAppData(){
   state.financeiroMonth = new Date(); // mês exibido no Financeiro
   state.declaracaoChartYear = new Date().getFullYear(); // ano exibido no comparativo anual
   state.declaracaoAjustes = await read('declaracaoAjustes', {});
+  state.ferias = await read('ferias', []);
   state.statsYear = new Date().getFullYear(); // ano exibido nas Estatísticas
   state.despesas = await read('despesas', []);
   // limpeza única solicitada: apaga despesas já salvas, uma única vez
@@ -4268,6 +4343,9 @@ function renderPainelCalendar(){
     </div>`;
 }
 
+function holidayBadgeText(hol){
+  return hol && hol.isVacation ? `🏖️ ${t('ferias.periodLabel')}` : `🎌 ${t('agenda.holiday')}`;
+}
 function renderPainel(){
   const el = document.getElementById('v-painel');
   const nA = state.students.filter(s=>!s.status || s.status==='ativo').length;
@@ -4489,7 +4567,7 @@ function renderPainel(){
           </div>
           <div class="pr-datebar">
             <button class="ag-nav" onclick="navPainelFreqDay(-1)" title="${t('common.prevDay')}">‹</button>
-            <div class="pr-date-mid">${freqDateLabel}${freqHoliday?` <span class="pr-holiday-tag">🎌 ${t('agenda.holiday')}</span>`:''}</div>
+            <div class="pr-date-mid">${freqDateLabel}${freqHoliday?` <span class="pr-holiday-tag">${holidayBadgeText(freqHoliday)}</span>`:''}</div>
             <button class="ag-nav" onclick="navPainelFreqDay(1)" title="${t('common.nextDay')}">›</button>
             <button class="btn btn-ghost btn-sm pr-today-btn" onclick="painelFreqToday()" style="visibility:${freqIsToday?'hidden':'visible'}">${t('presenca.goToday')}</button>
           </div>
@@ -5115,8 +5193,8 @@ function attendanceRowsHTML(iso, rows, monthStatus){
 }
 function attendanceEmptyHTML(holToday){
   return `<div class="card panel"><div class="empty" style="padding:44px 16px">
-      <div style="font-size:40px;margin-bottom:10px">${holToday?'🎌':'📋'}</div>
-      ${holToday?`${t('agenda.noClassHoliday')} — ${esc(holToday.name)}`:`${t('presenca.noClasses')}<br>${t('presenca.noClassesCta')}`}
+      <div style="font-size:40px;margin-bottom:10px">${holToday?(holToday.isVacation?'🏖️':'🎌'):'📋'}</div>
+      ${holToday?`${holToday.isVacation?t('ferias.noClassVacation'):t('agenda.noClassHoliday')} — ${esc(holToday.name)}`:`${t('presenca.noClasses')}<br>${t('presenca.noClassesCta')}`}
     </div></div>`;
 }
 
@@ -5151,7 +5229,7 @@ function renderPresenca(){
     </div></div>
     <div class="pr-datebar">
       <button class="ag-nav" onclick="navPresencaDay(-1)" title="${t('common.prevDay')}">‹</button>
-      <div class="pr-date-mid">${dateLabel}${holToday?` <span class="pr-holiday-tag">🎌 ${t('agenda.holiday')}</span>`:''}</div>
+      <div class="pr-date-mid">${dateLabel}${holToday?` <span class="pr-holiday-tag">${holidayBadgeText(holToday)}</span>`:''}</div>
       <button class="ag-nav" onclick="navPresencaDay(1)" title="${t('common.nextDay')}">›</button>
       <button class="btn btn-ghost btn-sm pr-today-btn" onclick="presencaToday()" style="visibility:${isToday?'hidden':'visible'}">${t('presenca.goToday')}</button>
     </div>
@@ -5341,7 +5419,7 @@ function renderAgenda(){
           const hol = holidayInfo(iso);
           return `<div class="ag-cell ag-colhead ${isToday?'ag-today-col':''}" style="background:${weekDayGrad(d)}" title="${hol?esc(hol.name):''}">
             <span class="ag-dname">${t(d.key)} <b class="ag-daynum">${weekDates[i].getDate()}</b></span>
-            ${hol?`<span class="ag-holiday-badge">🎌 ${t('agenda.holiday')}</span>`:''}
+            ${hol?`<span class="ag-holiday-badge">${holidayBadgeText(hol)}</span>`:''}
           </div>`;
         }).join('')}
         ${hours.map(h=>`
@@ -5353,7 +5431,7 @@ function renderAgenda(){
             const hol = holidayInfo(iso);
             if(hol){
               return `<div class="ag-cell ag-slot ag-slot-holiday" title="${esc(hol.name)}">
-                <span class="ag-holiday-tag">${t('agenda.noClassHoliday')}</span>
+                <span class="ag-holiday-tag">${hol.isVacation ? t('ferias.noClassVacation') : t('agenda.noClassHoliday')}</span>
               </div>`;
             }
             return `<div class="ag-cell ag-slot" onclick="openAgendaSlot('${iso}','${d.k}','${h}')">
@@ -5437,7 +5515,7 @@ async function agendaSetScope(dateISO, dayKey, hour, studentId, scope){
   if(scope==='all'){
     if(!inRecurring){
       if(!state.agendaRecurring[recKey]) state.agendaRecurring[recKey] = [];
-      state.agendaRecurring[recKey].push({studentId});
+      state.agendaRecurring[recKey].push({studentId, addedOn: dateISO});
       await write('agendaRecurring', state.agendaRecurring);
     }
     if(Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
@@ -5568,7 +5646,7 @@ async function addAgendaEntry(dateISO, dayKey, hour){
   const ovKey = dateISO+'_'+hour;
   if(repeat){
     if(!state.agendaRecurring[recKey]) state.agendaRecurring[recKey] = [];
-    state.agendaRecurring[recKey].push({studentId});
+    state.agendaRecurring[recKey].push({studentId, addedOn: dateISO});
     await write('agendaRecurring', state.agendaRecurring);
     // se esta semana específica já tinha sido alterada, refletir a adição nela também
     if(Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
@@ -7465,6 +7543,140 @@ function statBarRow(i, val, maxVal, totalYear, colorPair, fmt){
     <span class="es-pct" style="color:${colorPair.fg};background:${colorPair.bg}">${pctYear}%</span>
   </div>`;
 }
+/* ================= FÉRIAS DO PROFESSOR ================= */
+let _feriasCalView = new Date();
+let _feriasSelStart = null; // iso do primeiro dia escolhido, aguardando o segundo clique
+
+function navFeriasMonth(delta){
+  _feriasCalView = new Date(_feriasCalView.getFullYear(), _feriasCalView.getMonth()+delta, 1);
+  renderFerias();
+}
+function feriasToday(){
+  _feriasCalView = new Date();
+  renderFerias();
+}
+function feriasCancelSelection(){
+  _feriasSelStart = null;
+  renderFerias();
+}
+async function feriasPickDay(iso){
+  if(!_feriasSelStart){
+    _feriasSelStart = iso;
+    renderFerias();
+    return;
+  }
+  let start = _feriasSelStart, end = iso;
+  if(start > end){ const tmp = start; start = end; end = tmp; }
+  _feriasSelStart = null;
+  state.ferias.push({ id: uid(), start, end });
+  await write('ferias', state.ferias);
+  _holidaysCache = {}; // força recalcular exibições que dependem de datas
+  renderFerias(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+  setTimeout(()=>{ const b = document.getElementById('ferias-toast'); if(b) b.classList.add('show'); }, 30);
+  setTimeout(()=>{ const b = document.getElementById('ferias-toast'); if(b) b.classList.remove('show'); }, 3200);
+}
+async function deleteFeriasPeriod(id){
+  if(!confirm(t('ferias.confirmDelete'))) return;
+  state.ferias = state.ferias.filter(f=>f.id!==id);
+  await write('ferias', state.ferias);
+  renderFerias(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+}
+function feriasPeriodDaysCount(f){
+  const [sy,sm,sd] = f.start.split('-').map(Number);
+  const [ey,em,ed] = f.end.split('-').map(Number);
+  const d1 = new Date(sy,sm-1,sd), d2 = new Date(ey,em-1,ed);
+  return Math.round((d2-d1)/86400000)+1;
+}
+function feriasFmtRange(f){
+  const [sy,sm,sd] = f.start.split('-').map(Number);
+  const [ey,em,ed] = f.end.split('-').map(Number);
+  if(f.start===f.end) return fmtLongDate(sd, sm-1, sy);
+  if(sy===ey && sm===em) return state.lang==='en' ? `${monthFull(sm-1)} ${sd} – ${ed}, ${ey}` : `${sd} a ${ed} de ${monthFull(sm-1).toLowerCase()} de ${ey}`;
+  return `${fmtLongDate(sd, sm-1, sy)} — ${fmtLongDate(ed, em-1, ey)}`;
+}
+function renderFerias(){
+  const el = document.getElementById('v-ferias');
+  if(!el) return;
+  const view = _feriasCalView;
+  const year = view.getFullYear(), month = view.getMonth();
+  const todayISO = isoDate(new Date());
+  const firstOfMonth = new Date(year, month, 1);
+  const gridStart = addDays(firstOfMonth, -firstOfMonth.getDay());
+  const lastOfMonth = new Date(year, month+1, 0);
+  const totalCells = firstOfMonth.getDay() + lastOfMonth.getDate();
+  const weeks = Math.ceil(totalCells/7);
+  const cellCount = weeks*7;
+  const weekdayLabels = state.lang==='en' ? ['S','M','T','W','T','F','S'] : ['D','S','T','Q','Q','S','S'];
+
+  let cellsHtml = '';
+  for(let i=0;i<cellCount;i++){
+    const d = addDays(gridStart, i);
+    const iso = isoDate(d);
+    const inMonth = d.getMonth()===month;
+    const isToday = iso===todayISO;
+    const vac = inMonth ? state.ferias.find(f=>iso>=f.start && iso<=f.end) : null;
+    const hol = inMonth && !vac ? holidayInfo(iso) : null;
+    const isSelStart = _feriasSelStart===iso;
+    const classes = ['pn-cal-day'];
+    if(!inMonth) classes.push('pn-cal-out');
+    if(isToday) classes.push('pn-cal-today');
+    if(vac) classes.push('pn-cal-vacation');
+    if(hol) classes.push('pn-cal-holiday');
+    if(isSelStart) classes.push('pn-cal-selecting');
+    const titleAttr = vac ? ` title="${esc(t('ferias.periodLabel'))}"` : hol ? ` title="${esc(hol.name)}"` : '';
+    const clickAttr = inMonth ? ` onclick="feriasPickDay('${iso}')"` : '';
+    cellsHtml += `<div class="${classes.join(' ')}"${clickAttr}${titleAttr}><span>${d.getDate()}</span></div>`;
+  }
+
+  const periodsHtml = state.ferias.length ? [...state.ferias].sort((a,b)=>a.start.localeCompare(b.start)).map(f=>{
+    const days = feriasPeriodDaysCount(f);
+    return `<div class="ferias-period-row">
+      <div class="ferias-period-info">
+        <span class="ferias-period-ico">🏖️</span>
+        <div>
+          <div class="ferias-period-range">${feriasFmtRange(f)}</div>
+          <div class="ferias-period-days">${days} ${days===1?t('ferias.day'):t('ferias.days')}</div>
+        </div>
+      </div>
+      <button class="ferias-period-del" onclick="deleteFeriasPeriod('${f.id}')" title="${t('ferias.deletePeriod')}">🗑️</button>
+    </div>`;
+  }).join('') : `<div class="empty" style="padding:20px;text-align:center;color:var(--muted);font-size:0.85rem;">${t('ferias.noPeriods')}</div>`;
+
+  const hintText = _feriasSelStart
+    ? `${t('ferias.pickEnd')} <button class="ferias-hint-cancel" onclick="feriasCancelSelection()">${t('ferias.cancelSelection')}</button>`
+    : t('ferias.pickStart');
+
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>${t('ferias.title')}</h2>
+      <div class="sub">${t('ferias.sub')}</div>
+    </div></div>
+    <div id="ferias-toast" class="ferias-toast">✅ ${t('ferias.periodCreated')}</div>
+    <div class="card" style="max-width:520px;margin:0 auto 20px;padding:20px 24px;">
+      <div class="pn-cal-head">
+        <div class="pn-cal-title">
+          <span class="pn-cal-month">${esc(monthFull(month))}</span>
+          <span class="pn-cal-year">${year}</span>
+        </div>
+        <div class="pn-cal-nav">
+          <button onclick="navFeriasMonth(-1)" title="${t('agenda.prevWeek')}">‹</button>
+          <button class="pn-cal-today-btn" onclick="feriasToday()">${t('painel.calToday')}</button>
+          <button onclick="navFeriasMonth(1)" title="${t('agenda.nextWeek')}">›</button>
+        </div>
+      </div>
+      <div class="ferias-hint ${_feriasSelStart?'active':''}">${hintText}</div>
+      <div class="pn-cal-weekdays">${weekdayLabels.map(w=>`<span>${w}</span>`).join('')}</div>
+      <div class="pn-cal-grid">${cellsHtml}</div>
+      <div class="pn-cal-legend">
+        <span><i class="amber"></i>${t('ferias.periodLabel')}</span>
+        <span><i class="holiday"></i>${t('agenda.holiday')}</span>
+      </div>
+    </div>
+    <div class="card" style="max-width:520px;margin:0 auto;padding:20px 24px;">
+      <div class="card-header"><span class="card-title">${t('ferias.currentPeriods')}</span></div>
+      <div class="ferias-period-list">${periodsHtml}</div>
+    </div>`;
+}
 function renderEstatisticas(){
   const el = document.getElementById('v-estatisticas');
   if(!el) return;
@@ -7826,7 +8038,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias();
   renderAuthGate();
 }
 boot();
