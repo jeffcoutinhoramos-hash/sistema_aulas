@@ -1,6 +1,19 @@
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
 <title>English Class System</title>
+
+<!-- ---- PWA: permite instalar como aplicativo no celular ---- -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#5A8F63" />
+<meta name="mobile-web-app-capable" content="yes" />
+<!-- iOS: comportamento de app em tela cheia ao adicionar à Tela de Início -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="EC System" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -2293,6 +2306,38 @@
     .pn-cal-card { min-height: 320px; }
   }
 
+  /* ---------- PWA: banner de instalar app ---------- */
+  .pwa-install-banner{
+    position: fixed; left: 12px; right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 80;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 12px 34px -10px rgba(0,0,0,.28);
+    transform: translateY(140%); transition: transform .32s cubic-bezier(.2,.9,.3,1);
+    max-width: 480px; margin: 0 auto;
+  }
+  .pwa-install-banner.show{ transform: translateY(0); }
+  .pwa-install-ico{ font-size: 24px; flex: none; }
+  .pwa-install-txt{ flex: 1; font-size: 13px; font-weight: 600; line-height: 1.35; }
+  .pwa-install-btn{
+    flex: none; background: var(--grad); color: #fff; border: none; border-radius: 10px;
+    padding: 9px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .pwa-install-close{
+    flex: none; background: none; border: none; color: var(--muted); font-size: 15px;
+    cursor: pointer; padding: 4px 2px;
+  }
+  @media (min-width: 640px){
+    .pwa-install-banner{ left: auto; right: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+  }
+  @media (display-mode: standalone){
+    .sidebar{ padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+    .shell{ padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+  }
+
   /* Print Styles */
   @media print {
     @page {
@@ -3128,6 +3173,7 @@ const I18N = {
     'ferias.deletePeriod':'Excluir período', 'ferias.confirmDelete':'Excluir este período de férias? As aulas voltarão a ser exibidas normalmente na agenda.',
     'ferias.periodCreated':'Período de férias criado! As aulas da agenda nesse intervalo já foram excluídas.',
     'ferias.days':'dias', 'ferias.day':'dia',
+    'pwa.installMsg':'Instale o app para acesso rápido, direto da tela inicial.', 'pwa.installBtn':'Instalar',
     'agenda.weekClass1':'aula agendada',
     'agenda.prevWeek':'Semana anterior', 'agenda.nextWeek':'Próxima semana', 'agenda.goToday':'Hoje',
     'agenda.weekRange':'Semana de', 'agenda.cancelGeneratedCredit':'Este cancelamento gerou crédito acumulado:',
@@ -3386,6 +3432,7 @@ const I18N = {
     'ferias.deletePeriod':'Delete period', 'ferias.confirmDelete':'Delete this vacation period? Classes will show normally again on the schedule.',
     'ferias.periodCreated':'Vacation period created! Scheduled classes in this range have been excluded.',
     'ferias.days':'days', 'ferias.day':'day',
+    'pwa.installMsg':'Install the app for quick access, right from your home screen.', 'pwa.installBtn':'Install',
     'agenda.weekClass1':'class scheduled',
     'agenda.prevWeek':'Previous week', 'agenda.nextWeek':'Next week', 'agenda.goToday':'Today',
     'agenda.weekRange':'Week of', 'agenda.cancelGeneratedCredit':'This cancellation generated accrued credit:',
@@ -8129,6 +8176,56 @@ function renderAll(){
   renderAuthGate();
 }
 boot();
+
+/* ---- PWA: registra o service worker e prepara o botão de instalar app ---- */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW não registrado:', e));
+  });
+}
+let _deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e)=>{
+  e.preventDefault();
+  _deferredInstallPrompt = e;
+  document.body.classList.add('pwa-installable');
+  showInstallBanner();
+});
+window.addEventListener('appinstalled', ()=>{
+  _deferredInstallPrompt = null;
+  document.body.classList.remove('pwa-installable');
+  hideInstallBanner();
+});
+function showInstallBanner(){
+  if(document.getElementById('pwa-install-banner')) return;
+  if(localStorage.getItem('pwaInstallDismissed')==='1') return;
+  const b = document.createElement('div');
+  b.id = 'pwa-install-banner';
+  b.className = 'pwa-install-banner';
+  b.innerHTML = `
+    <span class="pwa-install-ico">📲</span>
+    <span class="pwa-install-txt">${t('pwa.installMsg')}</span>
+    <button class="pwa-install-btn" onclick="installPwaApp()">${t('pwa.installBtn')}</button>
+    <button class="pwa-install-close" onclick="dismissInstallBanner()" aria-label="Fechar">✕</button>
+  `;
+  document.body.appendChild(b);
+  setTimeout(()=>b.classList.add('show'), 50);
+}
+function hideInstallBanner(){
+  const b = document.getElementById('pwa-install-banner');
+  if(b){ b.classList.remove('show'); setTimeout(()=>b.remove(), 300); }
+}
+function dismissInstallBanner(){
+  localStorage.setItem('pwaInstallDismissed', '1');
+  hideInstallBanner();
+}
+async function installPwaApp(){
+  if(!_deferredInstallPrompt) return;
+  _deferredInstallPrompt.prompt();
+  await _deferredInstallPrompt.userChoice;
+  _deferredInstallPrompt = null;
+  hideInstallBanner();
+}
+
 </script>
 
 
