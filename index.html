@@ -1901,6 +1901,14 @@
   .pn-lb-chip.c{background:var(--amber-bg);color:var(--amber)}
   .pn-lb-chip.cr{background:var(--emerald-bg);color:var(--emerald)}
   .pn-students-card{align-items:flex-start}
+  .pn-review-countdown{
+    display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+    font-size:0.78rem;font-weight:700;color:var(--muted);
+    background:var(--line-2);padding:3px 10px;border-radius:20px;
+  }
+  .pn-review-countdown.due{background:var(--emerald-bg);color:var(--emerald)}
+  .pn-review-ready{border-color:var(--emerald)!important;background:var(--emerald-bg)!important}
+  .pn-review-ready .pn-ranking-title,.pn-review-ready h3{color:var(--emerald)}
   .pn-ranking{margin-top:10px;display:flex;flex-direction:column;gap:5px}
   .pn-ranking-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
     color:var(--muted);opacity:.85;margin-bottom:3px}
@@ -3119,6 +3127,9 @@ const I18N = {
     'greet.morning':'Bom dia', 'greet.afternoon':'Boa tarde', 'greet.evening':'Boa noite',
     'painel.dayToNextMonth':'dia para', 'painel.daysToNextMonth':'dias para', 'painel.daysUntilNextMonthTitle':'Dias restantes até',
     'painel.monthClosingWarning':'Hora do fechamento do mês',
+    'painel.reviewDueWarning':'Aviso: chegou a hora da revisão de aula (ciclo de 35 dias).',
+    'painel.reviewCountdownTitle':'Contagem para a próxima revisão de aula (a cada 35 dias, por aluno)',
+    'painel.reviewReadyNow':'Revisão de aula chegou!', 'painel.dayToReview':'dia para revisão', 'painel.daysToReview':'dias para revisão',
     'painel.today':'Alunos de hoje', 'painel.noToday':'Nenhum aluno agendado para hoje.',
     'painel.todayIsHoliday':'Hoje é feriado', 'painel.noClassToday':'não haverá aula hoje.',
     'painel.upcomingHolidays':'Próximos feriados',
@@ -3396,6 +3407,9 @@ const I18N = {
     'greet.morning':'Good morning', 'greet.afternoon':'Good afternoon', 'greet.evening':'Good evening',
     'painel.dayToNextMonth':'day until', 'painel.daysToNextMonth':'days until', 'painel.daysUntilNextMonthTitle':'Days remaining until',
     'painel.monthClosingWarning':'Month closing time',
+    'painel.reviewDueWarning':'Notice: it\'s time for a lesson review (35-day cycle).',
+    'painel.reviewCountdownTitle':'Countdown to the next lesson review (every 35 days, per student)',
+    'painel.reviewReadyNow':'Lesson review is due!', 'painel.dayToReview':'day to review', 'painel.daysToReview':'days to review',
     'painel.today':"Today's students", 'painel.noToday':'No students scheduled for today.',
     'painel.todayIsHoliday':'Today is a holiday', 'painel.noClassToday':'there will be no class today.',
     'painel.upcomingHolidays':'Upcoming holidays',
@@ -4568,6 +4582,26 @@ function renderPainel(){
   const nextMonthName = monthFull(firstOfNextMonth.getMonth());
   const lastDayOfThisMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
   const isMonthClosingDay = today.getDate()===lastDayOfThisMonth || today.getDate()===1;
+
+  // Ciclo de revisão de aula: a cada 35 dias corridos desde o início do aluno
+  const REVIEW_CYCLE_DAYS = 35;
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  let daysUntilNextReview = null;
+  const studentsReviewDueToday = [];
+  state.students.forEach(s=>{
+    if(s.status && s.status!=='ativo') return; // só alunos ativos
+    if(!s.startDate) return;
+    const [sy,sm,sd] = s.startDate.split('-').map(Number);
+    if(!sy) return;
+    const startMidnight = new Date(sy, sm-1, sd);
+    if(startMidnight > todayMidnight) return; // curso ainda não começou
+    const daysSinceStart = Math.round((todayMidnight - startMidnight) / 86400000);
+    const rem = daysSinceStart % REVIEW_CYCLE_DAYS;
+    const daysLeft = rem===0 ? 0 : REVIEW_CYCLE_DAYS - rem;
+    if(daysLeft===0) studentsReviewDueToday.push(s);
+    if(daysUntilNextReview===null || daysLeft < daysUntilNextReview) daysUntilNextReview = daysLeft;
+  });
+  const reviewDueNow = studentsReviewDueToday.length > 0;
   const todayKey = DAYKEY_BY_GETDAY[today.getDay()];
   const todayRows = [];
   state.agendaHours.forEach(h=>{
@@ -4692,7 +4726,9 @@ function renderPainel(){
         </div>
       </div>
     </div>
-    
+
+    ${reviewDueNow ? `<div class="banner pn-review-banner" style="margin-bottom: 24px;">📋 ${t('painel.reviewDueWarning')}</div>` : ''}
+
     <!-- FAIXA DE ALUNOS DO DIA / DIA SEGUINTE -->
     ${(todayRows.length || tomorrowRows.length) ? `
     <div class="pn-daystrip-tabs" style="display:flex;gap:8px;margin-bottom:10px;">
@@ -4727,10 +4763,13 @@ function renderPainel(){
     
     <!-- METRICS GRID -->
     <div class="stats-grid">
-      <div class="stat-card pn-students-card" onclick="go('alunos')" style="cursor: pointer;">
+      <div class="stat-card pn-students-card ${reviewDueNow?'pn-review-ready':''}" onclick="go('alunos')" style="cursor: pointer;">
         <div class="stat-details" style="flex:1;min-width:0;">
           <h3>${t('painel.activeStudents')}</h3>
           <p>${nA}</p>
+          ${daysUntilNextReview!==null ? `<div class="pn-review-countdown ${reviewDueNow?'due':''}" title="${t('painel.reviewCountdownTitle')}">
+            🔁 ${reviewDueNow ? t('painel.reviewReadyNow') : (daysUntilNextReview+' '+(daysUntilNextReview===1?t('painel.dayToReview'):t('painel.daysToReview')))}
+          </div>` : ''}
           ${topStudentsRanking.length ? `<div class="pn-ranking">
             <div class="pn-ranking-title">${t('painel.topStudentsTitle')}</div>
             ${topStudentsRanking.map((r,i)=>{
