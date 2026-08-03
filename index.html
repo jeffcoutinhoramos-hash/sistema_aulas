@@ -435,6 +435,21 @@
   ::-webkit-scrollbar-track{background:transparent}
   
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-height: 760px){
+    .sidebar{padding:10px 12px;gap:5px}
+    .brand{padding:0 4px}
+    .mark{width:28px;height:28px;font-size:15px}
+    .brand h1{font-size:15px!important}
+    .nav{gap:1px}
+    .nav button{padding:4px 10px;font-size:12.5px}
+    .nav button .ico{font-size:13.5px;width:15px}
+    .nav button.nav-group-label{padding:3px 9px;margin-top:3px;font-size:10px}
+    .nav-main-btn{margin-bottom:5px;padding-bottom:4px;font-size:13px!important}
+    .nav-main-btn .ico{font-size:15px!important}
+    .sidebar-toggles{gap:3px;padding-top:5px}
+    .theme-toggle{padding:4px 10px;font-size:11.5px}
+    .theme-toggle .ico{font-size:12.5px;width:15px}
+  }
   h1,h2,h3{font-family:'Bricolage Grotesque',Inter,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.1}
   button{font-family:inherit;cursor:pointer;border:0;background:none}
   input,select,textarea{font-family:inherit;font-size:16.5px;color:var(--ink)}
@@ -445,7 +460,7 @@
   .sidebar{
     position:fixed;top:0;left:0;bottom:0;flex:none;
     width:var(--sidebar-width);background:var(--surface);border-right:1px solid var(--line);overflow:hidden;
-    padding:22px 14px;display:flex;flex-direction:column;gap:14px;z-index:40;
+    padding:16px 14px;display:flex;flex-direction:column;gap:8px;z-index:40;
     box-shadow:2px 0 12px rgba(0, 0, 0, 0.03);
   }
   .content{margin-left:var(--sidebar-width);min-height:100vh}
@@ -453,8 +468,8 @@
 
   .brand{display:flex;align-items:center;gap:12px;color:var(--ink);padding:0 6px}
   .mark{
-    width:38px;height:38px;border-radius:10px;background:var(--accent-bg);
-    display:grid;place-items:center;font-size:20.5px;flex:none;cursor:pointer;transition:.15s;
+    width:34px;height:34px;border-radius:10px;background:var(--accent-bg);
+    display:grid;place-items:center;font-size:18.5px;flex:none;cursor:pointer;transition:.15s;
     border:1px solid var(--line);color:var(--violet);
   }
   .mark:hover{background:var(--line-2);transform:scale(1.05)}
@@ -471,6 +486,16 @@
   /* ---------- alunos list ---------- */
   .alu-list{display:flex;flex-direction:column;gap:6px}
   .alu-row{display:flex;align-items:center;gap:11px;padding:8px 14px;flex-wrap:nowrap}
+  .alu-row.alu-row-paused{border:1px solid var(--rose); border-left:4px solid var(--rose); background:var(--rose-bg)}
+  .alu-paused-section{margin-top:28px}
+  .alu-paused-header{
+    display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;color:var(--rose);
+    text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px;padding-top:18px;border-top:2px dashed var(--rose-bg);
+  }
+  .alu-paused-count{
+    background:var(--rose);color:#fff;font-size:12px;font-weight:800;
+    padding:1px 8px;border-radius:20px;
+  }
   .alu-row .avatar{width:34px;height:34px;font-size:14.5px}
   .alu-name{flex:1.7;min-width:0;display:flex;align-items:center;gap:8px}
   .alu-nm{font-weight:700;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -481,6 +506,7 @@
   .wa-link svg{width:18px;height:18px;display:block}
   .wa-link:hover{transform:scale(1.12);background:#EEFBF4}
   .alu-tag{background:#EFF8F0;color:#62A580;font-weight:700;font-size:13px;padding:2px 8px;border-radius:8px}
+  .alu-tag-prepaid{background:var(--amber-bg);color:var(--amber)}
   .alu-price{color:var(--emerald);font-weight:700}
   .alu-acts{display:flex;gap:5px;flex:none}
   .alu-acts button{width:28px;height:28px;border-radius:9px;font-size:14.5px;background:var(--line-2);transition:.14s;display:grid;place-items:center}
@@ -503,6 +529,19 @@
   .al-money:focus-within{border-color:#B1E0BF;box-shadow:0 0 0 4px #EFF8F0;background:#fff}
   .al-money span{font-weight:700;color:var(--muted)}
   .al-money input{border:0!important;background:transparent!important;box-shadow:none!important;padding:12px 0!important}
+  .al-paymode-group{display:flex; flex-direction:column; gap:8px}
+  .al-paymode-btn{
+    display:flex; align-items:center; gap:11px; text-align:left; width:100%;
+    padding:11px 14px; border:1.5px solid var(--line); border-radius:12px; background:#FCFCFF;
+    cursor:pointer; transition:border-color .15s, background .15s, transform .1s;
+  }
+  .al-paymode-btn:hover{ transform:translateY(-1px); border-color:var(--violet); }
+  .al-paymode-btn.on{ border-color:var(--violet); background:var(--accent-bg); }
+  .al-paymode-ico{ font-size:20.5px; flex:none; }
+  .al-paymode-txt{ display:flex; flex-direction:column; gap:1px; }
+  .al-paymode-txt b{ font-size:14.5px; color:var(--ink); }
+  .al-paymode-txt small{ font-size:12px; color:var(--muted); font-weight:500; line-height:1.3; }
+  .al-paymode-btn.on .al-paymode-txt b{ color:var(--violet); }
 
   /* ---------- presença ---------- */
   .pr-legend{display:flex;gap:18px;margin-bottom:14px;font-size:14.5px;color:var(--muted);flex-wrap:wrap}
@@ -596,6 +635,7 @@
   .fn-manual-btn{position:absolute; right:0; top:50%; transform:translateY(-50%); white-space:nowrap}
   .fn-card-manual{border-color:var(--amber)}
   .pr-mini.manual{background:var(--amber-bg);color:var(--amber)}
+  .pr-mini.prepaid{background:var(--sky-bg);color:var(--sky)}
   @media(max-width:640px){
     .fn-manual-btn{position:static; transform:none; margin:10px auto 0; display:flex; width:fit-content}
     .rp-monthbar{flex-wrap:wrap}
@@ -815,7 +855,7 @@
 
   /* --- navegação semanal + status/crédito --- */
   .ag-week-nav{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap}
-  .ag-week-range{font-size:14px;font-weight:700;color:var(--ink);text-transform:capitalize;white-space:nowrap}
+  .ag-week-range{font-size:14px;font-weight:700;color:var(--ink);text-transform:capitalize;white-space:nowrap;min-width:190px;text-align:center;display:inline-block}
   .ag-today-btn{padding:6px 12px!important;font-size:13.5px!important}
   .ag-daynum{font-family:'Bricolage Grotesque';font-size:16px;font-weight:800;background:rgba(255,255,255,.28);
     padding:1px 7px;border-radius:20px;margin-left:2px}
@@ -887,32 +927,32 @@
   .brand h1{font-size:22px;font-weight:800;line-height:1.1;color:var(--ink)!important}
   .brand p{margin:2px 0 0;font-size:13.5px;opacity:.8;font-weight:500;letter-spacing:.01em;color:var(--muted)}
 
-  .nav{display:flex;flex-direction:column;justify-content:center;gap:4px;flex:1;overflow-y:auto;min-height:0}
+  .nav{display:flex;flex-direction:column;justify-content:flex-start;gap:2px;flex:1;overflow-y:auto;min-height:0}
   .nav-group{display:flex;flex-direction:column}
   .nav button.nav-group-label{
     display:flex;align-items:center;gap:6px;width:100%;
-    font-size:11.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
-    padding:8px 10px;margin-top:10px;border-radius:8px;background:transparent;
+    font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
+    padding:5px 10px;margin-top:6px;border-radius:8px;background:transparent;
     user-select:none;cursor:pointer;transition:filter .15s,transform .1s;
     opacity:.75
   }
-  .nav-group:first-of-type button.nav-group-label{margin-top:4px}
+  .nav-group:first-of-type button.nav-group-label{margin-top:2px}
   .nav button.nav-group-label:hover{background:var(--line-2);color:var(--ink);opacity:1}
   .nav button.nav-group-label:active{transform:scale(.98)}
   .nav-group-chevron{font-size:10.5px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:var(--muted);opacity:.7}
   .nav-group-items{
-    display:flex;flex-direction:column;gap:2px;overflow:hidden;
+    display:flex;flex-direction:column;gap:1px;overflow:hidden;
     max-height:400px;opacity:1;
     transition:max-height .32s cubic-bezier(.4,0,.2,1),opacity .22s ease
   }
   .nav-group-collapsed .nav-group-chevron{transform:rotate(-90deg)}
   .nav-group-collapsed .nav-group-items{max-height:0;opacity:0}
   .nav button{
-    color:var(--muted);padding:8px 12px;border-radius:10px;font-size:14.5px;font-weight:500;
-    display:flex;align-items:center;gap:10px;text-align:left;width:100%;
+    color:var(--muted);padding:6px 12px;border-radius:9px;font-size:13.5px;font-weight:500;
+    display:flex;align-items:center;gap:9px;text-align:left;width:100%;
     background:none;transition:all .18s ease;border-left:3px solid transparent;
   }
-  .nav button .ico{font-size:16.5px;width:18px;text-align:center;opacity:.85;filter:none}
+  .nav button .ico{font-size:15px;width:17px;text-align:center;opacity:.85;filter:none}
   .nav button:hover{opacity:1;background:var(--line-2);color:var(--ink)}
   .nav button:hover .ico{opacity:1}
   .nav button:active{background:var(--line)}
@@ -925,13 +965,19 @@
   .nav button.active:active{filter:brightness(.96)}
   body.dark .nav button:active{color:var(--ink)}
   body.dark .nav button.active:active{color:var(--violet)}
+  .nav-main-btn{
+    margin-bottom:8px; padding-bottom:7px;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px !important;
+  }
+  .nav-main-btn .ico{font-size:17px !important}
 
   .theme-toggle{
-    color:var(--ink);padding:8px 12px;border-radius:10px;font-size:14px;font-weight:600;
-    display:flex;align-items:center;gap:9px;transition:.15s;text-align:left;width:100%;
+    color:var(--ink);padding:6px 12px;border-radius:10px;font-size:13px;font-weight:600;
+    display:flex;align-items:center;gap:8px;transition:.15s;text-align:left;width:100%;
     background:var(--bg);border:1px solid var(--line)!important
   }
-  .theme-toggle .ico{font-size:15.5px;width:18px;text-align:center}
+  .theme-toggle .ico{font-size:14.5px;width:18px;text-align:center}
   .theme-toggle:hover{background:var(--line-2);color:var(--ink);border-color:var(--line)}
   .sidebar-toggles{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid var(--line);flex:none}
 
@@ -1368,6 +1414,22 @@
   .ex-row:hover{background:var(--line-2);border-color:var(--line);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
   .ex-row:active{transform:scale(0.98)}
   .ex-row-on{border-left-color:var(--violet);background:var(--accent-bg)}
+  .lec-list{display:flex;flex-direction:column;gap:10px}
+  .lec-row{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;
+  }
+  .lec-row:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .lec-check{
+    flex:none;width:30px;height:30px;border-radius:50%;
+    background:var(--emerald-bg);color:var(--emerald);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;font-weight:900;
+  }
+  .lec-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .lec-topic{font-weight:700;color:var(--ink);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lec-date{font-size:12.5px;color:var(--muted);font-weight:600}
   .ex-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;text-align:left}
   .ex-name{min-width:0;font-size:15px;font-weight:600;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1774,6 +1836,7 @@
     .pr-status{margin-left:auto}
     .brand p{display:none}
     .stat .n{font-size:30px}
+    .nav-main-btn{margin-bottom:0; padding-bottom:9px; border-bottom:none}
   }
   @media(max-width:420px){
     .shell{padding:16px 12px 90px}
@@ -2408,12 +2471,12 @@
       </div>
     </div>
     <nav class="nav" id="nav">
+      <button data-view="painel" class="active nav-main-btn"><span class="ico">✦</span>Painel</button>
       <div class="nav-group" data-group="operacional">
         <button type="button" class="nav-group-label" data-group="operacional" onclick="toggleNavGroup('operacional')">
           <span class="nav-group-chevron">▾</span><span class="nav-group-text">Operacional</span>
         </button>
         <div class="nav-group-items" data-group-items="operacional">
-          <button data-view="painel" class="active"><span class="ico">✦</span>Painel</button>
           <button data-view="agenda"><span class="ico">🗓️</span>Agenda</button>
           <button data-view="presenca"><span class="ico">✅</span>Frequência</button>
         </div>
@@ -2426,6 +2489,7 @@
           <button data-view="alunos"><span class="ico">👤</span>Alunos</button>
           <button data-view="topicos"><span class="ico">📚</span>Plano de Aula</button>
           <button data-view="expressoes"><span class="ico">💬</span>Expressões</button>
+          <button data-view="lecionados"><span class="ico">✅</span>Lecionados</button>
         </div>
       </div>
       <div class="nav-group" data-group="gestao">
@@ -2470,6 +2534,7 @@
         <div id="v-presenca" class="view"></div>
         <div id="v-topicos" class="view"></div>
         <div id="v-expressoes" class="view"></div>
+        <div id="v-lecionados" class="view"></div>
         <div id="v-agenda" class="view"></div>
         <div id="v-relatorio" class="view"></div>
         <div id="v-financeiro" class="view"></div>
@@ -3046,12 +3111,14 @@ const I18N = {
     'nav.painel':'Painel', 'nav.login':'Login', 'nav.alunos':'Alunos', 'nav.agenda':'Agenda', 'nav.presenca':'Frequência',
     'nav.group.operacional':'Operacional', 'nav.group.pedagogico':'Pedagógico', 'nav.group.gestao':'Gestão Financeira',
     'nav.group.sistema':'Sistema',
-    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro',
+    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro', 'nav.lecionados':'Lecionados',
     'nav.despesas':'Despesas', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
     'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower', 'color.earth':'Modo Terra',
     'greet.morning':'Bom dia', 'greet.afternoon':'Boa tarde', 'greet.evening':'Boa noite',
+    'painel.dayToNextMonth':'dia para', 'painel.daysToNextMonth':'dias para', 'painel.daysUntilNextMonthTitle':'Dias restantes até',
+    'painel.monthClosingWarning':'Hora do fechamento do mês',
     'painel.today':'Alunos de hoje', 'painel.noToday':'Nenhum aluno agendado para hoje.',
     'painel.todayIsHoliday':'Hoje é feriado', 'painel.noClassToday':'não haverá aula hoje.',
     'painel.upcomingHolidays':'Próximos feriados',
@@ -3065,9 +3132,9 @@ const I18N = {
     'painel.todayBday':'🎂 Hoje!', 'painel.tomorrow':'amanhã', 'painel.inDaysPrefix':'em', 'painel.daysSuffix':'dias',
     'painel.noBirthdays60':'Nenhum aniversário nos próximos 60 dias.', 'painel.addDatesIn':'Adicione datas em',
     'painel.lessonsGivenMonth':'Aulas Ministradas', 'painel.absencesAccrued':'Faltas Acumuladas',
-    'painel.lessonsGivenAllTime':'total acumulado, desde o início',
+    'painel.lessonsGivenAllTime':'reinicia todo início de mês',
     'painel.classesAsCreditPl':'aulas como crédito',
-    'painel.topStudentsTitle':'🏆 Top 3 em presença', 'painel.presenceSingular':'presença', 'painel.presencePlural':'presenças',
+    'painel.topStudentsTitle':'🏆 Top 3 em presença (mês)', 'painel.presenceSingular':'presença', 'painel.presencePlural':'presenças',
     'painel.sundayMsgToday':'Hoje é domingo, hora de relaxar e curtir!',
     'painel.sundayMsg':'Domingo é dia de relaxar e curtir!',
     'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Frequência',
@@ -3096,10 +3163,13 @@ const I18N = {
     'alunos.registered':'aluno cadastrado', 'alunos.registeredPl':'alunos cadastrados',
     'alunos.empty':'Nenhum aluno cadastrado ainda.', 'alunos.emptyCta':'Clique em <b>Adicionar aluno</b> para começar.',
     'alunos.active':'Ativo', 'alunos.paused':'Trancado', 'alunos.cancelled':'Cancelado',
+    'alunos.pausedSectionTitle':'Alunos trancados',
     'alunos.formTitleNew':'Adicionar aluno', 'alunos.formTitleEdit':'Editar aluno',
     'alunos.name':'Nome completo', 'alunos.phone':'Telefone / WhatsApp', 'alunos.birth':'Data de nascimento',
     'alunos.status':'Status', 'alunos.subject':'Idioma / Matéria', 'alunos.level':'Nível',
     'alunos.startDate':'Data de início do curso', 'alunos.price':'Valor da aula (R$)',
+    'alunos.paymentMode':'Modo de pagamento', 'alunos.postpaid':'Pós-pago', 'alunos.postpaidHint':'Cobra pelas aulas já dadas (padrão atual)',
+    'alunos.prepaid':'Pré-pago', 'alunos.prepaidHint':'Gera o valor com base nas aulas agendadas do mês, antes delas acontecerem',
     'alunos.chooseSubject':'— Escolher matéria —', 'alunos.namePh':'Nome completo',
     'alunos.updateData':'Atualize os dados de', 'alunos.fillData':'Preencha os dados do novo aluno.',
     'alunos.age':'anos', 'alunos.levelCat':'Nível / categoria', 'alunos.saveNew':'Salvar aluno',
@@ -3236,6 +3306,10 @@ const I18N = {
     'expressoes.ex1':'Exemplo 1', 'expressoes.ex2':'Exemplo 2 (opcional)', 'expressoes.altField':'Frase alternativa (opcional)',
     'expressoes.altPh':'Ex: "Start the conversation."', 'expressoes.boldHint':'Dica: coloque <b>&lt;b&gt;</b> em volta da expressão para deixá-la em negrito no exemplo.',
     'expressoes.empty':'Nenhuma expressão cadastrada ainda.', 'expressoes.emptyCta':'Clique em <b>＋ Adicionar expressão</b> para começar.',
+    'lecionados.title':'Lecionados', 'lecionados.sub':'Veja tudo o que já foi dado para cada aluno, aula por aula.',
+    'lecionados.studentLabel':'Aluno', 'lecionados.pickStudent':'Selecione um aluno...',
+    'lecionados.selectCta':'Selecione um aluno acima para ver o conteúdo já lecionado.',
+    'lecionados.empty':'Esse aluno ainda não tem nenhuma aula confirmada com conteúdo registrado.',
     'expressoes.confirmDelete':'Excluir a expressão', 'expressoes.confirm':'Confirmar / enviar',
     'expressoes.sentOn':'Enviada em',
     'alert.waFailed':'Não foi possível abrir o WhatsApp automaticamente aqui.\nO link foi copiado — cole no navegador para conversar:',
@@ -3284,6 +3358,7 @@ const I18N = {
     'financeiro.manualSave':'Lançar', 'financeiro.manualBadge':'aulas (lançamento antecipado)',
     'financeiro.manualBadgeTitle':'Lançamento manual — quantidade de aulas pagas antecipadamente',
     'financeiro.manualRemove':'Remover lançamento manual', 'financeiro.manualRemoveConfirm':'Remover este lançamento manual? O aluno deixará de aparecer no Financeiro deste mês caso não tenha nenhuma aula registrada.',
+    'financeiro.prepaidBadge':'aulas agendadas (pré-pago)',
     'despesas.title':'Despesas', 'despesas.add':'＋ Nova despesa', 'despesas.registered':'despesa cadastrada',
     'despesas.registeredPl':'despesas cadastradas', 'despesas.uniqAndRec':'(únicas e recorrentes)',
     'despesas.empty':'Nenhuma despesa neste mês.', 'despesas.emptyCta':'Clique em <b>＋ Nova despesa</b> para começar.',
@@ -3313,12 +3388,14 @@ const I18N = {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
     'nav.group.operacional':'Operations', 'nav.group.pedagogico':'Pedagogical', 'nav.group.gestao':'Financial Management',
     'nav.group.sistema':'System',
-    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance',
+    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance', 'nav.lecionados':'Lessons Given',
     'nav.despesas':'Expenses', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
     'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode', 'color.earth':'Earth Mode',
     'greet.morning':'Good morning', 'greet.afternoon':'Good afternoon', 'greet.evening':'Good evening',
+    'painel.dayToNextMonth':'day until', 'painel.daysToNextMonth':'days until', 'painel.daysUntilNextMonthTitle':'Days remaining until',
+    'painel.monthClosingWarning':'Month closing time',
     'painel.today':"Today's students", 'painel.noToday':'No students scheduled for today.',
     'painel.todayIsHoliday':'Today is a holiday', 'painel.noClassToday':'there will be no class today.',
     'painel.upcomingHolidays':'Upcoming holidays',
@@ -3332,9 +3409,9 @@ const I18N = {
     'painel.todayBday':'🎂 Today!', 'painel.tomorrow':'tomorrow', 'painel.inDaysPrefix':'in', 'painel.daysSuffix':'days',
     'painel.noBirthdays60':'No birthdays in the next 60 days.', 'painel.addDatesIn':'Add dates in',
     'painel.lessonsGivenMonth':'Lessons Given', 'painel.absencesAccrued':'Absences Accrued',
-    'painel.lessonsGivenAllTime':'all-time running total',
+    'painel.lessonsGivenAllTime':'resets every new month',
     'painel.classesAsCreditPl':'classes as credit',
-    'painel.topStudentsTitle':'🏆 Top 3 attendance', 'painel.presenceSingular':'presence', 'painel.presencePlural':'presences',
+    'painel.topStudentsTitle':'🏆 Top 3 attendance (month)', 'painel.presenceSingular':'presence', 'painel.presencePlural':'presences',
     'painel.sundayMsgToday':'It\'s Sunday, time to relax and enjoy!',
     'painel.sundayMsg':'Sunday is for relaxing and enjoying!',
     'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Attendance',
@@ -3363,10 +3440,13 @@ const I18N = {
     'alunos.registered':'student registered', 'alunos.registeredPl':'students registered',
     'alunos.empty':'No students registered yet.', 'alunos.emptyCta':'Click <b>Add student</b> to get started.',
     'alunos.active':'Active', 'alunos.paused':'Paused', 'alunos.cancelled':'Cancelled',
+    'alunos.pausedSectionTitle':'Paused students',
     'alunos.formTitleNew':'Add student', 'alunos.formTitleEdit':'Edit student',
     'alunos.name':'Full name', 'alunos.phone':'Phone / WhatsApp', 'alunos.birth':'Date of birth',
     'alunos.status':'Status', 'alunos.subject':'Language / Subject', 'alunos.level':'Level',
     'alunos.startDate':'Course start date', 'alunos.price':'Class price ($)',
+    'alunos.paymentMode':'Payment mode', 'alunos.postpaid':'Post-paid', 'alunos.postpaidHint':'Charges for classes already given (current default)',
+    'alunos.prepaid':'Pre-paid', 'alunos.prepaidHint':'Generates the value based on the month\'s scheduled classes, before they happen',
     'alunos.chooseSubject':'— Choose subject —', 'alunos.namePh':'Full name',
     'alunos.updateData':'Update the information for', 'alunos.fillData':'Fill in the new student information.',
     'alunos.age':'years old', 'alunos.levelCat':'Level / category', 'alunos.saveNew':'Save student',
@@ -3504,6 +3584,10 @@ const I18N = {
     'expressoes.ex1':'Example 1', 'expressoes.ex2':'Example 2 (optional)', 'expressoes.altField':'Alternative phrase (optional)',
     'expressoes.altPh':'E.g.: "Start the conversation."', 'expressoes.boldHint':'Tip: wrap the expression in <b>&lt;b&gt;</b> to bold it inside the example.',
     'expressoes.empty':'No expressions registered yet.', 'expressoes.emptyCta':'Click <b>＋ Add expression</b> to get started.',
+    'lecionados.title':'Lessons Given', 'lecionados.sub':'See everything already taught to each student, class by class.',
+    'lecionados.studentLabel':'Student', 'lecionados.pickStudent':'Select a student...',
+    'lecionados.selectCta':'Select a student above to see the content already taught.',
+    'lecionados.empty':'This student has no confirmed classes with recorded content yet.',
     'expressoes.confirmDelete':'Delete the expression', 'expressoes.confirm':'Confirm / submit',
     'expressoes.sentOn':'Sent on',
     'alert.waFailed':"Couldn't open WhatsApp automatically here.\nThe link was copied — paste it in your browser to chat:",
@@ -3552,6 +3636,7 @@ const I18N = {
     'financeiro.manualSave':'Add entry', 'financeiro.manualBadge':'classes (advance entry)',
     'financeiro.manualBadgeTitle':'Manual entry — number of classes paid in advance',
     'financeiro.manualRemove':'Remove manual entry', 'financeiro.manualRemoveConfirm':'Remove this manual entry? The student will disappear from this month\'s Financeiro if they have no recorded classes.',
+    'financeiro.prepaidBadge':'scheduled classes (pre-paid)',
     'despesas.title':'Expenses', 'despesas.add':'＋ New expense', 'despesas.registered':'expense registered',
     'despesas.registeredPl':'expenses registered', 'despesas.uniqAndRec':'(one-time and recurring)',
     'despesas.empty':'No expenses this month.', 'despesas.emptyCta':'Click <b>＋ New expense</b> to get started.',
@@ -4478,6 +4563,11 @@ function renderPainel(){
 
   const today = new Date();
   const todayISO = isoDate(today);
+  const firstOfNextMonth = new Date(today.getFullYear(), today.getMonth()+1, 1);
+  const daysUntilNextMonth = Math.round((firstOfNextMonth - new Date(today.getFullYear(), today.getMonth(), today.getDate())) / 86400000);
+  const nextMonthName = monthFull(firstOfNextMonth.getMonth());
+  const lastDayOfThisMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+  const isMonthClosingDay = today.getDate()===lastDayOfThisMonth || today.getDate()===1;
   const todayKey = DAYKEY_BY_GETDAY[today.getDay()];
   const todayRows = [];
   state.agendaHours.forEach(h=>{
@@ -4533,15 +4623,17 @@ function renderPainel(){
   const freqMonthStatus = monthlyStatusSummary(freqView.getFullYear(), freqView.getMonth());
   const freqHoliday = holidayInfo(freqISO);
 
-  // Total de aulas ministradas (todas as presenças registradas, em qualquer data)
-  const aulasMinistradasTotal = Object.values(state.presenca).filter(r => r && r.status === 'p').length;
-  const faltasTotal = Object.values(state.presenca).filter(r => r && r.status === 'f').length;
-  const canceladasTotal = Object.values(state.presenca).filter(r => r && r.status === 'c').length;
+  // Total de aulas ministradas NESTE MÊS (reinicia a contagem todo início de mês)
+  const painelMesPrefix = todayISO.slice(0,7); // "YYYY-MM"
+  const aulasMinistradasTotal = Object.keys(state.presenca).filter(k => k.slice(0,7)===painelMesPrefix && state.presenca[k] && state.presenca[k].status === 'p').length;
+  const faltasTotal = Object.keys(state.presenca).filter(k => k.slice(0,7)===painelMesPrefix && state.presenca[k] && state.presenca[k].status === 'f').length;
+  const canceladasTotal = Object.keys(state.presenca).filter(k => k.slice(0,7)===painelMesPrefix && state.presenca[k] && state.presenca[k].status === 'c').length;
   const creditosTotal = canceladasTotal; // 1 crédito por aula cancelada
 
-  // Ranking dos 3 alunos com mais presenças (todas as datas)
+  // Ranking dos 3 alunos com mais presenças NESTE MÊS (reinicia a contagem todo início de mês)
   const presenceCountByStudent = {};
   Object.keys(state.presenca).forEach(k=>{
+    if(k.slice(0,7)!==painelMesPrefix) return;
     const rec = state.presenca[k];
     if(!rec || rec.status !== 'p') return;
     const parts = k.split('_');
@@ -4577,15 +4669,20 @@ function renderPainel(){
 
   el.innerHTML = `
     <!-- GRADIENT THEME TOP BAR -->
-    <div class="dashboard-top-bar" style="background: var(--grad); color: #FFFFFF; padding: 14px 24px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+    <div class="dashboard-top-bar" style="background: ${isMonthClosingDay ? 'linear-gradient(120deg, #DC2626, #B91C1C)' : 'var(--grad)'}; color: #FFFFFF; padding: 14px 24px; border-radius: var(--radius); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
       <div style="display: flex; flex-direction: column; gap: 2px;">
         <h2 style="color: #FFFFFF !important; font-size: 1.47rem; font-weight: 700; margin: 0; letter-spacing: -0.02em;">${greet}, Professor Jefferson</h2>
+        ${isMonthClosingDay ? `<div style="font-size: 0.93rem; font-weight: 800; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.18); padding: 3px 10px; border-radius: 20px; width: fit-content; margin: 2px 0;">🔴 ${t('painel.monthClosingWarning')}</div>` : ''}
         <div style="font-size: 0.93rem; opacity: 0.95; font-weight: 500; display: flex; align-items: center; gap: 6px;">
           <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.85;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           <span id="painel-clock">${clockLine()}</span>
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.93rem;">
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);" title="${t('painel.daysUntilNextMonthTitle')} ${esc(nextMonthName)}">
+          <span>📅</span>
+          <span>${daysUntilNextMonth} ${daysUntilNextMonth===1?t('painel.dayToNextMonth'):t('painel.daysToNextMonth')} ${esc(nextMonthName)}</span>
+        </div>
         <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
           <span>📍</span>
           <span id="dashboard-city">${esc(weatherInfo.city)}</span>
@@ -4767,18 +4864,25 @@ function renderPainel(){
 function renderAlunos(){
   const el = document.getElementById('v-alunos');
   if(!el) return;
-  const list = [...state.students].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}));
-  const n = list.length;
+  const sortedByName = (arr)=>[...arr].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}));
+  const mainList = sortedByName(state.students.filter(s=>s.status!=='trancado'));
+  const pausedList = sortedByName(state.students.filter(s=>s.status==='trancado'));
+  const n = state.students.length;
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('alunos.title')}</h2><div class="sub">${n} ${n===1?t('alunos.registered'):t('alunos.registeredPl')}</div></div>
       <button class="btn btn-primary" onclick="openAluno()">${t('alunos.add')}</button>
     </div>
-    ${n ? `<div class="alu-list">${list.map(alunoRow).join('')}</div>`
+    ${n ? `<div class="alu-list">${mainList.map(alunoRow).join('')}</div>`
         : `<div class="card panel"><div class="empty" style="padding:44px 16px">
              <div style="font-size:42.5px;margin-bottom:10px">🧑‍🎓</div>
              ${t('alunos.empty')}<br>${t('alunos.emptyCta')}
-           </div></div>`}`;
+           </div></div>`}
+    ${pausedList.length ? `
+    <div class="alu-paused-section">
+      <div class="alu-paused-header">🔒 ${t('alunos.pausedSectionTitle')} <span class="alu-paused-count">${pausedList.length}</span></div>
+      <div class="alu-list">${pausedList.map(alunoRow).join('')}</div>
+    </div>` : ''}`;
 }
 function alunoRow(s){
   const st = ST_ALUNO[s.status] || ST_ALUNO.ativo;
@@ -4790,9 +4894,11 @@ function alunoRow(s){
     ? `<span class="alu-i">📞 ${esc(s.phone)}${wa?` <a class="wa-link" href="${wa}" target="_blank" rel="noopener noreferrer" title="Conversar no WhatsApp" onclick="return openWA('${wa}', event)">${WA_ICON}</a>`:''}</span>`
     : '<span class="alu-empty">—</span>';
   const priceHtml = (s.price!=null && s.price!=='') ? `<span class="alu-price">💰 ${fmtBRL(s.price)}</span>` : '<span class="alu-empty">—</span>';
-  return `<div class="card alu-row">
+  const prepaidHtml = s.paymentMode==='pre' ? `<span class="alu-tag alu-tag-prepaid" title="${t('alunos.prepaidHint')}">💳 ${t('alunos.prepaid')}</span>` : '';
+  const isPaused = s.status==='trancado';
+  return `<div class="card alu-row ${isPaused?'alu-row-paused':''}">
     <div class="avatar" style="background:${studentColor(s)}">${esc(initials(s.name))}</div>
-    <div class="alu-name"><span class="alu-nm">${esc(s.name)}</span>${ageHtml}<span class="stu-pill ${st.cls}">${t(st.key)}</span></div>
+    <div class="alu-name"><span class="alu-nm">${esc(s.name)}</span>${ageHtml}<span class="stu-pill ${st.cls}">${t(st.key)}</span>${prepaidHtml}</div>
     <div class="alu-col">${levelHtml}</div>
     <div class="alu-col">${phoneHtml}</div>
     <div class="alu-col">${priceHtml}</div>
@@ -5016,6 +5122,66 @@ function renderExpressoes(){
       </div></div>`}`;
 }
 let debounceTimer = null;
+let _lecionadosStudentId = '';
+function changeLecionadosStudent(sid){
+  _lecionadosStudentId = sid;
+  renderLecionados();
+}
+function getLecionadosForStudent(sid){
+  const list = [];
+  Object.keys(state.presenca).forEach(k=>{
+    const rec = state.presenca[k];
+    if(!rec || rec.status!=='p' || !rec.content) return;
+    const parts = k.split('_');
+    if(parts.slice(2).join('_') !== sid) return;
+    list.push({date: parts[0], hour: parts[1], topic: rec.content});
+  });
+  list.sort((a,b)=> (b.date+b.hour).localeCompare(a.date+a.hour)); // mais recente primeiro
+  return list;
+}
+function renderLecionados(){
+  const el = document.getElementById('v-lecionados');
+  if(!el) return;
+  if(_lecionadosStudentId && !studentById(_lecionadosStudentId)) _lecionadosStudentId = '';
+  const opts = [...state.students].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}))
+    .map(s=>`<option value="${s.id}" ${_lecionadosStudentId===s.id?'selected':''}>${esc(s.name)}</option>`).join('');
+
+  let bodyHtml;
+  if(!_lecionadosStudentId){
+    bodyHtml = `<div class="card panel"><div class="empty" style="padding:44px 16px">
+      <div style="font-size:42.5px;margin-bottom:10px">✅</div>
+      ${t('lecionados.selectCta')}
+    </div></div>`;
+  }else{
+    const list = getLecionadosForStudent(_lecionadosStudentId);
+    bodyHtml = list.length ? `<div class="lec-list">${list.map(item=>`
+      <div class="lec-row">
+        <span class="lec-check">✔</span>
+        <div class="lec-info">
+          <span class="lec-topic">${esc(item.topic)}</span>
+          <span class="lec-date">📅 ${fmtDateBR(item.date)} · ${esc(item.hour)}</span>
+        </div>
+      </div>`).join('')}</div>`
+      : `<div class="card panel"><div class="empty" style="padding:44px 16px">
+          <div style="font-size:42.5px;margin-bottom:10px">📋</div>
+          ${t('lecionados.empty')}
+        </div></div>`;
+  }
+
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>${t('lecionados.title')}</h2>
+      <div class="sub">${t('lecionados.sub')}</div>
+    </div></div>
+    <div class="card" style="max-width:560px;margin:0 auto 20px;padding:18px 22px;">
+      <div class="field" style="margin:0;"><label>${t('lecionados.studentLabel')}</label>
+        <select onchange="changeLecionadosStudent(this.value)">
+          <option value="">${t('lecionados.pickStudent')}</option>${opts}
+        </select>
+      </div>
+    </div>
+    <div style="max-width:560px;margin:0 auto;">${bodyHtml}</div>`;
+}
 function handleExpressionInput(val) {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
@@ -5383,6 +5549,7 @@ async function setPresStatus(iso,h,sid,status){
   renderFinanceiro();
   renderRelatorio();
   renderEstatisticas();
+  renderLecionados();
 }
 async function savePresNotes(iso,h,sid,val){
   const k = presKey(iso,h,sid);
@@ -5469,7 +5636,7 @@ async function doAssignContent(iso, hour, sid, title){
   cur.content = title;
   if(!cur.status && !title) delete state.presenca[key]; else state.presenca[key]=cur;
   await write('presenca', state.presenca);
-  closeModal(); renderPresenca(); renderPainel();
+  closeModal(); renderPresenca(); renderPainel(); renderLecionados();
 }
 async function addManualTopic(iso, hour, sid){
   const inp = document.getElementById('cp-new');
@@ -5518,7 +5685,7 @@ function renderAgenda(){
         <button class="ag-nav" onclick="navAgendaWeek(-1)" title="${t('agenda.prevWeek')}">‹</button>
         <span class="ag-week-range">📅 ${rangeLabel}</span>
         <button class="ag-nav" onclick="navAgendaWeek(1)" title="${t('agenda.nextWeek')}">›</button>
-        ${!isCurrentWeek?`<button class="btn btn-ghost btn-sm ag-today-btn" onclick="goAgendaToday()">${t('agenda.goToday')}</button>`:''}
+        <button class="btn btn-ghost btn-sm ag-today-btn" onclick="goAgendaToday()" style="visibility:${isCurrentWeek?'hidden':'visible'}">${t('agenda.goToday')}</button>
       </div>
     </div>
     <div class="ag-grid-wrap card">
@@ -7158,7 +7325,12 @@ function renderFinanceiro(){
     .filter(k => k.endsWith(monthSuffix))
     .map(k => k.slice(0, -monthSuffix.length))
     .filter(sid => !summary[sid] && isManualLancamento(sid, year, month));
-  const ids = [...Object.keys(summary), ...manualOnlyIds].sort((a,b)=>{
+  // alunos marcados como pré-pago geram valor automaticamente todo mês, com
+  // base nas aulas agendadas, mesmo antes de qualquer uma delas acontecer
+  const prePagoIds = state.students
+    .map(s=>s.id)
+    .filter(sid => !summary[sid] && !manualOnlyIds.includes(sid) && (studentById(sid)||{}).paymentMode==='pre');
+  const ids = [...new Set([...Object.keys(summary), ...manualOnlyIds, ...prePagoIds])].sort((a,b)=>{
     const na=(studentById(a)||{}).name||'zzz', nb=(studentById(b)||{}).name||'zzz';
     return na.localeCompare(nb,'pt-BR',{sensitivity:'base'});
   });
@@ -7178,7 +7350,9 @@ function renderFinanceiro(){
     const st = summary[sid] || {p:0,f:0,c:0};
     const aulasDadas = st.p, aulasFaltas = st.f, aulasCanceladas = st.c;
     totalDadas += aulasDadas; totalFaltas += aulasFaltas; totalCanceladas += aulasCanceladas;
-    const computed = aulasDadas * price;
+    const isPrePago = !!(s && s.paymentMode==='pre');
+    const aulasAgendadas = scheduled[sid] || 0;
+    const computed = (isPrePago ? aulasAgendadas : aulasDadas) * price;
     const valor = getValorFinal(sid, year, month, computed);
     const ajustado = hasAjuste(sid, year, month);
     const manual = isManualLancamento(sid, year, month);
@@ -7193,7 +7367,8 @@ function renderFinanceiro(){
           <div class="fn-nm">${esc(nm)}</div>
           <div class="fn-meta-stats">
             ${manual ? `<span class="pr-mini manual" title="${t('financeiro.manualBadgeTitle')}">📝 ${aulasManual!=null?aulasManual:aulasDadas} ${t('financeiro.manualBadge')}</span>` : ''}
-            ${(!manual || aulasDadas+aulasFaltas+aulasCanceladas>0) ? `
+            ${(!manual && isPrePago) ? `<span class="pr-mini prepaid" title="${t('alunos.prepaidHint')}">💳 ${aulasAgendadas} ${t('financeiro.prepaidBadge')}</span>` : ''}
+            ${(!manual && (!isPrePago || aulasDadas+aulasFaltas+aulasCanceladas>0)) ? `
             <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${aulasDadas}</span>
             <span class="pr-mini f" title="${t('presenca.absMonth')}">${attendanceLetter('f')} ${aulasFaltas}</span>
             <span class="pr-mini c" title="${t('presenca.cancelMonth')}">${attendanceLetter('c')} ${aulasCanceladas}</span>` : ''}
@@ -7207,7 +7382,7 @@ function renderFinanceiro(){
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6m6 4h-6m4 4h-4"/></svg>
             Gerar Recibo
           </button>
-          <button class="fn-editvalor" title="${t('financeiro.editValue')}" onclick="openEditValor('${sid}',${year},${month},${computed},${aulasDadas})">✏️</button>
+          <button class="fn-editvalor" title="${t('financeiro.editValue')}" onclick="openEditValor('${sid}',${year},${month},${computed},${isPrePago?aulasAgendadas:aulasDadas})">✏️</button>
           ${manual ? `<button class="fn-editvalor" title="${t('financeiro.manualRemove')}" onclick="removeManualLancamento('${sid}',${year},${month})">🗑️</button>` : ''}
         </div>
       </div>
@@ -7627,11 +7802,17 @@ function computeYearlyRecebido(year){
       .filter(k => k.endsWith(monthSuffix))
       .map(k => k.slice(0, -monthSuffix.length))
       .filter(sid => !summary[sid] && isManualLancamento(sid, year, m));
+    const prePagoIds = state.students
+      .map(s=>s.id)
+      .filter(sid => !summary[sid] && !manualOnlyIds.includes(sid) && (studentById(sid)||{}).paymentMode==='pre');
+    const scheduledForMonth = (manualOnlyIds.length || prePagoIds.length) ? countMonthlyClasses(year, m) : {};
     let recebido = 0;
-    [...Object.keys(summary), ...manualOnlyIds].forEach(sid=>{
+    [...new Set([...Object.keys(summary), ...manualOnlyIds, ...prePagoIds])].forEach(sid=>{
       const s = studentById(sid);
       const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
-      const computed = (summary[sid]?summary[sid].p:0) * price;
+      const isPrePago = !!(s && s.paymentMode==='pre');
+      const base = isPrePago ? (scheduledForMonth[sid]||0) : (summary[sid]?summary[sid].p:0);
+      const computed = base * price;
       const valor = getValorFinal(sid, year, m, computed);
       const status = getPayStatus(sid, year, m);
       if(status==='pago') recebido += valor;
@@ -8178,6 +8359,20 @@ function openAluno(id){
     <div class="field"><label>${t('alunos.price')}</label>
       <div class="al-money"><span>R$</span><input id="al-valor" type="text" inputmode="decimal" value="${s&&s.price!=null?moneyToDisplay(s.price):''}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
     </div>
+    <div class="field">
+      <label>${t('alunos.paymentMode')}</label>
+      <div class="al-paymode-group" id="al-paymode-group">
+        <button type="button" class="al-paymode-btn ${(s?(s.paymentMode||'pos'):'pos')==='pos'?'on':''}" data-mode="pos" onclick="setAlPaymentMode('pos')">
+          <span class="al-paymode-ico">📆</span>
+          <span class="al-paymode-txt"><b>${t('alunos.postpaid')}</b><small>${t('alunos.postpaidHint')}</small></span>
+        </button>
+        <button type="button" class="al-paymode-btn ${(s?(s.paymentMode||'pos'):'pos')==='pre'?'on':''}" data-mode="pre" onclick="setAlPaymentMode('pre')">
+          <span class="al-paymode-ico">💳</span>
+          <span class="al-paymode-txt"><b>${t('alunos.prepaid')}</b><small>${t('alunos.prepaidHint')}</small></span>
+        </button>
+      </div>
+      <input type="hidden" id="al-paymode" value="${s?(s.paymentMode||'pos'):'pos'}">
+    </div>
     <div class="modal-acts">
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
       <button class="btn btn-primary" onclick="saveAluno('${id||''}')">${s?t('alunos.saveEdit'):t('alunos.saveNew')}</button>
@@ -8190,6 +8385,13 @@ function updateAge(){
   const age = ageFromDOB(d.value);
   a.textContent = age!=null ? age+' '+t('alunos.age') : '';
 }
+function setAlPaymentMode(mode){
+  const hid = document.getElementById('al-paymode');
+  if(hid) hid.value = mode;
+  document.querySelectorAll('#al-paymode-group .al-paymode-btn').forEach(b=>{
+    b.classList.toggle('on', b.dataset.mode===mode);
+  });
+}
 async function saveAluno(id){
   const name = fv('al-nome');
   if(!name){ const i=document.getElementById('al-nome'); if(i) i.focus(); return; }
@@ -8201,7 +8403,8 @@ async function saveAluno(id){
     status: (document.getElementById('al-status')||{}).value || 'ativo',
     level: (document.getElementById('al-nivel')||{}).value || '',
     startDate: fv('al-inicio'),
-    price: valorRaw==='' ? '' : parseCurrencyValue(valorRaw)
+    price: valorRaw==='' ? '' : parseCurrencyValue(valorRaw),
+    paymentMode: (document.getElementById('al-paymode')||{}).value || 'pos'
   };
   if(id){
     Object.assign(studentById(id), data);
@@ -8209,7 +8412,8 @@ async function saveAluno(id){
     data.id = uid();
     state.students.push(data);
   }
-  await save('students'); closeModal(); renderPainel(); renderAlunos();
+  await save('students'); closeModal();
+  renderPainel(); renderAlunos(); renderFinanceiro(); renderEstatisticas(); renderRelatorio(); renderAgenda(); renderPresenca();
 }
 function delAluno(id){
   const s = studentById(id); if(!s) return;
@@ -8318,7 +8522,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados();
   renderAuthGate();
 }
 boot();
