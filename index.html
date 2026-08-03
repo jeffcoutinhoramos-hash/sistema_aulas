@@ -593,6 +593,13 @@
 
   /* ---------- relatório ---------- */
   .rp-monthbar{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;position:relative}
+  .fn-manual-btn{position:absolute; right:0; top:50%; transform:translateY(-50%); white-space:nowrap}
+  .fn-card-manual{border-color:var(--amber)}
+  .pr-mini.manual{background:var(--amber-bg);color:var(--amber)}
+  @media(max-width:640px){
+    .fn-manual-btn{position:static; transform:none; margin:10px auto 0; display:flex; width:fit-content}
+    .rp-monthbar{flex-wrap:wrap}
+  }
   .rp-month-name{font-family:'Bricolage Grotesque';font-size:19.5px;font-weight:800;min-width:170px;text-align:center}
   .rp-legend{display:flex;gap:18px;margin-bottom:14px;font-size:14.5px;color:var(--muted);flex-wrap:wrap;justify-content:center}
   .rp-legend span{display:inline-flex;align-items:center;gap:7px}
@@ -2301,6 +2308,8 @@
     transition:background .15s, border-color .15s;
   }
   .ferias-period-del:hover{ background:var(--rose-bg); border-color:var(--rose); }
+  .ferias-period-past{ opacity:.72; background:var(--line-2); }
+  .ferias-period-past .ferias-period-range{ color:var(--muted); text-decoration:none; }
   @media (max-width: 1024px) {
     .pn-right-col { height: auto; }
     .pn-cal-card { min-height: 320px; }
@@ -3168,8 +3177,10 @@ const I18N = {
     'ferias.periodLabel':'Férias', 'ferias.noClassVacation':'🏖️ Férias — sem aula',
     'ferias.calHint':'Toque no primeiro dia das férias e depois no último dia para criar o período.',
     'ferias.pickStart':'Toque no dia de início das férias', 'ferias.pickEnd':'Agora toque no dia de término das férias',
-    'ferias.cancelSelection':'Cancelar seleção', 'ferias.currentPeriods':'Períodos de férias cadastrados',
-    'ferias.noPeriods':'Nenhum período de férias cadastrado ainda.',
+    'ferias.cancelSelection':'Cancelar seleção', 'ferias.currentPeriods':'Próximas férias',
+    'ferias.noPeriods':'Nenhum período de férias futuro cadastrado.',
+    'ferias.historyTitle':'🗓️ Histórico de férias gozadas', 'ferias.historySub':'Períodos já concluídos, mantidos aqui como registro.',
+    'ferias.taken':'gozadas',
     'ferias.deletePeriod':'Excluir período', 'ferias.confirmDelete':'Excluir este período de férias? As aulas voltarão a ser exibidas normalmente na agenda.',
     'ferias.periodCreated':'Período de férias criado! As aulas da agenda nesse intervalo já foram excluídas.',
     'ferias.days':'dias', 'ferias.day':'dia',
@@ -3266,6 +3277,13 @@ const I18N = {
     'financeiro.noData':'Nenhum dado para', 'financeiro.noDataCta':'Marque presenças na aba <b>Frequência</b> para calcular os valores aqui.',
     'financeiro.editValue':'Valor do mês', 'financeiro.autoValue':'Valor calculado automaticamente',
     'financeiro.finalValue':'Valor final a cobrar (R$)', 'financeiro.restore':'↺ Restaurar automático',
+    'financeiro.editAulasLabel':'Quantidade de aulas', 'financeiro.editAulasHint':'Ajuste as aulas e o valor é recalculado automaticamente (você ainda pode editar o valor final à mão).',
+    'financeiro.manualBtn':'Lançamento manual', 'financeiro.manualTitle':'Lançar aulas e valor manualmente',
+    'financeiro.manualStudent':'Aluno', 'financeiro.manualPick':'Selecione um aluno...',
+    'financeiro.manualHint':'Use isso para dar baixa em alunos que já pagaram pelas aulas do mês, mesmo antes delas acontecerem.',
+    'financeiro.manualSave':'Lançar', 'financeiro.manualBadge':'aulas (lançamento antecipado)',
+    'financeiro.manualBadgeTitle':'Lançamento manual — quantidade de aulas pagas antecipadamente',
+    'financeiro.manualRemove':'Remover lançamento manual', 'financeiro.manualRemoveConfirm':'Remover este lançamento manual? O aluno deixará de aparecer no Financeiro deste mês caso não tenha nenhuma aula registrada.',
     'despesas.title':'Despesas', 'despesas.add':'＋ Nova despesa', 'despesas.registered':'despesa cadastrada',
     'despesas.registeredPl':'despesas cadastradas', 'despesas.uniqAndRec':'(únicas e recorrentes)',
     'despesas.empty':'Nenhuma despesa neste mês.', 'despesas.emptyCta':'Clique em <b>＋ Nova despesa</b> para começar.',
@@ -3427,8 +3445,10 @@ const I18N = {
     'ferias.periodLabel':'Vacation', 'ferias.noClassVacation':'🏖️ Vacation — no class',
     'ferias.calHint':'Tap the first day of vacation, then the last day, to create the period.',
     'ferias.pickStart':'Tap the vacation start day', 'ferias.pickEnd':'Now tap the vacation end day',
-    'ferias.cancelSelection':'Cancel selection', 'ferias.currentPeriods':'Registered vacation periods',
-    'ferias.noPeriods':'No vacation periods registered yet.',
+    'ferias.cancelSelection':'Cancel selection', 'ferias.currentPeriods':'Upcoming vacation',
+    'ferias.noPeriods':'No upcoming vacation periods registered.',
+    'ferias.historyTitle':'🗓️ Vacation history', 'ferias.historySub':'Periods already completed, kept here as a record.',
+    'ferias.taken':'taken',
     'ferias.deletePeriod':'Delete period', 'ferias.confirmDelete':'Delete this vacation period? Classes will show normally again on the schedule.',
     'ferias.periodCreated':'Vacation period created! Scheduled classes in this range have been excluded.',
     'ferias.days':'days', 'ferias.day':'day',
@@ -3525,6 +3545,13 @@ const I18N = {
     'financeiro.noData':'No data for', 'financeiro.noDataCta':'Mark attendance in the <b>Attendance</b> tab to calculate the amounts here.',
     'financeiro.editValue':"Month's value", 'financeiro.autoValue':'Automatically calculated value',
     'financeiro.finalValue':'Final amount to charge ($)', 'financeiro.restore':'↺ Restore automatic',
+    'financeiro.editAulasLabel':'Number of classes', 'financeiro.editAulasHint':'Adjust the classes and the value recalculates automatically (you can still edit the final value by hand).',
+    'financeiro.manualBtn':'Manual entry', 'financeiro.manualTitle':'Manually log classes and value',
+    'financeiro.manualStudent':'Student', 'financeiro.manualPick':'Select a student...',
+    'financeiro.manualHint':'Use this to mark students as paid for the month even before their classes happen.',
+    'financeiro.manualSave':'Add entry', 'financeiro.manualBadge':'classes (advance entry)',
+    'financeiro.manualBadgeTitle':'Manual entry — number of classes paid in advance',
+    'financeiro.manualRemove':'Remove manual entry', 'financeiro.manualRemoveConfirm':'Remove this manual entry? The student will disappear from this month\'s Financeiro if they have no recorded classes.',
     'despesas.title':'Expenses', 'despesas.add':'＋ New expense', 'despesas.registered':'expense registered',
     'despesas.registeredPl':'expenses registered', 'despesas.uniqAndRec':'(one-time and recurring)',
     'despesas.empty':'No expenses this month.', 'despesas.emptyCta':'Click <b>＋ New expense</b> to get started.',
@@ -6564,28 +6591,43 @@ async function setPayStatus(sid, year, month, status){
   const k = payKey(sid,year,month);
   if(status==='pendente') delete state.pagamentos[k]; else state.pagamentos[k] = status;
   await write('pagamentos', state.pagamentos);
-  renderFinanceiro();
+  renderFinanceiro(); renderPainel(); renderEstatisticas();
 }
 function navFinanceiroMonth(delta){
   state.financeiroMonth = addMonths(state.financeiroMonth, delta);
   renderFinanceiro();
 }
 function ajusteKey(sid, year, month){ return sid+'_'+year+'-'+String(month+1).padStart(2,'0'); }
-function hasAjuste(sid, year, month){ return Object.prototype.hasOwnProperty.call(state.financeiroAjustes, ajusteKey(sid,year,month)); }
-function getValorFinal(sid, year, month, computed){
-  const k = ajusteKey(sid,year,month);
-  return hasAjuste(sid,year,month) ? state.financeiroAjustes[k] : computed;
+function getAjusteObj(sid, year, month){
+  const raw = state.financeiroAjustes[ajusteKey(sid,year,month)];
+  if(raw==null) return null;
+  if(typeof raw === 'number') return {valor: raw, aulas: null, manual: false}; // formato antigo
+  return raw;
 }
-function openEditValor(sid, year, month, computed){
+function hasAjuste(sid, year, month){ return getAjusteObj(sid,year,month) !== null; }
+function isManualLancamento(sid, year, month){ const a = getAjusteObj(sid,year,month); return !!(a && a.manual); }
+function getAulasAjuste(sid, year, month){ const a = getAjusteObj(sid,year,month); return (a && a.aulas!=null) ? a.aulas : null; }
+function getValorFinal(sid, year, month, computed){
+  const a = getAjusteObj(sid,year,month);
+  return a ? a.valor : computed;
+}
+function openEditValor(sid, year, month, computed, realAulas){
   const s = studentById(sid); if(!s) return;
   const atual = getValorFinal(sid, year, month, computed);
+  const ajusteObj = getAjusteObj(sid, year, month);
+  const aulasAtual = ajusteObj && ajusteObj.aulas!=null ? ajusteObj.aulas : realAulas;
+  const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
   showModal(`
     <h3>${t('financeiro.editValue')}</h3>
     <div class="msub">${esc(s.name)} · ${MONTHS_FULL_CAP[month]} ${year}</div>
-    <div class="banner" style="margin:0 0 14px">${t('financeiro.autoValue')}: <b>${fmtBRL(computed)}</b></div>
+    <div class="banner" style="margin:0 0 14px">${t('financeiro.autoValue')}: <b>${fmtBRL(computed)}</b> (${realAulas} ${realAulas===1?t('financeiro.classesGiven'):t('financeiro.classesGivenPl')})</div>
+    <div class="field"><label>${t('financeiro.editAulasLabel')}</label>
+      <input id="fn-aulas-input" type="number" min="0" step="1" value="${aulasAtual}" oninput="fnSyncValorFromAulas(${price})">
+    </div>
     <div class="field"><label>${t('financeiro.finalValue')}</label>
       <div class="al-money"><span>R$</span><input id="fn-valor-input" type="text" inputmode="decimal" value="${moneyToDisplay(atual)}" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
     </div>
+    <div class="field-hint">${t('financeiro.editAulasHint')}</div>
     <div class="modal-acts">
       ${hasAjuste(sid,year,month)?`<button class="btn btn-ghost" onclick="clearValorAjuste('${sid}',${year},${month})">${t('financeiro.restore')}</button>`:''}
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
@@ -6593,17 +6635,91 @@ function openEditValor(sid, year, month, computed){
     </div>`);
   setTimeout(()=>{ const i=document.getElementById('fn-valor-input'); if(i){ i.focus(); i.select(); } }, 50);
 }
+function fnSyncValorFromAulas(price){
+  const aulasEl = document.getElementById('fn-aulas-input');
+  const valorEl = document.getElementById('fn-valor-input');
+  if(!aulasEl || !valorEl) return;
+  const n = Number(aulasEl.value)||0;
+  valorEl.value = moneyToDisplay(n*price);
+}
 async function saveValorAjuste(sid, year, month){
-  const raw = document.getElementById('fn-valor-input').value;
-  if(raw==='') return;
-  state.financeiroAjustes[ajusteKey(sid,year,month)] = parseCurrencyValue(raw);
+  const rawValor = document.getElementById('fn-valor-input').value;
+  const aulasEl = document.getElementById('fn-aulas-input');
+  if(rawValor==='') return;
+  const prevObj = getAjusteObj(sid, year, month);
+  const aulas = aulasEl ? (aulasEl.value==='' ? null : Number(aulasEl.value)) : (prevObj?prevObj.aulas:null);
+  state.financeiroAjustes[ajusteKey(sid,year,month)] = {
+    valor: parseCurrencyValue(rawValor),
+    aulas: aulas,
+    manual: prevObj ? !!prevObj.manual : false
+  };
   await write('financeiroAjustes', state.financeiroAjustes);
-  closeModal(); renderFinanceiro(); renderPainel();
+  closeModal(); renderFinanceiro(); renderPainel(); renderEstatisticas();
 }
 async function clearValorAjuste(sid, year, month){
   delete state.financeiroAjustes[ajusteKey(sid,year,month)];
   await write('financeiroAjustes', state.financeiroAjustes);
-  closeModal(); renderFinanceiro(); renderPainel();
+  closeModal(); renderFinanceiro(); renderPainel(); renderEstatisticas();
+}
+/* ---- Lançamento manual: registrar um aluno (e valor) antes de qualquer aula acontecer ---- */
+function openManualLancamento(year, month){
+  const opts = state.students
+    .sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}))
+    .map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  showModal(`
+    <h3>${t('financeiro.manualTitle')}</h3>
+    <div class="msub">${MONTHS_FULL_CAP[month]} ${year}</div>
+    <div class="field"><label>${t('financeiro.manualStudent')}</label>
+      <select id="fn-manual-student" onchange="fnManualPrefill(${year},${month})">
+        <option value="">${t('financeiro.manualPick')}</option>${opts}
+      </select>
+    </div>
+    <div class="field"><label>${t('financeiro.editAulasLabel')}</label>
+      <input id="fn-manual-aulas" type="number" min="0" step="1" value="4" oninput="fnManualSyncValor()">
+    </div>
+    <div class="field"><label>${t('financeiro.finalValue')}</label>
+      <div class="al-money"><span>R$</span><input id="fn-manual-valor" type="text" inputmode="decimal" value="0,00" placeholder="0,00" oninput="formatCurrencyInput(this)"></div>
+    </div>
+    <div class="field-hint">${t('financeiro.manualHint')}</div>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
+      <button class="btn btn-primary" onclick="saveManualLancamento(${year},${month})">${t('financeiro.manualSave')}</button>
+    </div>`);
+  setTimeout(()=>{ const i=document.getElementById('fn-manual-student'); if(i) i.focus(); }, 50);
+}
+function fnManualPrefill(year, month){
+  const sid = document.getElementById('fn-manual-student').value;
+  const s = studentById(sid);
+  const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
+  const aulasEl = document.getElementById('fn-manual-aulas');
+  const n = Number(aulasEl.value)||0;
+  document.getElementById('fn-manual-valor').value = moneyToDisplay(n*price);
+}
+function fnManualSyncValor(){
+  const sid = document.getElementById('fn-manual-student').value;
+  const s = studentById(sid);
+  const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
+  fnManualPrefill();
+  const aulasEl = document.getElementById('fn-manual-aulas');
+  const n = Number(aulasEl.value)||0;
+  document.getElementById('fn-manual-valor').value = moneyToDisplay(n*price);
+}
+async function saveManualLancamento(year, month){
+  const sid = document.getElementById('fn-manual-student').value;
+  if(!sid){ return; }
+  const aulas = Number(document.getElementById('fn-manual-aulas').value)||0;
+  const valor = parseCurrencyValue(document.getElementById('fn-manual-valor').value);
+  state.financeiroAjustes[ajusteKey(sid,year,month)] = { valor, aulas, manual: true };
+  await write('financeiroAjustes', state.financeiroAjustes);
+  closeModal(); renderFinanceiro(); renderPainel(); renderEstatisticas();
+}
+async function removeManualLancamento(sid, year, month){
+  if(!confirm(t('financeiro.manualRemoveConfirm'))) return;
+  delete state.financeiroAjustes[ajusteKey(sid,year,month)];
+  delete state.pagamentos[sid+'_'+year+'-'+String(month+1).padStart(2,'0')];
+  await write('financeiroAjustes', state.financeiroAjustes);
+  await write('pagamentos', state.pagamentos);
+  renderFinanceiro(); renderPainel(); renderEstatisticas();
 }
 
 /* ================= EDITABLE PDF RECEIPT GENERATOR ================= */
@@ -7033,9 +7149,16 @@ function renderFinanceiro(){
   const view = state.financeiroMonth || new Date();
   const year = view.getFullYear(), month = view.getMonth();
   const monthLabel = MONTHS_FULL_CAP[month]+' '+year;
+  const monthSuffix = '_'+year+'-'+String(month+1).padStart(2,'0');
 
   const summary = monthlyStatusSummary(year, month); // {sid:{p,f,c}}
-  const ids = Object.keys(summary).sort((a,b)=>{
+  // inclui também alunos que ainda não tiveram nenhuma aula registrada neste mês
+  // mas já receberam um lançamento manual (pagamento antecipado)
+  const manualOnlyIds = Object.keys(state.financeiroAjustes)
+    .filter(k => k.endsWith(monthSuffix))
+    .map(k => k.slice(0, -monthSuffix.length))
+    .filter(sid => !summary[sid] && isManualLancamento(sid, year, month));
+  const ids = [...Object.keys(summary), ...manualOnlyIds].sort((a,b)=>{
     const na=(studentById(a)||{}).name||'zzz', nb=(studentById(b)||{}).name||'zzz';
     return na.localeCompare(nb,'pt-BR',{sensitivity:'base'});
   });
@@ -7052,25 +7175,28 @@ function renderFinanceiro(){
   const cards = ids.map(sid=>{
     const s = studentById(sid); const nm = s ? s.name : 'Aluno removido';
     const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
-    const aulasDadas = summary[sid].p;
-    const aulasFaltas = summary[sid].f;
-    const aulasCanceladas = summary[sid].c;
+    const st = summary[sid] || {p:0,f:0,c:0};
+    const aulasDadas = st.p, aulasFaltas = st.f, aulasCanceladas = st.c;
     totalDadas += aulasDadas; totalFaltas += aulasFaltas; totalCanceladas += aulasCanceladas;
     const computed = aulasDadas * price;
     const valor = getValorFinal(sid, year, month, computed);
     const ajustado = hasAjuste(sid, year, month);
+    const manual = isManualLancamento(sid, year, month);
+    const aulasManual = getAulasAjuste(sid, year, month);
     const status = getPayStatus(sid, year, month);
     total += valor;
     if(status==='pago') recebido += valor; else pendente += valor;
-    return `<div class="fn-card card">
+    return `<div class="fn-card card ${manual?'fn-card-manual':''}">
       <div class="fn-who">
         <div class="avatar" style="background:${studentColor(s)}">${esc(initials(nm))}</div>
         <div class="fn-who-txt">
           <div class="fn-nm">${esc(nm)}</div>
           <div class="fn-meta-stats">
+            ${manual ? `<span class="pr-mini manual" title="${t('financeiro.manualBadgeTitle')}">📝 ${aulasManual!=null?aulasManual:aulasDadas} ${t('financeiro.manualBadge')}</span>` : ''}
+            ${(!manual || aulasDadas+aulasFaltas+aulasCanceladas>0) ? `
             <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${aulasDadas}</span>
             <span class="pr-mini f" title="${t('presenca.absMonth')}">${attendanceLetter('f')} ${aulasFaltas}</span>
-            <span class="pr-mini c" title="${t('presenca.cancelMonth')}">${attendanceLetter('c')} ${aulasCanceladas}</span>
+            <span class="pr-mini c" title="${t('presenca.cancelMonth')}">${attendanceLetter('c')} ${aulasCanceladas}</span>` : ''}
           </div>
         </div>
       </div>
@@ -7081,7 +7207,8 @@ function renderFinanceiro(){
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6m6 4h-6m4 4h-4"/></svg>
             Gerar Recibo
           </button>
-          <button class="fn-editvalor" title="Ajustar valor (desconto)" onclick="openEditValor('${sid}',${year},${month},${computed})">✏️</button>
+          <button class="fn-editvalor" title="${t('financeiro.editValue')}" onclick="openEditValor('${sid}',${year},${month},${computed},${aulasDadas})">✏️</button>
+          ${manual ? `<button class="fn-editvalor" title="${t('financeiro.manualRemove')}" onclick="removeManualLancamento('${sid}',${year},${month})">🗑️</button>` : ''}
         </div>
       </div>
       <div class="fn-pay">
@@ -7100,6 +7227,7 @@ function renderFinanceiro(){
       <button class="ag-nav" onclick="navFinanceiroMonth(-1)" title="${t('common.prevMonth')}">‹</button>
       <div class="rp-month-name">${monthLabel}</div>
       <button class="ag-nav" onclick="navFinanceiroMonth(1)" title="${t('common.nextMonth')}">›</button>
+      <button class="btn btn-primary btn-sm fn-manual-btn" onclick="openManualLancamento(${year},${month})">➕ ${t('financeiro.manualBtn')}</button>
     </div>
     <div class="fn-totals">
       <div class="fn-tot fn-tot-total"><span class="fn-tot-lbl">${t('financeiro.total')}</span><span class="fn-tot-val">${fmtBRL(total)}</span></div>
@@ -7191,7 +7319,7 @@ async function toggleDespesaPaga(id, year, month){
   const k = despesaPagaKey(id, year, month);
   if(state.despesasPagas[k]) delete state.despesasPagas[k]; else state.despesasPagas[k] = true;
   await write('despesasPagas', state.despesasPagas);
-  renderDespesas();
+  renderDespesas(); renderEstatisticas();
 }
 function renderDespesas(){
   const el = document.getElementById('v-despesas');
@@ -7331,7 +7459,7 @@ async function saveDespesa(id){
   }
   despesaTipo = 'material'; despesaRecorrente = false;
   await write('despesas', state.despesas);
-  closeModal(); renderDespesas();
+  closeModal(); renderDespesas(); renderEstatisticas();
 }
 function delDespesa(id){
   const d = state.despesas.find(x=>x.id===id); if(!d) return;
@@ -7341,7 +7469,7 @@ function delDespesa(id){
 async function doDelDespesa(id){
   state.despesas = state.despesas.filter(x=>x.id!==id);
   await write('despesas', state.despesas);
-  closeModal(); renderDespesas();
+  closeModal(); renderDespesas(); renderEstatisticas();
 }
 function renderInfo(){
   const el = document.getElementById('v-info');
@@ -7494,11 +7622,16 @@ function computeYearlyRecebido(year){
   const arr = [];
   for(let m=0; m<12; m++){
     const summary = monthlyStatusSummary(year, m);
+    const monthSuffix = '_'+year+'-'+String(m+1).padStart(2,'0');
+    const manualOnlyIds = Object.keys(state.financeiroAjustes)
+      .filter(k => k.endsWith(monthSuffix))
+      .map(k => k.slice(0, -monthSuffix.length))
+      .filter(sid => !summary[sid] && isManualLancamento(sid, year, m));
     let recebido = 0;
-    Object.keys(summary).forEach(sid=>{
+    [...Object.keys(summary), ...manualOnlyIds].forEach(sid=>{
       const s = studentById(sid);
       const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
-      const computed = summary[sid].p * price;
+      const computed = (summary[sid]?summary[sid].p:0) * price;
       const valor = getValorFinal(sid, year, m, computed);
       const status = getPayStatus(sid, year, m);
       if(status==='pago') recebido += valor;
@@ -7563,17 +7696,17 @@ async function saveDcAjuste(year, month){
   }
   state.declaracaoAjustes[dcAjusteKey(year,month)] = num;
   await write('declaracaoAjustes', state.declaracaoAjustes);
-  closeModal(); renderDeclaracao();
+  closeModal(); renderDeclaracao(); renderEstatisticas();
 }
 async function doSaveDcAjusteCapped(year, month){
   state.declaracaoAjustes[dcAjusteKey(year,month)] = 100000;
   await write('declaracaoAjustes', state.declaracaoAjustes);
-  closeModal(); renderDeclaracao();
+  closeModal(); renderDeclaracao(); renderEstatisticas();
 }
 async function clearDcAjuste(year, month){
   delete state.declaracaoAjustes[dcAjusteKey(year,month)];
   await write('declaracaoAjustes', state.declaracaoAjustes);
-  closeModal(); renderDeclaracao();
+  closeModal(); renderDeclaracao(); renderEstatisticas();
 }
 const MONTHS_SHORT_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const MONTHS_SHORT_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -7762,19 +7895,27 @@ function renderFerias(){
     cellsHtml += `<div class="${classes.join(' ')}"${clickAttr}${titleAttr}><span>${d.getDate()}</span></div>`;
   }
 
-  const periodsHtml = state.ferias.length ? [...state.ferias].sort((a,b)=>a.start.localeCompare(b.start)).map(f=>{
+  const periodRowHtml = (f, isPast) => {
     const days = feriasPeriodDaysCount(f);
-    return `<div class="ferias-period-row">
+    return `<div class="ferias-period-row ${isPast?'ferias-period-past':''}">
       <div class="ferias-period-info">
-        <span class="ferias-period-ico">🏖️</span>
+        <span class="ferias-period-ico">${isPast?'✅':'🏖️'}</span>
         <div>
           <div class="ferias-period-range">${feriasFmtRange(f)}</div>
-          <div class="ferias-period-days">${days} ${days===1?t('ferias.day'):t('ferias.days')}</div>
+          <div class="ferias-period-days">${days} ${days===1?t('ferias.day'):t('ferias.days')}${isPast?` · ${t('ferias.taken')}`:''}</div>
         </div>
       </div>
       <button class="ferias-period-del" onclick="deleteFeriasPeriod('${f.id}')" title="${t('ferias.deletePeriod')}">🗑️</button>
     </div>`;
-  }).join('') : `<div class="empty" style="padding:20px;text-align:center;color:var(--muted);font-size:0.93rem;">${t('ferias.noPeriods')}</div>`;
+  };
+  const sortedFerias = [...state.ferias].sort((a,b)=>a.start.localeCompare(b.start));
+  const upcomingPeriods = sortedFerias.filter(f => f.end >= todayISO);
+  const pastPeriods = sortedFerias.filter(f => f.end < todayISO).reverse(); // mais recente primeiro
+
+  const upcomingHtml = upcomingPeriods.length
+    ? upcomingPeriods.map(f=>periodRowHtml(f,false)).join('')
+    : `<div class="empty" style="padding:20px;text-align:center;color:var(--muted);font-size:0.93rem;">${t('ferias.noPeriods')}</div>`;
+  const pastHtml = pastPeriods.map(f=>periodRowHtml(f,true)).join('');
 
   const hintText = _feriasSelStart
     ? `${t('ferias.pickEnd')} <button class="ferias-hint-cancel" onclick="feriasCancelSelection()">${t('ferias.cancelSelection')}</button>`
@@ -7806,10 +7947,15 @@ function renderFerias(){
         <span><i class="holiday"></i>${t('agenda.holiday')}</span>
       </div>
     </div>
-    <div class="card" style="max-width:520px;margin:0 auto;padding:20px 24px;">
+    <div class="card" style="max-width:520px;margin:0 auto 20px;padding:20px 24px;">
       <div class="card-header"><span class="card-title">${t('ferias.currentPeriods')}</span></div>
-      <div class="ferias-period-list">${periodsHtml}</div>
-    </div>`;
+      <div class="ferias-period-list">${upcomingHtml}</div>
+    </div>
+    ${pastPeriods.length ? `<div class="card" style="max-width:520px;margin:0 auto;padding:20px 24px;">
+      <div class="card-header"><span class="card-title">${t('ferias.historyTitle')}</span></div>
+      <div class="sub" style="margin:-10px 0 14px;font-size:0.82rem;">${t('ferias.historySub')}</div>
+      <div class="ferias-period-list">${pastHtml}</div>
+    </div>` : ''}`;
 }
 function renderEstatisticas(){
   const el = document.getElementById('v-estatisticas');
