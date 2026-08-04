@@ -162,6 +162,34 @@
     --shadow:0 10px 30px -12px rgba(0,0,0,.5);
     --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
   }
+  body.violeta{
+    --bg:#F7F4FC; --surface:#FFFFFF; --ink:#241B36; --muted:#6E6285;
+    --line:#DFD3F0; --line-2:#F1EBFA;
+    --violet:#8B5CF6; --indigo:#A78BFA; --pink:#C084FC;
+    --emerald:#5FAE7A; --emerald-bg:#EFF9F2;
+    --amber:#D9A05C; --amber-bg:#FEF5E8;
+    --sky:#9B8AFB; --sky-bg:#F2EFFE;
+    --rose:#C2569B; --rose-bg:#FBEAF5;
+    --slate:#6E6285; --slate-bg:#F1EEFA;
+    --grad:linear-gradient(120deg,#8B5CF6 0%,#A78BFA 50%,#C084FC 100%);
+    --accent-bg:#F1EBFA;
+    --shadow:0 10px 30px -12px rgba(139,92,246,.14);
+    --shadow-sm:0 4px 14px -8px rgba(139,92,246,.14);
+  }
+  body.dark.violeta{
+    --bg:#1E1730; --surface:#2A2140; --ink:#F3EFFC; --muted:#B3A6D1;
+    --line:#453A66; --line-2:#362C52;
+    --violet:#A78BFA; --indigo:#C4B5FD; --pink:#E9A8FF;
+    --emerald:#34D399; --emerald-bg:#1E3A2E;
+    --amber:#FBBF24; --amber-bg:#3D3320;
+    --sky:#C4B5FD; --sky-bg:#372B54;
+    --rose:#F472B6; --rose-bg:#3A1F38;
+    --slate:#B3A6D1; --slate-bg:#2E2645;
+    --grad:linear-gradient(120deg,#A78BFA 0%,#8B5CF6 50%,#C4B5FD 100%);
+    --accent-bg:#2A2140;
+    --shadow:0 10px 30px -12px rgba(0,0,0,.5);
+    --shadow-sm:0 4px 14px -8px rgba(0,0,0,.5);
+  }
   /* ---------- Modo Allure: cobre detalhes que ainda usavam verde/laranja fixo ---------- */
   body.allure .alu-tag,body.allure .ag-week-count,body.allure .ag-hourchip,body.allure .chip-count,
   body.allure .desp-servico,body.allure .emoji-cell:hover{background:#EEF2FE}
@@ -312,6 +340,56 @@
   body.dark.flower .ag-hourchip:hover{background:#4A383870}
   body.dark.flower .ag-hourchip.on{background:var(--violet);color:#fff}
   body.dark.flower .pn-today-topic{background:var(--accent-bg);color:var(--violet)}
+  /* ---------- Modo Violeta: cobre detalhes que ainda usavam verde/laranja fixo ---------- */
+  body.violeta .alu-tag,body.violeta .ag-week-count,body.violeta .ag-hourchip,body.violeta .chip-count,
+  body.violeta .desp-servico,body.violeta .emoji-cell:hover{background:#F3EAFC}
+  body.violeta .alu-tag{color:#6D28D9}
+  body.violeta .ag-hourchip:hover{background:#E4D4FA}
+  body.violeta .emoji-cell:hover{border-color:#D9C7F0}
+  body.violeta .al-money:focus-within,body.violeta .pr-topic-btn:hover,body.violeta .cp-item:hover,
+  body.violeta .cp-add input:focus,body.violeta #cp-search:focus,body.violeta .ag-nav:hover,
+  body.violeta .painel-login-btn:hover,body.violeta .org-photo-btn:hover,body.violeta .btn-ghost:hover,
+  body.violeta .search input:focus,
+  body.violeta .field input:focus,body.violeta .field select:focus,body.violeta .field textarea:focus{
+    border-color:#B794F4!important}
+  body.violeta .pr-topic-btn:hover,body.violeta .cp-item:hover,body.violeta .ag-nav:hover,
+  body.violeta .org-photo-btn:hover,body.violeta .btn-ghost:hover,body.violeta .tp-card:hover,
+  body.violeta .ex-row:hover{background:#F9F6FE}
+  body.violeta .pr-topic-btn.has{border-color:#D9C7F0;background:#F3EAFC;color:#5B21B6}
+  body.violeta .pr-topic-btn.has:hover{border-color:#B794F4;background:#E4D4FA}
+  body.violeta .cp-item.sel{background:#F3EAFC;border-color:var(--violet)}
+  body.violeta .tp-card:hover,body.violeta .ex-row:hover{border-color:#D9C7F0}
+  body.violeta .ex-confirm:hover{border-color:#B794F4}
+  body.violeta .fn-editvalor:hover,body.violeta .dc-edit:hover,body.violeta .alu-acts button:hover{background:#E4D4FA}
+  body.violeta .wa-link:hover{background:#F3EAFC}
+  body.violeta .rp-bar-fill.p{background:linear-gradient(90deg,#A78BFA,#6D28D9)}
+  body.violeta .dc-total{background:linear-gradient(135deg,#A78BFA,#6D28D9)}
+  body.violeta .es-stat-violet{background:linear-gradient(135deg,#A78BFA,#6D28D9)}
+  body.violeta .es-stat-sky{background:linear-gradient(135deg,#A78BFA,#5B4E8A)}
+  body.violeta .es-stat-emerald{background:linear-gradient(135deg,#B39DDB,#8577A0)}
+  body.violeta .es-stat-amber{background:linear-gradient(135deg,#A78BFA,#8577A0)}
+  body.violeta .contract-dl{background:#F3EAFC;border-color:#D9C7F0}
+  body.violeta .contract-dl-btn{background:linear-gradient(135deg,#A78BFA,#8577A0)!important}
+  body.violeta .doc-upload-btn{background:linear-gradient(135deg,#A78BFA,#8577A0)}
+  body.violeta .doc-row{border-color:#D9C7F0}
+  body.violeta .desp-pago-btn:hover{border-color:#B794F4}
+  body.violeta .desp-pago-btn.on:hover{background:#5B21B6}
+  body.violeta .emoji-cell,body.violeta .al-money,body.violeta .pr-topic-btn,body.violeta .cp-add input,
+  body.violeta #cp-search,body.violeta .ag-slot,body.violeta .ag-modal-row,
+  body.violeta .field input,body.violeta .field select,body.violeta .field textarea{background:#FCFAFF}
+  body.violeta .ag-slot:hover{background:#F8F3FE;border-color:#D9C7F0}
+  body.dark.violeta .cp-item.sel{background:#2E2444}
+  body.dark.violeta .pr-topic-btn{background:#251C3D;color:var(--muted)}
+  body.dark.violeta .pr-topic-btn:hover{background:#3D2F5C;border-color:#4C3D70}
+  body.dark.violeta .pr-topic-btn.has{background:#2E2444;color:#C4B5FD;border-color:#4C3D70}
+  body.dark.violeta .pr-topic-btn.has:hover{background:#4C3D70}
+  body.dark.violeta .ex-confirm:hover{border-color:#C4B5FD;color:#C4B5FD}
+  body.dark.violeta .painel-login-btn:hover{border-color:#C4B5FD}
+  body.dark.violeta .alu-tag,body.dark.violeta .chip-count,body.dark.violeta .ag-week-count,body.dark.violeta .ag-hourchip{
+    background:#2E2444;color:#C4B5FD}
+  body.dark.violeta .ag-hourchip:hover{background:#4C3D7070}
+  body.dark.violeta .ag-hourchip.on{background:var(--violet);color:#fff}
+  body.dark.violeta .pn-today-topic{background:var(--accent-bg);color:var(--violet)}
   /* ---------- Modo Terra: cobre detalhes que ainda usavam verde/laranja fixo ---------- */
   body.earth .alu-tag,body.earth .ag-week-count,body.earth .ag-hourchip,body.earth .chip-count,
   body.earth .desp-servico,body.earth .emoji-cell:hover{background:#F2E6D6}
@@ -636,6 +714,12 @@
   .fn-card-manual{border-color:var(--amber)}
   .pr-mini.manual{background:var(--amber-bg);color:var(--amber)}
   .pr-mini.prepaid{background:var(--sky-bg);color:var(--sky)}
+  .pr-mini.credit{background:var(--emerald-bg);color:var(--emerald)}
+  .fn-credit-banner{
+    background:var(--emerald-bg)!important;color:var(--emerald)!important;
+    border-color:var(--emerald)!important;font-size:13.5px;line-height:1.5;margin-bottom:18px;
+  }
+  .fn-credit-banner b{font-weight:800}
   @media(max-width:640px){
     .fn-manual-btn{position:static; transform:none; margin:10px auto 0; display:flex; width:fit-content}
     .rp-monthbar{flex-wrap:wrap}
@@ -682,6 +766,14 @@
   body.flower .fn-tot-recebido{background:linear-gradient(135deg,#C77E8A,#71717A)}
   body.flower .fn-tot-pendente{background:linear-gradient(135deg,#E85D75,#B04858)}
   body.flower .fn-tot-projecao{background:linear-gradient(135deg,#E85D75,#9A4050)}
+  body.earth .fn-tot-total{background:linear-gradient(135deg,#C9A375,#A97C57)}
+  body.earth .fn-tot-recebido{background:linear-gradient(135deg,#B89473,#8A6E4E)}
+  body.earth .fn-tot-pendente{background:linear-gradient(135deg,#D9A25C,#B37A34)}
+  body.earth .fn-tot-projecao{background:linear-gradient(135deg,#DCC29B,#A9835E)}
+  body.violeta .fn-tot-total{background:linear-gradient(135deg,#A78BFA,#6D28D9)}
+  body.violeta .fn-tot-recebido{background:linear-gradient(135deg,#9B8AFB,#5B4E8A)}
+  body.violeta .fn-tot-pendente{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
+  body.violeta .fn-tot-projecao{background:linear-gradient(135deg,#D8C6F5,#8577A0)}
   .fn-tot-lbl{font-size:14px;font-weight:600;opacity:.92}
   .fn-tot-val{font-family:'Bricolage Grotesque';font-size:24px;font-weight:800}
   .fn-tot-sub{display:block;font-size:12.5px;font-weight:600;opacity:.85;margin-top:2px}
@@ -931,15 +1023,15 @@
   .nav-group{display:flex;flex-direction:column}
   .nav button.nav-group-label{
     display:flex;align-items:center;gap:6px;width:100%;
-    font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
+    font-size:11.5px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.07em;
     padding:5px 10px;margin-top:6px;border-radius:8px;background:transparent;
     user-select:none;cursor:pointer;transition:filter .15s,transform .1s;
-    opacity:.75
+    opacity:1
   }
   .nav-group:first-of-type button.nav-group-label{margin-top:2px}
-  .nav button.nav-group-label:hover{background:var(--line-2);color:var(--ink);opacity:1}
+  .nav button.nav-group-label:hover{background:var(--line-2);color:var(--violet);opacity:1}
   .nav button.nav-group-label:active{transform:scale(.98)}
-  .nav-group-chevron{font-size:10.5px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:var(--muted);opacity:.7}
+  .nav-group-chevron{font-size:10.5px;transition:transform .25s cubic-bezier(.4,0,.2,1);display:inline-block;color:var(--ink);opacity:.85}
   .nav-group-items{
     display:flex;flex-direction:column;gap:1px;overflow:hidden;
     max-height:400px;opacity:1;
@@ -1107,6 +1199,26 @@
   body.flower .ig-emerald .ig-ico{background:linear-gradient(135deg,#C77E8A,#71717A)}
   body.flower .ig-amber{background:#FCE8EC;border-color:#EDC3CA}
   body.flower .ig-amber .ig-ico{background:linear-gradient(135deg,#E85D75,#B04858)}
+  body.earth .ig-violet{background:#F5EDE1;border-color:#E0CBA8}
+  body.earth .ig-violet .ig-ico{background:linear-gradient(135deg,#C9A375,#A97C57)}
+  body.earth .ig-pink{background:#FBF0E2;border-color:#EBD3A8}
+  body.earth .ig-pink .ig-ico{background:linear-gradient(135deg,#D9A25C,#B37A34)}
+  body.earth .ig-sky{background:#F5EDE1;border-color:#E0CBA8}
+  body.earth .ig-sky .ig-ico{background:linear-gradient(135deg,#B89473,#8A6E4E)}
+  body.earth .ig-emerald{background:#F0F3E8;border-color:#D9E0C4}
+  body.earth .ig-emerald .ig-ico{background:linear-gradient(135deg,#9CAA80,#728A5A)}
+  body.earth .ig-amber{background:#FBF0E2;border-color:#EBD3A8}
+  body.earth .ig-amber .ig-ico{background:linear-gradient(135deg,#D9A25C,#B37A34)}
+  body.violeta .ig-violet{background:#F3EAFC;border-color:#D9C7F0}
+  body.violeta .ig-violet .ig-ico{background:linear-gradient(135deg,#A78BFA,#6D28D9)}
+  body.violeta .ig-pink{background:#FBEAF5;border-color:#EBC7E6}
+  body.violeta .ig-pink .ig-ico{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
+  body.violeta .ig-sky{background:#F3EAFC;border-color:#D9C7F0}
+  body.violeta .ig-sky .ig-ico{background:linear-gradient(135deg,#9B8AFB,#5B4E8A)}
+  body.violeta .ig-emerald{background:#EFF9F2;border-color:#D3EBDB}
+  body.violeta .ig-emerald .ig-ico{background:linear-gradient(135deg,#9B8AFB,#5B4E8A)}
+  body.violeta .ig-amber{background:#FEF5E8;border-color:#F5E3C0}
+  body.violeta .ig-amber .ig-ico{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
 
   .doc-upload-btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-size:15px;font-weight:700;
     color:#fff;background:linear-gradient(135deg,#F8BB54,#E4A051);padding:10px 16px;border-radius:11px;transition:.14s;
@@ -1166,6 +1278,16 @@
   body.flower .s-amber{background:linear-gradient(135deg,#F0AAB5,#B04858)}
   body.flower .s-emerald{background:linear-gradient(135deg,#C77E8A,#71717A)}
   body.flower .s-sky{background:linear-gradient(135deg,#E85D75,#9A4050)}
+  body.earth .s-violet{background:linear-gradient(135deg,#C9A375,#A97C57)}
+  body.earth .s-pink{background:linear-gradient(135deg,#D9A25C,#B37A34)}
+  body.earth .s-amber{background:linear-gradient(135deg,#E0C29B,#C9975C)}
+  body.earth .s-emerald{background:linear-gradient(135deg,#9CAA80,#728A5A)}
+  body.earth .s-sky{background:linear-gradient(135deg,#B89473,#8A6E4E)}
+  body.violeta .s-violet{background:linear-gradient(135deg,#A78BFA,#6D28D9)}
+  body.violeta .s-pink{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
+  body.violeta .s-amber{background:linear-gradient(135deg,#D8C6F5,#8B5CF6)}
+  body.violeta .s-emerald{background:linear-gradient(135deg,#B39DDB,#8577A0)}
+  body.violeta .s-sky{background:linear-gradient(135deg,#A78BFA,#5B4E8A)}
 
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
   .panel{padding:20px}
@@ -2776,11 +2898,13 @@ function isAllureMode(){ return typeof document!=='undefined' && document.body.c
 function isSunMode(){ return typeof document!=='undefined' && document.body.classList.contains('sun'); }
 function isFlowerMode(){ return typeof document!=='undefined' && document.body.classList.contains('flower'); }
 function isEarthMode(){ return typeof document!=='undefined' && document.body.classList.contains('earth'); }
+function isVioletaMode(){ return typeof document!=='undefined' && document.body.classList.contains('violeta'); }
 function getColorMode(){
   if(isSunMode()) return 'sun';
   if(isAllureMode()) return 'allure';
   if(isFlowerMode()) return 'flower';
   if(isEarthMode()) return 'earth';
+  if(isVioletaMode()) return 'violeta';
   return 'nature';
 }
 const AV_COLORS_NATURE = ['#95CDAD','#F4AA84','#84C8C2','#E4C37F','#89D0A3','#ED9191','#7FC0E2','#B1D084','#E09E84','#80CAB3'];
@@ -2788,9 +2912,10 @@ const AV_COLORS_ALLURE = ['#8197E5','#DEC07D','#7DA6C9','#95A6DA','#E4CA8F','#91
 const AV_COLORS_SUN = ['#D3B468','#E4C46F','#DEBF74','#C8AC68','#F1DAA1','#B7A066','#D9B471','#F6D98C','#BEA667','#E7C981'];
 const AV_COLORS_FLOWER = ['#D47286','#A7A7AD','#F19BA9','#B76B7A','#C08992','#CE8E97','#DCAFB6','#949499','#E97892','#88888C'];
 const AV_COLORS_EARTH = ['#C9A375','#B08968','#D9BB94','#A97C57','#C6A882','#9C7A56','#DDC9A3','#B58A62','#CDAE87','#A68A6C'];
+const AV_COLORS_VIOLETA = ['#B49AE8','#C797E0','#9E8AD4','#D19CE8','#A88AD9','#C08AE0','#8E7AD1','#CB9AE6','#9F86DA','#B78CE3'];
 function avColors(){
   const m = getColorMode();
-  return m==='sun' ? AV_COLORS_SUN : m==='allure' ? AV_COLORS_ALLURE : m==='flower' ? AV_COLORS_FLOWER : m==='earth' ? AV_COLORS_EARTH : AV_COLORS_NATURE;
+  return m==='sun' ? AV_COLORS_SUN : m==='allure' ? AV_COLORS_ALLURE : m==='flower' ? AV_COLORS_FLOWER : m==='earth' ? AV_COLORS_EARTH : m==='violeta' ? AV_COLORS_VIOLETA : AV_COLORS_NATURE;
 }
 function studentColor(s){
   if(!s || !s.id) return '#94A3B8';
@@ -2870,17 +2995,17 @@ function formatCurrencyInput(el){
 }
 
 const WEEK_DAYS = [
-  {k:'seg', key:'agenda.mon', gradNature:'linear-gradient(135deg,#8ECDAD,#81B89A)', gradAllure:'linear-gradient(135deg,#9BB2F1,#758DE2)', gradSun:'linear-gradient(135deg,#F5D681,#E2BE61)', gradFlower:'linear-gradient(135deg,#EF91A1,#CF657A)', gradEarth:'linear-gradient(135deg,#C9A375,#A97C57)'},
-  {k:'ter', key:'agenda.tue', gradNature:'linear-gradient(135deg,#F8CBA4,#E2AF8D)', gradAllure:'linear-gradient(135deg,#F5E3AF,#DABA71)', gradSun:'linear-gradient(135deg,#EFD798,#CFAD59)', gradFlower:'linear-gradient(135deg,#D9A7AF,#9E9EA5)', gradEarth:'linear-gradient(135deg,#DDC9A3,#BFA57A)'},
-  {k:'qua', key:'agenda.wed', gradNature:'linear-gradient(135deg,#FAC977,#EAB374)', gradAllure:'linear-gradient(135deg,#F8EABE,#E2C584)', gradSun:'linear-gradient(135deg,#F8EABE,#DAB866)', gradFlower:'linear-gradient(135deg,#F5C5CD,#C9838D)', gradEarth:'linear-gradient(135deg,#D9BB94,#B08968)'},
-  {k:'qui', key:'agenda.thu', gradNature:'linear-gradient(135deg,#7AD8B9,#74C5AB)', gradAllure:'linear-gradient(135deg,#A8C9EF,#7BA0D7)', gradSun:'linear-gradient(135deg,#E5C474,#C2A45A)', gradFlower:'linear-gradient(135deg,#E76B88,#B05C6D)', gradEarth:'linear-gradient(135deg,#B9A385,#8A6E4E)'},
-  {k:'sex', key:'agenda.fri', gradNature:'linear-gradient(135deg,#E5A38D,#CF8F78)', gradAllure:'linear-gradient(135deg,#BCC7F3,#8B9ED7)', gradSun:'linear-gradient(135deg,#F5E3AF,#B89E58)', gradFlower:'linear-gradient(135deg,#EA7D90,#BA7D88)', gradEarth:'linear-gradient(135deg,#CDAE87,#A17E56)'},
-  {k:'sab', key:'agenda.sat', gradNature:'linear-gradient(135deg,#DAC06C,#C4AB66)', gradAllure:'linear-gradient(135deg,#EAD8A0,#CFAD59)', gradSun:'linear-gradient(135deg,#EACF84,#B09657)', gradFlower:'linear-gradient(135deg,#BEBEC4,#89898F)', gradEarth:'linear-gradient(135deg,#E0C9A3,#C0A074)'},
-  {k:'dom', key:'agenda.sun', gradNature:'linear-gradient(135deg,#9DC0A8,#8BA997)', gradAllure:'linear-gradient(135deg,#AFBEEA,#719DC4)', gradSun:'linear-gradient(135deg,#E9D8A3,#A58F58)', gradFlower:'linear-gradient(135deg,#9E9EA5,#7C7C81)', gradEarth:'linear-gradient(135deg,#A68A6C,#8A6E52)'}
+  {k:'seg', key:'agenda.mon', gradNature:'linear-gradient(135deg,#8ECDAD,#81B89A)', gradAllure:'linear-gradient(135deg,#9BB2F1,#758DE2)', gradSun:'linear-gradient(135deg,#F5D681,#E2BE61)', gradFlower:'linear-gradient(135deg,#EF91A1,#CF657A)', gradEarth:'linear-gradient(135deg,#C9A375,#A97C57)', gradVioleta:'linear-gradient(135deg,#B49AE8,#8B5CF6)'},
+  {k:'ter', key:'agenda.tue', gradNature:'linear-gradient(135deg,#F8CBA4,#E2AF8D)', gradAllure:'linear-gradient(135deg,#F5E3AF,#DABA71)', gradSun:'linear-gradient(135deg,#EFD798,#CFAD59)', gradFlower:'linear-gradient(135deg,#D9A7AF,#9E9EA5)', gradEarth:'linear-gradient(135deg,#DDC9A3,#BFA57A)', gradVioleta:'linear-gradient(135deg,#D6C2F5,#B49AE8)'},
+  {k:'qua', key:'agenda.wed', gradNature:'linear-gradient(135deg,#FAC977,#EAB374)', gradAllure:'linear-gradient(135deg,#F8EABE,#E2C584)', gradSun:'linear-gradient(135deg,#F8EABE,#DAB866)', gradFlower:'linear-gradient(135deg,#F5C5CD,#C9838D)', gradEarth:'linear-gradient(135deg,#D9BB94,#B08968)', gradVioleta:'linear-gradient(135deg,#C797E0,#9B5FCB)'},
+  {k:'qui', key:'agenda.thu', gradNature:'linear-gradient(135deg,#7AD8B9,#74C5AB)', gradAllure:'linear-gradient(135deg,#A8C9EF,#7BA0D7)', gradSun:'linear-gradient(135deg,#E5C474,#C2A45A)', gradFlower:'linear-gradient(135deg,#E76B88,#B05C6D)', gradEarth:'linear-gradient(135deg,#B9A385,#8A6E4E)', gradVioleta:'linear-gradient(135deg,#9B8AFB,#6D5BA8)'},
+  {k:'sex', key:'agenda.fri', gradNature:'linear-gradient(135deg,#E5A38D,#CF8F78)', gradAllure:'linear-gradient(135deg,#BCC7F3,#8B9ED7)', gradSun:'linear-gradient(135deg,#F5E3AF,#B89E58)', gradFlower:'linear-gradient(135deg,#EA7D90,#BA7D88)', gradEarth:'linear-gradient(135deg,#CDAE87,#A17E56)', gradVioleta:'linear-gradient(135deg,#D19CE8,#A163C9)'},
+  {k:'sab', key:'agenda.sat', gradNature:'linear-gradient(135deg,#DAC06C,#C4AB66)', gradAllure:'linear-gradient(135deg,#EAD8A0,#CFAD59)', gradSun:'linear-gradient(135deg,#EACF84,#B09657)', gradFlower:'linear-gradient(135deg,#BEBEC4,#89898F)', gradEarth:'linear-gradient(135deg,#E0C9A3,#C0A074)', gradVioleta:'linear-gradient(135deg,#E0CFF5,#B49AE8)'},
+  {k:'dom', key:'agenda.sun', gradNature:'linear-gradient(135deg,#9DC0A8,#8BA997)', gradAllure:'linear-gradient(135deg,#AFBEEA,#719DC4)', gradSun:'linear-gradient(135deg,#E9D8A3,#A58F58)', gradFlower:'linear-gradient(135deg,#9E9EA5,#7C7C81)', gradEarth:'linear-gradient(135deg,#A68A6C,#8A6E52)', gradVioleta:'linear-gradient(135deg,#8577A0,#6E6285)'}
 ];
 function weekDayGrad(d){
   const m=getColorMode();
-  return m==='sun'?d.gradSun:m==='allure'?d.gradAllure:m==='flower'?d.gradFlower:m==='earth'?d.gradEarth:d.gradNature;
+  return m==='sun'?d.gradSun:m==='allure'?d.gradAllure:m==='flower'?d.gradFlower:m==='earth'?d.gradEarth:m==='violeta'?d.gradVioleta:d.gradNature;
 }
 const AGENDA_HOURS_DEFAULT = (() => { const h=[]; for(let i=7;i<=22;i++) h.push(String(i).padStart(2,'0')+':00'); return h; })();
 function sortHours(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b)); }
@@ -3123,7 +3248,7 @@ const I18N = {
     'nav.despesas':'Despesas', 'nav.estatisticas':'Estatísticas',
     'nav.info':'Configurações',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
-    'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower', 'color.earth':'Modo Terra',
+    'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower', 'color.earth':'Modo Terra', 'color.violeta':'Modo Violeta',
     'greet.morning':'Bom dia', 'greet.afternoon':'Boa tarde', 'greet.evening':'Boa noite',
     'painel.dayToNextMonth':'dia para', 'painel.daysToNextMonth':'dias para', 'painel.daysUntilNextMonthTitle':'Dias restantes até',
     'painel.monthClosingWarning':'Hora do fechamento do mês',
@@ -3370,6 +3495,10 @@ const I18N = {
     'financeiro.manualBadgeTitle':'Lançamento manual — quantidade de aulas pagas antecipadamente',
     'financeiro.manualRemove':'Remover lançamento manual', 'financeiro.manualRemoveConfirm':'Remover este lançamento manual? O aluno deixará de aparecer no Financeiro deste mês caso não tenha nenhuma aula registrada.',
     'financeiro.prepaidBadge':'aulas agendadas (pré-pago)',
+    'financeiro.creditsAppliedTitle':'Créditos de aulas canceladas abatidos automaticamente do valor deste mês',
+    'financeiro.creditAppliedOne':'crédito aplicado', 'financeiro.creditsAppliedMany':'créditos aplicados',
+    'financeiro.creditsBannerApplied':'foram descontados automaticamente do valor deste mês —',
+    'financeiro.creditsBannerHint':'As primeiras aulas do mês já contam como essas aulas de crédito, sem cobrança adicional.',
     'despesas.title':'Despesas', 'despesas.add':'＋ Nova despesa', 'despesas.registered':'despesa cadastrada',
     'despesas.registeredPl':'despesas cadastradas', 'despesas.uniqAndRec':'(únicas e recorrentes)',
     'despesas.empty':'Nenhuma despesa neste mês.', 'despesas.emptyCta':'Clique em <b>＋ Nova despesa</b> para começar.',
@@ -3403,7 +3532,7 @@ const I18N = {
     'nav.despesas':'Expenses', 'nav.estatisticas':'Statistics',
     'nav.info':'Settings',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
-    'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode', 'color.earth':'Earth Mode',
+    'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode', 'color.earth':'Earth Mode', 'color.violeta':'Violet Mode',
     'greet.morning':'Good morning', 'greet.afternoon':'Good afternoon', 'greet.evening':'Good evening',
     'painel.dayToNextMonth':'day until', 'painel.daysToNextMonth':'days until', 'painel.daysUntilNextMonthTitle':'Days remaining until',
     'painel.monthClosingWarning':'Month closing time',
@@ -3651,6 +3780,10 @@ const I18N = {
     'financeiro.manualBadgeTitle':'Manual entry — number of classes paid in advance',
     'financeiro.manualRemove':'Remove manual entry', 'financeiro.manualRemoveConfirm':'Remove this manual entry? The student will disappear from this month\'s Financeiro if they have no recorded classes.',
     'financeiro.prepaidBadge':'scheduled classes (pre-paid)',
+    'financeiro.creditsAppliedTitle':'Cancelled-class credits automatically deducted from this month\'s amount',
+    'financeiro.creditAppliedOne':'credit applied', 'financeiro.creditsAppliedMany':'credits applied',
+    'financeiro.creditsBannerApplied':'were automatically deducted from this month\'s amount —',
+    'financeiro.creditsBannerHint':'The first classes of the month already count as these credit classes, with no extra charge.',
     'despesas.title':'Expenses', 'despesas.add':'＋ New expense', 'despesas.registered':'expense registered',
     'despesas.registeredPl':'expenses registered', 'despesas.uniqAndRec':'(one-time and recurring)',
     'despesas.empty':'No expenses this month.', 'despesas.emptyCta':'Click <b>＋ New expense</b> to get started.',
@@ -4680,13 +4813,16 @@ function renderPainel(){
     .sort((a,b)=> b.count - a.count)
     .slice(0,3);
 
-  // Calcule faturamento previsto baseado na agenda
+  // Calcule faturamento previsto baseado na agenda (descontando créditos disponíveis)
   const scheduled = countMonthlyClasses(today.getFullYear(), today.getMonth());
   let faturamentoPrevisto = 0;
   Object.keys(scheduled).forEach(sid => {
     const s = studentById(sid);
     const price = (s && s.price != null && s.price !== '') ? Number(s.price) : 0;
-    faturamentoPrevisto += scheduled[sid] * price;
+    const aulasCobradas = isManualLancamento(sid, today.getFullYear(), today.getMonth())
+      ? scheduled[sid]
+      : applyCreditsToMonth(sid, today.getFullYear(), today.getMonth(), scheduled[sid]).aulasCobradas;
+    faturamentoPrevisto += aulasCobradas * price;
   });
 
   // Gráfico de Faturamento dos últimos 4 meses
@@ -5009,9 +5145,21 @@ const TOPIC_COLORS_EARTH = [
   {bg:'#EFE8DC', bd:'#C4AC82', fg:'#5A4020', ic:'#A17E56'},
   {bg:'#F6EFE4', bd:'#DCC5A0', fg:'#7C5A30', ic:'#CDAE87'}
 ];
+const TOPIC_COLORS_VIOLETA = [
+  {bg:'#F3EAFC', bd:'#D9C7F0', fg:'#5B21B6', ic:'#8B5CF6'},
+  {bg:'#F0E7FA', bd:'#D0BAEE', fg:'#4C1D95', ic:'#A78BFA'},
+  {bg:'#F5EAFD', bd:'#DCC2F3', fg:'#6D28D9', ic:'#9B5FCB'},
+  {bg:'#EFE6F9', bd:'#CCB6EA', fg:'#4A1D80', ic:'#7C6BA0'},
+  {bg:'#FBEAF5', bd:'#EBC7E6', fg:'#7A1F63', ic:'#C084FC'},
+  {bg:'#ECE3F7', bd:'#C7B3E6', fg:'#3E1868', ic:'#6E5BA0'},
+  {bg:'#F4E9FB', bd:'#DABEF0', fg:'#5B21B6', ic:'#B794F4'},
+  {bg:'#F1E8FA', bd:'#D2BCEC', fg:'#5023A0', ic:'#A163C9'},
+  {bg:'#EEE5F8', bd:'#CAB5E8', fg:'#451B78', ic:'#8577A0'},
+  {bg:'#F6EEFC', bd:'#DFC8F0', fg:'#6D2CA0', ic:'#CBA3EE'}
+];
 function topicColorsPalette(){
   const m=getColorMode();
-  return m==='sun'?TOPIC_COLORS_SUN:m==='allure'?TOPIC_COLORS_ALLURE:m==='flower'?TOPIC_COLORS_FLOWER:m==='earth'?TOPIC_COLORS_EARTH:TOPIC_COLORS_NATURE;
+  return m==='sun'?TOPIC_COLORS_SUN:m==='allure'?TOPIC_COLORS_ALLURE:m==='flower'?TOPIC_COLORS_FLOWER:m==='earth'?TOPIC_COLORS_EARTH:m==='violeta'?TOPIC_COLORS_VIOLETA:TOPIC_COLORS_NATURE;
 }
 const TOPIC_ICONS = ['📘','✏️','🗣️','🎯','🔤','🧩','🎧','📝','💬','🌟','🔥','🧠','📖','🎨','🚀'];
 function topicColor(id){ let h=0; for(let i=0;i<id.length;i++) h=(h*31+id.charCodeAt(i))>>>0; const p=topicColorsPalette(); return p[h%p.length]; }
@@ -5452,6 +5600,63 @@ function studentCreditRecords(sid){
   return list;
 }
 function studentCreditCount(sid){ return studentCreditRecords(sid).length; }
+/* ---------- Saldo de créditos disponível no início de um mês ----------
+   Simula, mês a mês desde o início do aluno, quantos créditos (aulas
+   canceladas) foram gerados e quantos já foram consumidos abatendo o
+   faturamento de meses anteriores, para saber quantos ainda sobram
+   disponíveis para abater o mês (year, month) informado. */
+function aulasBaseNoMes(sid, year, month){
+  const s = studentById(sid);
+  if(!s) return 0;
+  if(s.paymentMode==='pre'){
+    const sch = countMonthlyClasses(year, month);
+    return sch[sid] || 0;
+  }
+  const summ = monthlyStatusSummary(year, month);
+  return summ[sid] ? summ[sid].p : 0;
+}
+function creditsGeneratedInMonth(sid, year, month){
+  const monthPrefix = year+'-'+String(month+1).padStart(2,'0');
+  let n = 0;
+  Object.keys(state.presenca).forEach(k=>{
+    if(k.slice(0,7)!==monthPrefix) return;
+    const rec = state.presenca[k];
+    if(!rec || rec.status!=='c') return;
+    const parts = k.split('_');
+    if(parts.slice(2).join('_')!==sid) return;
+    n++;
+  });
+  return n;
+}
+function creditBalanceAtStartOfMonth(sid, year, month){
+  const s = studentById(sid);
+  if(!s) return 0;
+  let startY, startM;
+  if(s.startDate){
+    const [sy,sm] = s.startDate.split('-').map(Number);
+    startY = sy; startM = sm-1;
+  }else{
+    startY = year; startM = month;
+  }
+  let balance = 0;
+  let y = startY, m = startM, guard = 0;
+  while((y < year || (y===year && m < month)) && guard < 240){
+    guard++;
+    balance += creditsGeneratedInMonth(sid, y, m);
+    const aulasBase = aulasBaseNoMes(sid, y, m);
+    const used = Math.min(balance, aulasBase);
+    balance -= used;
+    m++; if(m>11){ m=0; y++; }
+  }
+  return Math.max(0, balance);
+}
+/* Quantos créditos disponíveis serão de fato aplicados no mês (year,month),
+   e quantas aulas restam a cobrar depois de abater esses créditos. */
+function applyCreditsToMonth(sid, year, month, aulasBase){
+  const available = creditBalanceAtStartOfMonth(sid, year, month);
+  const applied = Math.min(available, aulasBase);
+  return { available, applied, aulasCobradas: aulasBase - applied };
+}
 function openStudentCredits(sid){
   const s = studentById(sid); const nm = s ? s.name : t('presenca.theStudent');
   const recs = studentCreditRecords(sid);
@@ -6972,13 +7177,18 @@ function openReceiptModal(sid, year, month, savedState = null) {
     const allLessons = fetchStudentLessons(sid, year, month);
     const presentLessons = allLessons.filter(l => l.status === 'p');
     const unitPrice = (s.price != null && s.price !== '') ? Number(s.price) : 0;
-    
-    items = presentLessons.map(l => ({
-      date: fmtDateBR(l.date),
-      time: l.hour || '09:00',
-      desc: l.topic ? `Aula de Inglês: ${l.topic}` : 'Aula de Inglês',
-      valor: unitPrice > 0 ? unitPrice : (s.price ? Number(s.price) : 0)
-    }));
+    const manualEntry = isManualLancamento(sid, year, month);
+    const creditInfo = manualEntry ? {applied:0} : applyCreditsToMonth(sid, year, month, presentLessons.length);
+
+    items = presentLessons.map((l, idx) => {
+      const isCredit = idx < creditInfo.applied; // as primeiras aulas do mês são as de crédito
+      return {
+        date: fmtDateBR(l.date),
+        time: l.hour || '09:00',
+        desc: (l.topic ? `Aula de Inglês: ${l.topic}` : 'Aula de Inglês') + (isCredit ? ' (crédito de aula cancelada)' : ''),
+        valor: isCredit ? 0 : (unitPrice > 0 ? unitPrice : (s.price ? Number(s.price) : 0))
+      };
+    });
 
     if (!items.length) {
       const summary = monthlyStatusSummary(year, month);
@@ -7376,6 +7586,8 @@ function renderFinanceiro(){
 
   let total=0, recebido=0, pendente=0;
   let totalDadas=0, totalFaltas=0, totalCanceladas=0;
+  let totalCreditsApplied=0;
+  const creditsAppliedNames=[];
   const scheduled = countMonthlyClasses(year, month); // {sid: aulas previstas no mes inteiro, conforme a agenda}
   let projecao = 0;
   Object.keys(scheduled).forEach(sid=>{
@@ -7391,10 +7603,13 @@ function renderFinanceiro(){
     totalDadas += aulasDadas; totalFaltas += aulasFaltas; totalCanceladas += aulasCanceladas;
     const isPrePago = !!(s && s.paymentMode==='pre');
     const aulasAgendadas = scheduled[sid] || 0;
-    const computed = (isPrePago ? aulasAgendadas : aulasDadas) * price;
+    const manual = isManualLancamento(sid, year, month);
+    const aulasBase = isPrePago ? aulasAgendadas : aulasDadas;
+    const creditInfo = manual ? {available:0, applied:0, aulasCobradas: aulasBase} : applyCreditsToMonth(sid, year, month, aulasBase);
+    const computed = creditInfo.aulasCobradas * price;
+    if(creditInfo.applied>0){ totalCreditsApplied += creditInfo.applied; creditsAppliedNames.push({nm, n:creditInfo.applied}); }
     const valor = getValorFinal(sid, year, month, computed);
     const ajustado = hasAjuste(sid, year, month);
-    const manual = isManualLancamento(sid, year, month);
     const aulasManual = getAulasAjuste(sid, year, month);
     const status = getPayStatus(sid, year, month);
     total += valor;
@@ -7407,6 +7622,7 @@ function renderFinanceiro(){
           <div class="fn-meta-stats">
             ${manual ? `<span class="pr-mini manual" title="${t('financeiro.manualBadgeTitle')}">📝 ${aulasManual!=null?aulasManual:aulasDadas} ${t('financeiro.manualBadge')}</span>` : ''}
             ${(!manual && isPrePago) ? `<span class="pr-mini prepaid" title="${t('alunos.prepaidHint')}">💳 ${aulasAgendadas} ${t('financeiro.prepaidBadge')}</span>` : ''}
+            ${creditInfo.applied>0 ? `<span class="pr-mini credit" title="${t('financeiro.creditsAppliedTitle')}">🎟️ ${creditInfo.applied} ${creditInfo.applied===1?t('financeiro.creditAppliedOne'):t('financeiro.creditsAppliedMany')}</span>` : ''}
             ${(!manual && (!isPrePago || aulasDadas+aulasFaltas+aulasCanceladas>0)) ? `
             <span class="pr-mini p" title="${t('presenca.presMonth')}">${attendanceLetter('p')} ${aulasDadas}</span>
             <span class="pr-mini f" title="${t('presenca.absMonth')}">${attendanceLetter('f')} ${aulasFaltas}</span>
@@ -7421,7 +7637,7 @@ function renderFinanceiro(){
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6m6 4h-6m4 4h-4"/></svg>
             Gerar Recibo
           </button>
-          <button class="fn-editvalor" title="${t('financeiro.editValue')}" onclick="openEditValor('${sid}',${year},${month},${computed},${isPrePago?aulasAgendadas:aulasDadas})">✏️</button>
+          <button class="fn-editvalor" title="${t('financeiro.editValue')}" onclick="openEditValor('${sid}',${year},${month},${computed},${creditInfo.aulasCobradas})">✏️</button>
           ${manual ? `<button class="fn-editvalor" title="${t('financeiro.manualRemove')}" onclick="removeManualLancamento('${sid}',${year},${month})">🗑️</button>` : ''}
         </div>
       </div>
@@ -7454,6 +7670,11 @@ function renderFinanceiro(){
       <span class="fn-freq-chip f" title="${t('presenca.absMonth')}">❌ ${totalFaltas} ${t('financeiro.classesAbsentPl')}</span>
       <span class="fn-freq-chip c" title="${t('presenca.cancelMonth')}">🎟️ ${totalCanceladas} ${t('financeiro.classesCancelledPl')}</span>
     </div>
+    ${totalCreditsApplied>0 ? `<div class="banner fn-credit-banner">
+      🎟️ <b>${totalCreditsApplied} ${totalCreditsApplied===1?t('financeiro.creditAppliedOne'):t('financeiro.creditsAppliedMany')}</b> ${t('financeiro.creditsBannerApplied')}
+      ${creditsAppliedNames.map(c=>`${esc(c.nm)} (${c.n})`).join(', ')}.
+      ${t('financeiro.creditsBannerHint')}
+    </div>` : ''}
     ${ids.length ? `<div class="fn-grid">${cards}</div>`
       : `<div class="card panel"><div class="empty" style="padding:44px 16px">
           <div style="font-size:42.5px;margin-bottom:10px">💰</div>
@@ -7850,8 +8071,10 @@ function computeYearlyRecebido(year){
       const s = studentById(sid);
       const price = (s && s.price!=null && s.price!=='') ? Number(s.price) : 0;
       const isPrePago = !!(s && s.paymentMode==='pre');
+      const manual = isManualLancamento(sid, year, m);
       const base = isPrePago ? (scheduledForMonth[sid]||0) : (summary[sid]?summary[sid].p:0);
-      const computed = base * price;
+      const aulasCobradas = manual ? base : applyCreditsToMonth(sid, year, m, base).aulasCobradas;
+      const computed = aulasCobradas * price;
       const valor = getValorFinal(sid, year, m, computed);
       const status = getPayStatus(sid, year, m);
       if(status==='pago') recebido += valor;
@@ -7961,9 +8184,15 @@ const DC_MONTH_COLORS_EARTH = [
   {bg:'#F2ECE1', fg:'#664826'}, {bg:'#F4EDE0', fg:'#70501F'}, {bg:'#EFE8DC', fg:'#5A4020'},
   {bg:'#F6EFE4', fg:'#7C5A30'}, {bg:'#F1EAE0', fg:'#7A5230'}, {bg:'#F5EDE1', fg:'#6B4423'}
 ];
+const DC_MONTH_COLORS_VIOLETA = [
+  {bg:'#F3EAFC', fg:'#5B21B6'}, {bg:'#F0E7FA', fg:'#4C1D95'}, {bg:'#F5EAFD', fg:'#6D28D9'},
+  {bg:'#EFE6F9', fg:'#4A1D80'}, {bg:'#FBEAF5', fg:'#7A1F63'}, {bg:'#ECE3F7', fg:'#3E1868'},
+  {bg:'#F4E9FB', fg:'#5B21B6'}, {bg:'#F1E8FA', fg:'#5023A0'}, {bg:'#EEE5F8', fg:'#451B78'},
+  {bg:'#F6EEFC', fg:'#6D2CA0'}, {bg:'#F0E7FA', fg:'#4C1D95'}, {bg:'#F3EAFC', fg:'#5B21B6'}
+];
 const DC_MONTH_COLORS = new Proxy([], { get(_,prop){
   const m=getColorMode();
-  const arr = m==='sun'?DC_MONTH_COLORS_SUN:m==='allure'?DC_MONTH_COLORS_ALLURE:m==='flower'?DC_MONTH_COLORS_FLOWER:m==='earth'?DC_MONTH_COLORS_EARTH:DC_MONTH_COLORS_NATURE;
+  const arr = m==='sun'?DC_MONTH_COLORS_SUN:m==='allure'?DC_MONTH_COLORS_ALLURE:m==='flower'?DC_MONTH_COLORS_FLOWER:m==='earth'?DC_MONTH_COLORS_EARTH:m==='violeta'?DC_MONTH_COLORS_VIOLETA:DC_MONTH_COLORS_NATURE;
   return arr[prop];
 } });
 function renderDeclaracao(){
@@ -8253,29 +8482,38 @@ function renderEstatisticas(){
 /* ================= modals ================= */
 const overlay = document.getElementById('overlay');
 function closeModal(){ overlay.classList.remove('on'); overlay.innerHTML=''; }
+function updatePwaThemeColor(){
+  try{
+    const surface = getComputedStyle(document.body).getPropertyValue('--surface').trim();
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if(meta && surface) meta.setAttribute('content', surface);
+  }catch(e){}
+}
 function applyTheme(isDark){
   document.body.classList.toggle('dark', isDark);
   const label = document.getElementById('theme-toggle-label');
   const ico = document.getElementById('theme-toggle-ico');
   if(label) label.textContent = isDark ? t('theme.light') : t('theme.dark');
   if(ico) ico.textContent = isDark ? '☀️' : '🌙';
+  updatePwaThemeColor();
 }
 async function toggleTheme(){
   const isDark = !document.body.classList.contains('dark');
   applyTheme(isDark);
   await write('theme', isDark ? 'dark' : 'light');
 }
-const COLOR_MODE_CYCLE = ['nature', 'allure', 'sun', 'flower', 'earth'];
-const COLOR_MODE_ICONS = { nature:'🌿', allure:'🌊', sun:'☀️', flower:'🌺', earth:'🌰' };
+const COLOR_MODE_CYCLE = ['nature', 'allure', 'sun', 'flower', 'earth', 'violeta'];
+const COLOR_MODE_ICONS = { nature:'🌿', allure:'🌊', sun:'☀️', flower:'🌺', earth:'🌰', violeta:'🔮' };
 function applyColorMode(mode){
-  document.body.classList.remove('allure','sun','flower','earth');
-  if(mode==='allure' || mode==='sun' || mode==='flower' || mode==='earth') document.body.classList.add(mode);
+  document.body.classList.remove('allure','sun','flower','earth','violeta');
+  if(mode==='allure' || mode==='sun' || mode==='flower' || mode==='earth' || mode==='violeta') document.body.classList.add(mode);
   const label = document.getElementById('color-toggle-label');
   const ico = document.getElementById('color-toggle-ico');
   const idx = COLOR_MODE_CYCLE.indexOf(mode);
   const nextMode = COLOR_MODE_CYCLE[(idx+1) % COLOR_MODE_CYCLE.length];
   if(label) label.textContent = t('color.'+nextMode);
   if(ico) ico.textContent = COLOR_MODE_ICONS[nextMode];
+  updatePwaThemeColor();
 }
 async function toggleColorMode(){
   const current = getColorMode();
