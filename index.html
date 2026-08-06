@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   :root{
     --bg:#F4F7F4; --surface:#FFFFFF; --ink:#0F1713; --muted:#526056;
@@ -528,7 +528,7 @@
     .theme-toggle{padding:4px 10px;font-size:11.5px}
     .theme-toggle .ico{font-size:12.5px;width:15px}
   }
-  h1,h2,h3{font-family:'Bricolage Grotesque',Inter,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.1}
+  h1,h2,h3{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.1}
   button{font-family:inherit;cursor:pointer;border:0;background:none}
   input,select,textarea{font-family:inherit;font-size:16.5px;color:var(--ink)}
   :focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:8px}
@@ -631,7 +631,7 @@
   .pr-row.pr-p{border-left-color:var(--emerald)}
   .pr-row.pr-f{border-left-color:var(--rose)}
   .pr-row.pr-c{border-left-color:var(--amber)}
-  .pr-time{font-family:'Bricolage Grotesque';font-weight:800;font-size:16.5px;color:var(--violet);flex:none;width:52px}
+  .pr-time{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:16.5px;color:var(--violet);flex:none;width:52px}
   .pr-main{display:flex;align-items:center;gap:11px;flex:none;width:252px;min-width:0}
   .pr-nm{min-width:0}
   .pr-name{display:block;font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -653,7 +653,7 @@
   .pr-credit-btn:hover{background:var(--amber);color:#fff;transform:translateY(-1px)}
   .pr-credit-btn.has{box-shadow:0 0 0 1px var(--amber) inset}
   .pr-credit-count-big{
-    font-family:'Bricolage Grotesque';font-size:2.8rem;font-weight:800;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:2.8rem;font-weight:800;
     color:var(--amber);text-align:center;margin:6px 0 16px;
   }
   .pr-credit-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
@@ -724,7 +724,7 @@
     .fn-manual-btn{position:static; transform:none; margin:10px auto 0; display:flex; width:fit-content}
     .rp-monthbar{flex-wrap:wrap}
   }
-  .rp-month-name{font-family:'Bricolage Grotesque';font-size:19.5px;font-weight:800;min-width:170px;text-align:center}
+  .rp-month-name{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:19.5px;font-weight:800;min-width:170px;text-align:center}
   .rp-legend{display:flex;gap:18px;margin-bottom:14px;font-size:14.5px;color:var(--muted);flex-wrap:wrap;justify-content:center}
   .rp-legend span{display:inline-flex;align-items:center;gap:7px}
   .rp-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
@@ -775,7 +775,7 @@
   body.violeta .fn-tot-pendente{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
   body.violeta .fn-tot-projecao{background:linear-gradient(135deg,#D8C6F5,#8577A0)}
   .fn-tot-lbl{font-size:14px;font-weight:600;opacity:.92}
-  .fn-tot-val{font-family:'Bricolage Grotesque';font-size:24px;font-weight:800}
+  .fn-tot-val{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:24px;font-weight:800}
   .fn-tot-sub{display:block;font-size:12.5px;font-weight:600;opacity:.85;margin-top:2px}
   .fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .fn-card{display:flex;flex-direction:column;gap:12px;padding:16px}
@@ -791,7 +791,7 @@
   .fn-freq-chip.f{color:var(--rose);border-color:transparent;background:var(--rose-bg)}
   .fn-freq-chip.c{color:var(--amber);border-color:transparent;background:var(--amber-bg)}
   .fn-valorrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .fn-valor{font-family:'Bricolage Grotesque';font-size:24px;font-weight:800;color:var(--ink);display:flex;align-items:baseline;gap:7px}
+  .fn-valor{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:24px;font-weight:800;color:var(--ink);display:flex;align-items:baseline;gap:7px}
   .fn-adj-tag{font-family:Inter;font-size:11.5px;font-weight:700;color:var(--amber);background:var(--amber-bg);padding:3px 7px;border-radius:7px}
   .fn-editvalor{width:28px;height:28px;border-radius:9px;background:var(--line-2);font-size:14.5px;flex:none;display:grid;place-items:center;transition:.13s}
   .fn-editvalor:hover{background:#EAF4EB}
@@ -858,14 +858,14 @@
   .dc-name{flex:1;min-width:0;font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .dc-nowtag{font-size:12px;font-weight:700;color:#fff;background:var(--violet);padding:2px 8px;border-radius:20px}
   .dc-adjtag{font-size:12px;font-weight:700;color:var(--amber);background:var(--amber-bg);padding:2px 8px;border-radius:20px}
-  .dc-money{font-family:'Bricolage Grotesque';font-weight:800;font-size:17.5px;color:var(--ink);flex:none}
+  .dc-money{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:17.5px;color:var(--ink);flex:none}
   .dc-edit{width:32px;height:32px;border-radius:9px;background:var(--line-2);color:var(--muted);font-size:14.5px;
     display:grid;place-items:center;transition:.13s;flex:none}
   .dc-edit:hover{background:#EAF4EB;color:var(--violet)}
   .dc-total{margin-bottom:16px;background:linear-gradient(135deg,#51B696,#4FA089);color:#fff;border-radius:16px;
     padding:18px 22px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-sm)}
   .dc-total-lbl{font-size:15px;font-weight:600;opacity:.92}
-  .dc-total-val{font-family:'Bricolage Grotesque';font-size:28px;font-weight:800}
+  .dc-total-val{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:28px;font-weight:800}
 
   /* ---------- estatísticas ---------- */
   .es-stats{display:flex;gap:12px;flex-wrap:wrap}
@@ -875,7 +875,7 @@
   .es-stat-emerald{background:linear-gradient(135deg,#72E1B8,#51B696)}
   .es-stat-amber{background:linear-gradient(135deg,#F8BB54,#E4A051)}
   .es-stat-lbl{font-size:13.5px;font-weight:600;opacity:.92}
-  .es-stat-val{font-family:'Bricolage Grotesque';font-size:22px;font-weight:800}
+  .es-stat-val{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:22px;font-weight:800}
   .es-change{font-size:13.5px;font-weight:700;padding:5px 10px;border-radius:9px;white-space:nowrap}
   .es-change.up{color:var(--emerald);background:var(--emerald-bg)}
   .es-change.down{color:var(--rose);background:var(--rose-bg)}
@@ -895,34 +895,34 @@
     margin:0 0 16px;box-shadow:var(--shadow-sm);
   }
   .pn-sunday-emoji{font-size:1.82rem;line-height:1}
-  .pr-date-mid{flex:1;text-align:center;font-family:'Bricolage Grotesque';font-size:17.5px;font-weight:800;text-transform:capitalize}
+  .pr-date-mid{flex:1;text-align:center;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:17.5px;font-weight:800;text-transform:capitalize}
   .pr-holiday-tag{font-family:Inter,sans-serif;font-size:12.5px;font-weight:700;text-transform:none;
     background:var(--amber-bg);color:var(--amber);padding:3px 9px;border-radius:20px;vertical-align:middle}
   .pr-todaytag{font-family:Inter;font-size:12.5px;font-weight:700;color:#fff;background:var(--violet);padding:2px 8px;border-radius:20px;vertical-align:middle;text-transform:lowercase;margin-left:6px}
 
-  /* ---------- agenda ---------- */
-  .ag-monthbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-  .ag-week-count{font-size:14.5px;font-weight:700;color:var(--violet);background:#EFF8F0;padding:8px 14px;border-radius:11px}
-  .ag-nav{width:36px;height:36px;border-radius:11px;background:#fff;border:1.5px solid var(--line);font-size:18.5px;
+  /* ---------- agenda ampliada e redimensionada ---------- */
+  .ag-monthbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+  .ag-week-count{font-size:15px;font-weight:700;color:var(--violet);background:#EFF8F0;padding:9px 16px;border-radius:12px}
+  .ag-nav{width:40px;height:40px;border-radius:12px;background:#fff;border:1.5px solid var(--line);font-size:20px;
     font-weight:700;color:var(--violet);display:grid;place-items:center;transition:.14s;flex:none}
   .ag-nav:hover{border-color:#B1E0BF;background:#FCFEFC}
   .ag-month-mid{flex:1;text-align:center}
-  .ag-now{font-family:'Bricolage Grotesque';font-size:17.5px;font-weight:800;letter-spacing:-.01em;text-transform:capitalize}
+  .ag-now{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:18.5px;font-weight:800;letter-spacing:-.01em;text-transform:capitalize}
   .ag-today{flex:none}
-  .ag-grid-wrap{overflow-x:auto;padding:14px}
-  .ag-grid{display:grid;gap:5px;min-width:560px}
-  .ag-cell{display:flex;align-items:center;justify-content:center;min-height:36px}
+  .ag-grid-wrap{overflow-x:auto;padding:20px;border-radius:16px}
+  .ag-grid{display:grid;gap:8px;min-width:780px;width:100%}
+  .ag-cell{display:flex;align-items:center;justify-content:center;min-height:48px}
   .ag-corner{background:transparent}
-  .ag-colhead{color:#fff;font-weight:700;font-size:15px;border-radius:10px;padding:10px 4px;position:relative}
-  .ag-dname{font-size:15px;font-weight:800;letter-spacing:.02em}
-  .ag-colhead{flex-direction:column;gap:3px}
-  .ag-holiday-badge{font-size:11px;font-weight:700;background:rgba(255,255,255,.85);color:#7A2020;
-    padding:2px 6px;border-radius:20px;white-space:nowrap}
+  .ag-colhead{color:#fff;font-weight:800;font-size:16px;border-radius:12px;padding:14px 8px;position:relative}
+  .ag-dname{font-size:16.5px;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:6px}
+  .ag-colhead{flex-direction:column;gap:4px}
+  .ag-holiday-badge{font-size:11.5px;font-weight:700;background:rgba(255,255,255,.9);color:#7A2020;
+    padding:3px 8px;border-radius:20px;white-space:nowrap}
   .ag-slot-holiday{background:repeating-linear-gradient(135deg,var(--line-2),var(--line-2) 6px,var(--line) 6px,var(--line) 12px);
-    cursor:not-allowed;border-color:var(--line)}
-  .ag-holiday-tag{font-size:11px;font-weight:700;color:var(--muted);text-align:center;padding:2px}
+    cursor:not-allowed;border-color:var(--line);min-height:56px}
+  .ag-holiday-tag{font-size:12px;font-weight:700;color:var(--muted);text-align:center;padding:4px}
   .ag-today-col{box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--violet)}
-  .ag-hour{font-size:14.5px;font-weight:700;color:var(--muted);justify-content:flex-end;padding-right:8px}
+  .ag-hour{font-size:15.5px;font-weight:800;color:var(--muted);justify-content:flex-end;padding-right:12px}
   .ag-hour-actions{display:flex;gap:10px;margin-top:4px}
   .ag-hour-actions .btn{flex:1;justify-content:center}
   .ag-del{color:var(--rose);border-color:#F9DCE2}
@@ -938,18 +938,18 @@
   .ag-mod-flag{color:var(--violet);font-weight:700;font-size:13.5px}
   .ag-repeat-check{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--ink);margin-top:14px;cursor:pointer}
   .ag-repeat-check input{width:16px;height:16px;accent-color:var(--violet)}
-  .ag-slot{background:#FCFCFC;border:1px solid var(--line-2);border-radius:10px;min-height:44px;padding:4px;
-    display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;cursor:pointer;transition:.14s}
-  .ag-slot:hover{background:#F6FBF7;border-color:#DCF1DF}
-  .ag-plus{color:var(--line);font-size:17.5px;font-weight:700}
-  .ag-chip{font-size:13.5px;font-weight:700;color:#0F172A;padding:4px 8px;border-radius:8px;white-space:nowrap;
-    max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .ag-slot{background:#FCFCFC;border:1px solid var(--line);border-radius:12px;min-height:56px;padding:6px 8px;
+    display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;cursor:pointer;transition:.14s}
+  .ag-slot:hover{background:#F6FBF7;border-color:var(--violet);transform:scale(1.01)}
+  .ag-plus{color:var(--line);font-size:20px;font-weight:700}
+  .ag-chip{font-size:14.5px;font-weight:700;color:#0F172A;padding:5px 10px;border-radius:9px;white-space:nowrap;
+    max-width:100%;overflow:hidden;text-overflow:ellipsis;box-shadow:var(--shadow-sm)}
 
   /* --- navegação semanal + status/crédito --- */
   .ag-week-nav{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap}
   .ag-week-range{font-size:14px;font-weight:700;color:var(--ink);text-transform:capitalize;white-space:nowrap;min-width:190px;text-align:center;display:inline-block}
   .ag-today-btn{padding:6px 12px!important;font-size:13.5px!important}
-  .ag-daynum{font-family:'Bricolage Grotesque';font-size:16px;font-weight:800;background:rgba(255,255,255,.28);
+  .ag-daynum{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;font-weight:800;background:rgba(255,255,255,.28);
     padding:1px 7px;border-radius:20px;margin-left:2px}
   .ag-chip-live{cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:transform .1s,filter .12s}
   .ag-chip-live:hover{transform:translateY(-1px);filter:brightness(.96)}
@@ -1094,7 +1094,7 @@
     display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;
     border:1px solid var(--line);background:var(--bg)
   }
-  .pn-freq-hour{font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;color:var(--violet);
+  .pn-freq-hour{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:15px;color:var(--violet);
     min-width:48px;flex:none}
   .pn-freq-avatar{width:32px;height:32px;font-size:14px;flex:none}
   .pn-freq-name{flex:1;min-width:0;font-weight:600;font-size:15.5px;color:var(--ink);
@@ -1122,7 +1122,7 @@
   .pn-today-list{display:flex;flex-wrap:wrap;gap:8px}
   .pn-today-chip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);
     padding:7px 12px;border-radius:11px;font-size:15px;font-weight:600;color:var(--ink);box-shadow:var(--shadow-sm);flex-wrap:wrap}
-  .pn-today-hour{font-family:'Bricolage Grotesque';font-weight:800;color:var(--violet);font-size:14.5px}
+  .pn-today-hour{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;color:var(--violet);font-size:14.5px}
   .pn-today-dot{width:8px;height:8px;border-radius:50%;flex:none}
   .pn-today-topic{font-size:13px;font-weight:700;color:#0E7A54;background:var(--emerald-bg);padding:3px 9px;
     border-radius:8px;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1255,7 +1255,7 @@
   .stat-link{cursor:pointer;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
   .stat-link:hover{transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(0,0,0,.32)}
   .stat-link:active{transform:scale(0.97);transition-duration:.08s}
-  .stat .n{font-family:'Bricolage Grotesque';font-size:36.5px;font-weight:800;line-height:1}
+  .stat .n{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:36.5px;font-weight:800;line-height:1}
   .stat .l{font-size:14.5px;font-weight:600;opacity:.92;margin-top:6px}
   .stat .em{position:absolute;right:12px;top:12px;font-size:28px;opacity:.35}
   .s-violet{background:linear-gradient(135deg,#72C199,#62A580)}
@@ -1536,6 +1536,17 @@
   .ex-row:hover{background:var(--line-2);border-color:var(--line);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
   .ex-row:active{transform:scale(0.98)}
   .ex-row-on{border-left-color:var(--violet);background:var(--accent-bg)}
+  .lec-grid-3cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 960px) {
+    .lec-grid-3cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .lec-grid-3cols { grid-template-columns: 1fr; }
+  }
   .lec-list{display:flex;flex-direction:column;gap:10px}
   .lec-row{
     display:flex;align-items:center;gap:14px;padding:14px 18px;
@@ -1552,6 +1563,24 @@
   .lec-info{display:flex;flex-direction:column;gap:2px;min-width:0}
   .lec-topic{font-weight:700;color:var(--ink);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .lec-date{font-size:12.5px;color:var(--muted);font-weight:600}
+  .wl-list{display:flex;flex-direction:column;gap:10px}
+  .wl-row{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;flex-wrap:wrap;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;
+  }
+  .wl-row:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .wl-position{
+    flex:none;min-width:36px;height:36px;padding:0 6px;border-radius:10px;
+    background:var(--accent-bg);color:var(--violet);font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .wl-info{flex:1;min-width:180px;display:flex;flex-direction:column;gap:3px}
+  .wl-name{font-weight:700;color:var(--ink);font-size:15px}
+  .wl-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);font-weight:600}
+  .wl-date{color:var(--muted)}
+  .wl-notes{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:2px}
+  .wl-acts{display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:none}
   .ex-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;text-align:left}
   .ex-name{min-width:0;font-size:15px;font-weight:600;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1671,7 +1700,7 @@
     position:absolute;left:0;right:0;bottom:0;z-index:3;padding:28px 24px;text-align:center;pointer-events:none
   }
   .auth-tagline{
-    font-family:'Bricolage Grotesque',Inter,sans-serif;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
     color:#fff;font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-.02em;
     text-shadow:0 2px 18px rgba(0,0,0,.45)
   }
@@ -1732,7 +1761,7 @@
 
   /* Card heading */
   .auth-card h2{
-    font-family:'Bricolage Grotesque',Inter,sans-serif;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
     color:#1F2937;
     font-size:24px;
     font-weight:700;letter-spacing:-.025em;
@@ -1918,7 +1947,7 @@
   .desp-pago-btn.on{background:var(--emerald);border-color:transparent;color:#fff}
   .desp-pago-btn.on:hover{background:#55AD90}
   .desp-meta{font-size:13.5px;color:var(--muted);margin-top:1px}
-  .desp-valor{font-family:'Bricolage Grotesque';font-weight:800;font-size:17.5px;color:var(--ink);flex:none}
+  .desp-valor{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:17.5px;color:var(--ink);flex:none}
   .desp-edit{width:32px;height:32px;border-radius:9px;color:var(--muted);font-size:15.5px;flex:none;display:grid;place-items:center;transition:.13s}
   .desp-edit:hover{background:var(--line-2);color:var(--ink)}
   .desp-del{width:32px;height:32px;border-radius:9px;color:var(--muted);font-size:15.5px;flex:none;display:grid;place-items:center;transition:.13s}
@@ -2476,6 +2505,27 @@
     .pn-birthday-ico{font-size:22px}
     .pn-birthday-text{font-size:13.5px}
   }
+  .pn-slot-banner{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    background:linear-gradient(120deg,#0BA360 0%,#3CBA92 50%,#30CFD0 100%);
+    color:#fff; padding:14px 18px; border-radius:16px; border:none!important;
+    box-shadow:0 8px 22px -8px rgba(11,163,96,.4);
+    animation:pnBirthdayPop .5s ease;
+  }
+  .pn-slot-banner-main{ flex:1; min-width:220px; font-size:14px; line-height:1.5; font-weight:500; }
+  .pn-slot-banner-main b{ font-weight:800; }
+  .pn-slot-banner-main a{ color:#fff; }
+  .pn-slot-banner-acts{ display:flex; align-items:center; gap:8px; flex:none; }
+  .pn-slot-dismiss{
+    background:rgba(255,255,255,0.2); color:#fff; border:none; width:26px; height:26px;
+    border-radius:50%; cursor:pointer; font-size:13px; line-height:1; flex:none;
+    display:flex; align-items:center; justify-content:center; transition:background .15s;
+  }
+  .pn-slot-dismiss:hover{ background:rgba(255,255,255,0.35); }
+  @media(max-width:640px){
+    .pn-slot-banner{padding:12px 14px}
+    .pn-slot-banner-main{font-size:13px}
+  }
   .pn-cal-legend {
     display: flex;
     flex-wrap: wrap;
@@ -2596,6 +2646,12 @@
   .wa-tpl-item.active { border-color: var(--violet); background: var(--accent-bg); box-shadow: var(--shadow-sm); }
   .wa-tpl-name { font-weight: 700; font-size: 0.92rem; color: var(--ink); }
   .wa-tpl-preview-text { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 280px; }
+  .wa-sync-note{
+    margin-top:14px; padding:10px 14px; border-radius:12px; font-size:0.82rem; line-height:1.5;
+  }
+  .wa-sync-ok{ background:var(--emerald-bg); color:var(--emerald); border:1px solid transparent; }
+  .wa-sync-empty{ background:var(--line-2); color:var(--muted); border:1px solid var(--line); }
+  .wa-sync-note b{ font-weight:800; }
   .btn-wa-green {
     background: #25D366 !important; color: #FFFFFF !important; font-weight: 700 !important;
     border: none !important; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35) !important;
@@ -2717,9 +2773,11 @@
         <div class="nav-group-items" data-group-items="pedagogico">
           <button data-view="alunos"><span class="ico">👤</span>Alunos</button>
           <button data-view="topicos"><span class="ico">📚</span>Plano de Aula</button>
-          <button data-view="niveis"><span class="ico">💡</span>Tópicos</button>
           <button data-view="expressoes"><span class="ico">💬</span>Expressões</button>
           <button data-view="lecionados"><span class="ico">✅</span>Lecionados</button>
+          <button data-view="experimentais"><span class="ico">🧪</span>Aulas Experimentais</button>
+          <button data-view="filaespera"><span class="ico">🕒</span>Fila de Espera</button>
+          <button data-view="certificados"><span class="ico">🎓</span>Certificados</button>
         </div>
       </div>
       <div class="nav-group" data-group="gestao">
@@ -2765,9 +2823,11 @@
         <div id="v-presenca" class="view"></div>
         <div id="v-lembretes" class="view"></div>
         <div id="v-topicos" class="view"></div>
-        <div id="v-niveis" class="view"></div>
         <div id="v-expressoes" class="view"></div>
         <div id="v-lecionados" class="view"></div>
+        <div id="v-experimentais" class="view"></div>
+        <div id="v-filaespera" class="view"></div>
+        <div id="v-certificados" class="view"></div>
         <div id="v-agenda" class="view"></div>
         <div id="v-relatorio" class="view"></div>
         <div id="v-financeiro" class="view"></div>
@@ -3341,9 +3401,9 @@ const I18N = {
     'nav.painel':'Painel', 'nav.login':'Login', 'nav.alunos':'Alunos', 'nav.agenda':'Agenda', 'nav.presenca':'Frequência', 'nav.lembretes':'Lembretes WhatsApp',
     'nav.group.operacional':'Operacional', 'nav.group.pedagogico':'Pedagógico', 'nav.group.gestao':'Gestão Financeira',
     'nav.group.sistema':'Sistema',
-    'nav.topicos':'Plano de Aula', 'nav.niveis':'Tópicos', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro', 'nav.lecionados':'Lecionados',
+    'nav.topicos':'Plano de Aula', 'nav.expressoes':'Biblioteca', 'nav.relatorio':'Relatórios', 'nav.financeiro':'Financeiro', 'nav.lecionados':'Lecionados',
     'nav.despesas':'Despesas', 'nav.estatisticas':'Estatísticas',
-    'nav.info':'Configurações',
+    'nav.info':'Configurações', 'nav.experimentais':'Aulas Experimentais', 'nav.certificados':'Certificados', 'nav.filaespera':'Fila de Espera',
     'theme.dark':'Modo escuro', 'theme.light':'Modo claro', 'lang.button':'Idioma',
     'color.allure':'Modo Oceano', 'color.nature':'Modo Nature', 'color.sun':'Modo Sun', 'color.flower':'Modo Flower', 'color.earth':'Modo Terra', 'color.violeta':'Modo Violeta',
     'greet.morning':'Bom dia', 'greet.afternoon':'Boa tarde', 'greet.evening':'Boa noite',
@@ -3638,9 +3698,9 @@ const I18N = {
     'nav.painel':'Dashboard', 'nav.login':'Login', 'nav.alunos':'Students', 'nav.agenda':'Schedule', 'nav.presenca':'Attendance',
     'nav.group.operacional':'Operations', 'nav.group.pedagogico':'Pedagogical', 'nav.group.gestao':'Financial Management',
     'nav.group.sistema':'System',
-    'nav.topicos':'Lesson Plan', 'nav.niveis':'Topics', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance', 'nav.lecionados':'Lessons Given',
+    'nav.topicos':'Lesson Plan', 'nav.expressoes':'Library', 'nav.relatorio':'Reports', 'nav.financeiro':'Finance', 'nav.lecionados':'Lessons Given',
     'nav.despesas':'Expenses', 'nav.estatisticas':'Statistics',
-    'nav.info':'Settings',
+    'nav.info':'Settings', 'nav.experimentais':'Trial Classes', 'nav.filaespera':'Waiting List',
     'theme.dark':'Dark mode', 'theme.light':'Light mode', 'lang.button':'Language',
     'color.allure':'Ocean Mode', 'color.nature':'Nature Mode', 'color.sun':'Sun Mode', 'color.flower':'Flower Mode', 'color.earth':'Earth Mode', 'color.violeta':'Violet Mode',
     'greet.morning':'Good morning', 'greet.afternoon':'Good afternoon', 'greet.evening':'Good evening',
@@ -4557,6 +4617,11 @@ async function loadAppData(){
   state.pagamentos = await read('pagamentos', {});
   state.financeiroAjustes = await read('financeiroAjustes', {});
   state.waTemplates = await read('waTemplates', DEFAULT_WA_TEMPLATES);
+  state.contractSettings = await read('contractSettings', { cancelNoticeHours: 2, reschedulePeriodDays: 30, dueDay: 5, customClauses: '' });
+  state.financialGoals = await read('financialGoals', { monthlyTarget: 8000, maxWeeklyHours: 20 });
+  state.trialClasses = await read('trialClasses', []);
+  state.waitlist = await read('waitlist', []);
+  state.slotNotices = await read('slotNotices', []);
   if(purgeAllOrphanedStudentData()){
     await save('lessons');
     await write('agendaRecurring', state.agendaRecurring);
@@ -4873,6 +4938,11 @@ function renderPainel(){
     if(daysUntilNextReview===null || daysLeft < daysUntilNextReview) daysUntilNextReview = daysLeft;
   });
   const reviewDueNow = studentsReviewDueToday.length > 0;
+
+  // Avisos de vaga disponível (aluno trancado há até 3 dias)
+  const activeSlotNotices = getActiveSlotNotices();
+  const waitlistQueue = sortedWaitlist();
+  const nextInLine = waitlistQueue[0] || null;
   const todayKey = DAYKEY_BY_GETDAY[today.getDay()];
   const todayRows = [];
   state.agendaHours.forEach(h=>{
@@ -5012,6 +5082,20 @@ function renderPainel(){
         </div>
       </div>
     </div>
+
+    ${activeSlotNotices.length ? activeSlotNotices.map(notice => `
+      <div class="banner pn-slot-banner" style="margin-bottom: 16px;">
+        <div class="pn-slot-banner-main">
+          🎉 <b>Vaga disponível!</b> ${esc(notice.studentName)} trancou a matrícula.
+          ${nextInLine
+            ? ` Que tal chamar <b>${esc(nextInLine.name)}</b>, que é o primeiro da fila de espera?`
+            : ` Cadastre interessados na <a href="javascript:void(0)" onclick="go('filaespera')" style="font-weight:700;text-decoration:underline;">Fila de Espera</a> para ser avisado assim que houver uma vaga.`}
+        </div>
+        <div class="pn-slot-banner-acts">
+          ${nextInLine && nextInLine.phone ? `<button type="button" class="btn btn-sm btn-wa-green" onclick="contactWaitlistEntry('${nextInLine.id}', event)">📱 Chamar ${esc(nextInLine.name.split(' ')[0])}</button>` : ''}
+          <button type="button" class="pn-slot-dismiss" title="Dispensar aviso" onclick="dismissSlotNotice('${notice.id}')">✕</button>
+        </div>
+      </div>`).join('') : ''}
 
     ${reviewDueNow ? `<div class="banner pn-review-banner" style="margin-bottom: 24px;">📋 ${t('painel.reviewDueWarning')}</div>` : ''}
 
@@ -5160,6 +5244,13 @@ function renderPainel(){
             <span class="card-title">${t('painel.shortcuts')}</span>
           </div>
           <div class="quick-actions">
+            <div class="action-card" onclick="openContractModal()">
+              <div class="action-card-icon">📜</div>
+              <div class="action-card-info">
+                <h4>Gerar Contrato de Aluno</h4>
+                <p>Criar e exportar contrato em PDF</p>
+              </div>
+            </div>
             <div class="action-card" onclick="go('financeiro')">
               <div class="action-card-icon">💰</div>
               <div class="action-card-info">
@@ -5187,6 +5278,977 @@ function renderPainel(){
 }
 
 /* ================= render: ALUNOS ================= */
+
+/* ================= FICHA 360° DO ALUNO (STUDENT 360 PROFILE) ================= */
+function openStudent360Modal(studentId){
+  const s = studentById(studentId);
+  if(!s){
+    alert('Aluno não encontrado.');
+    return;
+  }
+
+  const isEn = state.lang === 'en';
+  const taughtList = getLecionadosForStudent(s.id);
+  const totalAulas = taughtList.length;
+
+  // Estatísticas de Frequência
+  let faltas = 0, canceladas = 0;
+  if(state.presenca){
+    Object.keys(state.presenca).forEach(k => {
+      const parts = k.split('_');
+      if(parts.slice(2).join('_') === s.id){
+        const rec = state.presenca[k];
+        if(rec && rec.status === 'f') faltas++;
+        if(rec && rec.status === 'c') canceladas++;
+      }
+    });
+  }
+  const totalCalls = totalAulas + faltas;
+  const attendanceRate = totalCalls > 0 ? Math.round((totalAulas / totalCalls) * 100) : 100;
+
+  const currentNotes = s.notes || '';
+  const currentLearningStyle = s.learningStyle || 'Conversação & Prática';
+
+  showModal(`
+    <div class="modal-header-grad">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="avatar" style="background:${studentColor(s)};width:44px;height:44px;font-size:1.1rem;flex:none;">${esc(initials(s.name))}</div>
+        <div>
+          <h3 style="margin:0;font-size:1.3rem;">Ficha 360° · ${esc(s.name)}</h3>
+          <div class="msub" style="margin-top:2px;">${esc(s.level || 'Sem nível')} · ${esc(s.subject || 'Inglês')}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicadores Chave -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:10px;margin-bottom:16px;">
+      <div style="background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--line);text-align:center;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Aulas Dadas</div>
+        <div style="font-size:1.25rem;font-weight:800;color:var(--emerald);margin-top:2px;">${totalAulas}</div>
+      </div>
+      <div style="background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--line);text-align:center;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Assiduidade</div>
+        <div style="font-size:1.25rem;font-weight:800;color:var(--sky);margin-top:2px;">${attendanceRate}%</div>
+      </div>
+      <div style="background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--line);text-align:center;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Faltas / Canc.</div>
+        <div style="font-size:1.25rem;font-weight:800;color:var(--rose);margin-top:2px;">${faltas} / ${canceladas}</div>
+      </div>
+      <div style="background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--line);text-align:center;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Investimento</div>
+        <div style="font-size:1.25rem;font-weight:800;color:var(--amber);margin-top:2px;">${s.price != null && s.price !== '' ? fmtBRL(s.price) : '—'}</div>
+      </div>
+    </div>
+
+    <!-- Anotações Pedagógicas & Estilo de Aprendizagem -->
+    <div class="field" style="margin-bottom:12px;">
+      <label style="font-weight:700;">🎯 Estilo de Aprendizagem Principal</label>
+      <input id="st360-style" value="${esc(currentLearningStyle)}" placeholder="Ex: Conversação, Auditivo, Visual, Exercícios práticos...">
+    </div>
+
+    <div class="field" style="margin-bottom:16px;">
+      <label style="font-weight:700;">📝 Observações Pessoais & Histórico Pedagógico</label>
+      <textarea id="st360-notes" rows="3" style="width:100%;font-family:inherit;font-size:0.9rem;" placeholder="Registre os interesses do aluno, pontos fortes, dificuldades a trabalhar ou combinados particulares...">${esc(currentNotes)}</textarea>
+    </div>
+
+    <!-- Lista Recente de Aulas -->
+    <div style="margin-bottom:16px;">
+      <label style="font-weight:700;font-size:0.85rem;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px;">Últimas Aulas Ministradas (${Math.min(5, totalAulas)} de ${totalAulas})</label>
+      <div style="max-height:160px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:4px;">
+        ${taughtList.length ? taughtList.slice(0, 5).map(item => `
+          <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);padding:8px 12px;border-radius:8px;font-size:0.88rem;">
+            <span style="font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">${esc(item.topic)}</span>
+            <span style="font-size:0.8rem;color:var(--muted);font-weight:600;flex:none;margin-left:10px;">📅 ${fmtDateBR(item.date)} · ${esc(item.hour)}</span>
+          </div>
+        `).join('') : '<div style="font-size:0.85rem;color:var(--muted);text-align:center;padding:12px;border:1px dashed var(--line);border-radius:8px;">Nenhuma aula registrada ainda.</div>'}
+      </div>
+    </div>
+
+    <div class="modal-acts">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Fechar</button>
+      <button type="button" class="btn btn-ghost" onclick="saveStudent360Notes('${s.id}')">💾 Salvar Notas</button>
+      <button type="button" class="btn btn-ghost" onclick="openContractModal('${s.id}')">📜 Contrato</button>
+      <button type="button" class="btn btn-ghost" style="color:var(--amber);font-weight:800;" onclick="openCertificateModal('${s.id}')">🎓 Certificado</button>
+      <button type="button" class="btn btn-primary" onclick="downloadStudent360PDF('${s.id}')">📄 Baixar Ficha PDF</button>
+    </div>
+  `, 'modal-lg');
+}
+
+async function saveStudent360Notes(studentId){
+  const s = studentById(studentId);
+  if(!s) return;
+
+  const styleInput = document.getElementById('st360-style');
+  const notesInput = document.getElementById('st360-notes');
+
+  if(styleInput) s.learningStyle = styleInput.value.trim();
+  if(notesInput) s.notes = notesInput.value.trim();
+
+  await save('students');
+  alert('✓ Observações do aluno salvas com sucesso!');
+  renderAlunos();
+}
+
+function downloadStudent360PDF(studentId){
+  const s = studentById(studentId);
+  if(!s) return;
+
+  // Atualiza as notas antes de gerar o PDF
+  const styleInput = document.getElementById('st360-style');
+  const notesInput = document.getElementById('st360-notes');
+  if(styleInput) s.learningStyle = styleInput.value.trim();
+  if(notesInput) s.notes = notesInput.value.trim();
+
+  const renderContainer = document.createElement('div');
+  renderContainer.id = 'st360-pdf-render';
+  renderContainer.style.position = 'absolute';
+  renderContainer.style.left = '-9999px';
+  renderContainer.style.top = '-9999px';
+
+  renderContainer.innerHTML = buildStudent360HTML(studentId);
+  document.body.appendChild(renderContainer);
+
+  const cleanFilename = `Ficha360_${s.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+
+  if (window.html2pdf) {
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: cleanFilename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(renderContainer.querySelector('.st360-pdf-container')).save().then(() => {
+      renderContainer.remove();
+      closeModal();
+    }).catch(err => {
+      console.error('Error generating Student 360 PDF:', err);
+      renderContainer.remove();
+      window.print();
+    });
+  } else {
+    alert('Biblioteca de PDF indisponível no momento.');
+    renderContainer.remove();
+  }
+}
+
+function buildStudent360HTML(studentId){
+  const s = studentById(studentId) || {};
+  const o = state.orgInfo || {};
+  const taughtList = getLecionadosForStudent(studentId);
+  const totalAulas = taughtList.length;
+
+  let faltas = 0, canceladas = 0;
+  if(state.presenca){
+    Object.keys(state.presenca).forEach(k => {
+      const parts = k.split('_');
+      if(parts.slice(2).join('_') === studentId){
+        const rec = state.presenca[k];
+        if(rec && rec.status === 'f') faltas++;
+        if(rec && rec.status === 'c') canceladas++;
+      }
+    });
+  }
+  const totalCalls = totalAulas + faltas;
+  const attendanceRate = totalCalls > 0 ? Math.round((totalAulas / totalCalls) * 100) : 100;
+  const todayFmt = fmtDateBR(isoDate(new Date()));
+
+  return `
+    <div class="st360-pdf-container" style="font-family:'Inter', sans-serif; color:#1e293b; background:#ffffff; padding:28px 32px; max-width:800px; margin:0 auto; line-height:1.6; border:1px solid #e2e8f0; border-radius:8px;">
+      <!-- Cabeçalho -->
+      <div style="display:flex; align-items:center; justify-space-between; border-bottom:2px solid #0284c7; padding-bottom:16px; margin-bottom:20px;">
+        <div>
+          <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">FICHA 360° DO ALUNO</h2>
+          <div style="font-size:0.88rem; color:#0284c7; font-weight:700; margin-top:2px;">${esc(o.nome || 'Professor(a) / Escola')}</div>
+        </div>
+        <div style="text-align:right; font-size:0.82rem; color:#64748b; font-weight:600;">
+          Emitido em: ${todayFmt}
+        </div>
+      </div>
+
+      <!-- Ficha de Dados Principais -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:16px 20px; margin-bottom:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.92rem;">
+          <div><b>Nome do Aluno:</b> ${esc(s.name)}</div>
+          <div><b>Nível:</b> ${esc(s.level || 'Básico')}</div>
+          <div><b>Status:</b> ${s.status === 'trancado' ? '🔒 Trancado' : '✅ Ativo'}</div>
+          <div><b>Matéria:</b> ${esc(s.subject || 'Inglês')}</div>
+          <div><b>Telefone:</b> ${esc(s.phone || '—')}</div>
+          <div><b>Investimento:</b> ${s.price != null && s.price !== '' ? fmtBRL(s.price) : '—'} (${s.paymentMode === 'pre' ? 'Pré-pago' : 'Pós-pago'})</div>
+        </div>
+      </div>
+
+      <!-- Resumo Pedagógico & Desempenho -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.05rem; font-weight:800; color:#0284c7; margin:0 0 10px; text-transform:uppercase;">Desempenho & Assiduidade</h3>
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; text-align:center;">
+          <div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; background:#ffffff;">
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">AULAS DADAS</div>
+            <div style="font-size:1.2rem; font-weight:800; color:#10b981;">${totalAulas}</div>
+          </div>
+          <div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; background:#ffffff;">
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">ASSIDUIDADE</div>
+            <div style="font-size:1.2rem; font-weight:800; color:#0284c7;">${attendanceRate}%</div>
+          </div>
+          <div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; background:#ffffff;">
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">FALTAS</div>
+            <div style="font-size:1.2rem; font-weight:800; color:#ef4444;">${faltas}</div>
+          </div>
+          <div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; background:#ffffff;">
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">CANCELAMENTOS</div>
+            <div style="font-size:1.2rem; font-weight:800; color:#f59e0b;">${canceladas}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Observações & Perfil de Aprendizagem -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.05rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">Perfil Pedagógico</h3>
+        <p style="font-size:0.92rem; margin:0 0 6px;"><b>Estilo de Aprendizagem:</b> ${esc(s.learningStyle || 'Conversação e Prática')}</p>
+        <div style="font-size:0.92rem; background:#f1f5f9; padding:12px 14px; border-radius:8px; border:1px solid #e2e8f0; white-space:pre-wrap;">${esc(s.notes || 'Sem observações adicionais registradas.')}</div>
+      </div>
+
+      <!-- Histórico Recente de Conteúdos -->
+      <div>
+        <h3 style="font-size:1.05rem; font-weight:800; color:#0284c7; margin:0 0 10px; text-transform:uppercase;">Últimos Tópicos Lecionados</h3>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          ${taughtList.length ? taughtList.slice(0, 8).map(item => `
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid #e2e8f0; padding:6px 0; font-size:0.88rem;">
+              <span>✔️ <b>${esc(item.topic)}</b></span>
+              <span style="color:#64748b;">📅 ${fmtDateBR(item.date)} às ${esc(item.hour)}</span>
+            </div>
+          `).join('') : '<div style="font-size:0.88rem; color:#64748b;">Nenhuma aula registrada ainda.</div>'}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+/* ================= MÓDULO DE AULAS EXPERIMENTAIS ================= */
+let _trialFilterStatus = 'all'; // 'all' | 'scheduled' | 'completed' | 'converted' | 'cancelled'
+let _pendingTrialConversionId = null;
+
+function getTrialClassesForSlot(dateISO, hour){
+  if (!state.trialClasses) return [];
+  return state.trialClasses.filter(t => t.date === dateISO && t.hour === hour && t.status !== 'cancelled');
+}
+
+function openTrialClassModal(id, defaultDate, defaultHour){
+  const tItem = id ? (state.trialClasses || []).find(t => t.id === id) : null;
+  const today = new Date();
+  const defaultD = defaultDate || isoDate(today);
+  const defaultH = defaultHour || '14:00';
+
+  const leadName = tItem ? tItem.leadName : '';
+  const phone = tItem ? tItem.phone : '';
+  const email = tItem ? tItem.email : '';
+  const date = tItem ? tItem.date : defaultD;
+  const hour = tItem ? tItem.hour : defaultH;
+  const level = tItem ? tItem.level : 'Basic';
+  const notes = tItem ? tItem.notes : '';
+  const status = tItem ? tItem.status : 'scheduled';
+
+  const isEn = state.lang === 'en';
+  const levels = ['Kids','Teens','Basic','Intermediate','Pre-Advanced','Advanced','Master','Conversations','Pronunciation'];
+  const levelOpts = levels.map(l => `<option value="${l}" ${l.toLowerCase() === (level||'').toLowerCase() ? 'selected' : ''}>${l}</option>`).join('');
+
+  showModal(`
+    <div class="modal-header-grad">
+      <h3>🧪 ${tItem ? (isEn?'Edit Trial Class':'Editar Aula Experimental') : (isEn?'Schedule Trial Class':'Agendar Aula Experimental')}</h3>
+      <div class="msub">${isEn?'For prospective students not yet enrolled':'Para interessados e prospectos que ainda não são alunos'}</div>
+    </div>
+
+    <div class="field"><label>Nome do Interessado / Prospecto *</label>
+      <input id="tr-name" value="${esc(leadName)}" placeholder="Ex: João da Silva"></div>
+
+    <div class="field-2">
+      <div class="field"><label>Telefone / WhatsApp</label>
+        <input id="tr-phone" value="${esc(phone)}" placeholder="(11) 90000-0000" inputmode="numeric" oninput="this.value=maskPhoneBR(this.value)"></div>
+      <div class="field"><label>E-mail</label>
+        <input id="tr-email" type="email" value="${esc(email)}" placeholder="joao@email.com"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Data da Aula Experimental *</label>
+        <input id="tr-date" type="date" value="${date}"></div>
+      <div class="field"><label>Horário *</label>
+        <input id="tr-hour" type="time" value="${hour}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Nível Pretendido</label>
+        <select id="tr-level">${levelOpts}</select></div>
+      <div class="field"><label>Status da Aula</label>
+        <select id="tr-status">
+          <option value="scheduled" ${status==='scheduled'?'selected':''}>⏳ Agendada</option>
+          <option value="completed" ${status==='completed'?'selected':''}>✔️ Realizada</option>
+          <option value="converted" ${status==='converted'?'selected':''}>🎓 Matriculado (Aluno Regular)</option>
+          <option value="cancelled" ${status==='cancelled'?'selected':''}>❌ Cancelada</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px;">
+      <label>Objetivo do Aluno / Observações</label>
+      <textarea id="tr-notes" rows="3" style="width:100%;font-family:inherit;font-size:0.9rem;" placeholder="Ex: Interessado em inglês para viagens, já estudou 1 ano antes...">${esc(notes)}</textarea>
+    </div>
+
+    <div class="modal-acts">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      ${tItem && tItem.status !== 'converted' ? `
+        <button type="button" class="btn btn-ghost" style="color:var(--emerald);font-weight:800;" onclick="convertTrialToStudent('${tItem.id}')">🎓 Converter em Aluno Regular</button>
+      ` : ''}
+      <button type="button" class="btn btn-primary" onclick="saveTrialClass('${id||''}')">💾 Salvar Aula Experimental</button>
+    </div>
+  `);
+}
+
+async function saveTrialClass(id){
+  const leadName = fv('tr-name');
+  if(!leadName){
+    const i = document.getElementById('tr-name');
+    if(i) i.focus();
+    return;
+  }
+
+  const data = {
+    leadName,
+    phone: fv('tr-phone'),
+    email: fv('tr-email'),
+    date: fv('tr-date') || isoDate(new Date()),
+    hour: fv('tr-hour') || '14:00',
+    level: (document.getElementById('tr-level')||{}).value || 'Basic',
+    status: (document.getElementById('tr-status')||{}).value || 'scheduled',
+    notes: fv('tr-notes')
+  };
+
+  if(!state.trialClasses) state.trialClasses = [];
+
+  if(id){
+    const existing = state.trialClasses.find(t => t.id === id);
+    if(existing) Object.assign(existing, data);
+  }else{
+    data.id = 'exp_' + uid();
+    data.createdAt = new Date().toISOString();
+    state.trialClasses.unshift(data);
+  }
+
+  await write('trialClasses', state.trialClasses);
+  closeModal();
+  renderTrialClasses();
+  renderAgenda();
+  renderPainel();
+}
+
+async function setTrialClassStatus(id, newStatus){
+  const tItem = (state.trialClasses || []).find(t => t.id === id);
+  if(!tItem) return;
+  tItem.status = newStatus;
+  await write('trialClasses', state.trialClasses);
+  renderTrialClasses();
+  renderAgenda();
+  renderPainel();
+}
+
+function convertTrialToStudent(trialId){
+  const tItem = (state.trialClasses || []).find(t => t.id === trialId);
+  if(!tItem){
+    alert('Aula experimental não encontrada.');
+    return;
+  }
+
+  _pendingTrialConversionId = trialId;
+  closeModal();
+
+  // Preenche a modal de cadastro do aluno com os dados da aula experimental
+  openAluno();
+
+  setTimeout(() => {
+    const nameInput = document.getElementById('al-nome');
+    const phoneInput = document.getElementById('al-fone');
+    const levelSelect = document.getElementById('al-nivel');
+    const startInput = document.getElementById('al-inicio');
+
+    if(nameInput) nameInput.value = tItem.leadName || '';
+    if(phoneInput) phoneInput.value = tItem.phone || '';
+    if(levelSelect && tItem.level) levelSelect.value = tItem.level;
+    if(startInput) startInput.value = tItem.date || isoDate(new Date());
+
+    alert('🎉 Dados de ' + tItem.leadName + ' pré-preenchidos! Defina o valor da aula/mensalidade e clique em Salvar para concluir a matrícula.');
+  }, 120);
+}
+
+function renderTrialClasses(){
+  const el = document.getElementById('v-experimentais');
+  if(!el) return;
+
+  const isEn = state.lang === 'en';
+  const list = state.trialClasses || [];
+  
+  const q = (state.q_experimentais || '').toLowerCase();
+  let filtered = list.filter(t => t.leadName.toLowerCase().includes(q) || (t.phone||'').includes(q) || (t.notes||'').toLowerCase().includes(q));
+
+  if(_trialFilterStatus !== 'all'){
+    filtered = filtered.filter(t => t.status === _trialFilterStatus);
+  }
+
+  const countScheduled = list.filter(t => t.status === 'scheduled').length;
+  const countCompleted = list.filter(t => t.status === 'completed').length;
+  const countConverted = list.filter(t => t.status === 'converted').length;
+
+  const cardsHtml = filtered.length ? filtered.map(tItem => {
+    const wa = tItem.phone ? waUrl(tItem.phone, tItem.leadName) : '';
+    const isConverted = tItem.status === 'converted';
+    const isCompleted = tItem.status === 'completed';
+    const isCancelled = tItem.status === 'cancelled';
+
+    let statusBadge = '<span style="font-size:0.75rem;font-weight:700;color:var(--amber);background:var(--amber-bg);padding:2px 8px;border-radius:12px;">⏳ Agendada</span>';
+    if(isCompleted) statusBadge = '<span style="font-size:0.75rem;font-weight:700;color:var(--sky);background:var(--sky-bg);padding:2px 8px;border-radius:12px;">✔️ Realizada</span>';
+    if(isConverted) statusBadge = '<span style="font-size:0.75rem;font-weight:700;color:var(--emerald);background:var(--emerald-bg);padding:2px 8px;border-radius:12px;">🎓 Matriculado (Aluno)</span>';
+    if(isCancelled) statusBadge = '<span style="font-size:0.75rem;font-weight:700;color:var(--rose);background:var(--rose-bg);padding:2px 8px;border-radius:12px;">❌ Cancelada</span>';
+
+    return `
+      <div class="card" style="padding:18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
+            ${statusBadge}
+            <span style="font-size:0.72rem;font-weight:700;color:var(--muted);background:var(--line-2);padding:2px 8px;border-radius:12px;">${esc(tItem.level || 'Básico')}</span>
+          </div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--ink);margin-bottom:4px;">${esc(tItem.leadName)}</div>
+          ${tItem.phone ? `<div style="font-size:0.85rem;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:4px;">📞 ${esc(tItem.phone)} ${wa ? `<a class="wa-link" href="${wa}" target="_blank" rel="noopener noreferrer" title="Conversar no WhatsApp" onclick="return openWA('${wa}', event)">${WA_ICON}</a>` : ''}</div>` : ''}
+          ${tItem.notes ? `<div style="font-size:0.83rem;color:var(--muted);background:var(--bg);padding:8px 10px;border-radius:8px;margin-top:6px;line-height:1.4;">${esc(tItem.notes)}</div>` : ''}
+        </div>
+
+        <div style="border-top:1px solid var(--line-2);padding-top:10px;margin-top:auto;">
+          <div style="display:flex;align-items:center;justify-content:space-between;font-size:0.85rem;color:var(--muted);font-weight:600;margin-bottom:10px;">
+            <span>📅 ${fmtDateBR(tItem.date)}</span>
+            <span>🕒 ${esc(tItem.hour)}</span>
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="openTrialClassModal('${tItem.id}')">✏️ Editar</button>
+            ${!isConverted ? `
+              <button type="button" class="btn btn-sm btn-primary" style="flex:1.4;background:var(--emerald);border-color:transparent;font-weight:800;" onclick="convertTrialToStudent('${tItem.id}')">🎓 Matricular</button>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('') : `
+    <div class="card panel" style="grid-column: 1 / -1;"><div class="empty" style="padding:44px 16px;text-align:center;">
+      <div style="font-size:42.5px;margin-bottom:10px">🧪</div>
+      ${list.length ? 'Nenhuma aula experimental encontrada para este filtro.' : 'Nenhuma aula experimental agendada ainda. Clique no botão acima para agendar.'}
+    </div></div>
+  `;
+
+  el.innerHTML = `
+    <div class="sec-head">
+      <div>
+        <h2>🧪 ${isEn?'Trial Classes':'Aulas Experimentais'}</h2>
+        <div class="sub">${isEn?'Manage prospective students and trial class schedules':'Agendamento e conversão de interessados em alunos regulares'}</div>
+      </div>
+      <button class="btn btn-primary" onclick="openTrialClassModal()">➕ ${isEn?'New Trial Class':'Nova Aula Experimental'}</button>
+    </div>
+
+    <!-- Indicadores -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:12px;margin-bottom:20px;">
+      <div class="stat-card" style="padding:14px 16px;">
+        <div class="stat-details">
+          <h3>Agendadas</h3>
+          <p>${countScheduled}</p>
+        </div>
+        <div class="stat-icon warning">⏳</div>
+      </div>
+      <div class="stat-card" style="padding:14px 16px;">
+        <div class="stat-details">
+          <h3>Realizadas</h3>
+          <p>${countCompleted}</p>
+        </div>
+        <div class="stat-icon primary">✔️</div>
+      </div>
+      <div class="stat-card" style="padding:14px 16px;">
+        <div class="stat-details">
+          <h3>Matriculadas</h3>
+          <p>${countConverted}</p>
+        </div>
+        <div class="stat-icon success">🎓</div>
+      </div>
+    </div>
+
+    <!-- Filtros e Busca -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div class="search" style="flex:1;min-width:240px;">
+        <span class="mag">🔍</span>
+        <input placeholder="Buscar por nome, telefone ou nota..." value="${esc(state.q_experimentais||'')}" oninput="state.q_experimentais=this.value; renderTrialClasses();">
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-sm ${_trialFilterStatus==='all'?'btn-primary':'btn-ghost'}" onclick="_trialFilterStatus='all'; renderTrialClasses();">Todas (${list.length})</button>
+        <button type="button" class="btn btn-sm ${_trialFilterStatus==='scheduled'?'btn-primary':'btn-ghost'}" onclick="_trialFilterStatus='scheduled'; renderTrialClasses();">Agendadas (${countScheduled})</button>
+        <button type="button" class="btn btn-sm ${_trialFilterStatus==='completed'?'btn-primary':'btn-ghost'}" onclick="_trialFilterStatus='completed'; renderTrialClasses();">Realizadas (${countCompleted})</button>
+        <button type="button" class="btn btn-sm ${_trialFilterStatus==='converted'?'btn-primary':'btn-ghost'}" onclick="_trialFilterStatus='converted'; renderTrialClasses();">Matriculadas (${countConverted})</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:16px;">
+      ${cardsHtml}
+    </div>
+  `;
+}
+
+/* ================= FILA DE ESPERA ================= */
+let _pendingWaitlistConversionId = null;
+
+function sortedWaitlist(){
+  return [...(state.waitlist||[])].sort((a,b)=> (a.addedAt||'').localeCompare(b.addedAt||''));
+}
+
+function openWaitlistForm(id){
+  const item = id ? (state.waitlist||[]).find(w=>w.id===id) : null;
+  showModal(`
+    <div class="modal-header-grad">
+      <h3>🕒 ${item ? 'Editar interessado' : 'Adicionar à Fila de Espera'}</h3>
+      <div class="msub">Cadastre quem está aguardando uma vaga para as aulas</div>
+    </div>
+    <input type="hidden" id="wl-id" value="${item?item.id:''}">
+    <div class="field"><label>Nome completo</label>
+      <input id="wl-nome" value="${item?esc(item.name):''}" placeholder="Nome do interessado" autofocus>
+    </div>
+    <div class="field-2">
+      <div class="field"><label>Telefone / WhatsApp</label>
+        <input id="wl-fone" value="${item?esc(item.phone||''):''}" placeholder="(11) 90000-0000" inputmode="numeric" oninput="this.value=maskPhoneBR(this.value)"></div>
+      <div class="field"><label>Nível desejado</label>
+        <select id="wl-nivel">
+          ${['','Kids','Basic','Intermediate','Pre-Advanced','Advanced','Master','Others'].map(lv=>
+            `<option value="${lv}" ${item&&item.level===lv?'selected':''}>${lv||'Não definido'}</option>`).join('')}
+        </select></div>
+    </div>
+    <div class="field"><label>Observações</label>
+      <textarea id="wl-obs" rows="2" placeholder="Ex: prefere aulas à noite, indicação de fulano...">${item?esc(item.notes||''):''}</textarea>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveWaitlistEntry('${item?item.id:''}')">${item?'Salvar':'Adicionar à fila'}</button>
+    </div>`);
+  setTimeout(()=>{ const i=document.getElementById('wl-nome'); if(i) i.focus(); }, 50);
+}
+
+async function saveWaitlistEntry(id){
+  const name = (fv('wl-nome')||'').trim();
+  if(!name){ const i=document.getElementById('wl-nome'); if(i) i.focus(); return; }
+  if(!state.waitlist) state.waitlist = [];
+  if(id){
+    const item = state.waitlist.find(w=>w.id===id);
+    if(item){
+      item.name = name;
+      item.phone = fv('wl-fone');
+      item.level = (document.getElementById('wl-nivel')||{}).value || '';
+      item.notes = fv('wl-obs');
+    }
+  }else{
+    state.waitlist.push({
+      id: uid(),
+      name,
+      phone: fv('wl-fone'),
+      level: (document.getElementById('wl-nivel')||{}).value || '',
+      notes: fv('wl-obs'),
+      addedAt: new Date().toISOString()
+    });
+  }
+  await write('waitlist', state.waitlist);
+  closeModal(); renderWaitlist(); renderPainel();
+}
+
+function removeWaitlistEntry(id){
+  const item = (state.waitlist||[]).find(w=>w.id===id);
+  if(!item) return;
+  confirmBox(`Remover ${item.name} da fila de espera?`, `doRemoveWaitlistEntry('${id}')`);
+}
+async function doRemoveWaitlistEntry(id){
+  state.waitlist = (state.waitlist||[]).filter(w=>w.id!==id);
+  await write('waitlist', state.waitlist);
+  closeModal(); renderWaitlist(); renderPainel();
+}
+
+function contactWaitlistEntry(id, ev){
+  const item = (state.waitlist||[]).find(w=>w.id===id);
+  if(!item) return;
+  if(!item.phone){ alert('Esse contato não tem telefone cadastrado.'); return; }
+  const firstName = item.name.trim().split(/\s+/)[0] || item.name;
+  const msg = `Olá ${firstName}! Temos uma vaga disponível para aulas de inglês agora e lembrei de você, que estava na nossa fila de espera. Gostaria de agendar uma aula?`;
+  const digits = (item.phone||'').replace(/\D/g,'');
+  if(!digits){ alert('Telefone inválido para este contato.'); return; }
+  const full = digits.length<=11 ? '55'+digits : digits;
+  openWA('https://wa.me/'+full+'?text='+encodeURIComponent(msg), ev);
+}
+
+function convertWaitlistToStudent(id){
+  const item = (state.waitlist||[]).find(w=>w.id===id);
+  if(!item) return;
+  _pendingWaitlistConversionId = id;
+  openAluno();
+  setTimeout(()=>{
+    const n = document.getElementById('al-nome'); if(n) n.value = item.name;
+    const f = document.getElementById('al-fone'); if(f) f.value = item.phone||'';
+    const lv = document.getElementById('al-nivel'); if(lv) lv.value = item.level||'';
+  }, 60);
+}
+
+function renderWaitlist(){
+  const el = document.getElementById('v-filaespera');
+  if(!el) return;
+  const list = sortedWaitlist();
+
+  const rowsHtml = list.length ? list.map((item,idx)=>`
+    <div class="card wl-row">
+      <div class="wl-position">${idx+1}º</div>
+      <div class="avatar" style="background:${studentColor(item)}">${esc(initials(item.name))}</div>
+      <div class="wl-info">
+        <div class="wl-name">${esc(item.name)}</div>
+        <div class="wl-meta">
+          ${item.phone?`<span>📱 ${esc(item.phone)}</span>`:''}
+          ${item.level?`<span class="alu-tag">${esc(item.level)}</span>`:''}
+          <span class="wl-date">🗓️ desde ${fmtDateBR(item.addedAt.slice(0,10))}</span>
+        </div>
+        ${item.notes?`<div class="wl-notes">💬 ${esc(item.notes)}</div>`:''}
+      </div>
+      <div class="wl-acts">
+        <button type="button" class="btn btn-sm btn-wa-green" title="Chamar no WhatsApp" onclick="contactWaitlistEntry('${item.id}', event)">📱 Chamar</button>
+        <button type="button" class="btn btn-sm btn-ghost" title="Matricular como aluno" onclick="convertWaitlistToStudent('${item.id}')">🎓 Matricular</button>
+        <button type="button" class="btn-action" title="Editar" onclick="openWaitlistForm('${item.id}')">✏️</button>
+        <button type="button" class="btn-action" title="Remover da fila" onclick="removeWaitlistEntry('${item.id}')">🗑️</button>
+      </div>
+    </div>`).join('')
+    : `<div class="card panel"><div class="empty" style="padding:44px 16px">
+        <div style="font-size:42.5px;margin-bottom:10px">🕒</div>
+        Nenhum interessado na fila de espera no momento.<br>Assim que houver uma desistência, cadastre aqui quem quer ser avisado primeiro.
+      </div></div>`;
+
+  el.innerHTML = `
+    <div class="sec-head">
+      <div>
+        <h2>🕒 Fila de Espera</h2>
+        <div class="sub">${list.length} ${list.length===1?'pessoa aguardando':'pessoas aguardando'} · o primeiro cadastrado é o primeiro a ser chamado</div>
+      </div>
+      <button class="btn btn-primary" onclick="openWaitlistForm()">➕ Adicionar à fila</button>
+    </div>
+    <div class="wl-list">${rowsHtml}</div>
+  `;
+}
+
+/* ---- Aviso automático de vaga disponível (quando um aluno é trancado) ---- */
+async function createSlotAvailableNotice(studentName){
+  if(!state.slotNotices) state.slotNotices = [];
+  state.slotNotices.push({ id: uid(), studentName, createdAt: new Date().toISOString() });
+  await write('slotNotices', state.slotNotices);
+}
+function getActiveSlotNotices(){
+  const notices = state.slotNotices || [];
+  const now = Date.now();
+  const THREE_DAYS = 3*24*60*60*1000;
+  return notices.filter(n => n.createdAt && (now - new Date(n.createdAt).getTime()) < THREE_DAYS);
+}
+async function dismissSlotNotice(id){
+  state.slotNotices = (state.slotNotices||[]).filter(n=>n.id!==id);
+  await write('slotNotices', state.slotNotices);
+  renderPainel();
+}
+
+
+/* ================= GERADOR DE CERTIFICADOS DE CONCLUSÃO ================= */
+let activeCertificateData = null;
+
+function openCertificateModal(studentId, customData){
+  const s = studentById(studentId) || (state.students && state.students[0]);
+  if(!s){
+    alert('Nenhum aluno cadastrado para emissão de certificado.');
+    return;
+  }
+
+  const o = state.orgInfo || {};
+  const taughtList = getLecionadosForStudent(s.id);
+  const calculatedHours = Math.max(10, taughtList.length * 1); // 1 hora por aula ministrada
+  const firstDate = taughtList.length ? taughtList[taughtList.length - 1].date : (s.startDate || isoDate(new Date()));
+  const lastDate = taughtList.length ? taughtList[0].date : isoDate(new Date());
+
+  const today = new Date();
+  const todayISO = isoDate(today);
+
+  const p = customData || {
+    studentId: s.id,
+    studentName: s.name || '',
+    subject: s.subject || 'Inglês',
+    level: s.level || 'Intermediário',
+    totalHours: calculatedHours,
+    startDate: firstDate,
+    endDate: lastDate,
+    issueDate: todayISO,
+    city: o.cidade || 'São Paulo - SP',
+    profName: o.nome || 'Professor(a) / Escola',
+    profDoc: o.doc || '',
+    specialty: 'Fluência & Comunicação Prática',
+    style: 'classic' // 'classic' | 'modern'
+  };
+
+  activeCertificateData = p;
+
+  const studentOpts = state.students.map(st => 
+    `<option value="${st.id}" ${st.id === p.studentId ? 'selected' : ''}>${esc(st.name)}</option>`
+  ).join('');
+
+  const isEn = state.lang === 'en';
+
+  showModal(`
+    <div class="modal-header-grad">
+      <h3>🎓 ${isEn ? 'Certificate Generator' : 'Gerador de Certificado de Conclusão'}</h3>
+      <div class="msub">${isEn ? 'Issue official completion certificates in A4 Landscape' : 'Emissão de certificados de nível e conclusão de curso em PDF horizontal'}</div>
+    </div>
+
+    <div class="field" style="margin-bottom:12px;">
+      <label style="font-weight:700;">Aluno(a) *</label>
+      <select id="cert-student-select" onchange="openCertificateModal(this.value)">
+        ${studentOpts}
+      </select>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Disciplina / Curso</label>
+        <input id="cert-subject" value="${esc(p.subject)}"></div>
+      <div class="field"><label>Nível Concluído</label>
+        <input id="cert-level" value="${esc(p.level)}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Carga Horária Total (Horas)</label>
+        <input id="cert-hours" type="number" min="1" value="${p.totalHours}"></div>
+      <div class="field"><label>Especialidade / Ênfase</label>
+        <input id="cert-specialty" value="${esc(p.specialty)}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Data de Início do Período</label>
+        <input id="cert-start-date" type="date" value="${p.startDate}"></div>
+      <div class="field"><label>Data de Término do Período</label>
+        <input id="cert-end-date" type="date" value="${p.endDate}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Data de Emissão do Certificado</label>
+        <input id="cert-issue-date" type="date" value="${p.issueDate}"></div>
+      <div class="field"><label>Cidade / Estado de Emissão</label>
+        <input id="cert-city" value="${esc(p.city)}"></div>
+    </div>
+
+    <div class="field" style="margin-bottom:14px;">
+      <label style="font-weight:700;">Nome do Professor(a) / Instituição Emissora</label>
+      <input id="cert-prof-name" value="${esc(p.profName)}">
+    </div>
+
+    <div class="modal-acts">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button type="button" class="btn btn-ghost" style="font-weight:700;" onclick="previewCertificatePDF()">👁️ Prévia Visual</button>
+      <button type="button" class="btn btn-primary" onclick="downloadCertificatePDFFromState()">📄 Baixar Certificado (PDF)</button>
+    </div>
+  `);
+}
+
+function collectCertificateDataFromModal(){
+  const sId = (document.getElementById('cert-student-select')||{}).value || (activeCertificateData ? activeCertificateData.studentId : '');
+  const s = studentById(sId) || {};
+  const o = state.orgInfo || {};
+
+  return {
+    studentId: sId,
+    studentName: s.name || (activeCertificateData ? activeCertificateData.studentName : 'Aluno(a)'),
+    subject: (document.getElementById('cert-subject')||{}).value || s.subject || 'Inglês',
+    level: (document.getElementById('cert-level')||{}).value || s.level || 'Intermediário',
+    totalHours: parseInt((document.getElementById('cert-hours')||{}).value || '60', 10),
+    specialty: (document.getElementById('cert-specialty')||{}).value || 'Fluência & Comunicação Prática',
+    startDate: (document.getElementById('cert-start-date')||{}).value || s.startDate || isoDate(new Date()),
+    endDate: (document.getElementById('cert-end-date')||{}).value || isoDate(new Date()),
+    issueDate: (document.getElementById('cert-issue-date')||{}).value || isoDate(new Date()),
+    city: (document.getElementById('cert-city')||{}).value || o.cidade || 'São Paulo - SP',
+    profName: (document.getElementById('cert-prof-name')||{}).value || o.nome || 'Professor(a) / Instituição',
+    profDoc: o.doc || ''
+  };
+}
+
+function previewCertificatePDF(){
+  const p = collectCertificateDataFromModal();
+  activeCertificateData = p;
+
+  showModal(`
+    <div style="max-height:75vh;overflow-y:auto;padding:10px;background:#334155;border-radius:12px;">
+      ${buildCertificateHTML(p)}
+    </div>
+    <div class="modal-acts" style="margin-top:16px;">
+      <button type="button" class="btn btn-ghost" onclick="openCertificateModal('${p.studentId}', activeCertificateData)">✏️ Editar Dados</button>
+      <button type="button" class="btn btn-primary" onclick="downloadCertificatePDFFromState()">📄 Baixar Certificado em PDF</button>
+    </div>
+  `, 'modal-lg');
+}
+
+function downloadCertificatePDFFromState(){
+  const p = activeCertificateData || collectCertificateDataFromModal();
+  const renderContainer = document.createElement('div');
+  renderContainer.id = 'cert-pdf-render';
+  renderContainer.style.position = 'absolute';
+  renderContainer.style.left = '-9999px';
+  renderContainer.style.top = '-9999px';
+
+  renderContainer.innerHTML = buildCertificateHTML(p);
+  document.body.appendChild(renderContainer);
+
+  const cleanFilename = `Certificado_${p.studentName.replace(/[^a-zA-Z0-9]/g, '_')}_${p.level.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+
+  if (window.html2pdf) {
+    const opt = {
+      margin: [5, 5, 5, 5],
+      filename: cleanFilename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+    html2pdf().set(opt).from(renderContainer.querySelector('.cert-pdf-container')).save().then(() => {
+      renderContainer.remove();
+      closeModal();
+    }).catch(err => {
+      console.error('Error generating Certificate PDF:', err);
+      renderContainer.remove();
+      window.print();
+    });
+  } else {
+    alert('Biblioteca de PDF indisponível no momento.');
+    renderContainer.remove();
+  }
+}
+
+function buildCertificateHTML(p){
+  const startDateFmt = fmtDateBR(p.startDate);
+  const endDateFmt = fmtDateBR(p.endDate);
+  const issueDateFmt = fmtDateBR(p.issueDate);
+
+  return `
+    <div class="cert-pdf-container" style="box-sizing:border-box; width:275mm; height:185mm; padding:24px; font-family:'Inter', serif; background:#ffffff; color:#0f172a; border:8px double #c59b27; outline:3px solid #1e293b; outline-offset:-12px; border-radius:6px; margin:0 auto; position:relative; display:flex; flex-direction:column; justify-content:space-between; text-align:center;">
+      
+      <!-- Cantoneiras Ornamentais -->
+      <div style="position:absolute; top:16px; left:16px; font-size:24px; color:#c59b27;">⚜️</div>
+      <div style="position:absolute; top:16px; right:16px; font-size:24px; color:#c59b27;">⚜️</div>
+      <div style="position:absolute; bottom:16px; left:16px; font-size:24px; color:#c59b27;">⚜️</div>
+      <div style="position:absolute; bottom:16px; right:16px; font-size:24px; color:#c59b27;">⚜️</div>
+
+      <!-- Cabeçalho -->
+      <div style="margin-top:10px;">
+        <div style="font-size:28px; margin-bottom:4px;">🎓</div>
+        <div style="font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:#0284c7;">${esc(p.profName)}</div>
+        ${p.profDoc ? `<div style="font-size:0.75rem; color:#64748b; font-weight:600;">CNPJ/CPF: ${esc(p.profDoc)}</div>` : ''}
+      </div>
+
+      <!-- Título Principal -->
+      <div>
+        <h1 style="font-size:2.4rem; font-weight:900; text-transform:uppercase; letter-spacing:4px; color:#0f172a; margin:10px 0 4px; font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;">
+          Certificado de Conclusão
+        </h1>
+        <div style="font-size:0.95rem; font-weight:700; color:#c59b27; text-transform:uppercase; letter-spacing:3px;">
+          Certificate of Course Completion
+        </div>
+      </div>
+
+      <!-- Texto Principal do Certificado -->
+      <div style="max-width:820px; margin:0 auto; font-size:1.08rem; line-height:1.7; color:#334155;">
+        Certificamos para os devidos fins que <b style="font-size:1.35rem; color:#0f172a; border-bottom:2px solid #c59b27; padding-bottom:2px; font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;">${esc(p.studentName)}</b> concluiu com excelente aproveitamento o curso de <b>${esc(p.subject)}</b> no Nível <b style="color:#0284c7;">${esc(p.level)}</b>, acumulando carga horária total de <b>${p.totalHours} horas</b> de atividades e aulas ministradas no período de <b>${startDateFmt}</b> a <b>${endDateFmt}</b>.
+      </div>
+
+      <!-- Especialidade / Ênfase -->
+      ${p.specialty ? `
+        <div style="font-size:0.9rem; font-weight:700; color:#475569; background:#f8fafc; border:1px solid #e2e8f0; padding:6px 16px; border-radius:20px; width:fit-content; margin:0 auto;">
+          🏆 Ênfase: <span>${esc(p.specialty)}</span>
+        </div>
+      ` : ''}
+
+      <!-- Rodapé: Data e Assinaturas -->
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:10px; padding:0 30px;">
+        <!-- Selo de Excelência -->
+        <div style="text-align:left;">
+          <div style="width:64px; height:64px; border:2px solid #c59b27; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#fefce8; box-shadow:0 2px 6px rgba(197,155,39,0.2);">
+            <span style="font-size:28px;">🏅</span>
+          </div>
+          <div style="font-size:0.75rem; font-weight:800; color:#c59b27; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Excelência Acadêmica</div>
+        </div>
+
+        <!-- Data e Cidade -->
+        <div style="font-size:0.9rem; font-weight:600; color:#475569;">
+          ${esc(p.city)}, ${issueDateFmt}.
+        </div>
+
+        <!-- Assinatura -->
+        <div style="width:240px; text-align:center;">
+          <div style="border-top:1.5px solid #0f172a; padding-top:6px; margin-top:30px;">
+            <div style="font-size:0.9rem; font-weight:800; color:#0f172a;">${esc(p.profName)}</div>
+            <div style="font-size:0.78rem; color:#64748b; font-weight:600;">Professor(a) Responsável</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCertificados(){
+  const el = document.getElementById('v-certificados');
+  if(!el) return;
+
+  const isEn = state.lang === 'en';
+  const students = [...state.students].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR',{sensitivity:'base'}));
+
+  const studentCardsHtml = students.length ? students.map(s => {
+    const taughtList = getLecionadosForStudent(s.id);
+    const calculatedHours = Math.max(10, taughtList.length * 1);
+
+    return `
+      <div class="card" style="padding:20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:${studentColor(s)};width:44px;height:44px;font-size:1.1rem;flex:none;">${esc(initials(s.name))}</div>
+          <div>
+            <h3 style="font-size:1.15rem;font-weight:800;color:var(--ink);margin:0 0 2px;">${esc(s.name)}</h3>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span class="alu-tag">🎯 ${esc(s.level || 'Básico')}</span>
+              <span style="font-size:0.8rem;color:var(--muted);font-weight:600;">📚 ${taughtList.length} aulas dadas</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--line);font-size:0.85rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;">
+          <span>Carga Horária Estimada:</span>
+          <b style="color:var(--ink);font-size:0.95rem;">${calculatedHours} horas</b>
+        </div>
+
+        <button type="button" class="btn btn-primary" style="width:100%;font-weight:800;" onclick="openCertificateModal('${s.id}')">
+          🎓 Empossar & Gerar Certificado
+        </button>
+      </div>
+    `;
+  }).join('') : `
+    <div class="card panel"><div class="empty" style="padding:44px 16px;text-align:center;">
+      <div style="font-size:42.5px;margin-bottom:10px">🎓</div>
+      Nenhum aluno cadastrado para emissão de certificado.
+    </div></div>
+  `;
+
+  el.innerHTML = `
+    <div class="sec-head">
+      <div>
+        <h2>🎓 ${isEn ? 'Certificates' : 'Gerador de Certificados de Conclusão'}</h2>
+        <div class="sub">${isEn ? 'Issue official completion certificates in A4 Landscape PDF' : 'Emissão de certificados profissionais de conclusão de nível em formato Landscape A4'}</div>
+      </div>
+      <button class="btn btn-primary" onclick="openCertificateModal()">🎓 ${isEn ? 'New Certificate' : 'Novo Certificado'}</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:16px;">
+      ${studentCardsHtml}
+    </div>
+  `;
+}
+
 function renderAlunos(){
   const el = document.getElementById('v-alunos');
   if(!el) return;
@@ -5197,7 +6259,10 @@ function renderAlunos(){
   el.innerHTML = `
     <div class="sec-head">
       <div><h2>${t('alunos.title')}</h2><div class="sub">${n} ${n===1?t('alunos.registered'):t('alunos.registeredPl')}</div></div>
-      <button class="btn btn-primary" onclick="openAluno()">${t('alunos.add')}</button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost" onclick="openContractModal()" style="font-weight:700;">📜 Gerar Contrato</button>
+        <button class="btn btn-primary" onclick="openAluno()">${t('alunos.add')}</button>
+      </div>
     </div>
     ${n ? `<div class="alu-list">${mainList.map(alunoRow).join('')}</div>`
         : `<div class="card panel"><div class="empty" style="padding:44px 16px">
@@ -5223,12 +6288,13 @@ function alunoRow(s){
   const prepaidHtml = s.paymentMode==='pre' ? `<span class="alu-tag alu-tag-prepaid" title="${t('alunos.prepaidHint')}">💳 ${t('alunos.prepaid')}</span>` : '';
   const isPaused = s.status==='trancado';
   return `<div class="card alu-row ${isPaused?'alu-row-paused':''}">
-    <div class="avatar" style="background:${studentColor(s)}">${esc(initials(s.name))}</div>
-    <div class="alu-name"><span class="alu-nm">${esc(s.name)}</span>${ageHtml}<span class="stu-pill ${st.cls}">${t(st.key)}</span>${prepaidHtml}</div>
+    <div class="avatar" style="background:${studentColor(s)};cursor:pointer;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(initials(s.name))}</div>
+    <div class="alu-name"><span class="alu-nm" style="cursor:pointer;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(s.name)}</span>${ageHtml}<span class="stu-pill ${st.cls}">${t(st.key)}</span>${prepaidHtml}</div>
     <div class="alu-col">${levelHtml}</div>
     <div class="alu-col">${phoneHtml}</div>
     <div class="alu-col">${priceHtml}</div>
     <div class="alu-acts">
+      <button title="Ficha 360° do Aluno" onclick="openStudent360Modal('${s.id}')">👁️</button><button title="Gerar Contrato de Aulas" onclick="openContractModal('${s.id}')">📜</button>
       <button title="${t('common.edit')}" onclick="openAluno('${s.id}')">✏️</button>
       <button title="${t('common.delete')}" class="danger" onclick="delAluno('${s.id}')">🗑️</button>
     </div>
@@ -5433,1111 +6499,6 @@ async function moveTopicToCategory(id, category){
   await save('topics');
   renderTopicos();
 }
-
-/* ================= TÓPICOS POR NÍVEL (70 TÓPICOS POR NÍVEL) ================= */
-const TOPICOS_POR_NIVEL = {
-  "kids": {
-    "key": "kids",
-    "label": "Kids",
-    "icon": "👶",
-    "badge": "Crianças (6 a 10 anos)",
-    "description": "Sugestões de temas para crianças: vocabulário concreto, brincadeiras, rotinas lúdicas, animais e gramática básica ilustrada, do mais simples ao mais complexo.",
-    "topics": [
-      "Alphabet (A-Z) & Phonics Sounds",
-      "Primary & Secondary Colors",
-      "Numbers 1 to 10",
-      "Numbers 11 to 20 & Counting Objects",
-      "Basic Greetings & Asking Names",
-      "Expressing Feelings (Happy, Sad, Angry)",
-      "Family Members (Mom, Dad, Siblings)",
-      "Extended Family (Grandparents, Aunts, Uncles)",
-      "Parts of the Face (Eyes, Ears, Nose, Mouth)",
-      "Parts of the Body (Head, Shoulders, Knees, Toes)",
-      "Pets & Household Animals",
-      "Farm Animals (Cow, Pig, Horse, Duck)",
-      "Zoo & Wild Animals (Lion, Elephant, Zebra)",
-      "Sea Creatures (Fish, Shark, Dolphin, Crab)",
-      "School Supplies & Classroom Objects",
-      "Classroom Commands (Sit down, Stand up, Listen)",
-      "Toys & Favorite Games",
-      "Shapes (Circle, Square, Triangle, Star)",
-      "Fresh Fruits (Apple, Banana, Orange)",
-      "Vegetables (Carrot, Potato, Broccoli)",
-      "Food & Daily Meals (Bread, Milk, Rice, Cheese)",
-      "Treats & Desserts (Ice Cream, Cake, Cookies)",
-      "Everyday Clothes (T-shirt, Pants, Shoes)",
-      "Weather-specific Clothes (Jacket, Boots, Hat)",
-      "House Rooms (Bedroom, Kitchen, Garden)",
-      "Furniture & House Objects (Bed, Chair, Table)",
-      "Days of the Week (Monday to Sunday)",
-      "Months of the Year (January to December)",
-      "Seasons of the Year (Spring, Summer, Autumn, Winter)",
-      "Weather & Sky (Sunny, Rainy, Sun, Moon, Stars)",
-      "Action Verbs: Movement (Run, Jump, Walk, Dance)",
-      "Action Verbs: Daily Actions (Eat, Drink, Sleep, Play)",
-      "Action Verbs: The 5 Senses (Look, Hear, Touch, Taste)",
-      "Possessive Adjectives (My, Your, His, Her)",
-      "Demonstratives: This / That (Singular)",
-      "Demonstratives: These / Those (Plural)",
-      "Prepositions of Place: In, On, Under, By",
-      "Prepositions of Place: Next to, Behind, In front of",
-      "Singular & Regular Plural Nouns (Cat/Cats, Box/Boxes)",
-      "Irregular Plurals for Kids (Child/Children, Tooth/Teeth)",
-      "Subject Pronouns (I, You, He, She, It, We, They)",
-      "Verb 'To Be': Present Affirmative (I am, You are)",
-      "Verb 'To Be': Negative & Questions (She is not, Are you?)",
-      "Have / Has Got (I have a dog / She has a doll)",
-      "Can / Can't for Abilities (I can swim / Birds can fly)",
-      "Expressing Likes & Dislikes (I like... / I don't like...)",
-      "Present Continuous: What are you doing?",
-      "Present Continuous: Actions in Progress",
-      "Simple Present: Morning & Evening Routines",
-      "Telling Time: O'Clock and Half Past",
-      "Telling Time: Quarter Past and Quarter To",
-      "Vehicles & Transportation (Car, Bus, Train, Airplane)",
-      "Places in Town (Park, Toy Shop, Zoo, Supermarket)",
-      "Community Helpers & Occupations (Teacher, Doctor, Firefighter)",
-      "Hobbies & Outdoor Fun (Biking, Painting, Swimming)",
-      "Opposites: Size & Speed (Big/Small, Fast/Slow)",
-      "Opposites: Temperature & Height (Hot/Cold, Tall/Short)",
-      "Asking Questions: What, Where, Who",
-      "Asking Questions: When, Why, How Many",
-      "Imperative Commands for Games (Simon Says...)",
-      "Ordinal Numbers 1st to 10th",
-      "Past Simple: Verb 'To Be' (Was / Were)",
-      "Past Simple: Regular Action Verbs (Played, Jumped)",
-      "Fairy Tale Vocabulary (Once upon a time, King, Castle)",
-      "Nature Vocabulary (Trees, Flowers, River, Mountain)",
-      "Birthday Party Vocabulary (Balloons, Cake, Candles, Gifts)",
-      "Healthy Habits & Hygiene (Brushing teeth, Washing hands)",
-      "Polite Words (Please, Thank you, Excuse me, Sorry)",
-      "Describing Favorite Animals & Pets",
-      "Short Story Reading & Simple Sentence Building",
-      "Basic Conjunctions: And vs. But (I like apples and bananas)",
-      "Prepositions of Time: In the morning, At night, On Monday",
-      "Frequency Adverbs for Kids: Always, Sometimes, Never",
-      "Comparing Animals: Bigger than, Smaller than, Faster than",
-      "Superlatives for Kids: The biggest, The tallest, The fastest",
-      "Expressing Wants & Desires: I want to be a... / I'd like a...",
-      "Asking for Permission: May I go to the bathroom? / Can I have...?",
-      "Asking How Much: How much is this toy? (Basic Money)",
-      "Everyday Household Chores: Making the bed, Setting the table",
-      "Outdoor Nature Exploration: Sunflowers, Rainbows, Butterflies",
-      "Camping & Adventure Vocabulary: Tent, Flashlight, Campfire",
-      "Amusement Park & Carnival Fun: Rollercoaster, Ferris Wheel, Popcorn",
-      "Space & Galaxy Vocabulary: Planets, Moon, Astronaut, Rocket",
-      "Ocean & Marine Life Adventure: Coral Reefs, Submarines, Treasure",
-      "Dinosaur & Prehistoric Life: T-Rex, Fossils, Volcano, Bones",
-      "Superheroes & Powers: Flying, Super Strength, Invisible, Mask",
-      "Pirates & Treasure Islands: Map, Gold, Ship, Parrot, Telescope",
-      "Seasons & Holiday Traditions: Christmas, Easter, Halloween",
-      "Telling Short Stories: Sequencing with First, Next, Then, Finally",
-      "Describing Feelings & Empathy: Being Kind, Sharing Toys",
-      "School Subjects Vocabulary for Kids: Math, Art, Music, PE, Science",
-      "Musical Instruments: Guitar, Piano, Drums, Flute, Violin",
-      "Simple Future Intentions: I am going to draw a dragon tomorrow",
-      "Simple Past Questions: Did you see the puppy yesterday?",
-      "Phonics Blends: Ch, Sh, Th, Wh Words (Chair, Shoe, Think, Whale)",
-      "Phonics Blends: Bl, Cl, Fl, Sl, St Words (Blue, Clock, Fly, Star)",
-      "Rhyming Words & Nursery Rhymes Practice (Cat/Hat, Dog/Frog)",
-      "Reading Short Picture Books & Answering Comprehension Questions",
-      "Writing a Short Letter to a Friend or Pen Pal",
-      "Kids Capstone: Creating & Presenting Your Own Comic Strip Story"
-    ]
-  },
-  "teens": {
-    "key": "teens",
-    "label": "Teens",
-    "icon": "🎒",
-    "badge": "Adolescentes (11 a 17 anos)",
-    "description": "Sugestões de temas para jovens: cultura pop, redes sociais, tecnologia, escola, relacionamentos, música e futuro.",
-    "topics": [
-      "Icebreakers & Personal Introductions",
-      "Favorite Hobbies, Gaming & Fandoms",
-      "Music Genres, Playlists & Artists",
-      "Movies, Series & Binge-Watching Trends",
-      "Social Media Apps (TikTok, Instagram, BeReal)",
-      "Smartphone Tech, Earbuds & Gaming Consoles",
-      "Texting Slang, Emojis & Internet Acronyms",
-      "Fashion, Streetwear & Personal Style",
-      "School Routines & Favorite Subjects",
-      "Squads, Friendships & Social Groups",
-      "Expressing Preferences (I'd rather, I prefer...)",
-      "Describing Personality & Vibe (Chill, Outgoing)",
-      "Fast Food, Snacks & Boba Culture",
-      "Sports, Skateboarding & Outdoor Activities",
-      "Pets, Wildlife & Animal Rights",
-      "Family Dynamics & Living with Parents",
-      "Hangout Spots & Favorite Neighborhood Places",
-      "Giving & Asking for Directions in Town",
-      "Shopping Habits, Malls & E-Commerce",
-      "Allowances, Budgeting & Saving Money",
-      "Simple Present vs. Present Continuous for Teens",
-      "Weekend Recap & Past Experiences (Simple Past)",
-      "Childhood Nostalgia & Throwbacks (Used to)",
-      "Future Dreams & Career Goals (Going to / Will)",
-      "Teen Health, Sleep & Energy Drinks",
-      "Cyberbullying & Online Safety",
-      "Esports, Streamers & Gaming Communities",
-      "Music Festivals & Live Concerts",
-      "Travel Stories & Bucket List Destinations",
-      "Student Exchange Programs & Global Cultures",
-      "Eco Awareness: Recycling & Sustainability",
-      "School Projects & Homework Management",
-      "Managing Exam Pressure & Mental Well-being",
-      "Content Creation: Vlogging & Editing",
-      "Fast Fashion vs. Sustainable Clothing",
-      "Expressing Opinions & Agreeing/Disagreeing",
-      "Predictions: The Future of Tech & AI",
-      "Phrasal Verbs: Chill out, Hang out, Show off",
-      "Phrasal Verbs: Get along, Break up, Make up",
-      "Modals of Advice & Obligation (Should, Must, Have to)",
-      "Modals of Possibility (Might, Could, May)",
-      "Comparatives & Superlatives in Pop Culture",
-      "First Conditional: Real Possibilities (If I pass...)",
-      "Second Conditional: Imaginary Scenarios (If I won...)",
-      "Reported Speech: Gossip & 'He said that...'",
-      "Passive Voice in Headlines & News Feeds",
-      "Describing Movie Plots, Twists & Cliffhangers",
-      "Street Art, Graffiti & Photography",
-      "Volunteering & Community Work",
-      "First Jobs, Internships & Work Experience",
-      "Screen Time Balance & Digital Detox",
-      "ChatGPT & AI in Education: Pros & Cons",
-      "Spotting Fake News & Media Literacy",
-      "Diversity, Equity & Inclusion",
-      "Inspiring Role Models & Teen Activists",
-      "Song Lyrics Analysis & Metaphors",
-      "Idioms for Moods (On cloud nine, Down in the dumps)",
-      "Idioms for Effort (Hit the books, Piece of cake)",
-      "Debating Teen Issues (School uniforms, curfew)",
-      "Writing Formal Emails vs. DMs",
-      "Preparing for Language Certifications",
-      "Public Speaking & Presentation Tips",
-      "Third Conditional: Past Regrets (If I had known...)",
-      "Expressing Wishes (Wish / If Only)",
-      "Mixed Conditionals in Storytelling",
-      "Connecting Words (However, Furthermore, Despite)",
-      "Inverted Sentences for Dramatic Effect",
-      "Youth Movements for Global Change",
-      "Defining Your Personal Values & Goals",
-      "Pitching a Creative Project or Startup Idea",
-      "Navigating Peer Pressure & Standing Up for Yourself",
-      "Social Media Boundaries & Unplugging for Mental Health",
-      "Exploring Virtual Reality (VR), Augmented Reality (AR) & Metaverse",
-      "Ethical Dilemmas in Video Games & Microtransactions",
-      "Music Streaming vs. Vinyl & Retro Revival Culture",
-      "Sustainable Travel & Backpacking Across Countries",
-      "Understanding Memes: Internet Humor, Satire & Viral Trends",
-      "Independent Learning: Self-Taught Skills via YouTube & Tutorials",
-      "Exploring Future Careers in Tech, Design & Gaming",
-      "Financial Literacy: Debit Cards, E-Wallets & Money Apps",
-      "Creating & Pitching a Podcast Episode Concept",
-      "Writing Product Reviews & Unboxing Videos Scripts",
-      "Analyzing Film Cinematography, Soundtracks & Director Styles",
-      "Streetwear Culture: Sneakers, Drops, Reselling & Thrift Finds",
-      "Understanding Diversity in Pop Culture Movies & TV Shows",
-      "Cultural Exchange: Living with a Host Family Abroad",
-      "Environmental Activism: Plastic Reduction & Zero-Waste Schools",
-      "Nutrition, Fitness Myths & Healthy Body Image",
-      "Stress Management: Mindfulness, Meditation & Study Breaks",
-      "Writing Creative Short Stories & Fanfiction",
-      "Advanced Phrasal Verbs for Teen Life: Catch up on, Look forward to",
-      "Advanced Phrasal Verbs for Tech: Log in, Back up, Scroll down",
-      "Conversational Idioms for Decision-Making: On the fence, Call the shots",
-      "Conversational Idioms for Relationships: See eye to eye, Clear the air",
-      "Inverted Conditionals for Dramatic Effect: Had I known earlier...",
-      "Complex Relative Clauses for Essay Writing & Debate",
-      "Analyzing Persuasive Techniques in TikTok Ads & Marketing",
-      "Speech Preparation: Structuring an Engaging TED-style Youth Talk",
-      "Mock Job & University Interview Practice for Teenagers",
-      "Teen Capstone: Creating a Complete Digital Portfolio or Blog"
-    ]
-  },
-  "basic": {
-    "key": "basic",
-    "label": "Basic",
-    "icon": "🟢",
-    "badge": "Nível A1 - A2",
-    "description": "Sugestões de temas para o nível básico: fundamentos de gramática, saudações, rotina, viagens, compras e perguntas essenciais.",
-    "topics": [
-      "Alphabet, Spelling & Sound Practice",
-      "Numbers 0-100 & Ordinal Numbers",
-      "Greetings, Introductions & Polite Phrases",
-      "Countries, Nationalities & Languages",
-      "Subject Pronouns & Possessive Adjectives",
-      "Verb To Be: Affirmative & Negative",
-      "Verb To Be: Questions & Short Answers",
-      "Possessive Nouns ('s) & Possessive Pronouns",
-      "Demonstratives: This, That, These, Those",
-      "Articles: A, An, The & Zero Article",
-      "Singular & Plural Noun Rules",
-      "Irregular Plural Nouns",
-      "There is / There are (Positive & Negative)",
-      "There is / There are (Questions & Short Answers)",
-      "Quantifiers: Some, Any, No",
-      "Quantifiers: Much, Many, A lot of",
-      "Prepositions of Place: In, On, At",
-      "Prepositions of Direction: To, Into, Out of, Across",
-      "Prepositions of Time: In, On, At",
-      "Telling Time & Days of the Week",
-      "Months, Dates & Seasons",
-      "Family Vocabulary & Relationships",
-      "Describing Appearance & Character",
-      "Clothes, Colors & Shopping Phrases",
-      "House Rooms & Furniture",
-      "Food, Drinks & Grocery Shopping",
-      "Ordering Food at a Restaurant",
-      "Professions & Workplace Places",
-      "City Places, Transportation & Directions",
-      "Weather & Temperature Vocabulary",
-      "Simple Present: Daily Routines (I, You, We, They)",
-      "Simple Present: Third Person Singular (He, She, It)",
-      "Simple Present: Negatives & Questions (Do / Does)",
-      "Adverbs of Frequency & Position",
-      "Wh- Question Words (Who, What, Where, When, Why, How)",
-      "Asking About Prices: How Much / How Many",
-      "Present Continuous: Actions Right Now",
-      "Present Continuous: Temporary Situations",
-      "Simple Present vs. Present Continuous",
-      "Stative Verbs (Like, Love, Want, Know, Need)",
-      "Can / Can't for Ability",
-      "Can / Could / May for Requests & Permission",
-      "Must & Have to for Obligations",
-      "Imperatives for Instructions & Directions",
-      "Object Pronouns (Me, Him, Her, Us, Them)",
-      "Reflexive Pronouns (Myself, Yourself)",
-      "Comparative Adjectives (-er, More)",
-      "Superlative Adjectives (-est, Most)",
-      "Irregular Comparatives & Superlatives (Good/Better/Best)",
-      "Equality Comparatives (As... As)",
-      "Past Simple: Verb To Be (Was / Were)",
-      "Past Simple: Regular Verbs (-ed Rules)",
-      "Past Simple: Common Irregular Verbs",
-      "Past Simple: Negatives & Questions (Did / Didn't)",
-      "Past Time Expressions (Yesterday, Last week, Ago)",
-      "Past Continuous: Actions in Progress in the Past",
-      "Simple Past vs. Past Continuous (When / While)",
-      "Future Intentions: Be Going To",
-      "Future Predictions & Decisions: Will / Won't",
-      "Present Continuous for Future Plans",
-      "Giving Advice: Should / Shouldn't",
-      "Infinitive of Purpose (I went to buy...)",
-      "Verbs Followed by Gerunds (-ing)",
-      "Basic Connectors: And, But, Or, So, Because",
-      "Asking for Help & Clarification in English",
-      "Booking a Hotel Room / Travel Basics",
-      "Talking About Health & Common Symptoms",
-      "Describing Last Weekend or Vacation",
-      "Basic Email Writing & Greetings",
-      "Short Self-Introduction & Bio Writing",
-      "Making Reservations: Booking Tickets, Restaurants & Events",
-      "At the Pharmacy & Buying Over-the-Counter Medicine",
-      "At the Airport: Boarding Passes, Luggage & Security Checks",
-      "Asking About Postal Services & Sending Packages",
-      "Expressing Obligation: Must vs. Have to in Everyday Rules",
-      "Expressing Absence of Obligation: Don't Have to vs. Mustn't",
-      "Expressing Possibility: May & Might for Weather & Plans",
-      "Expressing Preference: Would Like to vs. Want to",
-      "Expressing Preference: Prefer... to... vs. Would Rather...",
-      "Adverbs of Degree: Very, Really, Quite, Extremely, Fairly",
-      "Adverbs of Manner: Slowly, Quickly, Carefully, Well, Fast",
-      "Comparative Structures: As... As vs. Not As... As",
-      "Superlative Structures: The Most... / The Least...",
-      "Past Simple vs. Present Perfect Contrast for Beginners",
-      "Simple Past Irregular Verbs Review: 50 Most Common Verbs",
-      "Asking for & Giving Personal Advice (What should I do?)",
-      "Describing Houses, Apartments & Rental Listings",
-      "Describing Neighborhoods, Safety & Nearby Amenities",
-      "Describing Past Vacations, Trips & Memorable Travel",
-      "Describing Daily Routine Changes & Holiday Plans",
-      "Making Suggestions: Why don't we...? / How about...?",
-      "Accepting & Declining Invitations Politely",
-      "Telephoning & Leaving Short Voice Messages",
-      "Writing Simple Postcards, Notes & Text Reminders",
-      "Writing Simple Paragraphs: My Dream House / My Best Friend",
-      "Phrasal Verbs for Daily Routine: Wake up, Get up, Put on",
-      "Phrasal Verbs for Travel: Set off, Check in, Pick up",
-      "Common Idioms for Beginners: Piece of cake, Once in a blue moon",
-      "Reading Simple News Articles, Schedules & Menus",
-      "Basic Capstone: Giving a 3-Minute Self-Presentation & Bio"
-    ]
-  },
-  "intermediate": {
-    "key": "intermediate",
-    "label": "Intermediate",
-    "icon": "🔵",
-    "badge": "Nível B1",
-    "description": "Sugestões de temas para nível intermediário: tempos verbais compostos, voz passiva, condicionais, discurso indireto e phrasal verbs.",
-    "topics": [
-      "Present Simple vs. Present Continuous Deep Dive",
-      "Stative vs. Dynamic Verbs in Complex Contexts",
-      "Past Habits: Used to vs. Would",
-      "Be Used to vs. Get Used to (+ Noun / -ing)",
-      "Present Perfect: Life Experiences (Ever, Never)",
-      "Present Perfect: Unfinished Time (For, Since)",
-      "Present Perfect: Recent Actions (Just, Already, Yet)",
-      "Present Perfect vs. Simple Past Comparison",
-      "Present Perfect Continuous: Ongoing Actions & Duration",
-      "Present Perfect Simple vs. Continuous Contrast",
-      "Past Perfect Simple: Earlier Past Actions",
-      "Past Perfect Continuous: Action Duration in the Past",
-      "Narrative Tenses in Storytelling",
-      "Future Forms: Will vs. Going To vs. Present Cont.",
-      "Future Continuous: Actions in Progress in Future",
-      "Future Perfect: Actions Completed By a Future Time",
-      "Time Clauses with Future Meaning (When, As soon as, Until)",
-      "Ability in Past & Future (Could, Was able to, Will be able to)",
-      "Obligation, Necessity & Prohibition (Must, Have to, Need to, Mustn't)",
-      "Advice & Recommendations (Should, Ought to, Had better)",
-      "Modals of Deduction in Present (Must be, Can't be, Might be)",
-      "Modals of Deduction in Past (Must have, Might have, Can't have)",
-      "Zero & First Conditionals with Future Time Clauses",
-      "Second Conditional: Hypothetical Present & Future",
-      "Third Conditional: Unfulfilled Past Events",
-      "Mixed Conditionals: Past Cause to Present Result",
-      "Alternative Conditionals: Unless, As long as, In case",
-      "Wish & If Only for Present and Past Regrets",
-      "Passive Voice: Present & Past Simple Passives",
-      "Passive Voice: Continuous & Perfect Tenses",
-      "Passive Voice with Modal Verbs",
-      "Causative Form: Have / Get Something Done",
-      "Reported Speech: Tense Shifts & Pronouns",
-      "Reported Speech: Questions & Commands",
-      "Reporting Verbs (Offer, Refuse, Promise, Suggest, Warn)",
-      "Defining Relative Clauses (Who, Which, That, Whose)",
-      "Non-Defining Relative Clauses (Commas & Extra Info)",
-      "Omitting Relative Pronouns & Prepositions",
-      "Indirect Questions for Politeness",
-      "Question Tags & Agreement",
-      "So, Neither, Nor for Expressing Agreement",
-      "Adjectives Ending in -ed vs. -ing",
-      "Gradable vs. Extreme Adjectives (Very cold vs. Freezing)",
-      "Adverb Types, Formation & Position",
-      "Advanced Comparatives (Far more, Slightly better, The more... the more...)",
-      "Degree Adverbs: Too, Enough, So, Such",
-      "Verb Patterns: Infinitive vs. Gerund (Remember, Stop, Try)",
-      "Verbs Followed by Bare Infinitive (Make, Let, Help)",
-      "Participle Clauses (-ing / -ed) for Sentence Combining",
-      "Compound Nouns & Compound Adjectives",
-      "Word Formation: Prefixes & Suffixes",
-      "Separable vs. Inseparable Phrasal Verbs",
-      "Transitive vs. Intransitive Phrasal Verbs",
-      "Essential Daily Life Phrasal Verbs",
-      "Work & Travel Phrasal Verbs",
-      "Collocations with Make vs. Do",
-      "Collocations with Take, Have, Give, Keep",
-      "Prepositional Phrases (In time, On time, By accident)",
-      "Adjective + Preposition Combinations",
-      "Verb + Preposition Combinations",
-      "Contrast & Addition Connectors (However, Although, In addition)",
-      "Cause, Result & Purpose Connectors (Therefore, Due to, In order to)",
-      "Expressing Opinions, Agreement & Polite Disagreement",
-      "Making Complaints & Negotiating Solutions",
-      "Describing Personal Experiences & Storytelling",
-      "Writing Informal Emails to Friends",
-      "Writing Formal Emails & Cover Letters",
-      "Structuring Opinion Essays (Introduction to Conclusion)",
-      "Reading Strategies: Skimming & Scanning",
-      "Listening Strategies: Main Ideas & Key Details",
-      "Expressing Hypotheses & Suppositions (Supposing, Imagine, What if)",
-      "Expressing Regrets About Past Decisions (I should have / I shouldn't have)",
-      "Speculating About the Past (Must have been, Could have been)",
-      "Continuous Infinitive & Perfect Infinitive Constructions",
-      "Passive Voice in Academic & Formal Reporting (It is believed that...)",
-      "Impersonal Passive Constructions (He is said to be...)",
-      "Causative Passive: Get Something Done vs. Have Someone Do Something",
-      "Direct vs. Indirect Reported Questions & Commands Shift",
-      "Reporting Verbs with Prepositions: Insist on, Apologize for",
-      "Relative Clauses with Prepositions (The company for which I work...)",
-      "Reduced Relative Clauses (-ing and -ed Participles in Text)",
-      "Defining vs. Non-Defining Relative Clause Nuances in Writing",
-      "Complex Question Tags & Intonation Nuances",
-      "Emphatic Use of Auxiliary Verbs (I DO care! She DID call!)",
-      "Inverted Inferences: Not only... but also in Intermediate Contexts",
-      "Cleft Sentences for Focus: It is... that... / What I love is...",
-      "Gradable vs. Absolute Adjectives (Angry vs. Furious, Cold vs. Freezing)",
-      "Compound Adjectives (Well-known, Hard-working, Time-consuming)",
-      "Prefix & Suffix Word Formation: Nouns, Adjectives, Verbs & Adverbs",
-      "Phrasal Verbs with Multiple Meanings (Take off, Break down)",
-      "Three-Word Phrasal Verbs (Look forward to, Catch up on)",
-      "Dependent Prepositions: Adjective + Preposition Mastery",
-      "Dependent Prepositions: Verb + Preposition Mastery",
-      "Academic & Business Collocations (Conduct research, Meet deadlines)",
-      "Linking Words for Complex Argumentation (Furthermore, Nevertheless)",
-      "Writing Formal Job Application Letters & Professional CVs",
-      "Writing Discursive Essays: Advantages & Disadvantages Format",
-      "Writing Product & Movie Reviews for Blogs or Magazines",
-      "Interactive Negotiation, Reaching Agreements & Compromises",
-      "Intermediate Capstone: Delivering a Structured 5-Minute Presentation"
-    ]
-  },
-  "pre_advanced": {
-    "key": "pre_advanced",
-    "label": "Pre-Advanced",
-    "icon": "🟡",
-    "badge": "Nível B2",
-    "description": "Sugestões de temas pré-avançados: inversão sintática, cleft sentences, colocações formais, argumentação e nuances de discurso.",
-    "topics": [
-      "Advanced Present & Past Aspect Nuances",
-      "Descriptive Narrative Tenses in Fiction & Essays",
-      "Future Expressions: Be on the verge of, Be bound to, Be about to",
-      "Future in the Past (Was going to, Was to have done)",
-      "Continuous Aspects for Irritation, Empathy & Change",
-      "Present Perfect Cont. vs. Past Cont. Distinctions",
-      "Subjunctive Mood in Modern English (It is essential that...)",
-      "Perfect & Continuous Modal Structures (Should have been doing)",
-      "Modals of Speculation & Degrees of Certainty",
-      "Unfulfilled Past Expectations (Was supposed to, Could have)",
-      "Impersonal Passive Structures (It is reported that...)",
-      "Passive Structures with Double Objects",
-      "Causatives: Get vs. Have Someone Do Something",
-      "Inverted Conditionals Without 'If' (Had I known, Should you need)",
-      "Conditional Alternatives: Supposing, Imagine, Provided that",
-      "Advanced Regrets & Desires (Wish, If only, Would rather, It's time)",
-      "Reporting Verbs with Complex Structures (Accuse of, Blame for)",
-      "Indirect Quotation & Subordinate Reporting Clauses",
-      "Reduced Relative Clauses in Formal Contexts",
-      "Sentential Relative Clauses (Which referring to a clause)",
-      "It-Cleft Sentences for Focus & Emphasis",
-      "Wh-Clefts / Pseudo-Clefts (What I need is...)",
-      "Fronting & Topicalization for Emphasis",
-      "Inversion After Negative Adverbs (Never have I ever, Seldom...)",
-      "Inversion After Place & Direction Phrases (Down came the rain)",
-      "Inversion in Comparison (Better than does his brother)",
-      "Negative Inversion: Not only... but also, No sooner... than",
-      "Emphatic 'Do / Did' in Affirmative Sentences",
-      "Three-Word Phrasal Verbs (Come up with, Cut down on)",
-      "Phrasal Nouns & Adjectives (Outbreak, Downfall, Run-down)",
-      "Business & Professional Phrasal Verbs",
-      "Collocations with De-lexicalized Verbs",
-      "Adverb + Adjective Collocations (Strongly advise, Highly unlikely)",
-      "Academic & Work Collocations (Conduct research, Pose a threat)",
-      "Binomial Expressions (Safe and sound, Pros and cons)",
-      "Metaphorical Concepts in Everyday English",
-      "Conversational Stalling & Turn-Taking Phrases",
-      "Euphemisms & Tactful Communication",
-      "Hyperbole, Understatement & Irony",
-      "Adapting Register: Formal, Neutral, Informal",
-      "Cohesion Devices: Anaphora, Cataphora & Ellipsis",
-      "Discourse Markers for Conversation Flow (Mind you, Having said that)",
-      "Discourse Markers for Structuring Arguments",
-      "Advanced Substitution (One, Ones, So, Do so)",
-      "Spoken Ellipsis in Casual Conversation",
-      "Nominalization for Formal Academic Writing",
-      "Nominal Relative Clauses (Whatever you want, Whoever...)",
-      "Complex Noun Phrase Structure & Modifiers",
-      "Hyphenated Compound Adjectives Rules",
-      "Complex Prepositional Phrases (In light of, On behalf of)",
-      "Academic Dependent Prepositions",
-      "Distributives & Quantifiers (Each, Every, Both, Neither)",
-      "Complex Determiners (A great deal of, Scarcely any)",
-      "Advanced Order of Adjectives",
-      "Adverbial Clauses of Concession & Purpose (So as to, As though)",
-      "Correlative Comparatives (The faster... the sooner...)",
-      "Hedging & Softening Statements (It would appear, Seemingly)",
-      "Tentative & Polite Request Formulations",
-      "Debating: Building Rebuttals & Counter-Arguments",
-      "Negotiation & Persuasion Strategies",
-      "Analyzing Textual Bias, Tone & Connotation",
-      "Professional Conflict Management Emails",
-      "Writing Proposal Reports & Summaries",
-      "Writing Balanced Discursive Essays",
-      "Speed Reading: Skimming Complex Articles",
-      "Critical Reading: Fact vs. Implicit Opinion",
-      "Listening to Diverse Regional & Global Accents",
-      "Connected Speech: Fast Native Speech Comprehension",
-      "Intonation Patterns for Sarcasm & Doubt",
-      "B2 First (FCE) & IELTS 6.5-7.0 Exam Strategies",
-      "Inversion After Negative & Limiting Adverbs (Scarcely had I...)",
-      "Inversion After Only & No (Only by working hard...)",
-      "Fronting Prepositional Phrases for Cohesion (Into the room walked...)",
-      "Advanced Subjunctive Structures in Formal Statements",
-      "Advanced Unreal Past Forms (It's high time, Would sooner)",
-      "Conditional Inversion (Had I realized..., Were you to visit...)",
-      "Complex Mixed Conditionals Across Multiple Time Frames",
-      "Advanced Passive Reporting Structures (Is understood to have been...)",
-      "Advanced Causative Variations (Have someone doing)",
-      "Nominalization: Transforming Clauses into Dense Noun Phrases",
-      "Ellipsis & Substitution Strategies for Cohesive Paragraphs",
-      "Anaphora & Cataphora Cohesion Devices in Complex Texts",
-      "Advanced Cleft Sentence Variations (All I did was...)",
-      "Discourse Markers for Managing Debate & Refuting Claims",
-      "Discourse Markers for Stance, Softening & Hedging",
-      "Polysemous Phrasal Verbs in Professional & Literary Contexts",
-      "Phrasal Nouns & Phrasal Adjectives (Breakthrough, Takeover)",
-      "Advanced Collocations with Adverbs of Degree (Bitterly cold)",
-      "Idiomatic Binomials & Trinomials (Safe and sound, Pros and cons)",
-      "Figurative Language: Metaphors & Idioms in News Media",
-      "Euphemisms, Dysphemisms & Politically Tactful Language",
-      "Irony, Understatement (Litotes) & Hyperbole in Speaking",
-      "Register Variation: Shifting Between Formal & Informal Styles",
-      "Analyzing Tone, Connotation & Implicit Bias in Editorials",
-      "Writing Formal Proposals, Feasibility Reports & Summaries",
-      "Writing Analytical & Argumentative Essays",
-      "Speed Reading: Advanced Skimming & Scanning of Dense Reports",
-      "Listening Comprehension: Accented Speech & Fast Pace",
-      "Advanced Speech Intonation: Expressing Doubt & Authority",
-      "Pre-Advanced Capstone: Participating in a Formal Oxford-Style Debate"
-    ]
-  },
-  "advanced": {
-    "key": "advanced",
-    "label": "Advanced",
-    "icon": "🟠",
-    "badge": "Nível C1",
-    "description": "Sugestões de temas avançados: sofisticação gramatical, recursos retóricos, escrita acadêmica/corporativa e oratória.",
-    "topics": [
-      "Subtle Tense Shifts & Temporal Nuances",
-      "Unreal Past Structures & Counterfactual Reasoning",
-      "Complex Future Time Expressions (Set to, Contingent upon)",
-      "Subjunctive Mood in Legal & Statutory Texts",
-      "Absolute Participle Constructions (Weather permitting)",
-      "Parenthetical Modifiers & Non-Restrictive Clauses",
-      "Inversion Across All Clause Types",
-      "Fronting Phrases for Cohesive Text Flow",
-      "Complex Cleft Variations (All-clefts, If-clefts)",
-      "Textual Level Ellipsis & Substitution",
-      "Passivization of Academic & Technical Discourse",
-      "Impersonal Passive Reporting with Perfect Infinitives",
-      "Implied Conditionals (But for, Otherwise, Without)",
-      "Conditionals Expressing Volition & Insistence",
-      "Advanced Mixed Conditionals with Shifted Frames",
-      "Polysemous Phrasal Verbs in Context",
-      "Metaphorical Extensions of Particle Verbs",
-      "Latinate vs. Germanic Vocabulary Selection",
-      "High-Level Academic & Corporate Collocations",
-      "Formal Prepositional Idioms (At the behest of, In lieu of)",
-      "Archaic & Formal Idiomatic Retainers",
-      "Idioms from Classical Literature & History",
-      "Idioms from Nautical & Heritage Roots",
-      "Fine Semantic Shades (Renowned vs. Notorious)",
-      "Collocational Constraints & Semantic Prosody",
-      "Conversion, Back-Formation & Clipping",
-      "Portmanteaus & Digital Neologisms",
-      "Anaphora, Epistrophe & Rhetorical Parallelism",
-      "Antithesis, Chiasmus & Litotes in Speeches",
-      "Text Structural Patterns (Problem-Solution, Claim-Refutation)",
-      "Lexical Chains, Hyponymy & Cohesion",
-      "Pragmatic Speech Acts & Indirect Meaning",
-      "Grice's Conversational Maxims & Implicature",
-      "Politeness Theory & Face-Saving Moves",
-      "Academic Hedging & Vague Language",
-      "Stance Taking & Evaluative Prose",
-      "Register Analysis: Legal, Medical, Literary",
-      "Regional Accent Variations (UK, US, AU, NZ, CA)",
-      "Sociolects, Ethnolects & Dialectal Variation",
-      "World Englishes & Lingua Franca Dynamics",
-      "Decoding Humor, Puns & Double Entendres",
-      "Sarcasm, Irony & Pitch Signals",
-      "Taboo Language, Slang & Sociolinguistic Limits",
-      "Euphemisms, Dysphemisms & Orthophemisms",
-      "Deconstructing Media Spin & Manipulation",
-      "Critical Discourse Analysis (CDA) Frameworks",
-      "Formulating Academic Research Questions",
-      "Synthesizing Sources in Literature Reviews",
-      "Writing Critical Essays & Editorial Op-Eds",
-      "Writing Feasibility Studies & Executive Papers",
-      "Punctuation Mastery: Em-Dashes, Semicolons & Colons",
-      "Editing for Conciseness & Eliminating Wordiness",
-      "Periodic vs. Loose Sentence Architecture",
-      "Decoding Fast Accented & Noisy Audio",
-      "Following Technical & Academic Lectures",
-      "Identifying Implicit Intent & Speaker Attitude",
-      "Delivering Keynote Speeches & Presentations",
-      "Impromptu Speaking & Panel Discussions",
-      "Interrupting Gracefully & Floor Management",
-      "Nuanced Disagreements & Strategic Compromise",
-      "Tactical Softening in High-Stakes Negotiations",
-      "Phonological Assimilation, Elision & Weak Forms",
-      "Pitch Contour & Tone Unit Mastery",
-      "Stress-Timed Rhythm in Natural Speech",
-      "Intertextuality & Cultural Media Allusions",
-      "Translating Culture-Specific Untranslatables",
-      "Cross-Cultural Conflict Resolution",
-      "Linguistic Relativity (Sapir-Whorf Hypothesis)",
-      "Language Evolution in the Digital Age",
-      "C1 Advanced (CAE) & IELTS 7.5-8.5 Exam Strategies",
-      "Absolute Participle Clauses for Syntactic Compression",
-      "Parenthetical Modifiers & Non-Restrictive Insertions",
-      "Complex Fronting & Inversion Combinations in Speeches",
-      "Advanced Subjunctive Retainers in Statutory Language",
-      "Textual Level Ellipsis & Sentence Splitting Strategies",
-      "Advanced Passivization of Idiomatic & Multi-Word Verbs",
-      "Implied & Unstated Conditionals in Elite Prose",
-      "Politeness Theory: Face-Saving & Indirect Speech Acts",
-      "Grice's Conversational Maxims: Flouting & Implicature",
-      "Pragmatic Competence: Decoding Subtext & Tone Shifts",
-      "Rhetorical Devices: Anaphora, Epistrophe & Parallelism",
-      "Rhetorical Devices: Chiasmus, Antithesis & Synecdoche",
-      "Structural Text Patterns: Problem-Solution & Claim-Refutation",
-      "Lexical Chains, Hyponymy & Cohesion in Prose",
-      "Academic Hedging & Stance Taking in Research Papers",
-      "Register Analysis: Legal, Medical, Financial & Literary",
-      "Sociolinguistic Dialectology: Regional Accents World-Wide",
-      "World Englishes: ELF & Global Accent Variations",
-      "Deconstructing Media Spin, Propaganda & Rhetoric",
-      "Critical Discourse Analysis (CDA) of Speeches & Ads",
-      "Advanced Neologisms, Portmanteaus & Word Coinages",
-      "Latinate vs. Germanic Doublets & Register Optimization",
-      "High-Level Prepositional Idioms (At the behest of, In lieu of)",
-      "Collocational Prosody: Positive vs. Negative Connotations",
-      "Punctuation Mastery: Semicolons, Colons & Em-Dashes",
-      "Eliminating Wordiness & Refining Syntactic Elegance",
-      "Writing Peer-Reviewed Level Essays & Reviews",
-      "Advanced Public Speaking: Keynotes & Hostile Q&A",
-      "Tactical Softening & Diplomatic Language in Negotiation",
-      "Advanced Capstone: Delivering a 10-Minute Academic Keynote"
-    ]
-  },
-  "master": {
-    "key": "master",
-    "label": "Master",
-    "icon": "🟣",
-    "badge": "Nível C2",
-    "description": "Sugestões de nível de maestria: erudição, tradução literária/simultânea, filosofia da linguagem, neuro-linguística e oratória magistral.",
-    "topics": [
-      "Complete Mastery of English Syntactic Flexibility",
-      "Archaic Syntactic Structures in Formal Prose",
-      "Cadence, Rhythm & Prosody in Non-Fiction",
-      "Optative & Subjunctive Formulaic Expressions",
-      "Complex Ellipsis in High-End Journalism",
-      "Absolute Free Adjuncts for Text Density",
-      "Rhetorical Inversion in Masterclass Oratory",
-      "Complex Clefting & Information Packaging",
-      "Epistemic vs. Deontic Modality Precision",
-      "Historical Evolution of Infinitive Constructions",
-      "Passivization of Complex Prepositional Verbs",
-      "Stylistic Manipulation of Active, Passive & Middle Voice",
-      "Counterfactual Reasoning in Historical Analysis",
-      "Inverted Hypotheses in Theoretical Speculation",
-      "Polysemy & Deep Word Meaning Analysis",
-      "Etymology & Latin/Greek Root Derivations",
-      "Historical Sound Shifts & Modern Phonology",
-      "Coinages, Neologisms & Literary Archaisms",
-      "Rare, Historical & Regional Idioms",
-      "Polysemous Literary Phrasal Verbs",
-      "Creative Collocation Breakage in Advertising & Poetry",
-      "Semantic Prosody in Political Rhetoric",
-      "Seamless Register Shifts Across Genres",
-      "Multidisciplinary Technical Nomenclature",
-      "Tropes & Schemes in Classical Oratory",
-      "Extended Metaphor, Allegory & Symbolism",
-      "Satire, Parody & Irony Composition",
-      "Wit, Epigrams & Aphorisms",
-      "Stylistic Analysis of Literary Classics",
-      "Analyzing Essayistic Journalism (The New Yorker, Economist)",
-      "Deconstructing Hidden Ideologies in Texts",
-      "CDA of Landmark Historical Speeches",
-      "Macro-Textual Cohesion in Book-Length Works",
-      "Decoding Micro-Cues & Subtext in Interaction",
-      "Face-Threatening Acts in International Diplomacy",
-      "Cross-Cultural Pragmatic Communication Systems",
-      "Sociolinguistic Dialectology & Accent Prestige",
-      "Descriptivism vs. Prescriptivism Debates",
-      "Linguistic Imperialism & World Englishes",
-      "Language Loss & Global Monoculture Debates",
-      "Translation Theory: Equivalence & Transposition",
-      "Literary Translation: Style & Voice Capturing",
-      "Simultaneous & Consecutive Interpreting Skills",
-      "Writing Peer-Reviewed Journal Standard Papers",
-      "Writing Monograph Introductions & Methodologies",
-      "Writing Legal Opinions & Policy Frameworks",
-      "Writing Critical Monographs & Philosophical Treatises",
-      "Punctuation as an Aesthetic & Rhetorical Tool",
-      "Line Editing & Copyediting Complex Manuscripts",
-      "Parataxis vs. Hypotaxis Sentence Architecture",
-      "Decoding Rapid, Accented & Distorted Audio",
-      "Decoding Implicit Intent in Earnings Calls & Diplomacy",
-      "Comprehending Archaic & Non-Standard Spoken English",
-      "Delivering Eulogies, Keynotes & Commencements",
-      "Oxford-Style Debating & Cross-Examination",
-      "Handling Hostile Media Interviews",
-      "Commercial Negotiation: Tactical Empathy",
-      "Native-Level Connected Speech & Rhythm Control",
-      "Intonation Contours for Subtle Subtext",
-      "Micro-Pronunciation: Formants & Cluster Mastery",
-      "Conceptual Blending & Frame Semantics",
-      "Psycholinguistics of Bilingual Language Storage",
-      "Neuro-Linguistics of C2 Multilingual Brains",
-      "Philosophy of Language (Wittgenstein, Austin, Frege)",
-      "Decoding Classical & Literary Intertextuality",
-      "Cultural Literacy: C2 Humor, Cartoons & Allusions",
-      "British vs. American Humor Mechanics",
-      "Linguistic Poetic License & Rule Bending",
-      "Developing a Distinctive Literary Voice",
-      "C2 Proficiency (CPE) & IELTS 9.0 Exam Strategies",
-      "Complete Syntactic Versatility: Architectural Sentence Control",
-      "Archaic & Historic Syntactic Forms in Legal Heritage",
-      "Prosody, Cadence & Metric Flow in High-Level Non-Fiction",
-      "Formulaic Subjunctive & Optative Expressions (Be that as it may...)",
-      "High-Density Ellipsis in Elite Essayistic Journalism",
-      "Free Adjuncts & Absolute Constructions for Compression",
-      "Classical Rhetorical Inversion in Oratory Masterclasses",
-      "Information Packaging & Theme-Rheme Structuring",
-      "Epistemic vs. Deontic Modality Precision in Legal Nuances",
-      "Historical Syntactic Evolution of Infinitive & Gerunds",
-      "Passivization Patterns in Complex Polysemous Prepositional Verbs",
-      "Middle Voice & Ergative Verbs Manipulation for Style",
-      "Counterfactual Reasoning in Historical Monographs",
-      "Theoretical Speculation: Inverted Conditional Hypotheses",
-      "Deep Word Meaning Analysis: Polysemy vs. Monosemy",
-      "Etymological Linguistics: Latin & Greek Root Derivations",
-      "Historical Sound Shifts & Modern Orthography Discrepancies",
-      "Coinages, Literary Archaisms & Stylistic Neologisms",
-      "Rare, Historical & Regional Idioms of the English World",
-      "Polysemous Literary Phrasal Verbs in Context",
-      "Creative Collocation Breakage in Advertising & Poetry",
-      "Semantic Prosody Analysis in Political Campaign Rhetoric",
-      "Fluid Register Shifts Across Multidisciplinary Genres",
-      "Multidisciplinary Technical Nomenclature Parsing",
-      "Tropes & Schemes Masterclass in Classical Rhetoric",
-      "Extended Metaphor, Allegory & Literary Symbolism Analysis",
-      "Satire, Parody & Irony Composition & Critique",
-      "Wit, Epigrams, Aphorisms & Literary Wordplay",
-      "Stylistic Analysis of Masterpieces (Shakespeare, Austen, Orwell)",
-      "Master Capstone: Publishing an Original Philosophical Essay"
-    ]
-  },
-  "conversations": {
-    "key": "conversations",
-    "label": "Conversations",
-    "icon": "💬",
-    "badge": "Tópicos de Conversação",
-    "description": "Sugestões de temas para aulas de conversa: dilemas, viagens, inteligência artificial, cultura, futuro e reflexões da vida.",
-    "topics": [
-      "Warm-Up & Icebreakers: Getting to Know Each Other",
-      "Weekend Recaps & Favorite Leisure Activities",
-      "Hobbies, Crafts & Side Projects Outside Work",
-      "Movies, Series, Streaming & Cinema Picks",
-      "Music, Playlists, Concerts & Favorite Bands",
-      "Food, Cooking, Restaurants & Culinary Culture",
-      "Pets, Animals & Human-Animal Bonds",
-      "Travel Memories, Vacations & Dream Destinations",
-      "Shopping Habits, Favorite Brands & Thrift Hunting",
-      "Sports, Fitness Routines & Wellness Habits",
-      "Weather, Seasons & How They Affect Our Mood",
-      "Daily Routines, Habits & Morning Person vs. Night Owl",
-      "Family Traditions, Celebrations & Holidays",
-      "Hometowns & Describing Places Where You Grew Up",
-      "Books, Podcasts, News & Media Consumption",
-      "Tech Gadgets in Daily Life & Useful Apps",
-      "Social Media: Connecting vs. Distracting Us",
-      "Gaming, Board Games & Esports Culture",
-      "Fashion, Personal Style & Dress Codes",
-      "Friends, Relationships & What Makes a Good Friend",
-      "Career Aspirations, Work-Life Balance & Ambition",
-      "School Memories & Favorite Learning Experiences",
-      "Childhood Nostalgia: Toys, Cartoons & Games",
-      "Transportation, Commuting & City Mobility",
-      "Coffee vs. Tea Culture & Coffee Shop Hangouts",
-      "Living Alone vs. Living with Roommates",
-      "Bucket Lists: 5 Things You Want to Do Before You Die",
-      "Cultural Differences & Unexpected Customs Abroad",
-      "Stress Relief: How Do You Unwind After Work?",
-      "Minimalism: Does Owning Less Make Us Happier?",
-      "AI in Everyday Life: Helpful Assistant or Threat?",
-      "The Future of Work: Remote vs. Office Life",
-      "Environmental Conservation & Green Living Habits",
-      "Healthy Lifestyle: Diet, Exercise & Mental Health",
-      "The Influence of Advertising & Consumerism",
-      "Money Management: Saving, Investing & Financial Literacy",
-      "Fame & Celebrity Culture: Would You Want to Be Famous?",
-      "Art, Architecture & Design in Our Cities",
-      "Language Learning: Challenges, Tips & Motivation",
-      "Travel Disasters & Funny Misunderstandings Abroad",
-      "Volunteer Work, Kindness & Community Projects",
-      "Smartphones & Impact on Human Relationships",
-      "Tourism vs. Eco-Tourism: Responsible Travel",
-      "Traditional Foods vs. Global Fusion Cuisine",
-      "Work Culture Around the World: Punctuality & Habits",
-      "Streaming Rise & The Future of Cinema",
-      "Fast Fashion vs. Sustainable Thrift Shopping",
-      "City Living vs. Countryside Living: Which is Better?",
-      "Generation Gaps: Boomers, Gen X, Millennials & Gen Z",
-      "Climate Change: What Can Individuals Do?",
-      "AI & Ethics: Automation, Robots & Jobs",
-      "Social Media & Mental Health: Screen Time & Well-Being",
-      "Space Exploration: Is Spending Billions Worth It?",
-      "Online Degrees vs. Traditional University Life",
-      "Globalization vs. Preserving Local Heritage",
-      "Modern Dating & Dating Apps: Love in the Digital Age",
-      "Public vs. Private Healthcare Systems",
-      "Universal Basic Income (UBI): Solution for the Future?",
-      "Censorship, Free Speech & Regulating the Web",
-      "Bioethics & Genetic Engineering: Designing Babies?",
-      "The Plastic Crisis & Zero-Waste Movements",
-      "Over-Tourism & Its Impact on Heritage Cities",
-      "Mental Health Awareness & De-stigmatizing Therapy",
-      "Animal Welfare & The Ethics of Zoos and Factory Farming",
-      "Smart Cities, Green Spaces & Urban Future",
-      "Cashless Society: Is Physical Cash Disappearing?",
-      "Cultural Appropriation vs. Cultural Exchange",
-      "Psychology of Decision-Making & Cognitive Biases",
-      "Philosophical Dilemmas: Moral Choices & The Trolley Problem",
-      "Defining Success, Happiness & Living a Meaningful Life",
-      "Exploring Human Instincts: Survival, Curiosity & Connection",
-      "The Power of Storytelling: Why Do Humans Need Stories?",
-      "Fear & Phobias: What Scares Us & How We Overcome It",
-      "The Science of Sleep, Dreams & Lucid Dreaming",
-      "Time Perception: Why Does Time Seem to Fly as We Age?",
-      "The Psychology of Habits: Building Good Ones & Breaking Bad Ones",
-      "Empathy & Compassion: Can Empathy Be Taught?",
-      "The Concept of Beauty: Is Beauty Universal or Cultural?",
-      "Humor Across Cultures: What Makes Different Nations Laugh?",
-      "Friendship Dynamics: Quality vs. Quantity in Social Circles",
-      "The Role of Music in Therapy & Emotional Healing",
-      "The Evolution of Romance: From Courtship to Dating Apps",
-      "Work Ethics & Burnout: Rethinking 40-Hour Work Weeks",
-      "The Power of Introverts: Quiet Leadership in a Loud World",
-      "Memory & Forgetting: Why Do We Remember What We Remember?",
-      "The Philosophy of Time Travel: If You Could Go Anywhere...",
-      "Artificial Intelligence & Art: Can AI Truly Be Creative?",
-      "The Future of Food: Lab-Grown Meat, Insect Protein & Farming",
-      "Urbanization & Loneliness: Why Are Cities Getting Lonesomer?",
-      "The Ethics of Consumer Tracking & Digital Privacy",
-      "The Philosophy of Luck: Is Success Hard Work or Good Fortune?",
-      "The Impact of Noise Pollution on Human Health & Well-being",
-      "Cultural Heritage Preservation vs. Modern Urban Development",
-      "The Psychology of Addiction: From Substances to Smartphones",
-      "The Evolution of Language: Is Texting Ruining Grammar?",
-      "Space Tourism & Colonization: Is It Ethically Justified?",
-      "The Future of Transportation: Hyperloops & Autonomous Cars",
-      "Defining Freedom: What Does Personal Freedom Mean to You?",
-      "The Philosophy of Resilience: Bouncing Back from Failure",
-      "Conversation Capstone: Hosting a 20-Minute Philosophical Salon"
-    ]
-  },
-  "pronunciation": {
-    "key": "pronunciation",
-    "label": "Pronunciation",
-    "icon": "🗣️",
-    "badge": "Fonética & Pronúncia",
-    "description": "Sugestões de temas fonéticos: vogais, consoantes, sons de TH, schwa, ritmo, entonação e connected speech.",
-    "topics": [
-      "The English Alphabet: Letter Names vs. Letter Sounds",
-      "Vowels vs. Consonants: Basic Articulation",
-      "Long Vowels vs. Short Vowels Concept",
-      "The Short Vowel /æ/ (Cat, Bat, Map)",
-      "The Short Vowel /e/ (Bed, Pen, Red)",
-      "The Short Vowel /ɪ/ (Sit, Pin, Big)",
-      "The Short Vowel /ɒ/ or /ɑː/ (Hot, Stop, Box)",
-      "The Short Vowel /ʌ/ (Cup, Bus, Sun)",
-      "The Short Vowel /ʊ/ (Book, Put, Look)",
-      "Minimal Pairs: /iː/ vs. /ɪ/ (Ship vs. Sheep)",
-      "Minimal Pairs: /uː/ vs. /ʊ/ (Full vs. Fool)",
-      "The Long Vowel /ɑː/ (Car, Park, Father)",
-      "The Long Vowel /ɔː/ (Door, Ball, Saw)",
-      "The Long Vowel /3ː/ (Bird, Turn, Learn)",
-      "Introduction to Schwa /ə/: The Most Common Sound",
-      "Schwa /ə/ in Unstressed Syllables (Banana, Doctor)",
-      "Diphthongs Overview: Gliding Vowel Sounds",
-      "The Diphthong /eɪ/ (Day, Make, Rain)",
-      "The Diphthong /aɪ/ (My, Night, Time)",
-      "The Diphthong /ɔɪ/ (Boy, Coin, Toy)",
-      "The Diphthong /aʊ/ (Now, House, Out)",
-      "The Diphthong /əʊ/ or /oʊ/ (Go, Home, Boat)",
-      "The Diphthongs /ɪə/, /eə/, /ʊə/ (Ear, Air, Sure)",
-      "Voiced vs. Unvoiced Consonants Concept",
-      "Plosives /p/ vs. /b/ (Pen vs. Ben)",
-      "Plosives /t/ vs. /d/ (Ten vs. Den)",
-      "Plosives /k/ vs. /g/ (Key vs. Go)",
-      "Fricatives /f/ vs. /v/ (Fan vs. Van)",
-      "Unvoiced 'TH' Sound /θ/ (Think, Three, Math)",
-      "Voiced 'TH' Sound /ð/ (This, That, Mother)",
-      "Minimal Pair Practice: /θ/ vs. /f/ vs. /t/",
-      "Fricatives /s/ vs. /z/ (Sue vs. Zoo, Bus vs. Buzz)",
-      "Fricatives /ʃ/ vs. /ʒ/ (Shoe vs. Vision)",
-      "Minimal Pairs: /s/ vs. /ʃ/ (Sea vs. She)",
-      "Affricates /tʃ/ vs. /dʒ/ (Chair vs. Jam)",
-      "Nasals /m/, /n/, and /ŋ/ (Sin vs. Sing)",
-      "Liquids /l/ vs. /r/ (Light vs. Right)",
-      "The Dark 'L' /ɫ/ at Word Ends (Ball, Milk)",
-      "Glides /w/ and /j/ (Win vs. You)",
-      "The /h/ Sound & Silent 'H' (Hat vs. Hour)",
-      "Silent Letters (Knee, Climb, Write, Talk)",
-      "Pronunciation of -ed Endings: /t/, /d/, /ɪd/",
-      "Pronunciation of -s / -es Endings: /s/, /z/, /ɪz/",
-      "Syllable Counting & Word Stress Basics",
-      "Noun vs. Verb Stress Shifts (PREsent vs. preSENT)",
-      "Suffix Stress Patterns (-tion, -ic, -ity)",
-      "Compound Noun vs. Adjective + Noun Stress",
-      "Sentence Stress: Content vs. Function Words",
-      "Weak Forms of Auxiliaries & Pronouns in Fast Speech",
-      "Connected Speech: Consonants to Vowel Linking (Rock_on)",
-      "Connected Speech: Vowel to Vowel Linking with /w/ or /j/",
-      "Connected Speech: Intrusion of /r/ in Non-Rhotic Speech",
-      "Connected Speech: Sound Assimilation (Good_boy)",
-      "Connected Speech: Sound Elision (Next_door)",
-      "Flap 'T' /ɾ/ in American English (Water, Butter, City)",
-      "Glottal Stop /ʔ/ in Natural Native Speech (Bottle, Important)",
-      "Spoken Contractions (I'll, You've, Couldn't)",
-      "Informal Spoken Reductions (Gonna, Wanna, Gotta, Kinda)",
-      "Intonation Basics: Rising vs. Falling Contours",
-      "Falling Intonation for Statements & Wh- Questions",
-      "Rising Intonation for Yes/No Questions & Surprise",
-      "Fall-Rise Intonation for Politeness & Partial Agreement",
-      "Intonation in Lists & Sentence Options",
-      "Tonic Syllables & Shifting Focus for Emphasis",
-      "Pitch Variations for Expressing Emotion & Tone",
-      "General American vs. Received Pronunciation (RP)",
-      "Rhotic vs. Non-Rhotic Accent Differences",
-      "Common Non-Native Pronunciation Pitfalls & Fixes",
-      "The Shadowing Technique for Native Rhythm & Flow",
-      "IPA Chart Mastery: Reading & Writing Phonetic Symbols",
-      "IPA Symbol Reading Practice: Monophthongs & Diphthongs",
-      "IPA Symbol Reading Practice: Consonants & Cluster Symbols",
-      "Vowel Length Variations Based on Following Consonant",
-      "The /e/ vs. /æ/ vs. /ʌ/ Vowel Triangle (Bed, Bad, Bud)",
-      "The /ɒ/ vs. /ɔː/ vs. /ɑː/ Vowel Distinctions (Cot, Caught, Cart)",
-      "The /ʊ/ vs. /uː/ vs. /ʌ/ Vowel Nuances (Look, Luke, Luck)",
-      "The /ɜː/ Central Vowel (Herb, Turn, Pearl) Across Dialects",
-      "Nasalization of Vowels Before Nasal Consonants (/m/, /n/, /ŋ/)",
-      "Aspirated vs. Unaspirated Stops (/pʰ/, /tʰ/, /kʰ/ at Word Beginnings)",
-      "Devoicing of Final Consonants in Casual Native Speech",
-      "Dentalization & Alveolar Variations of /t/ and /d/",
-      "Palatalization: /t/ + /j/ -> /tʃ/ (Got you -> Gotcha)",
-      "Palatalization: /d/ + /j/ -> /dʒ/ (Did you -> Didja)",
-      "Syllabic Consonants: Syllabic /n/ and /l/ (Button, Bottle)",
-      "Consonant Cluster Reduction in Spoken English (Texts -> /teks/)",
-      "Initial Consonant Clusters (Spl-, Str-, Scr-, Spr-, Sm-, Sn-)",
-      "Final Consonant Clusters (-fts, -sts, -mps, -lps, -nded)",
-      "Stress Shifts in Derivatives (PHOtograph, phoTOgraphy)",
-      "Contrastive Stress in Sentences for Clarification & Correction",
-      "Rhythm & Timing: Isochrony & Metric Feet in English Speech",
-      "Tone Units & Pitch Range in Public Speaking & Oratory",
-      "High Rise Terminals (Uptalk) in Contemporary Spoken English",
-      "Vocal Fry & Voice Quality Variations in Modern Speech",
-      "Accent Neutralization vs. Accent Authenticity Debates",
-      "Understanding Regional British Accents (Cockney, Scouse, Geordie)",
-      "Understanding Regional US Accents (Southern, New York, Midwestern)",
-      "Understanding Australian, Irish & Scottish Phonological Features",
-      "Phonetic Transcription Practice: Sentences & Short Passages",
-      "Self-Recording & Acoustic Analysis for Speech Improvement",
-      "Pronunciation Capstone: Reciting a Complex 2-Minute Monologue"
-    ]
-  }
-};
-
-function renderNiveis() {
-  const el = document.getElementById('v-niveis');
-  if (!el) return;
-
-  if (!state.selectedNivelKey) state.selectedNivelKey = 'kids';
-  if (state.q_niveis === undefined) state.q_niveis = '';
-
-  const activeLevel = TOPICOS_POR_NIVEL[state.selectedNivelKey] || TOPICOS_POR_NIVEL.kids;
-  const isEn = state.lang === 'en';
-  const q = (state.q_niveis || '').toLowerCase().trim();
-
-  let topicsList = activeLevel.topics.map((t, idx) => ({ index: idx + 1, title: t }));
-  if (q) {
-    topicsList = topicsList.filter(item => item.title.toLowerCase().includes(q));
-  }
-
-  const levelKeys = Object.keys(TOPICOS_POR_NIVEL);
-  const pillsHtml = levelKeys.map(k => {
-    const lvl = TOPICOS_POR_NIVEL[k];
-    const isSel = k === state.selectedNivelKey;
-    return `
-      <button class="tp-pill ${isSel ? 'active' : ''}" onclick="state.selectedNivelKey='${k}'; renderNiveis();">
-        <span>${lvl.icon} ${lvl.label}</span>
-        <span class="tp-pill-count">${lvl.topics.length}</span>
-      </button>
-    `;
-  }).join('');
-
-  const rowsHtml = topicsList.length ? topicsList.map(item => {
-    let stageBadge = '🟢 Fundamentos';
-    let stageBg = 'var(--emerald-bg)';
-    let stageFg = 'var(--emerald)';
-    if (item.index > 35 && item.index <= 70) {
-      stageBadge = '🟡 Consolidação';
-      stageBg = 'var(--amber-bg)';
-      stageFg = 'var(--amber)';
-    } else if (item.index > 70) {
-      stageBadge = '🔴 Aprofundamento';
-      stageBg = 'var(--rose-bg)';
-      stageFg = 'var(--rose)';
-    }
-
-    return `
-      <div class="tp-grid-card card" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;margin-bottom:8px;border-radius:12px;background:var(--surface);border:1px solid var(--line);">
-        <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;">
-          <span style="font-family:'Bricolage Grotesque';font-size:1.05rem;font-weight:800;color:var(--violet);min-width:40px;">#${item.index}</span>
-          <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;">
-            <span style="font-size:0.98rem;font-weight:600;color:var(--ink);word-break:break-word;">${esc(item.title)}</span>
-            <span style="font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:12px;background:${stageBg};color:${stageFg};width:fit-content;">${stageBadge}</span>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;flex:none;">
-          <button type="button" class="btn btn-sm btn-ghost" onclick="copyTextToClipboard('${esc(item.title)}')" title="${isEn ? 'Copy topic' : 'Copiar tópico'}">📋 ${isEn ? 'Copy' : 'Copiar'}</button>
-          <button type="button" class="btn btn-sm btn-ghost" onclick="addTopicToPlan('${esc(item.title)}')" title="${isEn ? 'Add to Lesson Plan' : 'Adicionar ao Plano de Aula'}">➕ ${isEn ? 'Plan' : 'Plano'}</button>
-        </div>
-      </div>
-    `;
-  }).join('') : `
-    <div class="card panel"><div class="empty" style="padding:44px 16px;text-align:center;">
-      🔍 ${isEn ? 'No topics found for this search.' : 'Nenhum tópico encontrado para esta busca.'}
-    </div></div>
-  `;
-
-  el.innerHTML = `
-    <div class="sec-head">
-      <div>
-        <h2>${isEn ? 'Topics by Level' : 'Tópicos por Nível'}</h2>
-        <div class="sub">${isEn ? '100 topics per level, ordered from simplest to most complex for lesson inspiration.' : '100 tópicos mais importantes de cada nível, organizados do mais simples ao mais complexo para sugestões e criação de aulas.'}</div>
-      </div>
-    </div>
-
-    <div class="tp-pills" style="margin-bottom:16px;">${pillsHtml}</div>
-
-    <div class="card" style="padding:20px;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <span style="font-size:2.2rem;line-height:1;">${activeLevel.icon}</span>
-          <div>
-            <h3 style="font-size:1.3rem;font-weight:800;color:var(--ink);margin:0;">${esc(activeLevel.label)}</h3>
-            <span style="font-size:0.82rem;font-weight:700;color:var(--violet);background:var(--accent-bg);padding:2px 10px;border-radius:20px;display:inline-block;margin-top:2px;">${esc(activeLevel.badge)}</span>
-          </div>
-        </div>
-        <span class="count-pill" style="font-size:0.9rem;font-weight:700;">100 ${isEn ? 'Topics' : 'Tópicos'}</span>
-      </div>
-      <p style="font-size:0.93rem;color:var(--muted);margin:0 0 14px;line-height:1.5;">${esc(activeLevel.description)}</p>
-      
-      <div class="search">
-        <span class="mag">🔍</span>
-        <input id="nv-search" placeholder="${isEn ? 'Search topic in this level...' : 'Buscar tópico neste nível...'}" value="${esc(state.q_niveis || '')}" oninput="state.q_niveis=this.value; renderNiveis();">
-      </div>
-    </div>
-
-    <div class="nv-list">
-      ${rowsHtml}
-    </div>
-  `;
-}
-
-function copyTextToClipboard(text) {
-  try {
-    navigator.clipboard.writeText(text);
-    alert('✓ Tópico copiado: ' + text);
-  } catch(e) {
-    alert('Tópico: ' + text);
-  }
-}
-
-async function addTopicToPlan(title) {
-  if (!state.topics.some(t => t.title.toLowerCase() === title.toLowerCase())) {
-    state.topics.unshift({ id: uid(), title: title, done: false, category: null });
-    await write('topics', state.topics);
-    alert('✓ Tópico "' + title + '" adicionado ao seu Plano de Aula!');
-    renderTopicos();
-    renderPainel();
-  } else {
-    alert('ℹ️ O tópico "' + title + '" já existe no seu Plano de Aula.');
-  }
-}
-
 function renderExpressoes(){
   const el = document.getElementById('v-expressoes');
   if(!el) return;
@@ -6567,7 +6528,6 @@ function renderExpressoes(){
 let debounceTimer = null;
 let _lecionadosStudentId = '';
 let _lecionadosSearchQuery = '';
-let _lecionadosSortOrder = 'newest';
 
 function changeLecionadosStudent(sid){
   _lecionadosStudentId = sid;
@@ -6577,6 +6537,7 @@ function changeLecionadosStudent(sid){
 
 function getLecionadosForStudent(sid){
   const list = [];
+  if (!state.presenca) return list;
   Object.keys(state.presenca).forEach(k=>{
     const rec = state.presenca[k];
     if(!rec || rec.status!=='p' || !rec.content) return;
@@ -6584,7 +6545,8 @@ function getLecionadosForStudent(sid){
     if(parts.slice(2).join('_') !== sid) return;
     list.push({date: parts[0], hour: parts[1], topic: rec.content});
   });
-  list.sort((a,b)=> (b.date+b.hour).localeCompare(a.date+a.hour));
+  // Ordena sempre da aula mais recente (topo) para a mais antiga
+  list.sort((a,b)=> (b.date + ' ' + b.hour).localeCompare(a.date + ' ' + a.hour));
   return list;
 }
 
@@ -6603,7 +6565,7 @@ function renderLecionados(){
   let bodyHtml = '';
 
   if(!_lecionadosStudentId){
-    const studentAvatars = sortedStudents.slice(0, 10).map(s => `
+    const studentAvatars = sortedStudents.slice(0, 12).map(s => `
       <button type="button" class="stat-card" style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);transition:all 0.15s ease;" onclick="changeLecionadosStudent('${s.id}')">
         <span class="avatar" style="background:${studentColor(s)};width:32px;height:32px;font-size:0.82rem;flex:none;">${esc(initials(s.name))}</span>
         <span style="font-weight:600;font-size:0.92rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(s.name)}</span>
@@ -6611,12 +6573,12 @@ function renderLecionados(){
     `).join('');
 
     bodyHtml = `
-      <div class="card panel" style="padding:40px 24px;text-align:center;max-width:840px;margin:0 auto;border-radius:18px;">
+      <div class="card panel" style="padding:40px 24px;text-align:center;max-width:900px;margin:0 auto;border-radius:18px;">
         <div style="font-size:3.2rem;margin-bottom:14px;">✅</div>
         <h3 style="font-size:1.4rem;font-weight:800;color:var(--ink);margin:0 0 8px;justify-content:center;">${t('lecionados.title')}</h3>
         <p style="color:var(--muted);font-size:0.98rem;max-width:520px;margin:0 auto 24px;line-height:1.5;">${t('lecionados.selectCta')}</p>
         
-        <div style="max-width:440px;margin:0 auto 28px;">
+        <div style="max-width:460px;margin:0 auto 28px;">
           <select onchange="changeLecionadosStudent(this.value)" style="width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;font-weight:600;box-shadow:var(--shadow-sm);">
             <option value="">${t('lecionados.pickStudent')}</option>${opts}
           </select>
@@ -6635,41 +6597,36 @@ function renderLecionados(){
     
     const totalAulas = rawList.length;
     const uniqueTopicsCount = new Set(rawList.map(item => item.topic.trim().toLowerCase())).size;
-    const now = new Date();
-    const currentMonthPrefix = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
-    const monthAulasCount = rawList.filter(item => item.date.startsWith(currentMonthPrefix)).length;
-    const lastLessonDate = rawList.length ? fmtDateBR(rawList[0].date) : '—';
+    const lastLessonDate = rawList.length ? fmtDateBR(rawList[0].date) + ' às ' + rawList[0].hour : '—';
 
     const q = (_lecionadosSearchQuery || '').toLowerCase().trim();
     let filteredList = [...rawList];
     if (q) {
-      filteredList = filteredList.filter(item => item.topic.toLowerCase().includes(q) || fmtDateBR(item.date).includes(q));
-    }
-    if (_lecionadosSortOrder === 'oldest') {
-      filteredList.reverse();
+      filteredList = filteredList.filter(item => item.topic.toLowerCase().includes(q) || fmtDateBR(item.date).includes(q) || item.hour.includes(q));
     }
 
     const cardsHtml = filteredList.length ? filteredList.map((item, idx) => {
-      const isNewest = _lecionadosSortOrder === 'newest' && idx === 0;
-      const matchedTopic = state.topics.find(t => t.title.toLowerCase() === item.topic.toLowerCase());
+      const isLatest = idx === 0 && !_lecionadosSearchQuery;
+      const matchedTopic = state.topics ? state.topics.find(t => t.title.toLowerCase() === item.topic.toLowerCase()) : null;
       const catLabel = matchedTopic && matchedTopic.category ? matchedTopic.category.toUpperCase() : null;
 
       return `
-        <div class="card lec-card" style="padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);transition:all 0.2s ease;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
+        <div class="card lec-card" style="padding:18px;border-radius:14px;background:var(--surface);border:1px solid ${isLatest ? 'var(--emerald)' : 'var(--line)'};box-shadow:${isLatest ? '0 4px 12px rgba(16,185,129,0.12)' : 'var(--shadow-sm)'};transition:all 0.2s ease;display:flex;flex-direction:column;justify-content:space-between;gap:12px;position:relative;">
           <div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span class="lec-check" style="width:24px;height:24px;font-size:12px;">✔</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span class="lec-check" style="width:24px;height:24px;font-size:12px;flex:none;">✔</span>
                 <span style="font-size:0.78rem;font-weight:700;color:var(--emerald);background:var(--emerald-bg);padding:2px 8px;border-radius:12px;">${isEn?'Taught':'Lecionado'}</span>
-                ${isNewest ? `<span style="font-size:0.75rem;font-weight:800;color:#fff;background:var(--violet);padding:2px 8px;border-radius:12px;">✨ ${isEn?'Latest':'Mais recente'}</span>` : ''}
+                ${isLatest ? `<span style="font-size:0.75rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#10b981,#059669);padding:2px 8px;border-radius:12px;box-shadow:0 2px 4px rgba(16,185,129,0.3);">✨ ${isEn?'Latest Lesson':'Aula Mais Recente'}</span>` : ''}
               </div>
               ${catLabel ? `<span style="font-size:0.72rem;font-weight:700;color:var(--muted);background:var(--line-2);padding:2px 8px;border-radius:12px;">${esc(catLabel)}</span>` : ''}
             </div>
-            <div style="font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.4;word-break:break-word;">${esc(item.topic)}</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.4;word-break:break-word;margin-bottom:4px;">${esc(item.topic)}</div>
           </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-2);padding-top:10px;margin-top:4px;font-size:0.84rem;color:var(--muted);font-weight:600;">
-            <span>📅 ${fmtDateBR(item.date)}</span>
-            <span>🕒 ${esc(item.hour)}</span>
+          
+          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-2);padding-top:12px;margin-top:auto;font-size:0.85rem;color:var(--muted);font-weight:600;">
+            <span style="display:flex;align-items:center;gap:4px;">📅 <b>${fmtDateBR(item.date)}</b></span>
+            <span style="display:flex;align-items:center;gap:4px;">🕒 <b>${esc(item.hour)}</b></span>
           </div>
         </div>
       `;
@@ -6682,7 +6639,7 @@ function renderLecionados(){
 
     bodyHtml = `
       <!-- Cabeçalho do Aluno & Seleção -->
-      <div class="card" style="padding:20px 24px;margin-bottom:20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);">
+      <div class="card" style="padding:20px 24px;margin-bottom:20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);max-width:1100px;margin-left:auto;margin-right:auto;">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
           <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:240px;">
             <div class="avatar" style="background:${studentColor(selStudent)};width:50px;height:50px;font-size:1.2rem;flex:none;box-shadow:var(--shadow-sm);">${esc(initials(selStudent.name))}</div>
@@ -6691,7 +6648,8 @@ function renderLecionados(){
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 ${selStudent.level ? `<span class="alu-tag">🎯 ${esc(selStudent.level)}</span>` : ''}
                 ${selStudent.subject ? `<span class="alu-tag">📚 ${esc(selStudent.subject)}</span>` : ''}
-                ${selStudent.phone ? `<span style="font-size:0.84rem;color:var(--muted);font-weight:600;">📞 ${esc(selStudent.phone)}</span>` : ''}
+                <span style="font-size:0.84rem;color:var(--muted);font-weight:600;">✅ Total de Aulas: <b>${totalAulas}</b></span>
+                <span style="font-size:0.84rem;color:var(--muted);font-weight:600;">🕒 Última Aula: <b>${lastLessonDate}</b></span>
               </div>
             </div>
           </div>
@@ -6704,54 +6662,19 @@ function renderLecionados(){
         </div>
       </div>
 
-      <!-- Métricas Resumo -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:14px;margin-bottom:20px;">
-        <div class="stat-card" style="padding:16px 18px;">
-          <div class="stat-details">
-            <h3>${isEn ? 'Total Lessons' : 'Total de Aulas'}</h3>
-            <p>${totalAulas}</p>
-          </div>
-          <div class="stat-icon primary">✅</div>
-        </div>
-        <div class="stat-card" style="padding:16px 18px;">
-          <div class="stat-details">
-            <h3>${isEn ? 'Unique Topics' : 'Tópicos Únicos'}</h3>
-            <p>${uniqueTopicsCount}</p>
-          </div>
-          <div class="stat-icon success">📚</div>
-        </div>
-        <div class="stat-card" style="padding:16px 18px;">
-          <div class="stat-details">
-            <h3>${isEn ? 'This Month' : 'Neste Mês'}</h3>
-            <p>${monthAulasCount}</p>
-          </div>
-          <div class="stat-icon warning">📅</div>
-        </div>
-        <div class="stat-card" style="padding:16px 18px;">
-          <div class="stat-details">
-            <h3>${isEn ? 'Last Class' : 'Última Aula'}</h3>
-            <p style="font-size:1.15rem;">${lastLessonDate}</p>
-          </div>
-          <div class="stat-icon danger">🕒</div>
-        </div>
-      </div>
-
       <!-- Barra de Filtro e Busca -->
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;max-width:1100px;margin-left:auto;margin-right:auto;">
         <div class="search" style="flex:1;min-width:240px;">
           <span class="mag">🔍</span>
-          <input placeholder="${isEn ? 'Search topic or date...' : 'Buscar conteúdo ou data...'}" value="${esc(_lecionadosSearchQuery)}" oninput="_lecionadosSearchQuery=this.value; renderLecionados();">
+          <input placeholder="${isEn ? 'Search topic, date or time...' : 'Buscar conteúdo, data ou horário...'}" value="${esc(_lecionadosSearchQuery)}" oninput="_lecionadosSearchQuery=this.value; renderLecionados();">
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
-          <span class="count-pill">${filteredList.length} ${isEn ? 'lessons' : 'aulas'}</span>
-          <button type="button" class="btn btn-sm btn-ghost" onclick="_lecionadosSortOrder = (_lecionadosSortOrder === 'newest' ? 'oldest' : 'newest'); renderLecionados();">
-            ${_lecionadosSortOrder === 'newest' ? '⬇️ ' + (isEn ? 'Newest first' : 'Mais recentes') : '⬆️ ' + (isEn ? 'Oldest first' : 'Mais antigas')}
-          </button>
+          <span class="count-pill">${filteredList.length} ${isEn ? 'lessons' : 'aulas lecionadas'}</span>
         </div>
       </div>
 
-      <!-- Grid de Aulas Lecionadas -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:14px;">
+      <!-- Grid de Aulas Lecionadas (Até 3 tópicos por linha) -->
+      <div class="lec-grid-3cols" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:16px;max-width:1100px;margin-left:auto;margin-right:auto;">
         ${cardsHtml}
       </div>
     `;
@@ -7190,6 +7113,7 @@ async function setPresStatus(iso,h,sid,status){
   renderRelatorio();
   renderEstatisticas();
   renderLecionados();
+  renderLembretes();
 }
 async function savePresNotes(iso,h,sid,val){
   const k = presKey(iso,h,sid);
@@ -7276,7 +7200,7 @@ async function doAssignContent(iso, hour, sid, title){
   cur.content = title;
   if(!cur.status && !title) delete state.presenca[key]; else state.presenca[key]=cur;
   await write('presenca', state.presenca);
-  closeModal(); renderPresenca(); renderPainel(); renderLecionados();
+  closeModal(); renderPresenca(); renderPainel(); renderLecionados(); renderLembretes();
 }
 async function addManualTopic(iso, hour, sid){
   const inp = document.getElementById('cp-new');
@@ -7329,7 +7253,7 @@ function renderAgenda(){
       </div>
     </div>
     <div class="ag-grid-wrap card">
-      <div class="ag-grid" style="grid-template-columns:70px repeat(${WEEK_DAYS.length},1fr)">
+      <div class="ag-grid" style="grid-template-columns:85px repeat(${WEEK_DAYS.length},1fr)">
         <div class="ag-cell ag-corner"></div>
         ${WEEK_DAYS.map((d,i)=>{
           const iso = isoDate(weekDates[i]); const isToday = iso===todayISO;
@@ -7352,6 +7276,11 @@ function renderAgenda(){
               </div>`;
             }
             return `<div class="ag-cell ag-slot" onclick="openAgendaSlot('${iso}','${d.k}','${h}')">
+              ${(getTrialClassesForSlot(iso, h)||[]).map(tc => `
+                <span class="ag-chip" style="background:#fef3c7;border:1px solid #f59e0b;color:#b45309;font-weight:800;" onclick="event.stopPropagation();openTrialClassModal('${tc.id}')" title="Aula Experimental — clique para ver ou matricular">
+                  🧪 Exp: ${esc(tc.leadName)}
+                </span>
+              `).join('')}
               ${entries.map(e=>{ const st=studentById(e.studentId);
                 const nm = st ? st.name : (e.name||'Aluno removido');
                 const bg = pastelFor(e.studentId||nm);
@@ -7453,7 +7382,7 @@ async function agendaSetScope(dateISO, dayKey, hour, studentId, scope){
       await write('agendaRecurring', state.agendaRecurring);
     }
   }
-  renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+  renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas(); renderLembretes();
   openAgendaStudentStatus(dateISO, hour, studentId);
 }
 async function agendaSetStatus(iso, hour, sid, status){
@@ -7538,6 +7467,12 @@ function openAgendaSlot(dateISO, dayKey, hour){
         </div>
       </div>`;
     }).join('')}</div>` : `<div class="empty" style="padding:14px 0">${t('agenda.slotNoStudents')}</div>`}
+    
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);">
+      <button type="button" class="btn btn-ghost" style="width:100%;font-weight:700;color:var(--amber);" onclick="closeModal();openTrialClassModal('','${dateISO}','${hour}')">
+        🧪 Agendar Aula Experimental para este Horário
+      </button>
+    </div>
     ${sorted.length ? `
     <div class="field" style="margin-top:16px"><label>${t('agenda.addStudentLabel')}</label>
       <select id="ag-student">${opts}</select></div>
@@ -7577,7 +7512,7 @@ async function addAgendaEntry(dateISO, dayKey, hour){
     state.agendaOverrides[ovKey].push({studentId});
     await write('agendaOverrides', state.agendaOverrides);
   }
-  closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+  closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas(); renderLembretes();
 }
 
 async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
@@ -7602,7 +7537,7 @@ async function removeAgendaEntry(dateISO, dayKey, hour, studentId, scope){
     delete state.presenca[presK];
     await write('presenca', state.presenca);
   }
-  closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas();
+  closeModal(); renderAgenda(); renderPainel(); renderPresenca(); renderFinanceiro(); renderRelatorio(); renderEstatisticas(); renderLembretes();
 }
 function fmtReportDate(iso) {
   if (!iso) return '';
@@ -8688,7 +8623,7 @@ function openReceiptModal(sid, year, month, savedState = null) {
 
     <div style="display:flex;justify-content:space-between;align-items:center;background:var(--emerald-bg);padding:10px 14px;border-radius:8px;margin-bottom:16px">
       <span style="font-weight:700;color:var(--emerald);font-size:14.5px">Valor Total do Recibo:</span>
-      <span id="rc-total-display" style="font-family:'Bricolage Grotesque';font-size:22px;font-weight:800;color:var(--emerald)">R$ 0,00</span>
+      <span id="rc-total-display" style="font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-size:22px;font-weight:800;color:var(--emerald)">R$ 0,00</span>
     </div>
 
     <div class="modal-acts">
@@ -9305,6 +9240,298 @@ async function doDelDespesa(id){
   await write('despesas', state.despesas);
   closeModal(); renderDespesas(); renderEstatisticas();
 }
+
+/* ================= GERADOR DE CONTRATOS ================= */
+let activeContractData = null;
+
+function saveContractSettings(){
+  const hours = parseInt((document.getElementById('cs-cancel-hours')||{}).value || '2', 10);
+  const days = parseInt((document.getElementById('cs-reschedule-days')||{}).value || '30', 10);
+  const due = parseInt((document.getElementById('cs-due-day')||{}).value || '5', 10);
+  const clauses = (document.getElementById('cs-custom-clauses')||{}).value || '';
+
+  state.contractSettings = {
+    cancelNoticeHours: isNaN(hours) ? 2 : hours,
+    reschedulePeriodDays: isNaN(days) ? 30 : days,
+    dueDay: isNaN(due) ? 5 : due,
+    customClauses: clauses
+  };
+
+  write('contractSettings', state.contractSettings);
+  alert('✓ Regras do contrato salvas com sucesso!');
+}
+
+function openContractModal(studentId, customData){
+  const s = studentById(studentId) || (state.students && state.students[0]);
+  if(!s){
+    alert('Nenhum aluno selecionado para a emissão do contrato.');
+    return;
+  }
+  const o = state.orgInfo || {};
+  const cs = state.contractSettings || { cancelNoticeHours: 2, reschedulePeriodDays: 30, dueDay: 5, customClauses: '' };
+  
+  const today = new Date();
+  const todayISO = isoDate(today);
+
+  const p = customData || {
+    studentId: s.id,
+    studentName: s.name || '',
+    studentDoc: s.doc || s.cpf || '',
+    studentPhone: s.phone || '',
+    studentEmail: s.email || '',
+    studentAddress: s.address || '',
+    subject: s.subject || 'Inglês',
+    level: s.level || 'Básico',
+    price: s.price != null && s.price !== '' ? moneyToDisplay(s.price) : '0,00',
+    paymentMode: s.paymentMode === 'pre' ? 'Pré-pago (pagamento antecipado)' : 'Pós-pago (pagamento ao final do mês)',
+    cancelNoticeHours: cs.cancelNoticeHours || 2,
+    reschedulePeriodDays: cs.reschedulePeriodDays || 30,
+    dueDay: cs.dueDay || 5,
+    startDate: s.startDate || todayISO,
+    city: o.cidade || 'São Paulo - SP',
+    contractDate: todayISO,
+    profName: o.nome || 'Professor(a) / Escola',
+    profDoc: o.doc || '',
+    profEmail: o.email || '',
+    profPhone: o.phone || '',
+    profPix: o.pix || '',
+    customClauses: cs.customClauses || ''
+  };
+
+  activeContractData = p;
+
+  const studentOpts = state.students.map(st => 
+    `<option value="${st.id}" ${st.id === p.studentId ? 'selected' : ''}>${esc(st.name)}</option>`
+  ).join('');
+
+  showModal(`
+    <div class="modal-header-grad">
+      <h3>📜 Gerador de Contrato de Aulas</h3>
+      <div class="msub">Emissão e personalização de contrato de prestação de serviços</div>
+    </div>
+
+    <div class="field" style="margin-bottom:12px;">
+      <label style="font-weight:700;">Aluno(a)</label>
+      <select id="ct-student-select" onchange="openContractModal(this.value)">
+        ${studentOpts}
+      </select>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>CPF / Documento do Aluno</label>
+        <input id="ct-st-doc" value="${esc(p.studentDoc)}" placeholder="000.000.000-00"></div>
+      <div class="field"><label>Endereço do Aluno</label>
+        <input id="ct-st-address" value="${esc(p.studentAddress)}" placeholder="Rua, Número, Bairro, Cidade"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Disciplina / Matéria</label>
+        <input id="ct-subject" value="${esc(p.subject)}"></div>
+      <div class="field"><label>Nível</label>
+        <input id="ct-level" value="${esc(p.level)}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Valor por Aula / Mensalidade (R$)</label>
+        <input id="ct-price" value="${esc(p.price)}" oninput="formatCurrencyInput(this)"></div>
+      <div class="field"><label>Dia de Vencimento Mensal</label>
+        <input id="ct-due-day" type="number" min="1" max="31" value="${p.dueDay}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Antecedência p/ Cancelamento (Horas)</label>
+        <input id="ct-cancel-hours" type="number" min="1" value="${p.cancelNoticeHours}"></div>
+      <div class="field"><label>Prazo Limite p/ Reposição (Dias)</label>
+        <input id="ct-reschedule-days" type="number" min="1" value="${p.reschedulePeriodDays}"></div>
+    </div>
+
+    <div class="field-2">
+      <div class="field"><label>Data de Início das Aulas</label>
+        <input id="ct-start-date" type="date" value="${p.startDate}"></div>
+      <div class="field"><label>Cidade / Estado de Assinatura</label>
+        <input id="ct-city" value="${esc(p.city)}"></div>
+    </div>
+
+    <div class="field" style="margin-bottom:14px;">
+      <label style="font-weight:700;">Cláusulas Especiais / Observações Adicionais</label>
+      <textarea id="ct-custom-clauses" rows="3" style="width:100%;font-family:inherit;font-size:0.9rem;" placeholder="Insira quaisquer regras específicas ou combinados particulares aqui...">${esc(p.customClauses)}</textarea>
+    </div>
+
+    <div class="modal-acts">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button type="button" class="btn btn-ghost" onclick="previewContractPDF()">👁️ Prévia do Contrato</button>
+      <button type="button" class="btn btn-primary" onclick="downloadContractPDFFromState()">📄 Baixar Contrato em PDF</button>
+    </div>
+  `);
+}
+
+function collectContractDataFromModal(){
+  const sId = (document.getElementById('ct-student-select')||{}).value || (activeContractData ? activeContractData.studentId : '');
+  const s = studentById(sId) || {};
+  const o = state.orgInfo || {};
+
+  return {
+    studentId: sId,
+    studentName: s.name || (activeContractData ? activeContractData.studentName : 'Aluno(a)'),
+    studentDoc: (document.getElementById('ct-st-doc')||{}).value || s.doc || '',
+    studentPhone: s.phone || '',
+    studentEmail: s.email || '',
+    studentAddress: (document.getElementById('ct-st-address')||{}).value || s.address || '',
+    subject: (document.getElementById('ct-subject')||{}).value || s.subject || 'Inglês',
+    level: (document.getElementById('ct-level')||{}).value || s.level || 'Básico',
+    price: (document.getElementById('ct-price')||{}).value || '0,00',
+    paymentMode: s.paymentMode === 'pre' ? 'Pré-pago (pagamento antecipado)' : 'Pós-pago (pagamento ao final do mês)',
+    cancelNoticeHours: parseInt((document.getElementById('ct-cancel-hours')||{}).value || '2', 10),
+    reschedulePeriodDays: parseInt((document.getElementById('ct-reschedule-days')||{}).value || '30', 10),
+    dueDay: parseInt((document.getElementById('ct-due-day')||{}).value || '5', 10),
+    startDate: (document.getElementById('ct-start-date')||{}).value || isoDate(new Date()),
+    city: (document.getElementById('ct-city')||{}).value || o.cidade || 'São Paulo - SP',
+    contractDate: isoDate(new Date()),
+    profName: o.nome || 'Professor(a) / Instituição',
+    profDoc: o.doc || '',
+    profEmail: o.email || '',
+    profPhone: o.phone || '',
+    profPix: o.pix || '',
+    customClauses: (document.getElementById('ct-custom-clauses')||{}).value || ''
+  };
+}
+
+function previewContractPDF(){
+  const p = collectContractDataFromModal();
+  activeContractData = p;
+
+  showModal(`
+    <div style="max-height:75vh;overflow-y:auto;padding:10px;">
+      ${buildContractHTML(p)}
+    </div>
+    <div class="modal-acts" style="margin-top:16px;">
+      <button type="button" class="btn btn-ghost" onclick="openContractModal('${p.studentId}', activeContractData)">✏️ Editar Campos</button>
+      <button type="button" class="btn btn-primary" onclick="downloadContractPDFFromState()">📄 Baixar Contrato em PDF</button>
+    </div>
+  `);
+}
+
+function downloadContractPDFFromState(){
+  const p = activeContractData || collectContractDataFromModal();
+  const renderContainer = document.createElement('div');
+  renderContainer.id = 'contract-pdf-render';
+  renderContainer.style.position = 'absolute';
+  renderContainer.style.left = '-9999px';
+  renderContainer.style.top = '-9999px';
+
+  renderContainer.innerHTML = buildContractHTML(p);
+  document.body.appendChild(renderContainer);
+
+  const cleanFilename = `Contrato_${p.studentName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+
+  if (window.html2pdf) {
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: cleanFilename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(renderContainer.querySelector('.contract-pdf-container')).save().then(() => {
+      renderContainer.remove();
+      closeModal();
+    }).catch(err => {
+      console.error('Error generating Contract PDF:', err);
+      renderContainer.remove();
+      window.print();
+    });
+  } else {
+    alert('Biblioteca de PDF indisponível no momento.');
+    renderContainer.remove();
+  }
+}
+
+function buildContractHTML(p){
+  const startDateFmt = fmtDateBR(p.startDate);
+  const contractDateFmt = fmtDateBR(p.contractDate);
+
+  return `
+    <div class="contract-pdf-container" style="font-family:'Inter', sans-serif; color:#1e293b; background:#ffffff; padding:28px 32px; max-width:800px; margin:0 auto; line-height:1.6; border:1px solid #e2e8f0; border-radius:8px;">
+      <!-- Cabeçalho / Título -->
+      <div style="text-align:center; border-bottom:2px solid #0284c7; padding-bottom:16px; margin-bottom:24px;">
+        <h2 style="font-size:1.35rem; font-weight:800; color:#0f172a; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.5px;">
+          Contrato de Prestação de Serviços de Aulas Particulares
+        </h2>
+        <div style="font-size:0.85rem; color:#64748b; font-weight:600;">${esc(p.profName)} ${p.profDoc ? '· CPF/CNPJ: ' + esc(p.profDoc) : ''}</div>
+      </div>
+
+      <!-- 1. IDENTIFICAÇÃO DAS PARTES -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.02rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">1. Das Partes Contratantes</h3>
+        <p style="font-size:0.92rem; margin:0 0 8px; text-align:justify;">
+          <b>CONTRATADO(A):</b> <span>${esc(p.profName)}</span>${p.profDoc ? ', inscrito(a) no CPF/CNPJ sob o nº <b>' + esc(p.profDoc) + '</b>' : ''}${p.profPhone ? ', telefone/WhatsApp: <b>' + esc(p.profPhone) + '</b>' : ''}${p.profEmail ? ', e-mail: <b>' + esc(p.profEmail) + '</b>' : ''}.
+        </p>
+        <p style="font-size:0.92rem; margin:0; text-align:justify;">
+          <b>CONTRATANTE (ALUNO/RESPONSÁVEL):</b> <span>${esc(p.studentName)}</span>${p.studentDoc ? ', inscrito(a) no CPF/documento sob o nº <b>' + esc(p.studentDoc) + '</b>' : ''}${p.studentAddress ? ', residente em: <b>' + esc(p.studentAddress) + '</b>' : ''}${p.studentPhone ? ', telefone: <b>' + esc(p.studentPhone) + '</b>' : ''}.
+        </p>
+      </div>
+
+      <!-- 2. DO OBJETO -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.02rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">2. Do Objeto do Contrato</h3>
+        <p style="font-size:0.92rem; margin:0; text-align:justify;">
+          O presente contrato tem como objeto a prestação de serviços educacionais de aulas particulares na disciplina de <b>${esc(p.subject)}</b> (nível <b>${esc(p.level)}</b>), com início acordado para o dia <b>${startDateFmt}</b>.
+        </p>
+      </div>
+
+      <!-- 3. DO VALOR E FORMA DE PAGAMENTO -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.02rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">3. Do Investimento e Forma de Pagamento</h3>
+        <p style="font-size:0.92rem; margin:0 0 6px; text-align:justify;">
+          Pelos serviços prestados, o(a) CONTRATANTE pagará o valor ajustado de <b>R$ ${esc(p.price)}</b>, na modalidade <b>${esc(p.paymentMode)}</b>.
+        </p>
+        <p style="font-size:0.92rem; margin:0; text-align:justify;">
+          O pagamento deverá ser efetuado impreterivelmente até o dia <b>${p.dueDay}</b> de cada mês através de PIX ou transferência bancária${p.profPix ? ' (Chave PIX: <b>' + esc(p.profPix) + '</b>)' : ''}.
+        </p>
+      </div>
+
+      <!-- 4. DAS FALTAS, CANCELAMENTOS E REPOSIÇÕES -->
+      <div style="margin-bottom:20px;">
+        <h3 style="font-size:1.02rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">4. Da Política de Cancelamento e Reposições</h3>
+        <p style="font-size:0.92rem; margin:0 0 6px; text-align:justify;">
+          • <b>Antecedência Mínima:</b> Cancelamentos de aulas comunicados com no mínimo <b>${p.cancelNoticeHours} hora(s)</b> de antecedência darão direito ao agendamento de 1 (uma) aula de reposição.
+        </p>
+        <p style="font-size:0.92rem; margin:0 0 6px; text-align:justify;">
+          • <b>Prazo para Reposição:</b> A aula de reposição deverá ser realizada dentro do prazo limite de <b>${p.reschedulePeriodDays} dias</b> a contar da data da aula cancelada, sujeita à disponibilidade de horários da agenda do CONTRATADO.
+        </p>
+        <p style="font-size:0.92rem; margin:0; text-align:justify;">
+          • <b>Avisos Tardios / Não Comparecimento:</b> Cancelamentos feitos com menos de ${p.cancelNoticeHours} hora(s) de antecedência ou a ausência não justificada do aluno (falta) serão cobrados normalmente como aula dada, sem direito a crédito de reposição.
+        </p>
+      </div>
+
+      <!-- 5. CLÁUSULAS ADICIONAIS -->
+      ${p.customClauses ? `
+        <div style="margin-bottom:20px;">
+          <h3 style="font-size:1.02rem; font-weight:800; color:#0284c7; margin:0 0 8px; text-transform:uppercase;">5. Disposições Especiais</h3>
+          <p style="font-size:0.92rem; margin:0; text-align:justify; white-space:pre-wrap;">${esc(p.customClauses)}</p>
+        </div>
+      ` : ''}
+
+      <!-- LOCAL E DATA -->
+      <div style="margin-top:32px; text-align:right; font-size:0.92rem; font-weight:600; color:#475569;">
+        ${esc(p.city)}, ${contractDateFmt}.
+      </div>
+
+      <!-- ASSINATURAS -->
+      <div style="display:flex; justify-content:space-between; gap:30px; margin-top:50px; text-align:center;">
+        <div style="flex:1; border-top:1px solid #94a3b8; padding-top:8px;">
+          <div style="font-size:0.9rem; font-weight:700; color:#0f172a;">${esc(p.profName)}</div>
+          <div style="font-size:0.78rem; color:#64748b;">CONTRATADO(A)</div>
+        </div>
+        <div style="flex:1; border-top:1px solid #94a3b8; padding-top:8px;">
+          <div style="font-size:0.9rem; font-weight:700; color:#0f172a;">${esc(p.studentName)}</div>
+          <div style="font-size:0.78rem; color:#64748b;">CONTRATANTE</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function renderInfo(){
   const el = document.getElementById('v-info');
   if(!el) return;
@@ -9633,6 +9860,167 @@ function renderDeclaracao(){
     </div>`;
 }
 
+
+/* ================= CALCULADORA DE METAS FINANCEIRAS & CAPACIDADE ================= */
+async function saveFinancialGoals(){
+  const targetRaw = (document.getElementById('fg-target')||{}).value || '8000';
+  const hoursRaw = (document.getElementById('fg-hours')||{}).value || '20';
+
+  const monthlyTarget = parseCurrencyValue(targetRaw) || 8000;
+  const maxWeeklyHours = parseInt(hoursRaw, 10) || 20;
+
+  state.financialGoals = {
+    monthlyTarget: monthlyTarget > 0 ? monthlyTarget : 8000,
+    maxWeeklyHours: maxWeeklyHours > 0 ? maxWeeklyHours : 20
+  };
+
+  await write('financialGoals', state.financialGoals);
+  alert('✓ Meta financeira e capacidade salvas com sucesso!');
+  renderEstatisticas();
+}
+
+function computeFinancialGoalsSummary(){
+  const fg = state.financialGoals || { monthlyTarget: 8000, maxWeeklyHours: 20 };
+  const target = fg.monthlyTarget || 8000;
+  const maxWeeklyHours = fg.maxWeeklyHours || 20;
+
+  const activeStudents = (state.students || []).filter(s => s.status !== 'trancado');
+  const activeCount = activeStudents.length;
+
+  let currentRevenue = 0;
+  activeStudents.forEach(s => {
+    if(s.price != null && s.price !== '') currentRevenue += Number(s.price);
+  });
+
+  const avgTicketPerStudent = activeCount > 0 ? (currentRevenue / activeCount) : 0;
+
+  let currentWeeklyHours = 0;
+  if(state.agendaRecurring){
+    const activeIds = new Set(activeStudents.map(s => s.id));
+    Object.keys(state.agendaRecurring).forEach(d => {
+      const slots = state.agendaRecurring[d] || [];
+      slots.forEach(slot => {
+        if(activeIds.has(slot.studentId)) currentWeeklyHours++;
+      });
+    });
+  }
+
+  const occupancyPct = Math.round((currentWeeklyHours / maxWeeklyHours) * 100);
+  const targetProgressPct = Math.min(100, Math.round((currentRevenue / target) * 100));
+  const totalMonthlyHoursCap = maxWeeklyHours * 4.33;
+  const requiredHourlyRate = totalMonthlyHoursCap > 0 ? (target / totalMonthlyHoursCap) : 0;
+
+  const currentMonthlyHours = currentWeeklyHours * 4.33;
+  const currentHourlyRate = currentMonthlyHours > 0 ? (currentRevenue / currentMonthlyHours) : 0;
+
+  const remainingRevenue = Math.max(0, target - currentRevenue);
+  const estimatedMissingStudents = (avgTicketPerStudent > 0 && remainingRevenue > 0) ? Math.ceil(remainingRevenue / avgTicketPerStudent) : 0;
+
+  return {
+    target,
+    maxWeeklyHours,
+    activeCount,
+    currentRevenue,
+    avgTicketPerStudent,
+    currentWeeklyHours,
+    occupancyPct,
+    targetProgressPct,
+    requiredHourlyRate,
+    currentHourlyRate,
+    remainingRevenue,
+    estimatedMissingStudents
+  };
+}
+
+function renderFinancialGoalsCard(){
+  const g = computeFinancialGoalsSummary();
+  const isEn = state.lang === 'en';
+
+  const isOverworked = g.occupancyPct > 100;
+  const isOptimal = g.occupancyPct >= 75 && g.occupancyPct <= 100;
+  const isMetaAchieved = g.currentRevenue >= g.target;
+
+  let adviceHtml = '';
+  if (isMetaAchieved) {
+    adviceHtml = `🎉 <b>${isEn?'Meta Atingida!':'Parabéns! Meta Mensal Alcançada!'}</b> ${isEn?'You have surpassed your financial target.':'Você já atingiu seu objetivo de faturamento para o mês.'}`;
+  } else if (isOverworked) {
+    adviceHtml = `⚠️ <b>${isEn?'Alerta de Sobrecarga!':'Alerta de Carga Horária Excedida!'}</b> Sua agenda semanal de <b>${g.currentWeeklyHours}h</b> ultrapassou seu limite desejado de <b>${g.maxWeeklyHours}h/semana</b>. Para bater a meta de ${fmtBRL(g.target)} sem trabalhar mais horas, considere reajustar seu valor/hora para <b>${fmtBRL(g.requiredHourlyRate)}/h</b>.`;
+  } else {
+    adviceHtml = `💡 <b>${isEn?'Dica de Precificação':'Diagnóstico Inteligente'}:</b> Sua agenda está com <b>${g.occupancyPct}%</b> de ocupação (${g.currentWeeklyHours}h/${g.maxWeeklyHours}h). Faltam <b>${fmtBRL(g.remainingRevenue)}</b> para a meta. ${g.estimatedMissingStudents > 0 ? 'Faltam cerca de <b>' + g.estimatedMissingStudents + ' alunos</b> no seu ticket médio atual (' + fmtBRL(g.avgTicketPerStudent) + '), ou você pode ajustar o valor hora para <b>' + fmtBRL(g.requiredHourlyRate) + '/h</b>.' : ''}`;
+  }
+
+  return `
+    <div class="card panel" style="margin-top:26px;padding:24px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <h3 style="font-size:1.25rem;font-weight:800;color:var(--ink);margin:0;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:1.4rem;">🎯</span> ${isEn ? 'Financial Goals & Work Capacity' : 'Calculadora de Metas Financeiras & Capacidade'}
+          </h3>
+          <div style="font-size:0.88rem;color:var(--muted);margin-top:2px;">
+            ${isEn ? 'Set your target monthly revenue and maximum weekly load.' : 'Planeje seus ganhos e acompanhe sua ocupação semanal em tempo real.'}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div class="field" style="margin:0;width:150px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Meta Mensal (R$)</label>
+            <input id="fg-target" type="text" value="${moneyToDisplay(g.target)}" oninput="formatCurrencyInput(this)" style="padding:6px 10px;font-size:0.9rem;font-weight:700;">
+          </div>
+          <div class="field" style="margin:0;width:120px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Carga Máx. (h/sem)</label>
+            <input id="fg-hours" type="number" min="1" max="100" value="${g.maxWeeklyHours}" style="padding:6px 10px;font-size:0.9rem;font-weight:700;">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="saveFinancialGoals()" style="margin-top:16px;padding:8px 14px;font-size:0.88rem;">💾 Salvar</button>
+        </div>
+      </div>
+
+      <!-- Grid de Indicadores Principais -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px;margin-bottom:18px;">
+        <div style="background:var(--bg);padding:14px 16px;border-radius:12px;border:1px solid var(--line);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Faturamento Atual</div>
+          <div style="font-size:1.3rem;font-weight:800;color:var(--emerald);margin-top:4px;">${fmtBRL(g.currentRevenue)}</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Meta: ${fmtBRL(g.target)}</div>
+        </div>
+
+        <div style="background:var(--bg);padding:14px 16px;border-radius:12px;border:1px solid var(--line);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Ocupação da Agenda</div>
+          <div style="font-size:1.3rem;font-weight:800;color:${isOverworked ? 'var(--rose)' : (isOptimal ? 'var(--emerald)' : 'var(--violet)')};margin-top:4px;">
+            ${g.occupancyPct}%
+          </div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">${g.currentWeeklyHours}h de ${g.maxWeeklyHours}h/semana</div>
+        </div>
+
+        <div style="background:var(--bg);padding:14px 16px;border-radius:12px;border:1px solid var(--line);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Valor/Hora Necessário</div>
+          <div style="font-size:1.3rem;font-weight:800;color:var(--sky);margin-top:4px;">${fmtBRL(g.requiredHourlyRate)}/h</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Atual: ${fmtBRL(g.currentHourlyRate)}/h</div>
+        </div>
+
+        <div style="background:var(--bg);padding:14px 16px;border-radius:12px;border:1px solid var(--line);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;">Alunos Faltantes (Est.)</div>
+          <div style="font-size:1.3rem;font-weight:800;color:var(--amber);margin-top:4px;">${g.estimatedMissingStudents > 0 ? g.estimatedMissingStudents + ' alunos' : '0 ✨'}</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Ticket médio: ${fmtBRL(g.avgTicketPerStudent)}</div>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso do Faturamento -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.84rem;font-weight:700;color:var(--ink);margin-bottom:6px;">
+          <span>Progresso do Faturamento Mensal</span>
+          <span>${g.targetProgressPct}%</span>
+        </div>
+        <div style="width:100%;height:10px;background:var(--line-2);border-radius:20px;overflow:hidden;">
+          <div style="height:100%;width:${g.targetProgressPct}%;background:linear-gradient(90deg,var(--emerald),#059669);border-radius:20px;transition:width 0.4s ease;"></div>
+        </div>
+      </div>
+
+      <!-- Diagnóstico Inteligente -->
+      <div style="background:var(--accent-bg);border:1px solid var(--line);padding:14px 16px;border-radius:12px;font-size:0.9rem;color:var(--ink);line-height:1.5;">
+        ${adviceHtml}
+      </div>
+    </div>
+  `;
+}
+
 /* ================= render: ESTATÍSTICAS ================= */
 function computeYearlyHoras(year){
   const arr = [];
@@ -9715,7 +10103,8 @@ const BACKUP_KEYS = [
   'agendaHours','agendaRecurring','agendaOverrides',
   'financeiroAjustes','pagamentos','despesas','despesasPagas',
   'declaracaoAjustes','ferias','orgInfo','orgDocs',
-  'lang','theme','colorMode','navCollapsedGroups'
+  'lang','theme','colorMode','navCollapsedGroups','contractSettings',
+  'financialGoals','trialClasses','waitlist','slotNotices'
 ];
 function backupSummaryCounts(){
   return {
@@ -9990,7 +10379,8 @@ function renderEstatisticas(){
       <div class="es-chart">
         ${horas.map((v,i)=>statBarRow(i, v, maxHoras, totalHoras, DC_MONTH_COLORS[i], h=>h+'h')).join('')}
       </div>
-    </div>`;
+    </div>
+    ${renderFinancialGoalsCard()}`;
 }
 
 /* ================= Lembretes & Moldes WhatsApp ================= */
@@ -9999,7 +10389,7 @@ const DEFAULT_WA_TEMPLATES = [
     id: 'tpl_lembrete_aula',
     name: '⏰ Lembrete de Aula de Hoje',
     category: 'aula',
-    text: 'Olá {nome}! Lembrando da nossa aula hoje às {horario}. Link da nossa sala: {link_aula}. Até já!'
+    text: 'Olá {nome}! Lembrando da nossa aula hoje, {dia_semana}, às {horario}. Tema de hoje: {tema}. Link da nossa sala: {link_aula}. Até já!'
   },
   {
     id: 'tpl_cobranca',
@@ -10050,6 +10440,7 @@ function replaceWAVariables(tplText, studentId, extraData){
   const valor = extraData.valor || (s && s.price ? moneyToDisplay(s.price) : '0,00');
   const aulasDadas = extraData.lessons != null ? extraData.lessons : 4;
   const deverCasa = extraData.topic ? extraData.topic : 'Atividade prática de fixação';
+  const tema = extraData.topic ? extraData.topic : 'revisão e prática geral';
 
   return (tplText || '')
     .replace(/\{nome\}/g, primeiroNome)
@@ -10063,6 +10454,7 @@ function replaceWAVariables(tplText, studentId, extraData){
     .replace(/\{aulas_dadas\}/g, aulasDadas)
     .replace(/\{pix\}/g, pix)
     .replace(/\{nome_professor\}/g, nomeProf)
+    .replace(/\{tema\}/g, tema)
     .replace(/\{dever_casa\}/g, deverCasa);
 }
 
@@ -10089,8 +10481,47 @@ function updateWAPreviewFromEditor(){
   preview.textContent = rendered || 'Digite sua mensagem acima...';
 }
 
+/* ---------- Sincroniza o lembrete de "Aula de Hoje" com a agenda real do aluno ---------- */
+function getTodayClassInfoForStudent(sid){
+  if(!sid) return null;
+  const today = new Date();
+  const iso = isoDate(today);
+  const dayKey = DAYKEY_BY_GETDAY[today.getDay()];
+  let found = null;
+  (state.agendaHours || []).forEach(h=>{
+    if(found) return;
+    const entries = effectiveEntries(iso, dayKey, h);
+    const match = entries.find(e=>e.studentId===sid);
+    if(match){
+      const pr = getPres(iso, h, sid);
+      found = { hour: h, topic: (pr && pr.content) ? pr.content : '' };
+    }
+  });
+  if(!found) return null;
+  const dayKeysArr = ['agenda.sun','agenda.mon','agenda.tue','agenda.wed','agenda.thu','agenda.fri','agenda.sat'];
+  return {
+    hour: found.hour,
+    topic: found.topic,
+    dayName: t(dayKeysArr[today.getDay()]),
+    date: fmtLongDate(today.getDate(), today.getMonth(), today.getFullYear())
+  };
+}
+function buildWAExtraDataForStudent(sid){
+  const info = getTodayClassInfoForStudent(sid);
+  if(!info) return {};
+  return { hour: info.hour, dayName: info.dayName, date: info.date, topic: info.topic };
+}
+function refreshWAExtraDataIfNeeded(){
+  // Só re-sincroniza automaticamente com a agenda quando o molde ativo for
+  // o de "Aula de Hoje" — os demais moldes (cobrança, aniversário, etc.)
+  // continuam usando seus próprios dados normalmente.
+  if(state.waSelectedTplId === 'tpl_lembrete_aula' || !state.waSelectedTplId){
+    state.waExtraData = buildWAExtraDataForStudent(state.waSelectedStudentId);
+  }
+}
 function selectWATemplate(tplId){
   state.waSelectedTplId = tplId;
+  refreshWAExtraDataIfNeeded();
   const tpls = getWATemplates();
   const tpl = tpls.find(t=>t.id===tplId) || tpls[0];
   state.waCustomText = tpl ? tpl.text : '';
@@ -10102,6 +10533,7 @@ function selectWATemplate(tplId){
 
 function selectWAStudent(sid){
   state.waSelectedStudentId = sid;
+  refreshWAExtraDataIfNeeded();
   updateWAPreviewFromEditor();
   renderLembretes();
 }
@@ -10140,7 +10572,15 @@ function renderLembretes(){
   const curTpl = tpls.find(t=>t.id===curTplId) || tpls[0];
   const curSid = state.waSelectedStudentId || (state.students[0] ? state.students[0].id : '');
   state.waSelectedStudentId = curSid;
-  
+
+  // Sempre que o molde ativo for o de "Aula de Hoje", os dados (dia, horário e
+  // tema) vêm direto da Agenda/Frequência do aluno selecionado — atualizando
+  // sozinho todos os dias, sem precisar editar nada manualmente.
+  if(curTplId === 'tpl_lembrete_aula'){
+    state.waExtraData = buildWAExtraDataForStudent(curSid);
+  }
+  const todayClassInfo = curTplId === 'tpl_lembrete_aula' ? getTodayClassInfoForStudent(curSid) : null;
+
   if(!state.waCustomText && curTpl){
     state.waCustomText = curTpl.text;
   }
@@ -10193,6 +10633,7 @@ function renderLembretes(){
             <div class="wa-tag-pills">
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{nome}')">{nome}</button>
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{horario}')">{horario}</button>
+              <button type="button" class="wa-tag-btn" onclick="insertWATag('{tema}')">{tema}</button>
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{link_aula}')">{link_aula}</button>
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{valor}')">{valor}</button>
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{mes}')">{mes}</button>
@@ -10202,6 +10643,14 @@ function renderLembretes(){
               <button type="button" class="wa-tag-btn" onclick="insertWATag('{dever_casa}')">{dever_casa}</button>
             </div>
           </div>
+
+          ${curTplId === 'tpl_lembrete_aula' ? (todayClassInfo ? `
+          <div class="wa-sync-note wa-sync-ok">
+            🔄 <b>Sincronizado com a Agenda de hoje</b> (${esc(todayClassInfo.dayName)}): aula às <b>${esc(todayClassInfo.hour)}</b>${todayClassInfo.topic?` · tema: <b>${esc(todayClassInfo.topic)}</b>`:''}. Atualiza sozinho todo dia.
+          </div>` : `
+          <div class="wa-sync-note wa-sync-empty">
+            ℹ️ ${esc(studentName)} não tem aula agendada para hoje. O horário e o tema abaixo ficam com valores padrão até o dia da aula.
+          </div>`) : ''}
 
           <div class="field" style="margin-top:12px;">
             <label style="font-weight:700;">✏️ Editar Mensagem</label>
@@ -10584,24 +11033,45 @@ async function saveAluno(id){
   const name = fv('al-nome');
   if(!name){ const i=document.getElementById('al-nome'); if(i) i.focus(); return; }
   const valorRaw = fv('al-valor');
+  const newStatus = (document.getElementById('al-status')||{}).value || 'ativo';
   const data = {
     name,
     phone: fv('al-fone'),
     birth: fv('al-nasc'),
-    status: (document.getElementById('al-status')||{}).value || 'ativo',
+    status: newStatus,
     level: (document.getElementById('al-nivel')||{}).value || '',
     startDate: fv('al-inicio'),
     price: valorRaw==='' ? '' : parseCurrencyValue(valorRaw),
     paymentMode: (document.getElementById('al-paymode')||{}).value || 'pos'
   };
+  let becamePaused = false;
   if(id){
-    Object.assign(studentById(id), data);
+    const existing = studentById(id);
+    if(existing && existing.status!=='trancado' && newStatus==='trancado') becamePaused = true;
+    Object.assign(existing, data);
   }else{
     data.id = uid();
     state.students.push(data);
+    if(_pendingTrialConversionId){
+      const tItem = (state.trialClasses||[]).find(t => t.id === _pendingTrialConversionId);
+      if(tItem){
+        tItem.status = 'converted';
+        tItem.studentId = data.id;
+        write('trialClasses', state.trialClasses);
+      }
+      _pendingTrialConversionId = null;
+    }
+    if(_pendingWaitlistConversionId){
+      state.waitlist = (state.waitlist||[]).filter(w=>w.id!==_pendingWaitlistConversionId);
+      write('waitlist', state.waitlist);
+      _pendingWaitlistConversionId = null;
+    }
+  }
+  if(becamePaused){
+    await createSlotAvailableNotice(name);
   }
   await save('students'); closeModal();
-  renderPainel(); renderAlunos(); renderFinanceiro(); renderEstatisticas(); renderRelatorio(); renderAgenda(); renderPresenca();
+  renderPainel(); renderAlunos(); renderFinanceiro(); renderEstatisticas(); renderRelatorio(); renderAgenda(); renderPresenca(); renderWaitlist();
 }
 function delAluno(id){
   const s = studentById(id); if(!s) return;
@@ -10708,9 +11178,9 @@ window.addEventListener('popstate', e=>{
 
 function renderAll(){
   renderBrand();
-  renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderNiveis(); renderExpressoes();
+  renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda(); renderLembretes();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderBackup();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderTrialClasses(); renderCertificados(); renderBackup(); renderWaitlist();
   renderAuthGate();
 }
 boot();
@@ -11466,7 +11936,31 @@ async function installPwaApp(){
               )}
             </button>
 
-            
+            {/* BUTTON: Google Sign-In (login/signup rápido) */}
+            {(view === 'login' || view === 'signup') && SUPABASE_CONFIGURED && (
+              <>
+                <div className="flex items-center gap-3 w-full mt-3">
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                    {t('login.orDivider')}
+                  </span>
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => { setErrorMsg(''); setIsErrorOk(false); loginWithGoogle(); }}
+                  className="w-full py-3.5 px-4 bg-white hover:bg-gray-50 active:scale-[0.985] border border-gray-300 text-gray-700 font-semibold rounded-xl shadow-sm hover:shadow transition-all text-sm flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                >
+                  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  </svg>
+                  {t('login.googleBtn')}
+                </button>
+              </>
+            )}
 
             {/* Footer View Switchers */}
             <div className="flex flex-col items-center gap-2 w-full mt-4 text-xs sm:text-sm text-gray-500 border-t border-gray-100 pt-4">
