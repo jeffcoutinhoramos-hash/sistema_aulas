@@ -1195,6 +1195,15 @@
   .org-photo-remove:hover{color:var(--rose);background:var(--rose-bg)}
   .org-actions{display:flex;align-items:center;gap:16px;margin:20px 2px 0}
   .org-saved{font-size:15px;font-weight:700;color:var(--emerald)}
+  .clsroom-sync{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    margin-top:12px;padding:12px 16px;border-radius:12px;background:var(--accent-bg);border:1.5px solid var(--line)}
+  .clsroom-sync-empty{margin-top:12px;padding:12px 16px;border-radius:12px;background:var(--accent-bg);
+    border:1.5px solid var(--line);font-size:13.5px;color:var(--muted);font-weight:600}
+  .clsroom-sync-info{display:flex;flex-direction:column;gap:2px}
+  .clsroom-sync-status{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .clsroom-sync-detail{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .clsroom-sync-btn{white-space:nowrap;flex:none}
+  .clsroom-sync-btn:disabled{opacity:.5;cursor:not-allowed}
   .contract-dl{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
     margin-top:18px;padding:16px 18px;border-radius:16px;background:#FEF7F2;border:1.5px solid #F9E5CE}
   .contract-dl-info{display:flex;align-items:center;gap:12px}
@@ -1497,6 +1506,7 @@
   }
   .tp-row-drag{cursor:grab;color:var(--muted);font-size:16.5px;flex:none;user-select:none}
   .tp-row-simple:active .tp-row-drag{cursor:grabbing}
+  .tp-row-catbadge{flex:none;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;color:var(--violet);background:var(--accent-bg);border:1px solid var(--line);border-radius:10px;padding:2px 9px;margin-right:6px}
 
   .tp-list-simple{display:flex;flex-direction:column;gap:8px}
   .tp-row-simple{
@@ -1636,6 +1646,12 @@
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .ex-name-on{color:var(--violet);font-weight:700}
   .ex-date{font-size:11.5px;font-weight:600;color:var(--muted)}
+  .ex-meaning-preview{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ex-view-text{font-size:14.5px;color:var(--ink);padding:2px 0}
+  .ex-view-it{font-style:italic;color:var(--muted)}
+  .ex-view-example{background:var(--accent-bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13.5px}
+  .ex-view-example b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--violet);margin-bottom:3px}
+  .ex-view-alt{background:var(--accent-bg);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--ink)}
   .ex-acts{display:flex;gap:4px;flex:none;align-items:center}
   .ex-confirm{width:24px;height:24px;border-radius:7px;font-size:13.5px;font-weight:800;
     border:1.5px solid var(--line);color:var(--muted);background:var(--surface);display:grid;place-items:center;transition:all 0.15s ease}
@@ -1719,9 +1735,11 @@
     font-size:26px;margin:0 auto 14px}
   .cf-title{text-align:center}
   .cf-msg{text-align:center;margin-bottom:22px!important}
+  .tfa-err{color:#dc2626;font-size:0.82rem;font-weight:600;min-height:18px;margin:6px 0;text-align:center}
   .cf-acts{justify-content:center}
   .cf-danger-btn{background:var(--rose)!important}
   .cf-danger-btn:hover{background:#D25976!important}
+  .cf-danger-btn:disabled{background:var(--line-2)!important;color:var(--muted)!important;cursor:not-allowed;opacity:.8}
 
   /* ---------- login / auth gate ---------- */
   .auth-gate{
@@ -2700,6 +2718,24 @@
     text-align:center;font-size:12px;color:var(--muted);font-weight:600;margin-top:12px;
   }
   .backup-last b{color:var(--ink)}
+  .audit-list{display:flex;flex-direction:column}
+  .audit-row{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
+  .audit-row:last-child{border-bottom:none}
+  .audit-ico{font-size:1.1rem;flex:none;margin-top:1px}
+  .audit-info{flex:1;min-width:0}
+  .audit-action{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .audit-details{font-size:12px;color:var(--muted);margin-top:2px}
+  .audit-meta{flex:none;text-align:right}
+  .audit-date{font-size:11.5px;font-weight:700;color:var(--violet)}
+  .audit-user{font-size:10.5px;color:var(--muted);margin-top:1px}
+  @media(max-width:640px){
+    .audit-row{flex-wrap:wrap}
+    .audit-meta{text-align:left;margin-left:32px}
+  }
+  .ab-list{display:flex;flex-direction:column;gap:8px}
+  .ab-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 14px}
+  .ab-date{font-size:13px;font-weight:600;color:var(--ink)}
   .ferias-period-past{ opacity:.72; background:var(--line-2); }
   .ferias-period-past .ferias-period-range{ color:var(--muted); text-decoration:none; }
 
@@ -2910,6 +2946,7 @@
           <button data-view="ferias"><span class="ico">🏖️</span>Férias</button>
           <button data-view="info"><span class="ico">🏫</span>Configurações</button>
           <button data-view="backup"><span class="ico">💾</span>Backup</button>
+          <button data-view="auditoria"><span class="ico">📜</span>Auditoria</button>
         </div>
       </div>
     </nav>
@@ -2949,6 +2986,7 @@
         <div id="v-info" class="view"></div>
         <div id="v-ferias" class="view"></div>
         <div id="v-backup" class="view"></div>
+        <div id="v-auditoria" class="view"></div>
         <div id="v-estatisticas" class="view"></div>
       </main>
     </div>
@@ -3218,27 +3256,52 @@ async function onMateriaChange(newMateria){
   const old = (state.orgInfo && state.orgInfo.materia) || 'ingles';
   if(newMateria === old) return;
 
-  if(old === 'ingles' && newMateria !== 'ingles'){
-    const hasContent = (state.topics && state.topics.length) || (state.expressions && state.expressions.length);
-    const msg = hasContent
-      ? 'Ao trocar para outra matéria, os tópicos e expressões de inglês já cadastrados serão removidos do Plano de Aula e da Biblioteca, para você começar do zero com o conteúdo da sua matéria. Os alunos, agenda e financeiro NÃO são afetados. Deseja continuar?'
-      : 'Ao trocar para outra matéria, os recursos específicos de inglês (Biblioteca, Tópicos por Nível, Pronúncia) ficam ocultos no menu. Deseja continuar?';
-    if(!confirm(msg)){
-      const sel = document.getElementById('org-materia');
-      if(sel) sel.value = old;
-      return;
-    }
-    if(hasContent){
-      state.topics = [];
-      state.expressions = [];
-      await write('topics', state.topics);
-      await write('expressions', state.expressions);
-    }
+  const hasContent = (state.topics && state.topics.length) || (state.expressions && state.expressions.length);
+  const msg = hasContent
+    ? 'Ao trocar de matéria, o Plano de Aula e a Biblioteca atuais são guardados de lado (você não perde nada) e o conteúdo salvo da nova matéria — se já tiver algum — é restaurado. Deseja continuar?'
+    : 'Ao trocar de matéria, os recursos específicos de inglês (Biblioteca, Tópicos por Nível, Pronúncia) ficam ocultos no menu quando a matéria não for inglês. Deseja continuar?';
+  if(!confirm(msg)){
+    const sel = document.getElementById('org-materia');
+    if(sel) sel.value = old;
+    return;
   }
+
+  if(!state.subjectContentArchive) state.subjectContentArchive = {};
+
+  // 1) guarda de lado o conteúdo da matéria atual (mesmo se vazio, pra não deixar lixo de uma troca anterior)
+  state.subjectContentArchive[old] = {
+    topics: state.topics || [],
+    expressions: state.expressions || [],
+    boletimSkills: state.boletimSkills || []
+  };
+
+  // 2) restaura o conteúdo já arquivado da nova matéria, se existir; senão começa em branco
+  //    (exceto inglês sem arquivo prévio, que usa o conteúdo padrão de fábrica)
+  const archived = state.subjectContentArchive[newMateria];
+  if(archived){
+    state.topics = archived.topics || [];
+    state.expressions = archived.expressions || [];
+    state.boletimSkills = (archived.boletimSkills && archived.boletimSkills.length) ? archived.boletimSkills
+      : (newMateria==='ingles' ? ['Speaking','Listening','Reading','Writing'] : ['Participação','Compreensão','Produção','Avaliações']);
+  }else if(newMateria==='ingles'){
+    state.topics = seedTopics();
+    state.expressions = seedExpressions();
+    state.boletimSkills = ['Speaking','Listening','Reading','Writing'];
+  }else{
+    state.topics = [];
+    state.expressions = [];
+    state.boletimSkills = ['Participação','Compreensão','Produção','Avaliações'];
+  }
+
+  await write('subjectContentArchive', state.subjectContentArchive);
+  await write('topics', state.topics);
+  await write('expressions', state.expressions);
+  await write('boletimSkills', state.boletimSkills);
 
   if(!state.orgInfo) state.orgInfo = {};
   state.orgInfo.materia = newMateria;
   await write('orgInfo', state.orgInfo);
+  await logAudit('Matéria alterada', `De "${old}" para "${newMateria}"`, '📖');
   renderAll();
 }
 function applySubjectNavVisibility(){
@@ -3702,7 +3765,7 @@ const I18N = {
     'login.title':'Login', 'login.pageSub':'Gerencie o acesso ao sistema com usuário e senha.',
     'login.username':'Usuário (e-mail ou CPF)', 'login.usernamePh':'Digite o e-mail ou CPF cadastrado em Configurações',
     'login.password':'Senha', 'login.passwordConfirm':'Confirmar senha',
-    'login.passwordRule':'A senha deve começar com letra maiúscula e conter pelo menos um número.',
+    'login.passwordRule':'A senha deve começar com letra maiúscula e conter pelo menos um número e um símbolo (ex: !@#$%).',
     'login.enter':'Entrar', 'login.welcomeTitle':'Bem-vindo de volta',
     'login.tagline':'Simplifique a gestão das suas aulas particulares',
     'login.remember':'Lembrar usuário e senha', 'login.showPassword':'Mostrar/ocultar senha',
@@ -3720,7 +3783,8 @@ const I18N = {
     'login.setupTitle':'Criar senha de acesso', 'login.setupSub':'Defina uma senha para proteger o acesso ao sistema.',
     'login.setupCta':'Antes de criar a senha, preencha o e-mail ou o CPF/CNPJ na aba <b>Configurações</b> — eles serão usados como usuário de login.',
     'login.createBtn':'Criar senha', 'login.mismatch':'As senhas não coincidem.',
-    'login.weak':'A senha precisa começar com letra maiúscula e ter pelo menos um número.',
+    'login.weak':'A senha precisa começar com letra maiúscula, ter pelo menos um número e um símbolo (ex: ! @ # $ %).',
+    'login.passwordHint':'Deve começar com maiúscula e conter número e símbolo (ex: !@#$%).',
     'login.status':'Login configurado para', 'login.change':'Alterar senha', 'login.remove':'Remover login',
     'login.logout':'🔒 Sair (bloquear novamente)', 'login.notSet':'Nenhuma senha configurada ainda.',
     'login.signOut':'Sair',
@@ -4006,7 +4070,7 @@ const I18N = {
     'login.title':'Login', 'login.pageSub':'Manage access to the system with a username and password.',
     'login.username':'Username (email or Tax ID)', 'login.usernamePh':'Enter the email or Tax ID registered in Settings',
     'login.password':'Password', 'login.passwordConfirm':'Confirm password',
-    'login.passwordRule':'The password must start with an uppercase letter and contain at least one number.',
+    'login.passwordRule':'The password must start with an uppercase letter and contain at least one number and one symbol (e.g. !@#$%).',
     'login.enter':'Log in', 'login.welcomeTitle':'Welcome back',
     'login.tagline':'Simplify the management of your private classes',
     'login.remember':'Remember username and password', 'login.showPassword':'Show/hide password',
@@ -4024,7 +4088,8 @@ const I18N = {
     'login.setupTitle':'Create access password', 'login.setupSub':'Set a password to protect access to the system.',
     'login.setupCta':'Before creating a password, fill in the email or Tax ID in the <b>Settings</b> tab — it will be used as your login username.',
     'login.createBtn':'Create password', 'login.mismatch':'Passwords do not match.',
-    'login.weak':'The password must start with an uppercase letter and have at least one number.',
+    'login.weak':'The password must start with an uppercase letter and include at least one number and one symbol (e.g. ! @ # $ %).',
+    'login.passwordHint':'Must start with an uppercase letter and include a number and a symbol (e.g. !@#$%).',
     'login.status':'Login set up for', 'login.change':'Change password', 'login.remove':'Remove login',
     'login.logout':'🔒 Log out (lock again)', 'login.notSet':'No password set up yet.',
     'login.signOut':'Sign out',
@@ -4250,6 +4315,22 @@ const TOPIC_CATEGORIES = [
 ];
 function topicCategory(tp){ return (tp && tp.category) || null; }
 function topicByTitle(title){ return state.topics.find(tp => tp.title === title) || null; }
+
+/* ================= PRESERVAÇÃO DE FOCO EM CAMPOS DE BUSCA ================= */
+// Evita que campos de busca percam o foco a cada tecla digitada, já que a
+// tela inteira é reconstruída (innerHTML) a cada renderização.
+function captureInputFocus(inputId){
+  const inp = document.getElementById(inputId);
+  if(!inp || document.activeElement !== inp) return null;
+  return { selStart: inp.selectionStart, selEnd: inp.selectionEnd };
+}
+function restoreInputFocus(inputId, state2){
+  if(!state2) return;
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  inp.focus();
+  try{ inp.setSelectionRange(state2.selStart, state2.selEnd); }catch(e){}
+}
 function seedTopics(){
   return SEED_TOPICS_RAW.map(t=>({ id:uid(), title:t, done:false, category:'other' }));
 }
@@ -4261,12 +4342,14 @@ function seedExpressions(){
 
 /* ================= autenticação (login local) ================= */
 let authOk = false; // válido só para esta sessão da página (não fica salvo)
+let twoFAEnabled = false; // se a conta atual tem autenticação em duas etapas ativa
 async function sha256(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 function passwordIsStrong(pw){
-  return /^[A-ZÀ-Ý]/.test(pw||'') && /\d/.test(pw||'');
+  pw = pw || '';
+  return /^[A-ZÀ-Ý]/.test(pw) && /\d/.test(pw) && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(pw);
 }
 const ICON_EYE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
 const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.9 4.24A9.14 9.14 0 0 1 12 4c7 0 11 7 11 7a13.3 13.3 0 0 1-2.16 3.19"/><path d="M6.6 6.6A13.5 13.5 0 0 0 1 11s4 7 11 7a9.3 9.3 0 0 0 5.4-1.61"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -4427,6 +4510,145 @@ function handleRememberOnLogin(user, pass){
   if(cb && cb.checked) saveRememberedCreds(user, pass);
   else clearRememberedCreds();
 }
+/* ================= AUTENTICAÇÃO EM DUAS ETAPAS (2FA / TOTP) ================= */
+// Verificação exigida no momento do login, quando a conta já tem 2FA ativo.
+async function show2FAChallengeModal(){
+  let totpFactor = null;
+  try{
+    const { data } = await sb.auth.mfa.listFactors();
+    totpFactor = data && data.totp && data.totp.find(f=>f.status==='verified');
+  }catch(e){ console.error(e); }
+  if(!totpFactor){
+    alert('Não foi possível carregar a verificação em duas etapas. Tente novamente.');
+    return;
+  }
+  showModal(`
+    <div class="cf-icon">🔐</div>
+    <h3 class="cf-title">Verificação em duas etapas</h3>
+    <div class="msub cf-msg">Abra seu aplicativo autenticador (Google Authenticator, Authy, Microsoft Authenticator, etc.) e digite o código de 6 dígitos exibido nele.</div>
+    <div class="field" style="margin-top:14px;">
+      <input id="tfa-code" placeholder="000000" inputmode="numeric" maxlength="6" style="text-align:center;font-size:1.4rem;letter-spacing:8px;font-weight:800;" autocomplete="one-time-code">
+    </div>
+    <div id="tfa-err" class="tfa-err"></div>
+    <div class="modal-acts cf-acts">
+      <button class="btn btn-ghost" onclick="cancel2FALogin()">${t('common.cancel')}</button>
+      <button class="btn btn-primary" onclick="verify2FALoginCode('${totpFactor.id}')">Verificar código</button>
+    </div>`);
+  setTimeout(()=>{ const i=document.getElementById('tfa-code'); if(i) i.focus(); }, 60);
+}
+async function verify2FALoginCode(factorId){
+  const codeEl = document.getElementById('tfa-code');
+  const errEl = document.getElementById('tfa-err');
+  const code = (codeEl && codeEl.value || '').replace(/\D/g,'');
+  if(code.length !== 6){ if(errEl) errEl.textContent = 'Digite os 6 dígitos do código.'; return; }
+  try{
+    const { data: challenge, error: cErr } = await sb.auth.mfa.challenge({ factorId });
+    if(cErr) throw cErr;
+    const { error: vErr } = await sb.auth.mfa.verify({ factorId, challengeId: challenge.id, code });
+    if(vErr) throw vErr;
+    const { data: userData } = await sb.auth.getUser();
+    sbUid = userData.user.id; sbEmail = userData.user.email; authOk = true;
+    closeModal();
+    renderAuthGate();
+    await afterAuthReady();
+  }catch(e){
+    console.error('2FA verify error:', e);
+    if(errEl) errEl.textContent = 'Código inválido ou expirado. Tente novamente.';
+    if(codeEl){ codeEl.value=''; codeEl.focus(); }
+  }
+}
+async function cancel2FALogin(){
+  try{ await sb.auth.signOut(); }catch(e){}
+  closeModal();
+}
+// Ativação/gerenciamento do 2FA, feito em Configurações.
+async function refresh2FAStatus(){
+  twoFAEnabled = false;
+  if(!SUPABASE_CONFIGURED || !sb || !sb.auth || !sb.auth.mfa) return;
+  try{
+    const { data } = await sb.auth.mfa.listFactors();
+    twoFAEnabled = !!(data && data.totp && data.totp.some(f=>f.status==='verified'));
+  }catch(e){ console.error('refresh2FAStatus error:', e); }
+}
+async function open2FASetupModal(){
+  try{
+    const { data, error } = await sb.auth.mfa.enroll({ factorType: 'totp' });
+    if(error) throw error;
+    const factorId = data.id;
+    const qrSvg = data.totp.qr_code;
+    const secret = data.totp.secret;
+    showModal(`
+      <div class="cf-icon">🔐</div>
+      <h3 class="cf-title">Ativar Autenticação em Duas Etapas</h3>
+      <div class="msub cf-msg">Escaneie o QR Code com um app autenticador (Google Authenticator, Authy, Microsoft Authenticator...).</div>
+      <div style="display:flex;justify-content:center;margin:16px 0;background:#fff;padding:14px;border-radius:12px;">${qrSvg}</div>
+      <div class="msub" style="text-align:center;font-size:11px;">Ou digite manualmente: <br><b style="font-family:monospace;letter-spacing:1px;font-size:13px;">${secret}</b></div>
+      <div class="field" style="margin-top:14px;">
+        <label>Digite o código gerado pelo app para confirmar</label>
+        <input id="tfa-setup-code" placeholder="000000" inputmode="numeric" maxlength="6" style="text-align:center;font-size:1.2rem;letter-spacing:6px;font-weight:800;" autocomplete="one-time-code">
+      </div>
+      <div id="tfa-setup-err" class="tfa-err"></div>
+      <div class="modal-acts cf-acts">
+        <button class="btn btn-ghost" onclick="cancel2FASetup('${factorId}')">${t('common.cancel')}</button>
+        <button class="btn btn-primary" onclick="confirm2FASetup('${factorId}')">Ativar</button>
+      </div>`);
+    setTimeout(()=>{ const i=document.getElementById('tfa-setup-code'); if(i) i.focus(); }, 60);
+  }catch(e){
+    console.error('2FA enroll error:', e);
+    alert('Não foi possível iniciar a configuração da autenticação em duas etapas. Tente novamente.');
+  }
+}
+async function confirm2FASetup(factorId){
+  const codeEl = document.getElementById('tfa-setup-code');
+  const errEl = document.getElementById('tfa-setup-err');
+  const code = (codeEl && codeEl.value || '').replace(/\D/g,'');
+  if(code.length !== 6){ if(errEl) errEl.textContent = 'Digite os 6 dígitos do código.'; return; }
+  try{
+    const { data: challenge, error: cErr } = await sb.auth.mfa.challenge({ factorId });
+    if(cErr) throw cErr;
+    const { error: vErr } = await sb.auth.mfa.verify({ factorId, challengeId: challenge.id, code });
+    if(vErr) throw vErr;
+    closeModal();
+    twoFAEnabled = true;
+    await logAudit('Autenticação em duas etapas ativada', '', '🔐');
+    alert('✅ Autenticação em duas etapas ativada com sucesso! Da próxima vez que você entrar, vai pedir o código do app também.');
+    renderInfo();
+  }catch(e){
+    console.error('2FA verify setup error:', e);
+    if(errEl) errEl.textContent = 'Código inválido. Confira o horário do celular e o app, e tente de novo.';
+    if(codeEl){ codeEl.value=''; codeEl.focus(); }
+  }
+}
+async function cancel2FASetup(factorId){
+  try{ await sb.auth.mfa.unenroll({ factorId }); }catch(e){}
+  closeModal();
+}
+function disable2FA(){
+  confirmBoxStrong(
+    'Isso vai desativar a autenticação em duas etapas da sua conta. O login vai voltar a exigir só usuário e senha.',
+    'doDisable2FA()',
+    'DESATIVAR',
+    { title:'Desativar 2FA', yesLabel:'Desativar 2FA', icon:'🔓' }
+  );
+}
+async function doDisable2FA(){
+  try{
+    const { data } = await sb.auth.mfa.listFactors();
+    const totpFactor = data && data.totp && data.totp[0];
+    if(totpFactor){
+      const { error } = await sb.auth.mfa.unenroll({ factorId: totpFactor.id });
+      if(error) throw error;
+    }
+    closeModal();
+    twoFAEnabled = false;
+    await logAudit('Autenticação em duas etapas desativada', '', '🔓');
+    alert('Autenticação em duas etapas desativada.');
+    renderInfo();
+  }catch(e){
+    console.error('doDisable2FA error:', e);
+    alert('Não foi possível desativar. Tente novamente.');
+  }
+}
 async function attemptLogin(){
   const errEl = document.getElementById('auth-err');
   if(errEl) errEl.textContent = '';
@@ -4440,6 +4662,16 @@ async function attemptLogin(){
       const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
       if(error) throw error;
       handleRememberOnLogin(userRaw, pass);
+
+      // Se a conta tem 2FA ativo, exige o código do app autenticador antes de liberar o acesso
+      try{
+        const { data: aal } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+        if(aal && aal.nextLevel === 'aal2' && aal.currentLevel !== 'aal2'){
+          show2FAChallengeModal();
+          return;
+        }
+      }catch(e){ console.error('MFA check error:', e); }
+
       sbUid = data.user.id; sbEmail = data.user.email; authOk = true;
       renderAuthGate();
       await afterAuthReady();
@@ -4579,8 +4811,65 @@ async function submitRecover(){
   errEl.classList.add('auth-ok');
   setTimeout(()=>setAuthView('login'), 1200);
 }
+/* ================= SESSÃO EXPIRA POR INATIVIDADE ================= */
+const INACTIVITY_WARNING_MS = 28 * 60 * 1000; // aviso aos 28min sem uso
+const INACTIVITY_LOGOUT_MS  = 30 * 60 * 1000; // desconecta aos 30min sem uso
+let _inactivityWarnTimer = null;
+let _inactivityLogoutTimer = null;
+let _inactivityCountdownInterval = null;
+let _inactivityWarningActive = false;
+
+function fmtMMSS(totalSeconds){
+  const m = Math.floor(totalSeconds/60), s = totalSeconds%60;
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function resetInactivityTimer(){
+  if(!authOk) return;
+  clearTimeout(_inactivityWarnTimer);
+  clearTimeout(_inactivityLogoutTimer);
+  if(_inactivityWarningActive){
+    clearInterval(_inactivityCountdownInterval);
+    _inactivityWarningActive = false;
+    closeModal();
+  }
+  _inactivityWarnTimer = setTimeout(showInactivityWarning, INACTIVITY_WARNING_MS);
+  _inactivityLogoutTimer = setTimeout(doInactivityLogout, INACTIVITY_LOGOUT_MS);
+}
+function showInactivityWarning(){
+  if(!authOk) return;
+  _inactivityWarningActive = true;
+  let remaining = Math.round((INACTIVITY_LOGOUT_MS - INACTIVITY_WARNING_MS) / 1000);
+  showModal(`
+    <div class="cf-icon">⏰</div>
+    <h3 class="cf-title">Sessão prestes a expirar</h3>
+    <div class="msub cf-msg">Por segurança, sessões inativas são encerradas automaticamente. Você será desconectado em <b id="inactivity-count">${fmtMMSS(remaining)}</b> se não fizer nada.</div>
+    <div class="modal-acts cf-acts">
+      <button class="btn btn-primary" onclick="resetInactivityTimer()">✓ Continuar conectado</button>
+    </div>`);
+  _inactivityCountdownInterval = setInterval(()=>{
+    remaining--;
+    const el = document.getElementById('inactivity-count');
+    if(el) el.textContent = fmtMMSS(Math.max(remaining,0));
+    if(remaining <= 0) clearInterval(_inactivityCountdownInterval);
+  }, 1000);
+}
+async function doInactivityLogout(){
+  if(!authOk) return;
+  clearInterval(_inactivityCountdownInterval);
+  _inactivityWarningActive = false;
+  await logoutNow();
+  setTimeout(()=>{ alert('Sua sessão expirou por inatividade, por segurança. Faça login novamente para continuar.'); }, 300);
+}
+function setupInactivityTracking(){
+  ['mousemove','mousedown','keydown','touchstart','scroll'].forEach(evt=>{
+    document.addEventListener(evt, resetInactivityTimer, {passive:true});
+  });
+  resetInactivityTimer();
+}
 async function logoutNow(){
   closeModal();
+  clearTimeout(_inactivityWarnTimer); clearTimeout(_inactivityLogoutTimer); clearInterval(_inactivityCountdownInterval);
+  _inactivityWarningActive = false;
   if(SUPABASE_CONFIGURED && sb.auth){ try{ await sb.auth.signOut(); }catch(e){} }
   teardownRealtimeSync();
   sbUid = null; sbEmail = ''; authOk = false;
@@ -4733,6 +5022,7 @@ async function submitChangePassword(){
       if(signInErr) throw signInErr;
       const { error: updErr } = await sb.auth.updateUser({ password: pw });
       if(updErr) throw updErr;
+      await logAudit('Senha alterada', '', '🔑');
       msgEl.textContent = t('login.saved'); msgEl.classList.add('auth-ok');
       setTimeout(closeModal, 900);
     }catch(e){
@@ -4745,6 +5035,7 @@ async function submitChangePassword(){
   if(curHash !== state.authHash){ msgEl.textContent = t('login.currentWrong'); return; }
   state.authHash = await sha256(pw);
   await write('authHash', state.authHash);
+  await logAudit('Senha alterada', '', '🔑');
   msgEl.textContent = t('login.saved'); msgEl.classList.add('auth-ok');
   setTimeout(closeModal, 900);
 }
@@ -4818,10 +5109,84 @@ function renderPublicPresentationPageIfRequested(){
   `;
   return true;
 }
+/* ================= PÁGINA PÚBLICA: POLÍTICA DE PRIVACIDADE (LGPD) ================= */
+function renderPublicPrivacyPageIfRequested(){
+  let params;
+  try{ params = new URLSearchParams(window.location.search); }catch(e){ return false; }
+  if(params.get('privacidade') !== '1') return false;
+
+  const o = state.orgInfo || {};
+  const profName = o.nome || 'o(a) professor(a)';
+  const waDigits = (o.whatsapp || TRIAL_BOOKING_WHATSAPP).replace(/\D/g,'');
+  const waFull = waDigits.length<=11 ? '55'+waDigits : waDigits;
+  const waUrlPriv = 'https://wa.me/'+waFull+'?text='+encodeURIComponent('Olá! Tenho uma dúvida ou solicitação sobre meus dados pessoais no sistema de aulas.');
+
+  document.title = 'Política de Privacidade';
+  document.body.innerHTML = `
+    <div class="ppv-wrap">
+      <div class="ppv-card">
+        <img src="${BRAND_LOCKUP_HORIZONTAL_COLOR_DATAURL}" alt="Logo" class="ppv-logo">
+        <h1 class="ppv-title">🔒 Política de Privacidade</h1>
+        <p class="ppv-updated">Última atualização: ${fmtDateBR(isoDate(new Date()))}</p>
+
+        <p class="ppv-p">Este sistema é utilizado por <b>${esc(profName)}</b> para organizar aulas particulares, e trata os dados pessoais dos alunos e responsáveis com cuidado, seguindo os princípios da <b>Lei Geral de Proteção de Dados (LGPD)</b>.</p>
+
+        <h3 class="ppv-h3">📋 Quais dados são coletados</h3>
+        <ul class="ppv-ul">
+          <li>Nome completo e data de nascimento</li>
+          <li>Telefone/WhatsApp para contato e lembretes de aula</li>
+          <li>Endereço (quando informado, para fins de contrato)</li>
+          <li>Informações de frequência, desempenho e conteúdo das aulas</li>
+          <li>Dados financeiros referentes ao pagamento das aulas (valores e status de pagamento — não são coletados dados de cartão de crédito)</li>
+        </ul>
+
+        <h3 class="ppv-h3">🎯 Para que esses dados são usados</h3>
+        <ul class="ppv-ul">
+          <li>Organizar a agenda de aulas e registrar presença</li>
+          <li>Enviar lembretes e comunicados pelo WhatsApp</li>
+          <li>Gerar recibos, contratos, certificados e boletins de desempenho</li>
+          <li>Cobrança das mensalidades/aulas</li>
+        </ul>
+
+        <h3 class="ppv-h3">🔐 Como os dados são protegidos</h3>
+        <p class="ppv-p">Os dados ficam armazenados em um banco de dados na nuvem protegido por senha e conexão criptografada (HTTPS), acessível apenas por ${esc(profName)}. O sistema mantém backups periódicos para evitar perda de informações.</p>
+
+        <h3 class="ppv-h3">⚖️ Seus direitos (LGPD)</h3>
+        <p class="ppv-p">Você pode, a qualquer momento, solicitar a <b>confirmação</b>, o <b>acesso</b>, a <b>correção</b> ou a <b>exclusão completa</b> dos seus dados pessoais guardados no sistema. Basta entrar em contato pelo WhatsApp abaixo — a solicitação de exclusão é atendida assim que possível.</p>
+
+        <h3 class="ppv-h3">🚫 Compartilhamento</h3>
+        <p class="ppv-p">Os dados não são vendidos nem compartilhados com terceiros. São usados exclusivamente para a prestação do serviço de aulas particulares.</p>
+
+        <a class="ppv-btn" href="${waUrlPriv}" target="_blank" rel="noopener noreferrer">📱 Falar sobre meus dados</a>
+      </div>
+    </div>
+    <style>
+      *{box-sizing:border-box}
+      body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Inter',Arial,sans-serif;background:#f8fafc;min-height:100vh;}
+      .ppv-wrap{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px}
+      .ppv-card{width:100%;max-width:640px;background:#ffffff;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,0.08);border:1px solid #eef1f6;padding:36px 34px}
+      .ppv-logo{height:36px;width:auto;margin-bottom:20px}
+      .ppv-title{font-size:1.5rem;font-weight:800;color:#0f172a;margin:0 0 4px}
+      .ppv-updated{font-size:0.78rem;color:#94a3b8;margin:0 0 22px;font-weight:600}
+      .ppv-h3{font-size:1rem;font-weight:800;color:#0f2b5c;margin:22px 0 8px}
+      .ppv-p{font-size:0.92rem;color:#334155;line-height:1.65;margin:0 0 10px}
+      .ppv-ul{margin:0 0 10px;padding-left:20px}
+      .ppv-ul li{font-size:0.92rem;color:#334155;line-height:1.7}
+      .ppv-btn{display:inline-block;margin-top:20px;padding:13px 24px;border-radius:12px;background:linear-gradient(135deg,#0f2b5c,#3b6fd4);color:#fff;font-weight:800;font-size:0.9rem;text-decoration:none}
+      .ppv-btn:hover{filter:brightness(1.08)}
+    </style>
+  `;
+  return true;
+}
 function renderPublicBookingPageIfRequested(){
   let params;
   try{ params = new URLSearchParams(window.location.search); }catch(e){ return false; }
   if(params.get('agendar') !== '1') return false;
+
+  window.__pbkLoadedAt = Date.now();
+  const n1 = 2 + Math.floor(Math.random()*6);
+  const n2 = 2 + Math.floor(Math.random()*6);
+  window.__pbkCaptchaAnswer = n1 + n2;
 
   document.title = 'Agende sua Aula Experimental';
   document.body.innerHTML = `
@@ -4857,6 +5222,14 @@ function renderPublicBookingPageIfRequested(){
           <div class="pbk-field">
             <label>Mensagem adicional (opcional)</label>
             <textarea id="pbk-msg" rows="3" placeholder="Conte um pouco do seu objetivo com o inglês, se quiser."></textarea>
+          </div>
+          <div class="pbk-field" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;overflow:hidden;">
+            <label>Website</label>
+            <input id="pbk-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="pbk-field">
+            <label>Prova de que você não é um robô: quanto é ${n1} + ${n2}? *</label>
+            <input id="pbk-captcha" inputmode="numeric" placeholder="Digite o resultado">
           </div>
           <div id="pbk-err" class="pbk-err"></div>
           <button class="pbk-btn" onclick="submitPublicBooking()">📅 Solicitar Aula Experimental</button>
@@ -4897,12 +5270,35 @@ function submitPublicBooking(){
   const nivel = document.getElementById('pbk-nivel').value;
   const pref = (document.getElementById('pbk-pref').value||'').trim();
   const msg = (document.getElementById('pbk-msg').value||'').trim();
+  const website = (document.getElementById('pbk-website')||{}).value || '';
+  const captcha = (document.getElementById('pbk-captcha').value||'').trim();
+
+  // Honeypot: campo invisível para humanos — se veio preenchido, é bot. Falha silenciosa.
+  if(website){ return; }
+
+  // Preenchimento rápido demais (menos de 3s) é típico de bots automatizados.
+  if(Date.now() - (window.__pbkLoadedAt||0) < 3000){
+    errEl.textContent = 'Aguarde só um instante e tente novamente.';
+    return;
+  }
 
   if(!nome || !fone || !pref){
     errEl.textContent = 'Preencha nome, WhatsApp e sua preferência de dia/horário.';
     return;
   }
+  if(Number(captcha) !== window.__pbkCaptchaAnswer){
+    errEl.textContent = 'Resposta incorreta na verificação. Confira e tente de novo.';
+    return;
+  }
+  try{
+    const lastSubmit = Number(localStorage.getItem('pbkLastSubmit')||0);
+    if(Date.now() - lastSubmit < 120000){
+      errEl.textContent = 'Você já enviou uma solicitação há pouco. Aguarde alguns minutos e tente novamente.';
+      return;
+    }
+  }catch(e){}
   errEl.textContent = '';
+  try{ localStorage.setItem('pbkLastSubmit', String(Date.now())); }catch(e){}
 
   const digits = TRIAL_BOOKING_WHATSAPP.replace(/\D/g,'');
   const full = digits.length<=11 ? '55'+digits : digits;
@@ -4963,7 +5359,17 @@ async function copyPublicBookingLink(){
     prompt('Copie o link abaixo para compartilhar:', url);
   }
 }
+async function copyPrivacyPolicyLink(){
+  const url = window.location.origin + window.location.pathname + '?privacidade=1';
+  try{
+    await navigator.clipboard.writeText(url);
+    alert('🔒 Link copiado!\n\n' + url + '\n\nEssa página explica de forma simples como os dados dos alunos são usados e protegidos (LGPD) — pode compartilhar com alunos/responsáveis, ou incluir no contrato.');
+  }catch(e){
+    prompt('Copie o link abaixo para compartilhar:', url);
+  }
+}
 async function boot(){
+  if(renderPublicPrivacyPageIfRequested()) return;
   if(renderPublicPresentationPageIfRequested()) return;
   if(renderPublicBookingPageIfRequested()) return;
 
@@ -5038,6 +5444,9 @@ async function afterAuthReady(){
   renderAuthGate();
   startClock();
   initWeather();
+  runAutoBackupIfNeeded();
+  setupInactivityTracking();
+  refresh2FAStatus().then(()=>{ if(state.view==='info') renderInfo(); });
 }
 async function loadAppData(){
   state.students = await read('students', seedStudents());
@@ -5060,6 +5469,350 @@ async function loadAppData(){
       localStorage.removeItem('pendingSignupDoc');
     }
   }catch(e){}
+const RECOVERED_EXPRESSIONS_AUG2026 = [
+  { title:'Get your act together', emoji:'📋', meaning:'Organize yourself and improve your performance.', translation:'Organizar-se / Tomar jeito.', ex1:'You need to get your act together to pass this final exam.', ex2:'The team got their act together after the coach\'s pep talk.', alt:'Get your house in order.' },
+  { title:'Give the benefit of the doubt', emoji:'⚖️', meaning:'Trust someone even when you\'re unsure.', translation:'Dar o benefício da dúvida.', ex1:'I\'ll give him the benefit of the doubt this time.', ex2:'Give her the benefit of the doubt until she proves otherwise.', alt:'Take someone at their word.' },
+  { title:'By the skin of your teeth', emoji:'😰', meaning:'Just barely escaping a bad situation.', translation:'Por um triz.', ex1:'I passed the test by the skin of my teeth.', ex2:'He escaped the accident by the skin of his teeth.', alt:'Narrowly / By a hair.' },
+  { title:'Bury the hatchet', emoji:'🤝', meaning:'Make peace or reconcile after a conflict.', translation:'Fazer as pazes; enterrar a machadinha.', ex1:'It\'s time to bury the hatchet and work together again.', ex2:'After years of fighting, they finally buried the hatchet.', alt:'Make amends / Patch things up.' },
+  { title:'Barking up the wrong tree', emoji:'🌳', meaning:'Following a mistaken line of thought or accusing the wrong person.', translation:'Acusando a pessoa errada; enganado.', ex1:'You think I stole your lunch? You\'re barking up the wrong tree.', ex2:'If you expect a discount here, you\'re barking up the wrong tree.', alt:'Looking in the wrong place.' },
+  { title:'All in the same boat', emoji:'🚣', meaning:'In the same difficult situation as others.', translation:'No mesmo barco (na mesma situação).', ex1:'We all lost our jobs, so we\'re all in the same boat.', ex2:'We\'re all in the same boat regarding the deadline.', alt:'Sharing the same predicament.' },
+  { title:'All ears', emoji:'👂', meaning:'Fully listening and paying attention.', translation:'Todo ouvidos.', ex1:'Tell me about your trip, I\'m all ears!', ex2:'Go ahead, I\'m all ears.', alt:'Listening closely / Paying full attention.' },
+  { title:'A dime a dozen', emoji:'💰', meaning:'Something very common and easy to find.', translation:'Algo muito comum, fácil de achar.', ex1:'Cheap pens are a dime a dozen at the office.', ex2:'Talented musicians are a dime a dozen in this city.', alt:'Common as dirt / Everywhere.' },
+  { title:'Pull someone\'s leg', emoji:'😄', meaning:'Tease or joke with someone.', translation:'Estar brincando / Tirar sarro.', ex1:'I was only pulling your leg!', ex2:'Is he serious or just pulling your leg?', alt:'Just kidding / Messing with you.' },
+  { title:'Spill the beans', emoji:'🫘', meaning:'Share secret or private information.', translation:'Abrir o jogo / Soltar o verbo.', ex1:'Don\'t spill the beans about the surprise trip.', ex2:'He finally spilled the beans during the interview.', alt:'Dish the dirt / Come clean.' },
+  { title:'Kill two birds with one stone', emoji:'🐦', meaning:'Accomplish two things at once.', translation:'Matar dois coelhos com uma cajadada só.', ex1:'I can kill two birds with one stone by walking and talking.', ex2:'Let\'s kill two birds with one stone today.', alt:'Hit two goals at once.' },
+  { title:'A blessing in disguise', emoji:'🎁', meaning:'A good thing that seemed bad at first.', translation:'Um mal que vem para o bem.', ex1:'Missing the flight was a blessing in disguise.', ex2:'The rejection turned out to be a blessing in disguise.', alt:'Silver lining.' },
+  { title:'On cloud nine', emoji:'☁️', meaning:'Extremely happy or excited.', translation:'Nas nuvens / Muito feliz.', ex1:'She has been on cloud nine since the promotion.', ex2:'He was on cloud nine after the win.', alt:'Over the moon / Thrilled.' },
+  { title:'Bite the bullet', emoji:'💪', meaning:'Face a difficult situation with courage.', translation:'Engolir o sapo / Encarar a realidade.', ex1:'I had to bite the bullet and tell the truth.', ex2:'Just bite the bullet and pay the fine.', alt:'Just do it / Face it head-on.' },
+  { title:'Burn the midnight oil', emoji:'🕯️', meaning:'Work late into the night.', translation:'Queimar a pestana / Trabalhar até tarde.', ex1:'I had to burn the midnight oil to finish the project.', ex2:'He is burning the midnight oil for his exams.', alt:'Pull an all-nighter.' },
+  { title:'Let the cat out of the bag', emoji:'🐱', meaning:'Reveal a secret accidentally.', translation:'Deixar escapar um segredo.', ex1:'She let the cat out of the bag about the party.', ex2:'Who let the cat out of the bag?', alt:'Spill the secret.' },
+  { title:'Under the weather', emoji:'🌧️', meaning:'Feeling sick or unwell.', translation:'Estar indisposto / Meio doente.', ex1:'I\'m feeling a bit under the weather today.', ex2:'He stayed home because he was under the weather.', alt:'Not feeling well.' },
+  { title:'Hit the nail on the head', emoji:'🔨', meaning:'Describe exactly what is causing a problem.', translation:'Acertar em cheio.', ex1:'You hit the nail on the head regarding the budget.', ex2:'She hit the nail on the head with her critique.', alt:'Spot on / Nailed it.' },
+  { title:'Piece of cake', emoji:'🎂', meaning:'Something very easy to do.', translation:'Moleza / Fichinha.', ex1:'The math test was a piece of cake.', ex2:'Fixing this app is a piece of cake for him.', alt:'A walk in the park.' },
+  { title:'Break the ice', emoji:'🧊', meaning:'Start a conversation in a tense situation.', translation:'Quebrar o gelo.', ex1:'A joke helped break the ice at the meeting.', ex2:'How do you break the ice with new people?', alt:'Start the conversation.' },
+];
+const RECOVERED_EXPRESSIONS2_AUG2026 = [
+  { title:'Wrap your head around something', emoji:'🧠', meaning:'Succeed in understanding something complicated.', translation:'Entender algo complexo / Cair a ficha.', ex1:'It took me a while to wrap my head around the new tax laws.', ex2:'I can\'t wrap my head around how fast technology is changing.', alt:'Get a handle on something.' },
+  { title:'Face the music', emoji:'🎵', meaning:'Accept the unpleasant consequences of your actions.', translation:'Arcar com as consequências.', ex1:'After breaking the window, he had to go home and face the music.', ex2:'You made a mistake; face the music and apologize.', alt:'Take your medicine / Own up to it.' },
+  { title:'The bee\'s knees', emoji:'🐝', meaning:'Something excellent, outstanding, top quality.', translation:'Algo excelente / O melhor que há.', ex1:'That new Italian restaurant is the bee\'s knees!', ex2:'Her performance was absolutely the bee\'s knees.', alt:'Top-notch / Outstanding.' },
+  { title:'Kick the can down the road', emoji:'🥫', meaning:'Delay dealing with a difficult problem.', translation:'Empurrar com a barriga / Adiar um problema.', ex1:'They just kicked the can down the road instead of fixing the budget.', ex2:'We can\'t keep kicking the can down the road; we need a solution.', alt:'Put something on the back burner.' },
+  { title:'The whole nine yards', emoji:'🏆', meaning:'Do everything possible; go all the way.', translation:'Fazer tudo o que é possível / O pacote completo.', ex1:'We cooked, decorated, invited everyone—we went the whole nine yards.', ex2:'When fixing this engine, we go the whole nine yards.', alt:'Give it your all.' },
+  { title:'Everything but the kitchen sink', emoji:'🧳', meaning:'Almost everything imaginable included.', translation:'De tudo um pouco / Tudo o que se pode imaginar.', ex1:'She packed everything but the kitchen sink for three days.', ex2:'The update includes everything but the kitchen sink.', alt:'The whole kit and caboodle.' },
+  { title:'Every cloud has a silver lining', emoji:'☁️', meaning:'Every difficult situation has a positive aspect.', translation:'Há um mal que vem para o bem.', ex1:'I lost my job, but every cloud has a silver lining—now I can study.', ex2:'It rained all day, but every cloud has a silver lining—we talked.', alt:'Look on the bright side.' },
+  { title:'The early bird gets the worm', emoji:'🐦', meaning:'Success comes to those who act early.', translation:'Deus ajuda quem cedo madruga.', ex1:'I arrived at 6 AM for the best seats—the early bird gets the worm.', ex2:'Apply now—the early bird gets the worm.', alt:'He who starts first succeeds.' },
+  { title:'Get the ball rolling', emoji:'⚽', meaning:'Initiate a process or start an activity.', translation:'Dar o pontapé inicial.', ex1:'Let\'s get the ball rolling on this new project.', ex2:'Who is going to get the ball rolling for the meeting?', alt:'Kick things off.' },
+  { title:'Get a taste of your own medicine', emoji:'💊', meaning:'Receive the same treatment you gave others.', translation:'Provar do próprio veneno.', ex1:'He was always rude, now he\'s getting a taste of his own medicine.', ex2:'It\'s fair that he gets a taste of his own medicine.', alt:'Give someone a dose of their own medicine.' },
+  { title:'Drive someone up the wall', emoji:'😤', meaning:'Make someone extremely annoyed or frustrated.', translation:'Tirar alguém do sério.', ex1:'That loud music is driving me up the wall.', ex2:'Her constant questions were driving him up the wall.', alt:'Get on someone\'s nerves.' },
+  { title:'Cut someone some slack', emoji:'🙏', meaning:'Be less critical or give someone a break.', translation:'Dar um desconto / Pegar leve.', ex1:'Cut him some slack; he\'s been working all night.', ex2:'Could you cut me some slack on this deadline?', alt:'Go easy on someone.' },
+  { title:'Bite off more than you can chew', emoji:'😬', meaning:'Try to do more than you can handle.', translation:'Dar um passo maior que a perna.', ex1:'He bit off more than he could chew by taking three extra classes.', ex2:'Don\'t bite off more than you can chew this semester.', alt:'Overextend yourself.' },
+  { title:'The best of both worlds', emoji:'🌍', meaning:'Enjoying advantages of two different things at once.', translation:'O melhor dos dois mundos.', ex1:'Living rural but working urban gives you the best of both worlds.', ex2:'This car is economical and fast—the best of both worlds.', alt:'A win-win situation.' },
+  { title:'Beat around the bush', emoji:'🌿', meaning:'Avoiding the main topic because it\'s uncomfortable.', translation:'Enrolar / Rodear o assunto.', ex1:'Stop beating around the bush and tell me the truth.', ex2:'He beat around the bush instead of answering directly.', alt:'Stop dancing around the subject.' },
+  { title:'Cut corners', emoji:'✂️', meaning:'Doing something poorly to save time or money.', translation:'Cortar caminho; fazer de qualquer jeito.', ex1:'If you cut corners on the foundation, it will collapse.', ex2:'Don\'t cut corners; do it right the first time.', alt:'Taking shortcuts.' },
+  { title:'Cry over spilled milk', emoji:'🥛', meaning:'Worrying about things that cannot be fixed.', translation:'Chorar pelo leite derramado.', ex1:'You lost the game, but don\'t cry over spilled milk.', ex2:'There\'s no use crying over spilled milk, just fix it.', alt:'Let it go / Move on.' },
+  { title:'Cost an arm and a leg', emoji:'💸', meaning:'Something very expensive.', translation:'Custar os olhos da cara.', ex1:'That luxury car costs an arm and a leg.', ex2:'Eating out every night costs an arm and a leg.', alt:'Very pricey / Exorbitant.' },
+  { title:'Cold feet', emoji:'🥶', meaning:'Feeling nervous or hesitant about something planned.', translation:'Ficar com medo; amarelar.', ex1:'He got cold feet right before the wedding.', ex2:'I was going to jump, but I got cold feet.', alt:'Get nervous / Back out.' },
+  { title:'Call it a day', emoji:'🌙', meaning:'Stop working on something for now.', translation:'Encerrar o dia de trabalho; dar por encerrado.', ex1:'It\'s getting late, let\'s call it a day.', ex2:'We worked ten hours, let\'s call it a day.', alt:'Wrap up / Finish for now.' },
+];
+const RECOVERED_EXPRESSIONS3_AUG2026 = [
+  { title:'Miss the boat', emoji:'⛵', meaning:'Be too late to take advantage of an opportunity.', translation:'Perder a oportunidade (o bonde).', ex1:'I waited too long to apply for the scholarship and missed the boat.', ex2:'Register today or you\'ll miss the boat on the early-bird discount.', alt:'You lost your chance / Missed the window.' },
+  { title:'Nice work if you can get it', emoji:'😎', meaning:'An easy or highly paid job anyone would want.', translation:'Trabalho fácil se você conseguir.', ex1:'She gets paid to travel and write—nice work if you can get it.', ex2:'Being a game tester sounds like nice work if you can get it.', alt:'That\'s a sweet gig, if you can get it.' },
+  { title:'Cross that bridge when we come to it', emoji:'🌉', meaning:'Don\'t worry about a future problem until it actually happens.', translation:'Deixar para resolver quando acontecer.', ex1:'What if the flight cancels? We\'ll cross that bridge when we come to it.', ex2:'Don\'t stress about the interview yet; we\'ll cross that bridge when we come to it.', alt:'Let\'s wait and see.' },
+];
+const RECOVERED_TOPICS_AUG2026 = [
+  '"Should" in the past',
+  '2024 - What was left behind',
+  'A month to remember 1',
+  'All tenses there are',
+  'Alphabet',
+  'And music ...',
+  'And so it is',
+  'Antonyms',
+  'Anything you know about - countries edition',
+  'Ask me a question in ...',
+  'At the airport',
+  'Back to basics',
+  'Both and Either or Neither or',
+  'Both-and/ Either-or/ Neither-nor',
+  'Brazil talk',
+  'Can-There is-There are',
+  'Cardinal Numbers',
+  'Chatting about movies, Series and more ...',
+  'Clothes',
+  'Commuting',
+  'Comparatives',
+  'Complete the incomplete',
+  'Confusing English verb pairs',
+  'Contrasts',
+  'Conversation',
+  'Conversation - Randoms topics',
+  'Conversation cards - random',
+  'Conversation starters',
+  'Countable-Uncountable nouns',
+  'Countries and Nationalities',
+  'Daily activities',
+  'Define or Describe',
+  'ED/ ING adjectives',
+  'English all over the place',
+  'English and its contractions',
+  'English itself',
+  'English marathon',
+  'English speaking countries and Brazil',
+  'English talk',
+  'ESL Random Talk',
+  'Every mistake there is',
+  'Family members',
+  'First conditional',
+  'Flashback',
+  'Flashback 2',
+  'Flying over English',
+  'Foods in English',
+  'Fortnite evening',
+  'Free style class',
+  'Free talk',
+  'Frequency Adverbs',
+  'From A to Z conversation',
+  'Fruits and Vegetables',
+  'Future Continuous',
+  'Future Perfect and Future Continuous',
+  'General expressions',
+  'Given names - Cities - Brands',
+  'Giving opinions',
+  'Giving reasons',
+  'Gossip and rumors',
+  'Grammar topics discussion',
+  'Grammar-based comparatives',
+  'Grammar-based Frequency adverbs',
+  'Grammar-based Present Perfect',
+  'Grammar-based quantifiers',
+  'Grammar-based Simple Past',
+  'Grammar-based Simple Present',
+  'Grammar-based Superlatives',
+  'Grocery shopping',
+  'Had better - It\'s time',
+  'Have to',
+  'Health problems - the use of \'Should\'',
+  'How to behave at a job interview',
+  'How would you explain that?',
+  'How would you explain that? 1',
+  'How would you explain that? 2',
+  'If I went to ... I would ...',
+  'If it\'s not right it\'s wrong',
+  'If it\'s not right it\'s wrong 1',
+  'If only',
+  'Improving fluency',
+  'Improving reductions and contractions',
+  'In the PAST zone',
+  'Indirect questions',
+  'Interrogative pronouns',
+  'Introducing myself',
+  'Irregular nouns',
+  'Just say it',
+  'Just tell me',
+  'Let me see what you got',
+  'Let\'s see what the present brings',
+  'Let\'s talk about countries',
+  'Let\'s talk about life',
+  'Main prepositions',
+  'May-Might-Could',
+  'Modals and theis issues',
+  'Money talk',
+  'Movies',
+  'Movies conversation',
+  'Music',
+  'Must-Should',
+  'My story connected to ...',
+  'Needs to be done-Needs doing',
+  'No class',
+  'Nouns Verbs Adjectives and Adverbs',
+  'Numbers',
+  'Occupations',
+  'One-word definition',
+  'Ordinal Numbers',
+  'Package of English',
+  'Paired conjunctions',
+  'Paris 2024',
+  'Participle form',
+  'Parts of the body',
+  'Parts of the house',
+  'Passive voice',
+  'Past continuous',
+  'Past habits',
+  'Past perfect',
+  'Personal and general stuff',
+  'Phrasal verbs',
+  'Physical features',
+  'Places in town',
+  'Possessive pronouns+The "L" sound',
+  'Prefixes',
+  'Present continuous',
+  'Present perfect - Never enough',
+  'Present Perfect 1',
+  'Present Perfect 2',
+  'Questions ON 2025',
+  'Random',
+  'Random talk',
+  'Rather',
+  'Reduction and Contractions',
+  'Reflexive pronouns',
+  'Reported speech',
+  'Revisiting the present perfect',
+  'Reviving the Present Perfect and PP Continuous',
+  'Right after vacation',
+  'Saying things I\'ve never said before',
+  'Seasons',
+  'Second conditional',
+  'Sentences to help one speak about oneself',
+  'Simple past - never enough',
+  'Simple pesent - Simple past',
+  'Simple Present',
+  'Simple Present - never enough',
+  'Skill level expressions',
+  'SO and NEITHER',
+  'Some talk to add up',
+  'Some topics to remember',
+  'Some-Any-No',
+  'Something and ...',
+  'Speak about oneself',
+  'Speak about oneself Irish-accent',
+  'Speaking cards',
+  'Speaking challenge',
+  'Special class with friends',
+  'Special words',
+  'Spelling and Writing',
+  'Spelling and Writing (Teens)',
+  'Stop sounds',
+  'Sufixes',
+  'Superlatives',
+  'Support class',
+  'Tag questions',
+  'Technology talk',
+  'Tell me - Teens',
+  'Tell me everything you kow about',
+  'Telling the time',
+  'Telling the time (kids)',
+  'Test-drive class',
+  'That\'s a wrap',
+  'The "good" and "not so good" side of things',
+  'The "TCH" and "X" sounds',
+  'The "Th" sounds in English',
+  'The future ahead',
+  'The genitive case',
+  'The great America',
+  'The journey to fluency',
+  'The Past zone',
+  'The present continuous',
+  'The \'R\' and \'T\' sounds in English',
+  'The Schwa sound',
+  'The simple future',
+  'The simple past - final',
+  'The simple past part 1',
+  'The simple past part 2',
+  'The use of "BY"',
+  'The use of "Should"',
+  'The verb To Be',
+  'The verb To Be (kids)',
+  'The very first class',
+  'The very first class of the year',
+  'The very first week',
+  'The very last class',
+  'There is/ are everywhere in every way',
+  'Things I used to',
+  'Third conditional',
+  'Time to clear your doubts',
+  'TOEFL',
+  'Used to',
+  'Using "WH" words',
+  'Verbal nouns and manias',
+  'Verbs in the past and their sounds',
+  'Verbs Nouns and their different sounds',
+  'Very basic questions for kids',
+  'Vocabulary',
+  'What if ... What would you do?',
+  'What if someoeone told you that? 1',
+  'What if someone told you that - Verbs edition',
+  'What if someone told you that? 7',
+  'What makes you happy',
+  'What\'s the perfect ...?',
+  'When in the future',
+  'When in the past',
+  'When in the present',
+  'When in the present perfect',
+  'When in the tenses',
+  'Wh-question words',
+  'Wishes about the past',
+  'Wishes about the present',
+  'Wonder',
+  'Words you should',
+  'Typing the right way  basic (1)',
+  'Typing the right way advanced (1)',
+  'When in Malta',
+  'Review for test',
+  'Every mistake there is September basic',
+  'Every mistake there is September advanced',
+  'Music - I love it all',
+  'Random topics - Talk',
+  'The second conditional - revival 2026',
+  'So and Not So as substitutes',
+  'Used to and Would in the past',
+  'End of beginning by Djo',
+  'FECHADO',
+  'Verbs, Nouns and their different sounds',
+  'Recalling conditionals',
+  'Nominees and Winners 2025',
+  'Looking over my shoulder 1',
+  'Games and Toys',
+  'Places in town - kids',
+  'Review 2026',
+  'Vocabulary and Spelling',
+  'By topics',
+  'If it\'s not right it\'s wrong 1 - (basic) 2026',
+  'If it\'s not right it\'s wrong 1 - Advanced  2026',
+  'Have you ever...? Tell about it',
+  'Means of transportation',
+  'Colors + The "L" sound',
+  'How would you translate that? 1 (basic)',
+  'How would you translate that? 1 (advanced)',
+  'At school',
+  'Recalling topics  - kids',
+  'At the table',
+  'Animals and ...',
+  'Easter has come',
+  'Should - Should have',
+  'Music on 2026',
+  'I get, I want, I need (kids)',
+  'Some random stuff (kids)',
+  'School stuff and Commands',
+  'How to use verbs (kids)',
+  'Getting along with myself',
+  'Adjectives (kids)',
+  'Labor day (kids)',
+  'Motion Pictures and Series',
+  'Say Something (kids)',
+  'When in Japan',
+  'My top 3\'s',
+  'Seasons (kids)',
+  'Lovers & Haters',
+  'Spelling and Writing 1 (kids)',
+  'Spelling and Writing 2 (basic)',
+  'Spelling and Writing 2 (advanced)',
+  'Guess the word',
+  'Guess the word (kids)',
+  'Who\'s this?',
+  'Guess the movie',
+  'Crosswords (kids)',
+  'Every mistake there is (ADV)',
+  'Every mistake there is (BAS)',
+  'The World Cup',
+  'Some games (kids)',
+  'Let\'s talk about English',
+  'Some more English before my vacation (kids)',
+  'Wheel of names',
+  'Welcome to Great Britain',
+  'Everyday Elegance',
+  'Famous places around the world',
+  'Phrasal Verbs: Unlock them'
+];
+
   const _materiaOnBoot = state.orgInfo.materia || 'ingles';
   state.topics   = await read('topics', _materiaOnBoot==='ingles' ? seedTopics() : []);
   const topicsCategoriesReset = await read('topicsCategoriesReset', false);
@@ -5074,7 +5827,94 @@ async function loadAppData(){
     await save('topics');
     await write('pronunciationTopicAdded', true);
   }
+  const topicsRecoveredAug2026 = await read('topicsRecoveredAug2026', false);
+  if(!topicsRecoveredAug2026){
+    const existingTitles = new Set(state.topics.map(tp=>tp.title.toLowerCase()));
+    RECOVERED_TOPICS_AUG2026.forEach(title=>{
+      if(!existingTitles.has(title.toLowerCase())){
+        state.topics.push({id:uid(), title, done:false, category:null});
+        existingTitles.add(title.toLowerCase());
+      }
+    });
+    await save('topics');
+    await write('topicsRecoveredAug2026', true);
+  }
   state.expressions = await read('expressions', _materiaOnBoot==='ingles' ? seedExpressions() : []);
+  const expressionsRecoveredAug2026 = await read('expressionsRecoveredAug2026', false);
+  if(!expressionsRecoveredAug2026){
+    const existingExprTitles = new Set(state.expressions.map(x=>x.title.toLowerCase()));
+    // RECOVERED_EXPRESSIONS_AUG2026 já está ordenado da mais recente para a mais antiga;
+    // monta o lote nessa mesma ordem e insere tudo de uma vez no topo, preservando a ordem.
+    const batch = [];
+    RECOVERED_EXPRESSIONS_AUG2026.forEach(rec=>{
+      if(!existingExprTitles.has(rec.title.toLowerCase())){
+        batch.push(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, rec));
+        existingExprTitles.add(rec.title.toLowerCase());
+      }
+    });
+    state.expressions = batch.concat(state.expressions);
+    await save('expressions');
+    await write('expressionsRecoveredAug2026', true);
+  }
+  const expressionsRecovered2Aug2026 = await read('expressionsRecovered2Aug2026', false);
+  if(!expressionsRecovered2Aug2026){
+    const existingExprTitles2 = new Set(state.expressions.map(x=>x.title.toLowerCase()));
+    const batch2 = [];
+    RECOVERED_EXPRESSIONS2_AUG2026.forEach(rec=>{
+      if(!existingExprTitles2.has(rec.title.toLowerCase())){
+        batch2.push(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, rec));
+        existingExprTitles2.add(rec.title.toLowerCase());
+      }
+    });
+    state.expressions = batch2.concat(state.expressions);
+    // Reordena pela numeração original (#1 a #40) para garantir a ordem correta
+    // combinando as duas remessas recuperadas — a mais recente (#40) primeiro.
+    const canonicalOrder = [
+      "Wrap your head around something","Face the music","The bee's knees","Kick the can down the road",
+      "The whole nine yards","Everything but the kitchen sink","Every cloud has a silver lining",
+      "The early bird gets the worm","Get your act together","Give the benefit of the doubt",
+      "Get the ball rolling","Get a taste of your own medicine","Drive someone up the wall",
+      "Cut someone some slack","Bite off more than you can chew","The best of both worlds",
+      "Beat around the bush","Cut corners","Cry over spilled milk","Cost an arm and a leg","Cold feet","Call it a day",
+      "By the skin of your teeth","Bury the hatchet","Barking up the wrong tree","All in the same boat","All ears",
+      "A dime a dozen","Pull someone's leg","Spill the beans","Kill two birds with one stone",
+      "A blessing in disguise","On cloud nine","Bite the bullet","Burn the midnight oil",
+      "Let the cat out of the bag","Under the weather","Hit the nail on the head","Piece of cake","Break the ice"
+    ];
+    const rankOf = title => { const i = canonicalOrder.findIndex(c=>c.toLowerCase()===title.toLowerCase()); return i===-1 ? -1 : i; };
+    state.expressions.sort((a,b) => rankOf(a.title) - rankOf(b.title));
+    await save('expressions');
+    await write('expressionsRecovered2Aug2026', true);
+  }
+  const expressionsRecovered3Aug2026 = await read('expressionsRecovered3Aug2026', false);
+  if(!expressionsRecovered3Aug2026){
+    const existingExprTitles3 = new Set(state.expressions.map(x=>x.title.toLowerCase()));
+    const batch3 = [];
+    RECOVERED_EXPRESSIONS3_AUG2026.forEach(rec=>{
+      if(!existingExprTitles3.has(rec.title.toLowerCase())){
+        batch3.push(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, rec));
+        existingExprTitles3.add(rec.title.toLowerCase());
+      }
+    });
+    state.expressions = batch3.concat(state.expressions);
+    const canonicalOrder3 = [
+      "Miss the boat","Nice work if you can get it","Cross that bridge when we come to it",
+      "Wrap your head around something","Face the music","The bee's knees","Kick the can down the road",
+      "The whole nine yards","Everything but the kitchen sink","Every cloud has a silver lining",
+      "The early bird gets the worm","Get your act together","Give the benefit of the doubt",
+      "Get the ball rolling","Get a taste of your own medicine","Drive someone up the wall",
+      "Cut someone some slack","Bite off more than you can chew","The best of both worlds",
+      "Beat around the bush","Cut corners","Cry over spilled milk","Cost an arm and a leg","Cold feet","Call it a day",
+      "By the skin of your teeth","Bury the hatchet","Barking up the wrong tree","All in the same boat","All ears",
+      "A dime a dozen","Pull someone's leg","Spill the beans","Kill two birds with one stone",
+      "A blessing in disguise","On cloud nine","Bite the bullet","Burn the midnight oil",
+      "Let the cat out of the bag","Under the weather","Hit the nail on the head","Piece of cake","Break the ice"
+    ];
+    const rankOf3 = title => { const i = canonicalOrder3.findIndex(c=>c.toLowerCase()===title.toLowerCase()); return i===-1 ? -1 : i; };
+    state.expressions.sort((a,b) => rankOf3(a.title) - rankOf3(b.title));
+    await save('expressions');
+    await write('expressionsRecovered3Aug2026', true);
+  }
   state.lessons  = await read('lessons', []);
   if(!SUPABASE_CONFIGURED) state.authHash = await read('authHash', '');
   state.orgDocs  = await read('orgDocs', []);
@@ -5115,6 +5955,9 @@ async function loadAppData(){
   state.boletimHistory = await read('boletimHistory', {});
   state.timelineEvents = await read('timelineEvents', []);
   state.presentationConfig = await read('presentationConfig', {});
+  state.subjectContentArchive = await read('subjectContentArchive', {});
+  state.autoBackupHistory = await read('autoBackupHistory', []);
+  state.auditLog = await read('auditLog', []);
   if(purgeAllOrphanedStudentData()){
     await save('lessons');
     await write('agendaRecurring', state.agendaRecurring);
@@ -5145,6 +5988,7 @@ function startClock(){
     if(el) el.textContent = clockLine();
     const ag = document.getElementById('ag-now');
     if(ag) ag.textContent = nowDateTime();
+    if(document.getElementById('clsroom-sync-holder')) refreshClassroomSyncBlock();
   }, 1000);
 }
 
@@ -6235,6 +7079,8 @@ function renderTrialClasses(){
   const el = document.getElementById('v-experimentais');
   if(!el) return;
 
+  const _focusState = captureInputFocus('tc-search-input');
+
   const isEn = state.lang === 'en';
   const list = state.trialClasses || [];
   
@@ -6335,7 +7181,7 @@ function renderTrialClasses(){
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
       <div class="search" style="flex:1;min-width:240px;">
         <span class="mag">🔍</span>
-        <input placeholder="Buscar por nome, telefone ou nota..." value="${esc(state.q_experimentais||'')}" oninput="state.q_experimentais=this.value; renderTrialClasses();">
+        <input id="tc-search-input" placeholder="Buscar por nome, telefone ou nota..." value="${esc(state.q_experimentais||'')}" oninput="state.q_experimentais=this.value; renderTrialClasses();">
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         <button type="button" class="btn btn-sm ${_trialFilterStatus==='all'?'btn-primary':'btn-ghost'}" onclick="_trialFilterStatus='all'; renderTrialClasses();">Todas (${list.length})</button>
@@ -6349,6 +7195,7 @@ function renderTrialClasses(){
       ${cardsHtml}
     </div>
   `;
+  restoreInputFocus('tc-search-input', _focusState);
 }
 
 /* ================= FILA DE ESPERA ================= */
@@ -7981,6 +8828,8 @@ function renderTopicos(){
   const el = document.getElementById('v-topicos');
   if(!el) return;
 
+  const _focusState = captureInputFocus('tp-search-input');
+
   if (state.selectedTopicCategoryFilter === undefined) state.selectedTopicCategoryFilter = 'all';
 
   const q = (state.q_topicos||'').toLowerCase();
@@ -8006,10 +8855,12 @@ function renderTopicos(){
       ondrop="onTopicDrop(event,'${cat.key}')">${cat.label} <span class="tp-pill-count">${countFor(cat.key)}</span></button>`;
   });
 
-  // 2. Lista filtrada (simples, sem agrupamento)
-  const filteredList = filter==='all'
-    ? list.filter(tp => !topicCategory(tp))
-    : list.filter(tp => topicCategory(tp)===filter);
+  // 2. Lista filtrada: com busca ativa, ignora a categoria selecionada e busca em TODOS os
+  //    tópicos (lista única) — sem busca, mantém a navegação por categoria como antes.
+  const isSearching = q.length > 0;
+  const filteredList = isSearching
+    ? list
+    : (filter==='all' ? list.filter(tp => !topicCategory(tp)) : list.filter(tp => topicCategory(tp)===filter));
 
   let bodyContent = '';
   if (state.topics.length === 0) {
@@ -8038,6 +8889,7 @@ function renderTopicos(){
                 ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)" ${rowStyle}>
               <span class="tp-row-drag" title="${isEn?'Drag to a category above':'Arraste para uma categoria acima'}">⠿</span>
               <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
+              ${isSearching ? `<span class="tp-row-catbadge">${topicCategory(tp) ? esc((TOPIC_CATEGORIES.find(c=>c.key===topicCategory(tp))||{}).label || topicCategory(tp)) : (isEn?'Uncategorized':'Sem categoria')}</span>` : ''}
               <span class="tp-row-actions">
                 <button class="tp-card-btn ${(tp.materials||[]).length?'tp-has-mat':''}" onclick="openTopicMaterialsModal('${tp.id}')" title="Banco de Materiais">📎${(tp.materials||[]).length?` ${tp.materials.length}`:''}</button>
                 <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
@@ -8058,7 +8910,7 @@ function renderTopicos(){
 
     <div class="toolbar" style="margin-bottom: 12px;">
       <div class="search"><span class="mag">🔍</span>
-        <input placeholder="${t('topicos.search')}" value="${esc(state.q_topicos||'')}" oninput="state.q_topicos=this.value;renderTopicos()">
+        <input id="tp-search-input" placeholder="${t('topicos.search')}" value="${esc(state.q_topicos||'')}" oninput="state.q_topicos=this.value;renderTopicos()">
       </div>
       <span class="count-pill">${filteredList.length} ${t('topicos.shown')}</span>
     </div>
@@ -8067,6 +8919,7 @@ function renderTopicos(){
 
     ${bodyContent}
   `;
+  restoreInputFocus('tp-search-input', _focusState);
 }
 function onTopicDragStart(ev, id){
   dragTopicId = id;
@@ -8105,8 +8958,9 @@ function renderExpressoes(){
     </div>
     ${list.length ? `<div class="ex-list">${list.map(x=>`
       <div class="ex-row ${x.confirmed?'ex-row-on':''}">
-        <div class="ex-info">
-          <span class="ex-name ${x.confirmed?'ex-name-on':''}">${esc(x.title)}</span>
+        <div class="ex-info" style="cursor:pointer" onclick="openExpressaoView('${x.id}')">
+          <span class="ex-name ${x.confirmed?'ex-name-on':''}">${x.emoji?esc(x.emoji)+' ':''}${esc(x.title)}</span>
+          ${x.meaning ? `<span class="ex-meaning-preview">${esc(x.meaning)}</span>` : ''}
           ${x.confirmed && x.confirmedDate ? `<span class="ex-date">📅 ${fmtDateBR(x.confirmedDate)}</span>` : ''}
         </div>
         <span class="ex-acts">
@@ -8340,10 +9194,24 @@ function openExpressaoForm(id){
   const x = id ? state.expressions.find(e=>e.id===id) : null;
   showModal(`
     <h3>${x?t('expressoes.formEdit'):t('expressoes.formNew')}</h3>
+    <div class="msub">${x?t('expressoes.editSub'):t('expressoes.newSub')}</div>
     <div class="field" style="position:relative"><label>${t('expressoes.titleField')}</label>
       <input id="ex-title" value="${x?esc(x.title):''}" placeholder="${t('expressoes.titlePh')}" oninput="handleExpressionInput(this.value)" autocomplete="off">
       <div id="ex-sug-list" class="ex-sug-list" style="display:none"></div>
     </div>
+    <div class="field"><label>${t('expressoes.emoji')}</label>
+      <input id="ex-emoji" value="${x?esc(x.emoji||''):''}" placeholder="🧊" maxlength="8"></div>
+    <div class="field"><label>${t('expressoes.meaningField')}</label>
+      <input id="ex-meaning" value="${x?esc(x.meaning||''):''}" placeholder="${t('expressoes.meaningPh')}"></div>
+    <div class="field"><label>${t('expressoes.translationField')}</label>
+      <input id="ex-translation" value="${x?esc(x.translation||''):''}" placeholder="${t('expressoes.translationPh')}"></div>
+    <div class="field"><label>${t('expressoes.ex1')}</label>
+      <input id="ex-ex1" value="${x?esc(x.ex1||''):''}" placeholder="She let the cat out of the bag."></div>
+    <div class="field"><label>${t('expressoes.ex2')}</label>
+      <input id="ex-ex2" value="${x?esc(x.ex2||''):''}" placeholder="Who let the cat out of the bag?"></div>
+    <div class="field"><label>${t('expressoes.altField')}</label>
+      <input id="ex-alt" value="${x?esc(x.alt||''):''}" placeholder="${t('expressoes.altPh')}"></div>
+    <div class="msub" style="margin-top:-6px">${t('expressoes.boldHint')}</div>
     <div class="modal-acts">
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
       <button class="btn btn-primary" onclick="saveExpressao('${id||''}')">${x?t('common.save'):t('expressoes.add')}</button>
@@ -8353,14 +9221,37 @@ function openExpressaoForm(id){
 async function saveExpressao(id){
   const title = fv('ex-title');
   if(!title){ const i=document.getElementById('ex-title'); if(i) i.focus(); return; }
+  const fields = {
+    title,
+    emoji: fv('ex-emoji'),
+    meaning: fv('ex-meaning'),
+    translation: fv('ex-translation'),
+    ex1: fv('ex-ex1'),
+    ex2: fv('ex-ex2'),
+    alt: fv('ex-alt')
+  };
   if(id){
     const x = state.expressions.find(e=>e.id===id);
-    x.title = title;
+    Object.assign(x, fields);
   }else{
-    state.expressions.push({id:uid(), title, confirmed:false});
+    state.expressions.unshift(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, fields));
   }
   await write('expressions', state.expressions);
   closeModal(); renderExpressoes(); renderPainel();
+}
+function openExpressaoView(id){
+  const x = state.expressions.find(e=>e.id===id); if(!x) return;
+  showModal(`
+    <h3>${x.emoji?esc(x.emoji)+' ':''}${esc(x.title)}</h3>
+    ${x.meaning ? `<div class="field"><label>${t('expressoes.meaning')}</label><div class="ex-view-text">${esc(x.meaning)}</div></div>` : ''}
+    ${x.translation ? `<div class="field"><label>🇧🇷</label><div class="ex-view-text ex-view-it">${esc(x.translation)}</div></div>` : ''}
+    ${x.ex1 ? `<div class="ex-view-example"><b>${t('expressoes.example')} 1</b><div>${x.ex1}</div></div>` : ''}
+    ${x.ex2 ? `<div class="ex-view-example"><b>${t('expressoes.example')} 2</b><div>${x.ex2}</div></div>` : ''}
+    ${x.alt ? `<div class="ex-view-alt">💡 <b>${t('expressoes.alt')}:</b> "${esc(x.alt)}"</div>` : ''}
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="closeModal()">${t('common.close')}</button>
+      <button class="btn btn-primary" onclick="closeModal(); openExpressaoForm('${x.id}')">✏️ ${t('common.edit')}</button>
+    </div>`);
 }
 async function toggleExpressaoConfirm(id){
   const x = state.expressions.find(e=>e.id===id); if(!x) return;
@@ -11572,10 +12463,19 @@ function buildContractHTML(p){
           </div>
         </div>
 
-        <!-- 6. CLÁUSULAS ADICIONAIS -->
+        <!-- 6. PROTEÇÃO DE DADOS PESSOAIS (LGPD) -->
+        <div style="margin-bottom:20px;">
+          ${sectionTitle(6, 'Da Proteção de Dados Pessoais (LGPD)')}
+          <p style="font-size:0.9rem; margin:0; text-align:justify;">
+            Os dados pessoais do(a) CONTRATANTE tratados neste contrato são utilizados exclusivamente para a prestação do serviço de aulas particulares, em conformidade com a Lei Geral de Proteção de Dados (LGPD). Detalhes sobre quais dados são coletados, sua finalidade e como solicitar acesso, correção ou exclusão estão disponíveis na Política de Privacidade, acessível em:
+            <br><span style="color:${ACCENT}; font-weight:700;">${window.location.origin}${window.location.pathname}?privacidade=1</span>
+          </p>
+        </div>
+
+        <!-- 7. CLÁUSULAS ADICIONAIS -->
         ${p.customClauses ? `
           <div style="margin-bottom:20px;">
-            ${sectionTitle(6, 'Disposições Especiais')}
+            ${sectionTitle(7, 'Disposições Especiais')}
             <p style="font-size:0.9rem; margin:0; text-align:justify; white-space:pre-wrap;">${esc(p.customClauses)}</p>
           </div>
         ` : ''}
@@ -11601,6 +12501,77 @@ function buildContractHTML(p){
   `;
 }
 
+/* ================= SALA DE AULA: sincronização com a Agenda ================= */
+function getCurrentOrNextClassToday(){
+  const now = new Date();
+  const iso = isoDate(now);
+  const dkey = DAYKEY_BY_GETDAY[now.getDay()];
+  const nowMinutes = now.getHours()*60 + now.getMinutes();
+  const holToday = holidayInfo(iso);
+  if(holToday) return null;
+
+  let candidates = [];
+  (state.agendaHours||[]).forEach(h => {
+    effectiveEntries(iso, dkey, h).forEach(e => {
+      const s = studentById(e.studentId);
+      if(!s) return;
+      if(s.startDate && iso < s.startDate) return;
+      const parts = h.split(':').map(Number);
+      const classMinutes = parts[0]*60 + (parts[1]||0);
+      candidates.push({ hour:h, classMinutes, student:s, iso });
+    });
+  });
+  candidates.sort((a,b)=>a.classMinutes-b.classMinutes);
+
+  // "aula atual": entre 15 min antes e 60 min depois do horário marcado
+  let current = candidates.find(c => nowMinutes >= c.classMinutes - 15 && nowMinutes <= c.classMinutes + 60);
+  if(current) return Object.assign({status:'current'}, current);
+
+  let next = candidates.find(c => c.classMinutes > nowMinutes);
+  if(next) return Object.assign({status:'next'}, next);
+
+  return null;
+}
+function renderClassroomSyncBlock(){
+  const o = state.orgInfo || {};
+  const info = getCurrentOrNextClassToday();
+  const meetLink = (document.getElementById('org-meet')||{}).value ?? (o.meetingLink||'');
+
+  if(!info){
+    return `<div class="clsroom-sync clsroom-sync-empty">📭 ${state.lang==='en'?'No more classes scheduled for today.':'Nenhuma aula agendada para o restante de hoje.'}</div>`;
+  }
+  const statusLabel = info.status==='current'
+    ? (state.lang==='en'?'🟢 Happening now':'🟢 Acontecendo agora')
+    : (state.lang==='en'?'🔵 Next class today':'🔵 Próxima aula de hoje');
+  const canSend = !!(info.student.phone && meetLink);
+  return `
+    <div class="clsroom-sync">
+      <div class="clsroom-sync-info">
+        <span class="clsroom-sync-status">${statusLabel}</span>
+        <span class="clsroom-sync-detail"><b>${info.hour}</b> · ${esc(info.student.name)}</span>
+      </div>
+      <button type="button" class="btn btn-primary clsroom-sync-btn" ${canSend?'':'disabled'}
+        onclick="sendMeetingLinkToCurrentStudent('${info.student.id}')" title="${!meetLink?(state.lang==='en'?'Add a meeting link first':'Adicione um link da aula primeiro'):(!info.student.phone?(state.lang==='en'?'Student has no phone number':'Aluno sem telefone cadastrado'):'')}">
+        📱 ${state.lang==='en'?'Send link to':'Enviar link para'} ${esc(info.student.name.split(' ')[0])}
+      </button>
+    </div>`;
+}
+function refreshClassroomSyncBlock(){
+  const holder = document.getElementById('clsroom-sync-holder');
+  if(holder) holder.innerHTML = renderClassroomSyncBlock();
+}
+function sendMeetingLinkToCurrentStudent(studentId){
+  const s = studentById(studentId);
+  const meetLink = (document.getElementById('org-meet')||{}).value || (state.orgInfo&&state.orgInfo.meetingLink) || '';
+  if(!s || !s.phone || !meetLink) return;
+  const first = (s.name||'').trim().split(/\s+/)[0] || '';
+  const msg = (state.lang==='en'
+    ? `Hi ${first}! Here's the link for our class: ${meetLink}`
+    : `Oi ${first}! Segue o link da nossa aula: ${meetLink}`);
+  const digits = s.phone.replace(/\D/g,'');
+  const full = digits.length<=11 ? '55'+digits : digits;
+  openWA('https://wa.me/'+full+'?text='+encodeURIComponent(msg));
+}
 function renderInfo(){
   const el = document.getElementById('v-info');
   if(!el) return;
@@ -11655,18 +12626,8 @@ function renderInfo(){
     <div class="info-group ig-emerald info-group-full">
       <div class="ig-head"><span class="ig-ico">🎥</span>${t('info.classroom')}</div>
       <div class="field"><label>${t('info.meetLink')}</label>
-        <input id="org-meet" value="${esc(o.meetingLink||'')}" placeholder="${t('info.meetLinkPh')}"></div>
-    </div>
-
-    <div class="contract-dl">
-      <div class="contract-dl-info">
-        <span class="contract-dl-ico">📜</span>
-        <div>
-          <div class="contract-dl-title">${t('info.contractTitle')}</div>
-          <div class="contract-dl-sub">${t('info.contractSub')}</div>
-        </div>
-      </div>
-      <a class="btn btn-primary contract-dl-btn" href="${CONTRACT_PDF_DATAURL}" download="Regras_das_Aulas.pdf">${t('info.downloadPdf')}</a>
+        <input id="org-meet" value="${esc(o.meetingLink||'')}" placeholder="${t('info.meetLinkPh')}" oninput="refreshClassroomSyncBlock()"></div>
+      <div id="clsroom-sync-holder">${renderClassroomSyncBlock()}</div>
     </div>
 
     <div class="info-group ig-amber" style="margin-top:26px">
@@ -11705,6 +12666,31 @@ function renderInfo(){
       <button type="button" class="btn btn-primary" style="margin-top:6px" onclick="savePresentationConfig()">🔗 Salvar e Gerar Link</button>
       <span id="pp-saved" class="org-saved"></span>
     </div>
+
+    <div class="info-group ig-amber" style="margin-top:26px">
+      <div class="ig-head"><span class="ig-ico">🔑</span>Senha de Acesso</div>
+      <div class="sub" style="margin:-4px 0 14px">Trocar sua senha exige digitar a senha atual antes de definir a nova — assim, mesmo que alguém abra o sistema no seu celular, não consegue trocar sua senha sem saber a atual.</div>
+      <button type="button" class="btn btn-primary" onclick="openChangePassword()">🔑 Trocar Senha</button>
+    </div>
+
+    <div class="info-group ig-emerald" style="margin-top:26px">
+      <div class="ig-head"><span class="ig-ico">🔒</span>Política de Privacidade (LGPD)</div>
+      <div class="sub" style="margin:-4px 0 14px">Uma página pública explicando de forma simples quais dados dos alunos o sistema guarda, para que servem e como pedir correção/exclusão — para compartilhar com alunos e responsáveis, ou incluir no contrato.</div>
+      <button type="button" class="btn btn-primary" onclick="copyPrivacyPolicyLink()">🔗 Copiar Link da Política de Privacidade</button>
+    </div>
+
+    ${SUPABASE_CONFIGURED ? `
+    <div class="info-group ig-violet" style="margin-top:26px">
+      <div class="ig-head"><span class="ig-ico">🔐</span>Autenticação em Duas Etapas (2FA)</div>
+      <div class="sub" style="margin:-4px 0 14px">Adiciona uma segunda camada de segurança no login: além da senha, o sistema pede um código de 6 dígitos gerado por um app autenticador no seu celular (Google Authenticator, Authy, etc.).</div>
+      ${twoFAEnabled ? `
+        <div class="banner" style="background:var(--accent-bg);border-color:var(--line);color:var(--emerald);font-weight:700;margin-bottom:14px;">✅ Ativado — seu login pede o código a cada entrada.</div>
+        <button type="button" class="btn btn-ghost" style="border:1.5px solid var(--rose);color:var(--rose);" onclick="disable2FA()">🔓 Desativar 2FA</button>
+      ` : `
+        <div class="banner" style="margin-bottom:14px;">⚠️ Ainda não ativado — sua conta depende só da senha.</div>
+        <button type="button" class="btn btn-primary" onclick="open2FASetupModal()">🔐 Ativar Autenticação em Duas Etapas</button>
+      `}
+    </div>` : ''}
 
     <div class="org-actions">
       <button class="btn btn-primary" onclick="saveOrgInfo()">${t('info.save')}</button>
@@ -12204,7 +13190,7 @@ const BACKUP_KEYS = [
   'financeiroAjustes','pagamentos','despesas','despesasPagas',
   'declaracaoAjustes','ferias','orgInfo','orgDocs',
   'lang','theme','colorMode','navCollapsedGroups','contractSettings',
-  'financialGoals','trialClasses','waitlist','slotNotices','pronunciationChallenges','boletimSkills','boletimHistory','timelineEvents','presentationConfig'
+  'financialGoals','trialClasses','waitlist','slotNotices','pronunciationChallenges','boletimSkills','boletimHistory','timelineEvents','presentationConfig','subjectContentArchive','auditLog'
 ];
 function backupSummaryCounts(){
   return {
@@ -12215,6 +13201,105 @@ function backupSummaryCounts(){
     despesas: (state.despesas||[]).length,
     ferias: (state.ferias||[]).length,
   };
+}
+/* ================= BACKUP AUTOMÁTICO SILENCIOSO ================= */
+// Guarda periodicamente uma cópia completa dos dados em um local separado
+// (state.autoBackupHistory), protegendo contra bugs que zerem os dados
+// "ao vivo" — como aconteceu com o Plano de Aula e a Biblioteca antes.
+const AUTO_BACKUP_MIN_INTERVAL_MS = 20 * 60 * 60 * 1000; // ~20h
+const AUTO_BACKUP_MAX_SNAPSHOTS = 10;
+/* ================= LOG DE AUDITORIA ================= */
+// Registra ações importantes do sistema (o quê, quando e um resumo),
+// para ajudar a entender "o que aconteceu" caso algo dê errado.
+const AUDIT_LOG_MAX = 300;
+async function logAudit(action, details, icon){
+  try{
+    if(!state.auditLog) state.auditLog = [];
+    state.auditLog.push({
+      id: uid(), ts: new Date().toISOString(), action, details: details||'', icon: icon||'📝',
+      user: sbEmail || (state.orgInfo && state.orgInfo.email) || 'sistema'
+    });
+    while(state.auditLog.length > AUDIT_LOG_MAX) state.auditLog.shift();
+    await write('auditLog', state.auditLog);
+  }catch(e){ console.error('logAudit error:', e); }
+}
+function renderAuditoria(){
+  const el = document.getElementById('v-auditoria');
+  if(!el) return;
+  const log = (state.auditLog || []).slice().reverse(); // mais recente primeiro
+
+  el.innerHTML = `
+    <div class="sec-head"><div>
+      <h2>📜 Auditoria</h2>
+      <div class="sub">Histórico das ações importantes realizadas no sistema — útil para entender o que mudou e quando, caso algo pareça errado.</div>
+    </div></div>
+    ${log.length ? `
+      <div class="card" style="max-width:760px;margin:0 auto;padding:8px;">
+        <div class="audit-list">
+          ${log.map(item => `
+            <div class="audit-row">
+              <span class="audit-ico">${item.icon}</span>
+              <div class="audit-info">
+                <div class="audit-action">${esc(item.action)}</div>
+                ${item.details ? `<div class="audit-details">${esc(item.details)}</div>` : ''}
+              </div>
+              <div class="audit-meta">
+                <div class="audit-date">${new Date(item.ts).toLocaleString('pt-BR')}</div>
+                <div class="audit-user">${esc(item.user||'')}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+    ` : `<div class="empty" style="padding:40px 0">Nenhuma ação registrada ainda. O log começa a ser preenchido conforme você usa o sistema.</div>`}
+  `;
+}
+async function runAutoBackupIfNeeded(){
+  try{
+    const history = state.autoBackupHistory || [];
+    const last = history[history.length-1];
+    const lastTs = last ? new Date(last.ts).getTime() : 0;
+    if(Date.now() - lastTs < AUTO_BACKUP_MIN_INTERVAL_MS) return;
+
+    const snapshotData = {};
+    for(const key of BACKUP_KEYS){
+      snapshotData[key] = state[key] !== undefined ? state[key] : await read(key, null);
+    }
+    history.push({ ts: new Date().toISOString(), data: snapshotData });
+    while(history.length > AUTO_BACKUP_MAX_SNAPSHOTS) history.shift();
+    state.autoBackupHistory = history;
+    await write('autoBackupHistory', history);
+    renderBackup();
+  }catch(e){
+    console.error('runAutoBackupIfNeeded error:', e);
+  }
+}
+function restoreAutoBackupSnapshot(index){
+  const history = state.autoBackupHistory || [];
+  const snap = history[index];
+  if(!snap) return;
+  const when = new Date(snap.ts).toLocaleString('pt-BR');
+  confirmBoxStrong(
+    `Restaurar o backup automático de ${when}? Isso vai substituir TODOS os dados atuais (alunos, tópicos, financeiro, agenda, etc.) pelos dessa data. Essa ação não pode ser desfeita — se quiser garantir, exporte um backup manual antes de continuar.`,
+    `doRestoreAutoBackupSnapshot(${index})`,
+    'RESTAURAR',
+    { title: 'Restaurar backup automático', yesLabel: 'Restaurar agora', icon:'↩️' }
+  );
+}
+async function doRestoreAutoBackupSnapshot(index){
+  const history = state.autoBackupHistory || [];
+  const snap = history[index];
+  if(!snap) return;
+  const when = new Date(snap.ts).toLocaleString('pt-BR');
+  for(const key of BACKUP_KEYS){
+    if(Object.prototype.hasOwnProperty.call(snap.data, key)){
+      state[key] = snap.data[key];
+      await write(key, snap.data[key]);
+    }
+  }
+  await logAudit('Backup automático restaurado', `Dados voltaram ao estado de ${when}`, '↩️');
+  closeModal();
+  alert('Backup restaurado com sucesso!');
+  renderAll(); renderBackup();
 }
 async function exportBackup(){
   const btn = document.getElementById('backup-export-btn');
@@ -12247,6 +13332,7 @@ function triggerBackupImport(){
   const input = document.getElementById('backup-import-input');
   if(input) input.click();
 }
+let _pendingBackupImport = null;
 async function handleBackupImportFile(fileInput){
   const file = fileInput.files && fileInput.files[0];
   if(!file) return;
@@ -12260,21 +13346,38 @@ async function handleBackupImportFile(fileInput){
     if(!foundKeys.length) throw new Error('nenhum dado reconhecido no arquivo');
 
     const when = parsed._exportedAt ? new Date(parsed._exportedAt).toLocaleString('pt-BR') : t('backup.unknownDate');
-    const confirmMsg = t('backup.confirmImport').replace('{date}', when).replace('{count}', foundKeys.length);
-    if(!confirm(confirmMsg)) { fileInput.value = ''; return; }
-
-    for(const key of foundKeys){
-      state[key] = data[key];
-      await write(key, data[key]);
-    }
-    alert(t('backup.importSuccess'));
-    renderAll();
-    renderBackup();
+    _pendingBackupImport = { data, foundKeys };
+    confirmBoxStrong(
+      t('backup.confirmImport').replace('{date}', when).replace('{count}', foundKeys.length),
+      `doHandleBackupImportConfirmed()`,
+      'IMPORTAR',
+      { title: 'Importar backup', yesLabel: 'Importar agora', icon:'📥' }
+    );
   }catch(e){
     console.error('handleBackupImportFile error:', e);
     alert(t('backup.importError'));
   }finally{
     fileInput.value = '';
+  }
+}
+async function doHandleBackupImportConfirmed(){
+  const pending = _pendingBackupImport;
+  if(!pending) return;
+  try{
+    for(const key of pending.foundKeys){
+      state[key] = pending.data[key];
+      await write(key, pending.data[key]);
+    }
+    await logAudit('Backup importado de arquivo', `${pending.foundKeys.length} categorias de dados substituídas`, '📥');
+    closeModal();
+    alert(t('backup.importSuccess'));
+    renderAll();
+    renderBackup();
+  }catch(e){
+    console.error('doHandleBackupImportConfirmed error:', e);
+    alert(t('backup.importError'));
+  }finally{
+    _pendingBackupImport = null;
   }
 }
 function renderBackup(){
@@ -12283,12 +13386,19 @@ function renderBackup(){
   const counts = backupSummaryCounts();
   const lastBackup = localStorage.getItem('lastBackupAt');
   const lastBackupLabel = lastBackup ? new Date(lastBackup).toLocaleString('pt-BR') : t('backup.never');
+  const daysSinceBackup = lastBackup ? Math.floor((Date.now() - new Date(lastBackup).getTime()) / 86400000) : null;
+  const autoHistory = (state.autoBackupHistory || []).slice().reverse(); // mais recente primeiro
 
   el.innerHTML = `
     <div class="sec-head"><div>
       <h2>${t('backup.title')}</h2>
       <div class="sub">${t('backup.sub')}</div>
     </div></div>
+
+    ${daysSinceBackup === null || daysSinceBackup >= 7 ? `
+      <div class="banner" style="max-width:620px;margin:0 auto 16px;">
+        ⚠️ ${daysSinceBackup === null ? 'Você ainda não baixou nenhum backup manual.' : `Já se passaram ${daysSinceBackup} dias desde seu último backup baixado.`} Recomendamos baixar um agora, além dos backups automáticos guardados pelo sistema.
+      </div>` : ''}
 
     <div class="card" style="max-width:620px;margin:0 auto 20px;padding:24px;">
       <div class="card-header"><span class="card-title">📤 ${t('backup.exportTitle')}</span></div>
@@ -12303,6 +13413,21 @@ function renderBackup(){
       </div>
       <button id="backup-export-btn" class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="exportBackup()">⬇️ ${t('backup.exportBtn')}</button>
       <div class="backup-last" title="${t('backup.lastBackupTitle')}">🕓 ${t('backup.lastBackup')}: <b>${lastBackupLabel}</b></div>
+    </div>
+
+    <div class="card" style="max-width:620px;margin:0 auto 20px;padding:24px;">
+      <div class="card-header"><span class="card-title">🕐 Backups Automáticos</span></div>
+      <p style="font-size:13.5px;color:var(--muted);line-height:1.6;margin:0 0 16px;">
+        O sistema guarda automaticamente uma cópia completa dos seus dados a cada ~20h de uso, separada dos dados "ao vivo" — assim, se algo der errado, dá pra voltar no tempo. Guardamos os últimos ${AUTO_BACKUP_MAX_SNAPSHOTS} pontos de restauração.
+      </p>
+      ${autoHistory.length ? `<div class="ab-list">${autoHistory.map((snap, i)=>{
+        const realIndex = (state.autoBackupHistory||[]).length - 1 - i;
+        return `<div class="ab-row">
+          <span class="ab-date">📅 ${new Date(snap.ts).toLocaleString('pt-BR')}</span>
+          <button class="btn btn-ghost btn-sm" onclick="restoreAutoBackupSnapshot(${realIndex})">↩️ Restaurar</button>
+        </div>`;
+      }).join('')}</div>` : `<div class="empty" style="padding:16px 0">Nenhum backup automático ainda — o primeiro será criado no seu próximo acesso.</div>`}
+      <button class="btn btn-ghost" style="width:100%;margin-top:14px;" onclick="go('auditoria')">📜 Ver Log de Auditoria (o que mudou e quando)</button>
     </div>
 
     <div class="card" style="max-width:620px;margin:0 auto;padding:24px;">
@@ -13046,6 +14171,33 @@ function showModal(html, cls = ''){
     };
   }
 }
+/* ================= CONFIRMAÇÃO REFORÇADA (ações destrutivas) ================= */
+// Para ações que apagam dados de verdade e não têm volta, exige digitar uma
+// palavra/nome exato antes de liberar o botão de confirmação — evita cliques
+// acidentais num simples "OK/Cancelar".
+function confirmBoxStrong(message, actionJs, requireWord, opts){
+  opts = opts || {};
+  const icon = opts.icon || '🗑️';
+  showModal(`
+    <div class="cf-icon">${icon}</div>
+    <h3 class="cf-title">${opts.title || 'Confirmar exclusão'}</h3>
+    <div class="msub cf-msg">${esc(message)}</div>
+    <div class="field" style="margin-top:14px;">
+      <label>Digite <b>${esc(requireWord)}</b> para confirmar</label>
+      <input id="cfs-input" data-require="${esc(requireWord)}" placeholder="${esc(requireWord)}" oninput="checkConfirmStrongInput(this)" autocomplete="off">
+    </div>
+    <div class="modal-acts cf-acts">
+      <button class="btn btn-ghost" onclick="closeModal()">${t('common.cancel')}</button>
+      <button id="cfs-btn" class="btn btn-primary cf-danger-btn" disabled onclick="${actionJs}">${opts.yesLabel || 'Confirmar exclusão'}</button>
+    </div>`);
+  setTimeout(()=>{ const i=document.getElementById('cfs-input'); if(i) i.focus(); }, 50);
+}
+function checkConfirmStrongInput(inp){
+  const btn = document.getElementById('cfs-btn');
+  if(!btn) return;
+  const required = (inp.dataset.require||'').trim().toUpperCase();
+  btn.disabled = inp.value.trim().toUpperCase() !== required;
+}
 function confirmBox(message, actionJs, opts){
   opts = opts || {};
   const yesLabel = opts.yesLabel || t('confirm.yes');
@@ -13179,13 +14331,23 @@ async function saveAluno(id){
   if(isNewStudent) await logStudentEvent(data.id, 'matricula', 'Matrícula iniciada', '🎉');
   if(becamePaused) await logStudentEvent(id, 'status', 'Matrícula trancada', '🔒');
   if(becameReactivated) await logStudentEvent(id, 'status', 'Matrícula reativada', '🔓');
+  if(isNewStudent) await logAudit('Aluno cadastrado', name, '👤');
+  else await logAudit('Aluno editado', name, '✏️');
+  if(becamePaused) await logAudit('Aluno trancado', name, '🔒');
+  if(becameReactivated) await logAudit('Aluno reativado', name, '🔓');
   renderAll();
 }
 function delAluno(id){
   const s = studentById(id); if(!s) return;
-  confirmBox(s.name+'? '+t('alunos.confirmDeleteMsg'), `doDelAluno('${id}')`);
+  confirmBoxStrong(
+    `Isso vai apagar PERMANENTEMENTE o aluno "${s.name}", junto com todo o histórico dele: aulas, presenças, financeiro, contratos, certificados e linha do tempo. Essa ação não pode ser desfeita.`,
+    `doDelAluno('${id}')`,
+    s.name,
+    { title: 'Excluir aluno', yesLabel: 'Excluir permanentemente' }
+  );
 }
 async function doDelAluno(id){
+  const delName = (studentById(id)||{}).name || id;
   state.students = state.students.filter(x=>x.id!==id);
   state.lessons  = state.lessons.filter(l=>l.studentId!==id);
   state.timelineEvents = (state.timelineEvents||[]).filter(e=>e.studentId!==id);
@@ -13198,6 +14360,7 @@ async function doDelAluno(id){
   await write('presenca', state.presenca);
   await write('pagamentos', state.pagamentos);
   await write('financeiroAjustes', state.financeiroAjustes);
+  await logAudit('Aluno excluído permanentemente', delName, '🗑️');
   closeModal(); renderAll();
 }
 function removeStudentFromAgenda(studentId){
@@ -13290,7 +14453,7 @@ function renderAll(){
   renderBrand();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda(); renderLembretes();
-  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderTrialClasses(); renderCertificados(); renderBoletim(); renderPronuncia(); renderBackup(); renderWaitlist(); renderNiveis();
+  renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderTrialClasses(); renderCertificados(); renderBoletim(); renderPronuncia(); renderBackup(); renderWaitlist(); renderNiveis(); renderAuditoria();
   applySubjectNavVisibility();
   renderAuthGate();
 }
@@ -13936,6 +15099,7 @@ async function installPwaApp(){
                       <Icon name={showPass ? 'eye-off' : 'eye'} size={18} />
                     </button>
                   </div>
+                  <span className="text-[11px] text-gray-400 pl-1">{t('login.passwordHint')}</span>
                 </div>
 
                 {/* Confirm Password */}
@@ -14088,32 +15252,6 @@ async function installPwaApp(){
                 </>
               )}
             </button>
-
-            {/* BUTTON: Google Sign-In (login/signup rápido) */}
-            {(view === 'login' || view === 'signup') && SUPABASE_CONFIGURED && (
-              <>
-                <div className="flex items-center gap-3 w-full mt-3">
-                  <div className="h-px flex-1 bg-gray-200"></div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-                    {t('login.orDivider')}
-                  </span>
-                  <div className="h-px flex-1 bg-gray-200"></div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => { setErrorMsg(''); setIsErrorOk(false); loginWithGoogle(); }}
-                  className="w-full py-3.5 px-4 bg-white hover:bg-gray-50 active:scale-[0.985] border border-gray-300 text-gray-700 font-semibold rounded-xl shadow-sm hover:shadow transition-all text-sm flex items-center justify-center gap-2.5 cursor-pointer font-sans"
-                >
-                  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z"/>
-                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                  </svg>
-                  {t('login.googleBtn')}
-                </button>
-              </>
-            )}
 
             {/* Footer View Switchers */}
             <div className="flex flex-col items-center gap-2 w-full mt-4 text-xs sm:text-sm text-gray-500 border-t border-gray-100 pt-4">
