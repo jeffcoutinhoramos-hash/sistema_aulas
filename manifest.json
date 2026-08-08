@@ -1,6 +1,6 @@
 {
-  "name": "English Class System",
-  "short_name": "EC System",
+  "name": "JCR System",
+  "short_name": "JCR System",
   "description": "Sistema de gestão para professores de inglês: agenda, frequência, financeiro e relatórios.",
   "start_url": "./index.html",
   "scope": "./",
