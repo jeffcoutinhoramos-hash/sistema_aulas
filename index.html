@@ -562,9 +562,15 @@
   .brand-flag{display:block;width:28px;border-radius:4px;overflow:hidden;line-height:0;box-shadow:0 1px 3px rgba(0,0,0,.3)}
   .brand-flag svg{display:block;width:100%;height:auto}
 
-  /* ---------- alunos list ---------- */
-  .alu-list{display:flex;flex-direction:column;gap:6px}
-  .alu-row{display:flex;align-items:center;gap:11px;padding:8px 14px;flex-wrap:nowrap}
+  /* ---------- alunos list (colunas alinhadas em grid) ---------- */
+  .alu-table{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .alu-list{display:flex;flex-direction:column;gap:6px;min-width:820px}
+  .alu-row{padding:9px 14px;flex-wrap:nowrap;min-width:820px}
+  .alu-row, .alu-header{display:grid;grid-template-columns:minmax(210px,2.3fr) 64px 108px 140px minmax(150px,1.2fr) 110px 132px;align-items:center;column-gap:12px;}
+  .alu-header{padding:6px 14px 10px;font-size:11.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--line);margin-bottom:6px;background:none;box-shadow:none;}
+  .alu-header .alu-col-name{padding-left:46px}
+  .alu-col-age,.alu-col-status,.alu-col-level,.alu-col-price{text-align:center;justify-self:center}
+  .alu-row .alu-col-age,.alu-row .alu-col-status,.alu-row .alu-col-level,.alu-row .alu-col-price{width:100%;text-align:center}
   .alu-row.alu-row-paused{border:1px solid var(--rose); border-left:4px solid var(--rose); background:var(--rose-bg)}
   .alu-paused-section{margin-top:28px}
   .alu-paused-header{
@@ -576,24 +582,23 @@
     padding:1px 8px;border-radius:20px;
   }
   .alu-row .avatar{width:34px;height:34px;font-size:14.5px}
-  .alu-name{flex:1.7;min-width:0;display:flex;align-items:center;gap:8px}
+  .alu-col-name.alu-name{min-width:0;display:flex;align-items:center;gap:8px}
   .alu-nm{font-weight:700;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .alu-col{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--muted);font-size:14px;white-space:nowrap}
+  .alu-col-phone,.alu-col-level{min-width:0;display:flex;align-items:center;gap:5px;color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .alu-empty{opacity:.35}
-  .alu-col .alu-i{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .alu-i{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
   .wa-link{display:inline-flex;align-items:center;vertical-align:middle;margin-left:3px;padding:3px;border-radius:8px;cursor:pointer;transition:transform .14s,background .14s}
   .wa-link svg{width:18px;height:18px;display:block}
   .wa-link:hover{transform:scale(1.12);background:#EEFBF4}
-  .alu-tag{background:#EFF8F0;color:#62A580;font-weight:700;font-size:13px;padding:2px 8px;border-radius:8px}
-  .alu-tag-prepaid{background:var(--amber-bg);color:var(--amber)}
-  .alu-price{color:var(--emerald);font-weight:700}
-  .alu-acts{display:flex;gap:5px;flex:none}
+  .alu-tag{background:#EFF8F0;color:#62A580;font-weight:700;font-size:13px;padding:2px 8px;border-radius:8px;white-space:nowrap}
+  .alu-tag-prepaid{background:var(--amber-bg);color:var(--amber);margin-left:4px}
+  .alu-col-price{color:var(--emerald);font-weight:700}
+  .alu-col-price .alu-empty{color:var(--muted);font-weight:400}
+  .alu-col-acts.alu-acts{display:flex;gap:5px;flex:none;justify-content:flex-end}
   .alu-acts button{width:28px;height:28px;border-radius:9px;font-size:14.5px;background:var(--line-2);transition:.14s;display:grid;place-items:center}
   .alu-acts button:hover{background:#EAF4EB}
   .alu-acts button.danger:hover{background:var(--rose-bg);color:var(--rose)}
   .stu-pill{font-size:12.5px;font-weight:700;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:5px}
-  .alu-age-pill{font-size:13px;font-weight:600;color:var(--muted);background:var(--line-2);
-    padding:3px 9px;border-radius:20px}
   .stu-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
   .stu-ativo{background:var(--emerald-bg);color:var(--emerald)}
   .stu-trancado{background:var(--amber-bg);color:var(--amber)}
@@ -2612,6 +2617,14 @@
     display:flex; align-items:center; justify-content:center; transition:background .15s;
   }
   .pn-slot-dismiss:hover{ background:rgba(255,255,255,0.35); }
+  .pn-banner-dismiss{
+    position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.08); color:inherit; border:none;
+    width:24px; height:24px; border-radius:50%; cursor:pointer; font-size:12px; line-height:1;
+    display:flex; align-items:center; justify-content:center; transition:background .15s; opacity:.7;
+  }
+  .pn-banner-dismiss:hover{ background:rgba(0,0,0,0.16); opacity:1; }
+  .pn-birthday-banner .pn-banner-dismiss{ background:rgba(255,255,255,0.25); }
+  .pn-birthday-banner .pn-banner-dismiss:hover{ background:rgba(255,255,255,0.4); }
   .niv-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
   .niv-chip{
     display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:20px;
@@ -3353,7 +3366,8 @@ function studentColor(s){
 
 const SUBJECTS_PT = ['Inglês','Espanhol','Francês','Alemão','Italiano','Português','Redação','Matemática','Física','Química','Biologia','Ciências','História','Geografia','Filosofia','Sociologia','Artes','Música','Informática','Reforço escolar'];
 const SUBJECTS_EN = ['English','Spanish','French','German','Italian','Portuguese','Writing','Math','Physics','Chemistry','Biology','Science','History','Geography','Philosophy','Sociology','Arts','Music','Computer Science','Tutoring'];
-function getSubjects(){ return (typeof state!=='undefined' && state.lang==='en') ? SUBJECTS_EN : SUBJECTS_PT; }
+const SUBJECTS_ES = ['Inglés','Español','Francés','Alemán','Italiano','Portugués','Redacción','Matemáticas','Física','Química','Biología','Ciencias','Historia','Geografía','Filosofía','Sociología','Artes','Música','Informática','Refuerzo escolar'];
+function getSubjects(){ return (typeof state!=='undefined' && state.lang==='es') ? SUBJECTS_ES : ((typeof state!=='undefined' && state.lang==='en') ? SUBJECTS_EN : SUBJECTS_PT); }
 const ST_ALUNO = {
   ativo:     {key:'alunos.active',    cls:'stu-ativo'},
   trancado:  {key:'alunos.paused',    cls:'stu-trancado'},
@@ -3520,12 +3534,13 @@ function cleanupExpiredOverrides(){
 }
 const MONTHS_FULL_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const MONTHS_FULL_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-function monthFull(i){ return (state.lang==='en' ? MONTHS_FULL_EN : MONTHS_FULL_PT)[i]; }
+const MONTHS_FULL_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function monthFull(i){ return (state.lang==='es' ? MONTHS_FULL_ES : (state.lang==='en' ? MONTHS_FULL_EN : MONTHS_FULL_PT))[i]; }
 function fmtLongDate(day, monthIdx, year){
   const mon = monthFull(monthIdx);
   return state.lang==='en' ? `${mon} ${day}, ${year}` : `${day} de ${mon.toLowerCase()} de ${year}`;
 }
-const MONTHS_FULL_CAP = new Proxy([], { get(_,prop){ const arr = state.lang==='en'?MONTHS_FULL_EN:MONTHS_FULL_PT; return arr[prop]; } });
+const MONTHS_FULL_CAP = new Proxy([], { get(_,prop){ const arr = state.lang==='es'?MONTHS_FULL_ES:(state.lang==='en'?MONTHS_FULL_EN:MONTHS_FULL_PT); return arr[prop]; } });
 function pad2(n){ return String(n).padStart(2,'0'); }
 function isoDate(d){ return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
 function startOfWeekMonday(d){
@@ -4288,6 +4303,9 @@ const I18N = {
     'common.edit':'Edit', 'common.delete':'Delete', 'common.cancel':'Cancel', 'common.save':'Save',
     'common.prevDay':'Previous day', 'common.nextDay':'Next day', 'common.prevMonth':'Previous month', 'common.nextMonth':'Next month',
     'common.close':'Close', 'common.today':'Today',
+  },
+  es: {
+    'nav.painel':"Panel", 'nav.login':"Iniciar sesión", 'nav.alunos':"Alumnos", 'nav.agenda':"Agenda", 'nav.presenca':"Asistencia", 'nav.lembretes':"Recordatorios WhatsApp", 'nav.group.operacional':"Operaciones", 'nav.group.pedagogico':"Pedagógico", 'nav.group.gestao':"Gestión Financiera", 'nav.group.sistema':"Sistema", 'nav.topicos':"Plan de Clase", 'nav.niveis':"Temas", 'nav.expressoes':"Biblioteca", 'nav.relatorio':"Informes", 'nav.financeiro':"Finanzas", 'nav.lecionados':"Clases Impartidas", 'nav.despesas':"Gastos", 'nav.estatisticas':"Estadísticas", 'nav.info':"Configuración", 'nav.experimentais':"Clases de Prueba", 'nav.certificados':"Certificados", 'nav.boletim':"Boletín", 'nav.pronuncia':"Pronunciación y Speaking", 'nav.filaespera':"Lista de Espera", 'theme.dark':"Modo oscuro", 'theme.light':"Modo claro", 'lang.button':"Idioma", 'color.allure':"Modo Océano", 'color.nature':"Modo Naturaleza", 'color.sun':"Modo Sol", 'color.flower':"Modo Flor", 'color.earth':"Modo Tierra", 'color.violeta':"Modo Violeta", 'greet.morning':"¡Buenos días!", 'greet.afternoon':"¡Buenas tardes!", 'greet.evening':"¡Buenas noches!", 'painel.dayToNextMonth':"día para", 'painel.daysToNextMonth':"días para", 'painel.daysUntilNextMonthTitle':"Días restantes hasta", 'painel.monthClosingWarning':"Hora del cierre de mes", 'painel.reviewDueWarning':"Aviso: llegó el momento de la revisión de clase (ciclo de 35 días).", 'painel.birthdayToday':"¡cumple años hoy! 🎉", 'painel.birthdayTomorrow':"¡cumple años mañana!", 'painel.birthdayIn2Days':"cumple años en 2 días", 'painel.birthdayYearsOld':"años", 'painel.reviewCountdownTitle':"Cuenta regresiva para la próxima revisión de clase (cada 35 días, por alumno)", 'painel.reviewReadyNow':"¡Revisión de clase lista!", 'painel.dayToReview':"día para revisión", 'painel.daysToReview':"días para revisión", 'painel.today':"Alumnos de hoy", 'painel.noToday':"Ningún alumno programado para hoy.", 'painel.todayIsHoliday':"Hoy es día festivo", 'painel.noClassToday':"no habrá clase hoy.", 'painel.upcomingHolidays':"Próximos días festivos", 'painel.noTopic':"sin tema definido", 'painel.schoolYear':"Año lectivo", 'painel.activeStudents':"Alumnos activos", 'painel.topicsLib':"Temas en la biblioteca", 'painel.expressionsCount':"Expresiones", 'painel.birthdays':"Próximos cumpleaños", 'painel.lastClasses':"Últimas clases", 'painel.attendanceShortcut':"Asistencia de hoy", 'painel.goToAttendance':"Ir a Asistencia", 'painel.noBirthdays':"Ningún cumpleaños registrado.", 'painel.noLessons':"Ninguna clase registrada aún.", 'painel.classesLogged':"Clases registradas", 'painel.attendanceRate':"Tasa de asistencia", 'painel.todayBday':"🎂 ¡Hoy!", 'painel.tomorrow':"mañana", 'painel.inDaysPrefix':"en", 'painel.daysSuffix':"días", 'painel.noBirthdays60':"Ningún cumpleaños en los próximos 60 días.", 'painel.addDatesIn':"Añada fechas en", 'painel.lessonsGivenMonth':"Clases Impartidas", 'painel.absencesAccrued':"Faltas Acumuladas", 'painel.lessonsGivenAllTime':"se reinicia a inicios de cada mes", 'painel.classesAsCreditPl':"clases como crédito", 'painel.topStudentsTitle':"🏆 Top 3 en asistencia (mes)", 'painel.presenceSingular':"asistencia", 'painel.presencePlural':"asistencias", 'painel.sundayMsgToday':"¡Hoy es domingo, tiempo de relajarse y disfrutar!", 'painel.sundayMsg':"¡El domingo es día de relajarse y disfrutar!", 'painel.expectedRevenue':"Facturación Prevista", 'painel.upcomingClassesAttendance':"Asistencia", 'painel.expectedRevenueHint':"se actualiza con asistencias y programación · canceladas no cuentan", 'painel.calToday':"Hoy", 'painel.calPrevMonth':"Mes anterior", 'painel.calNextMonth':"Próximo mes", 'painel.calLegendClass':"Clase", 'painel.calLegendAbsence':"Falta", 'painel.calLegendHoliday':"Festivo", 'painel.logAttendance':"Registrar Asistencia", 'painel.studentCol':"Alumno", 'painel.scheduleCol':"Horario", 'painel.weeklyLoad':"Carga Semanal", 'painel.lessonsCompleted':"Clases Realizadas", 'painel.attendanceCol':"Asistencia", 'painel.statusCol':"Estado", 'painel.removedStudent':"Alumno eliminado", 'painel.todayAt':"Hoy a las", 'painel.stripToday':"Hoy", 'painel.stripTomorrow':"Mañana", 'painel.noClassesThisDay':"Ninguna clase programada para este día.", 'painel.lessonSingular':"clase", 'painel.lessonPlural':"clases", 'painel.statusRegular':"Regular", 'painel.statusAttention':"Atención", 'painel.statusCritical':"Crítico", 'painel.noClassesScheduledToday':"Ninguna clase programada para hoy.", 'painel.recentTopicsPlanning':"Temas de Clase Recientes y Planificación", 'painel.newPlanning':"Nueva Planificación", 'painel.lastTopicCovered':"Último Tema Impartido", 'painel.nextObjective':"Próximo Objetivo", 'painel.materialLink':"Material / Enlace", 'painel.defaultLessonName':"Clase", 'painel.virtualRoom':"Aula Virtual", 'painel.classReadyMsg':"¡Hola! La clase está lista.", 'painel.noActiveStudentsFound':"Ningún alumno activo encontrado.", 'painel.monthlyRevenue':"Facturación Mensual", 'painel.quickActions':"Acciones Rápidas", 'painel.shortcuts':"Atajos", 'painel.generateReceipt':"Generar Recibo de Pago", 'painel.createReceiptPdf':"Crear recibo PDF para alumno", 'painel.attendanceDeclaration':"Constancia de Asistencia", 'painel.generateAttendancePdf':"Generar PDF de asistencia", 'painel.defaultNextObjective':"Conversación y Repaso", 'painel.weeklyHoursSuffix':"h / semana", 'painel.dayMon':"Lun", 'painel.dayTue':"Mar", 'painel.dayWed':"Mié", 'painel.dayThu':"Jue", 'painel.dayFri':"Vie", 'painel.daySat':"Sáb", 'painel.daySun':"Dom", 'painel.storageWarning':"Guardado automático no disponible fuera de la app Claude — los datos de esta sesión no se conservarán.", 'alunos.title':"Alumnos", 'alunos.add':"＋ Añadir alumno", 'alunos.search':"Buscar alumno...", 'alunos.registered':"alumno registrado", 'alunos.registeredPl':"alumnos registrados", 'alunos.empty':"Ningún alumno registrado aún.", 'alunos.emptyCta':"Haga clic en <b>Añadir alumno</b> para comenzar.", 'alunos.active':"Activo", 'alunos.paused':"Pausado", 'alunos.cancelled':"Cancelado", 'alunos.pausedSectionTitle':"Alumnos pausados", 'alunos.formTitleNew':"Añadir alumno", 'alunos.formTitleEdit':"Editar alumno", 'alunos.name':"Nombre completo", 'alunos.phone':"Teléfono / WhatsApp", 'alunos.birth':"Fecha de nacimiento", 'alunos.status':"Estado", 'alunos.subject':"Idioma / Materia", 'alunos.level':"Nivel", 'alunos.startDate':"Fecha de inicio del curso", 'alunos.price':"Valor de la clase ($)", 'alunos.paymentMode':"Modo de pago", 'alunos.postpaid':"Postpago", 'alunos.postpaidHint':"Cobra por las clases ya impartidas (predeterminado)", 'alunos.prepaid':"Prepago", 'alunos.prepaidHint':"Genera el cobro según las clases programadas del mes, antes de realizarse", 'alunos.chooseSubject':"— Elegir materia —", 'alunos.namePh':"Nombre completo", 'alunos.updateData':"Actualice los datos de", 'alunos.fillData':"Complete los datos del nuevo alumno.", 'alunos.age':"años", 'alunos.levelCat':"Nivel / categoría", 'alunos.saveNew':"Guardar alumno", 'alunos.saveEdit':"Guardar cambios", 'alunos.confirmDelete':"Eliminar", 'alunos.confirmDeleteMsg':"Esta acción no se puede deshacer.", 'topicos.confirmDelete':"Eliminar el tema", 'info.confirmDeleteDoc':"¿Eliminar este documento?", 'topicos.changeTitle':"Modifique el nombre del tema.", 'topicos.newTopicSub':"Añada un nuevo tema a la biblioteca.", 'topicos.namePh':"Ej: Verbos modales", 'topicos.saveEdit':"Guardar cambios", 'topicos.saveNew':"Añadir", 'presenca.alreadyTaught':"ya tuvo esta clase", 'presenca.givenOn':"Ya impartida el", 'presenca.registerAnyway':"¿Desea registrar de todos modos?", 'presenca.registerAnywayBtn':"Registrar de todos modos", 'presenca.theStudent':"El alumno", 'agenda.hourInUse':"Existen alumnos programados a las", 'agenda.deleteHourAnyway':"¿Eliminar este horario de todos modos?", 'despesas.confirmDeleteRec':"Eliminar el gasto recurrente", 'despesas.confirmDeleteRecMsg':"Dejará de aparecer en todos los meses.", 'despesas.confirmDelete':"Eliminar el gasto", 'declaracao.overLimit':"El monto ingresado", 'declaracao.overLimitMsg':"supera el límite de $100.000,00 por mes. ¿Desea usar el límite máximo de $100.000,00 en su lugar?", 'despesas.editSub':"Modifique los datos de este gasto.", 'despesas.newSub':"Registre un gasto de la institución.", 'despesas.namePh':"Ej: Alquiler del aula, Internet, Material didáctico", 'despesas.dueDateFirst':"Fecha de vencimiento (1.er pago)", 'despesas.saveEdit':"💾 Guardar cambios", 'despesas.saveNew':"💾 Guardar", 'despesas.hintRecDay':"Se cobrará cada mes, siempre el día {d}, a partir de la fecha elegida.", 'despesas.hintRec':"Se cobrará cada mes, siempre el mismo día, a partir de la fecha elegida.", 'despesas.hintSingle':"Se cobrará solo una vez, en la fecha elegida.", 'declaracao.useMax':"Usar $100.000,00", 'declaracao.receivedValue':"Monto recibido ($)", 'declaracao.centsHint':"Use coma o punto para los centavos. Monto entre $0,00 y $100.000,00", 'confirm.title':"Confirmar eliminación", 'confirm.yes':"Eliminar", 'login.title':"Iniciar sesión", 'login.pageSub':"Gestione el acceso al sistema con usuario y contraseña.", 'login.username':"Usuario (correo o ID)", 'login.usernamePh':"Ingrese el correo o ID registrado en Configuración", 'login.password':"Contraseña", 'login.passwordConfirm':"Confirmar contraseña", 'login.passwordRule':"La contraseña debe comenzar con mayúscula y contener al menos un número y un símbolo (ej: !@#$%).", 'login.enter':"Entrar", 'login.welcomeTitle':"Bienvenido de nuevo", 'login.tagline':"Simplifique la gestión de sus clases particulares", 'login.remember':"Recordar usuario y contraseña", 'login.showPassword':"Mostrar/ocultar contraseña", 'login.welcomeSub':"Inicie sesión para acceder al sistema.", 'login.marketingBadge':"Plataforma de Gestión Educativa", 'login.marketingTitle':"Gestión inteligente para quienes se toman la enseñanza en serio", 'login.marketingSub':"Solución completa para agilizar diarios de clase, asistencias, contenidos e informes en una experiencia ágil y eficiente.", 'login.marketingCard1Title':"Gestión de Clases", 'login.marketingCard1Sub':"Asistencia y diarios organizados", 'login.marketingCard2Title':"Nube y Seguridad", 'login.marketingCard2Sub':"Protección y datos sincronizados", 'login.allRightsReserved':"Todos los derechos reservados.", 'login.systemActive':"Sistema Activo", 'login.subjectLabel':"Materia que imparte", 'login.invalid':"Usuario o contraseña incorrectos.", 'login.errNotConfirmed':"Su cuenta aún no ha sido confirmada. Revise su correo electrónico.", 'login.tryEmailHint':"Si se registró con correo, intente ingresar con el correo.", 'login.setupTitle':"Crear contraseña de acceso", 'login.setupSub':"Defina una contraseña para proteger el acceso al sistema.", 'login.setupCta':"Antes de crear la contraseña, complete el correo o ID en <b>Configuración</b>.", 'login.createBtn':"Crear contraseña", 'login.mismatch':"Las contraseñas no coinciden.", 'login.weak':"La contraseña debe comenzar con mayúscula y tener al menos un número y un símbolo (ej: ! @ # $ %).", 'login.passwordHint':"Debe comenzar con mayúscula y contener número y símbolo (ej: !@#$%).", 'login.status':"Inicio de sesión configurado para", 'login.change':"Cambiar contraseña", 'login.remove':"Eliminar inicio de sesión", 'login.logout':"🔒 Salir (bloquear de nuevo)", 'login.notSet':"Ninguna contraseña configurada aún.", 'login.signOut':"Cerrar sesión", 'login.confirmRemove':"¿Eliminar la contraseña de acceso? Cualquier persona podrá abrir el sistema sin iniciar sesión.", 'login.changeSub':"Elija una nueva contraseña.", 'login.currentPassword':"Contraseña actual", 'login.currentWrong':"Contraseña actual incorrecta.", 'login.saved':"✓ Contraseña guardada con éxito.", 'login.offerCreate':"Este usuario aún no tiene cuenta. ¿Desea crear una ahora con esta contraseña?", 'login.usernameSimple':"Usuario", 'login.usernameSimplePh':"Correo o ID", 'login.noAccount':"¿No tiene una cuenta?", 'login.createAccount':"Crear cuenta", 'login.orDivider':"o", 'login.googleBtn':"Continuar con Google", 'login.googleUnavailable':"Inicio de sesión con Google no disponible en este modo.", 'login.googleError':"No se pudo iniciar sesión con Google.", 'login.googleNoSession':"Google respondió, pero no se creó la sesión.", 'login.forgot':"Olvidé mi contraseña", 'login.backToLogin':"← Volver al inicio de sesión", 'login.signupTitle':"Crear cuenta", 'login.signupSub':"Complete los datos para acceder al sistema.", 'login.fullName':"Nombre completo", 'login.fullNamePh':"Ej: Jefferson Coutinho", 'login.email':"Correo electrónico", 'login.emailPh':"usted@correo.com", 'login.cpf':"ID Fiscal / DNI", 'login.cpfPh':"000.000.000-00", 'login.signupBtn':"Crear cuenta e ingresar", 'login.errFillAll':"Complete el nombre, el correo y el ID Fiscal.", 'login.errEmailInvalid':"Ingrese un correo electrónico válido.", 'login.errEmailInUse':"Ya existe una cuenta con este correo.", 'login.signupErrorPrefix':"No se pudo crear la cuenta: ", 'login.errRateLimit':"Demasiados intentos seguidos. Espere unos minutos e intente de nuevo.", 'login.checkEmailConfirm':"✓ ¡Cuenta creada! Verifique su correo electrónico antes de ingresar.", 'login.setNewPasswordSub':"Defina su nueva contraseña a continuación.", 'login.recoverTitle':"Recuperar contraseña", 'login.recoverSub':"Ingrese su correo registrado para recibir un enlace de restablecimiento.", 'login.recoverBtn':"Enviar enlace de recuperación", 'login.recoverSent':"✓ ¡Enlace enviado! Revise su correo.", 'login.recoverErr':"No encontramos una cuenta con ese correo.", 'login.recoverLocalTitle':"Restablecer contraseña", 'login.recoverLocalSub':"Confirme sus credenciales para crear una nueva contraseña.", 'login.recoverLocalHint':"Ingrese el correo o ID registrado en Configuración.", 'login.recoverLocalErr':"Las credenciales no coinciden.", 'login.newPassword':"Nueva contraseña", 'login.resetBtn':"Guardar nueva contraseña", 'login.resetOk':"✓ ¡Contraseña restablecida! Inicie sesión con la nueva contraseña.", 'login.recoverNeedsFirebase':"La recuperación por correo requiere Firebase configurado.", 'agenda.title':"Agenda", 'agenda.hours':"🕐 Horario", 'agenda.weekClasses':"clases programadas esta semana", 'agenda.holiday':"Festivo", 'agenda.noClassHoliday':"🎌 Festivo — sin clase", 'nav.ferias':"Vacaciones", 'ferias.title':"Vacaciones", 'ferias.sub':"Defina el período de vacaciones del profesor. Las clases de la agenda en este período se excluyen automáticamente.", 'ferias.periodLabel':"Vacaciones", 'ferias.noClassVacation':"🏖️ Vacaciones — sin clase", 'ferias.calHint':"Toque el primer día de vacaciones y luego el último día para crear el período.", 'ferias.pickStart':"Toque el día de inicio de las vacaciones", 'ferias.pickEnd':"Ahora toque el día de finalización de las vacaciones", 'ferias.cancelSelection':"Cancelar selección", 'ferias.currentPeriods':"Próximas vacaciones", 'ferias.noPeriods':"Ningún período de vacaciones futuro registrado.", 'ferias.historyTitle':"🗓️ Historial de vacaciones disfrutadas", 'ferias.historySub':"Períodos ya completados, mantenidos aquí como registro.", 'ferias.taken':"disfrutadas", 'ferias.deletePeriod':"Eliminar período", 'ferias.confirmDelete':"¿Eliminar este período de vacaciones? Las clases volverán a mostrarse normalmente en la agenda.", 'ferias.periodCreated':"¡Período de vacaciones creado! Las clases en este rango fueron excluidas.", 'ferias.days':"días", 'ferias.day':"día", 'nav.backup':"Copia de Seguridad", 'backup.title':"Copia de Seguridad", 'backup.sub':"Guarde una copia completa de sus datos o restaure desde una copia anterior.", 'backup.exportTitle':"Exportar copia de seguridad", 'backup.exportDesc':"Descarga un archivo con todos los datos del sistema (alumnos, agenda, asistencia, finanzas, gastos, vacaciones, temas y configuración).", 'backup.exportBtn':"Descargar copia completa", 'backup.exporting':"Generando...", 'backup.exportError':"No se pudo generar la copia. Intente nuevamente.", 'backup.statStudents':"alumnos", 'backup.statTopics':"temas", 'backup.statAttendance':"registros de asistencia", 'backup.statAdjustments':"ajustes financieros", 'backup.statExpenses':"gastos", 'backup.statVacation':"períodos de vacaciones", 'backup.lastBackup':"Última copia", 'backup.lastBackupTitle':"Fecha de la última copia descargada en este dispositivo", 'backup.never':"nunca", 'backup.importTitle':"Restaurar copia de seguridad", 'backup.importDesc':"Seleccione un archivo de copia generado previamente para restaurar los datos.", 'backup.importWarning':"Restaurar una copia reemplaza los datos actuales del sistema. Esta acción no se puede deshacer.", 'backup.importBtn':"Seleccionar archivo de copia", 'backup.unknownDate':"fecha desconocida", 'backup.confirmImport':"Esta copia fue creada el {date} y contiene {count} tipos de datos. ¿Desea continuar?", 'backup.importSuccess':"¡Copia de seguridad restaurada con éxito!", 'backup.importError':"No se pudo leer este archivo. Verifique que sea un archivo válido.", 'pwa.installMsg':"Instale la aplicación para acceso rápido desde su pantalla de inicio.", 'pwa.installBtn':"Instalar", 'agenda.weekClass1':"clase programada", 'agenda.prevWeek':"Semana anterior", 'agenda.nextWeek':"Semana siguiente", 'agenda.goToday':"Hoy", 'agenda.weekRange':"Semana del", 'agenda.cancelGeneratedCredit':"Esta cancelación generó crédito acumulado:", 'agenda.viewStatus':"Ver estado de la clase", 'agenda.statusModalSub':"Marque la asistencia de este alumno en esta clase.", 'agenda.removeFromSlot':"Quitar de este horario", 'agenda.removeThisDay':"Eliminar alumno de este día", 'agenda.slotRemoveAllHint':"(quitar de todas las semanas)", 'agenda.removeStudentTitle':"🗑️ Eliminar alumno", 'agenda.removeStudentHint':"Quite al alumno de este horario para poder colocar a otro en su lugar.", 'agenda.scopeTitle':"🔁 Repetición de programación", 'agenda.scopeHint':"Defina si esta clase se realiza solo esta semana o todas las semanas, sin eliminar al alumno.", 'agenda.deleteThisDayTitle':"🗑️ Eliminar de este día", 'agenda.deleteThisDay':"Eliminar alumno de este día", 'agenda.thisWeekOnly':"Solo esta semana", 'agenda.everyWeek':"Todas las semanas", 'agenda.hoursModalTitle':"Horarios de la agenda", 'agenda.hoursModalSub':"Elija un horario y añádalo o quítelo de la cuadrícula.", 'agenda.hourLabel':"Horario", 'agenda.addHour':"＋ Añadir horario", 'agenda.delHour':"🗑 Eliminar horario", 'agenda.currentHours':"Horarios actuales (toque para seleccionar)", 'agenda.noHours':"Ningún horario en la cuadrícula aún.", 'agenda.slotAddTitle':"Programar alumno", 'agenda.slotRemoveWeek':"Solo esta semana", 'agenda.slotRemoveAll':"Siempre", 'agenda.slotNoStudents':"Ningún alumno programado aún.", 'agenda.repeatWeekly':"Repetir todas las semanas", 'agenda.onlyThisWeek':"Solo esta semana", 'agenda.addStudent':"＋ Añadir", 'agenda.weekModified':"✏️ semana modificada", 'agenda.confirmStudents':"Confirme los alumnos que tienen clase en este horario.", 'agenda.chooseStudent':"— Elegir alumno —", 'agenda.addStudentLabel':"Añadir alumno", 'agenda.registerCta':"Registre alumnos en la pestaña <b>Alumnos</b> para poder programarlos aquí.", 'agenda.noHoursBanner':"Ningún horario en la cuadrícula. Haga clic en <b>＋ Horario</b> para añadir.", 'info.contractTitle':"Reglas y Buenas Prácticas de las Clases", 'info.contractSub':"Documento listo para descargar y enviar a los alumnos", 'info.downloadPdf':"⬇️ Descargar PDF", 'info.chooseIcon':"Elegir icono", 'info.chooseIconSub':"Toque un emoji o bandera para usar como icono.", 'info.icons':"Iconos", 'info.flags':"Banderas", 'info.meetLinkPh':"Pegue aquí el enlace del aula", 'declaracao.sub':"Montos recibidos en cada mes — completados automáticamente por los recibos, o edite manualmente en el ✏️.", 'declaracao.prevYear':"Año anterior", 'declaracao.nextYear':"Año siguiente", 'declaracao.manualTooltip':"Monto ajustado manualmente", 'estatisticas.sub':"Ingresos y horas trabajadas por mes, con porcentajes calculados a partir de sus datos.", 'estatisticas.prevYear':"Año anterior", 'estatisticas.nextYear':"Año siguiente", 'estatisticas.earningsSub':"Barras de colores por mes · porcentaje respecto al total anual.", 'estatisticas.hoursSub':"Cada clase impartida cuenta como 1 hora · porcentaje respecto al total anual.", 'info.sub':"Sus datos de contacto, aula de reuniones y documentos.", 'info.choosePhoto':"📷 Elegir foto", 'info.removePhoto':"Eliminar", 'info.docsSub':"Guarde documentos legales, contratos y otros archivos de la institución.", 'info.download':"Descargar", 'info.delete':"Eliminar", 'info.savedFull':"✓ Información guardada", 'info.savedSession':"✓ Guardado en esta sesión", 'topicos.shown':"mostrados", 'topicos.category':"Categoría (nivel)", 'topicos.moveTo':"Mover a...", 'topicos.dropHere':"Arrastre temas aquí", 'topicos.allTopics':"Todos los temas registrados", 'expressoes.title':"Biblioteca", 'expressoes.sub':"Expresiones y phrasal verbs de uso cotidiano.", 'expressoes.msg':"El área de <b>Biblioteca</b> está lista para configurarse.", 'expressoes.add':"＋ Añadir expresión", 'expressoes.registered':"expresión registrada", 'expressoes.registeredPl':"expresiones registradas", 'expressoes.meaning':"Significado", 'expressoes.example':"Ejemplo", 'expressoes.alt':"Alt", 'expressoes.formNew':"Añadir expresión", 'expressoes.formEdit':"Editar expresión", 'expressoes.newSub':"Registre una nueva expresión o phrasal verb.", 'expressoes.editSub':"Modifique los datos de esta expresión.", 'expressoes.titleField':"Expresión (en inglés)", 'expressoes.titlePh':"Ej: Break the ice", 'expressoes.emoji':"Emoji", 'expressoes.meaningField':"Significado (en inglés)", 'expressoes.meaningPh':"Ej: Start a conversation in a tense situation.", 'expressoes.translationField':"Traducción (español)", 'expressoes.translationPh':"Ej: Romper el hielo.", 'expressoes.ex1':"Ejemplo 1", 'expressoes.ex2':"Ejemplo 2 (opcional)", 'expressoes.altField':"Frase alternativa (opcional)", 'expressoes.altPh':"Ej: \"Start the conversation.\"", 'expressoes.boldHint':"Consejo: coloque <b>&lt;b&gt;</b> alrededor de la expresión para destacarla en negrita.", 'expressoes.empty':"Ninguna expresión registrada aún.", 'expressoes.emptyCta':"Haga clic en <b>＋ Añadir expresión</b> para comenzar.", 'lecionados.title':"Clases Impartidas", 'lecionados.sub':"Vea todo lo que ya se enseñó a cada alumno, clase por clase.", 'lecionados.studentLabel':"Alumno", 'lecionados.pickStudent':"Seleccione un alumno...", 'lecionados.selectCta':"Seleccione un alumno arriba para ver el contenido impartido.", 'lecionados.empty':"Este alumno no tiene ninguna clase confirmada con contenido registrado.", 'expressoes.confirmDelete':"Eliminar la expresión", 'expressoes.confirm':"Confirmar / enviar", 'expressoes.sentOn':"Enviada el", 'alert.waFailed':"No se pudo abrir WhatsApp automáticamente aquí.\nEl enlace se copió — péguelo en su navegador:", 'sac.noNumber':"El soporte aún no se ha configurado en este sistema.", 'sac.defaultMsg':"¡Hola! Soy el/la profesor(a) {nome} y uso el sistema. Necesito soporte.", 'alert.hourNotFound':"El horario", 'alert.hourNotFoundEnd':"no está en la cuadrícula.", 'alert.invalidValue':"Ingrese un monto válido, como 150,00.", 'alert.chooseDueDate':"Elija una fecha de vencimiento.", 'alert.fileTooBig':"es demasiado grande (máx. 4MB por archivo). No fue subido.", 'alert.invalidAmount':"Monto no reconocido. Ingrese algo como 350,00.", 'agenda.mon':"Lunes", 'agenda.tue':"Martes", 'agenda.wed':"Miércoles", 'agenda.thu':"Jueves", 'agenda.fri':"Viernes", 'agenda.sat':"Sábado", 'agenda.sun':"Domingo", 'agenda.sub':"Toque en un horario para programar. Los alumnos se repiten cada semana automáticamente — puede modificar una semana específica cuando lo necesite.", 'presenca.title':"Asistencia", 'presenca.sub':"Pase de lista del día — marque asistencia, falta o cancelación.", 'presenca.today':"hoy", 'presenca.goToday':"Hoy", 'presenca.pres':"Asistencia", 'presenca.abs':"Falta", 'presenca.cancel':"Cancelación", 'presenca.presMonth':"Asistencias en el mes", 'presenca.absMonth':"Faltas en el mes", 'presenca.cancelMonth':"Cancelaciones en el mes", 'presenca.credits':"Créditos", 'presenca.creditsTooltip':"Clases canceladas acumuladas como crédito", 'presenca.creditsModalTitle':"Créditos de Clases Canceladas", 'presenca.noCredits':"Ningún crédito acumulado aún.", 'presenca.alreadyGivenOn':"Clase ya impartida el", 'presenca.classesMonth':"clases en el mes", 'presenca.classMonth':"clase en el mes", 'presenca.chooseTopic':"＋ Elegir tema", 'presenca.noClasses':"Ninguna clase programada para este día.", 'presenca.noPhoneForReminder':"Este alumno no tiene teléfono registrado.", 'presenca.sendReminder':"Enviar recordatorio de clase por WhatsApp", 'presenca.noClassesCta':"Programe alumnos en la pestaña <b>Agenda</b> para que aparezcan aquí.", 'presenca.topicModalTitle':"Contenido de la clase", 'presenca.searchTopic':"🔍 Buscar tema...", 'presenca.addManualTopic':"Añadir tema manualmente...", 'presenca.addBtn':"Añadir", 'presenca.selected':"Seleccionado", 'presenca.remove':"eliminar", 'presenca.alreadyDone':"ya impartida", 'topicos.title':"Plan de Clase", 'topicos.add':"＋ Añadir tema", 'topicos.search':"Buscar tema...", 'topicos.inLibrary':"temas en la biblioteca", 'topicos.empty':"Ningún tema aún.", 'topicos.emptyCta':"Haga clic en <b>＋ Añadir tema</b> para comenzar.", 'topicos.noResults':"Ningún tema encontrado para esa búsqueda.", 'topicos.formNew':"Añadir tema", 'topicos.formEdit':"Editar tema", 'topicos.name':"Nombre del tema", 'relatorio.title':"Informes", 'relatorio.sub':"Resúmenes pedagógicos y asistencia mensual de clases por alumno.", 'relatorio.presenceRate':"de asistencia", 'relatorio.noMarks':"sin marcas", 'relatorio.noData':"Sin datos para", 'relatorio.noDataCta':"Marque asistencias en la pestaña <b>Asistencia</b> para ver el gráfico aquí.", 'financeiro.title':"Finanzas", 'financeiro.sub':"Montos del mes por alumno, según las clases impartidas.", 'financeiro.total':"Total del mes", 'financeiro.received':"Recibido", 'financeiro.pending':"Pendiente", 'financeiro.projection':"Proyección mensual", 'financeiro.projectionHint':"clases previstas en la agenda", 'financeiro.classesGiven':"clase impartida", 'financeiro.classesGivenPl':"clases impartidas", 'financeiro.classesAbsentPl':"clases ausentes", 'financeiro.classesCancelledPl':"clases canceladas", 'financeiro.paid':"✓ Pagado", 'financeiro.due':"⏳ Pendiente", 'financeiro.adjusted':"ajustado", 'financeiro.noData':"Sin datos para", 'financeiro.noDataCta':"Marque asistencias en la pestaña <b>Asistencia</b> para calcular los valores aquí.", 'financeiro.editValue':"Valor del mes", 'financeiro.autoValue':"Valor calculado automáticamente", 'financeiro.finalValue':"Valor final a cobrar ($)", 'financeiro.restore':"↺ Restaurar automático", 'financeiro.editAulasLabel':"Cantidad de clases", 'financeiro.editAulasHint':"Ajuste las clases y el valor se recalcula automáticamente (aún puede editar el valor final a mano).", 'financeiro.manualBtn':"Registro manual", 'financeiro.manualTitle':"Registrar clases y valor manualmente", 'financeiro.manualStudent':"Alumno", 'financeiro.manualPick':"Seleccione un alumno...", 'financeiro.manualHint':"Use esto para registrar cobros de alumnos que ya pagaron sus clases del mes por adelantado.", 'financeiro.manualSave':"Registrar", 'financeiro.manualBadge':"clases (registro anticipado)", 'financeiro.manualBadgeTitle':"Registro manual — cantidad de clases pagadas por adelantado", 'financeiro.manualRemove':"Eliminar registro manual", 'financeiro.manualRemoveConfirm':"¿Eliminar este registro manual? El alumno dejará de aparecer en Finanzas este mes si no tiene clases registradas.", 'financeiro.prepaidBadge':"clases programadas (prepago)", 'financeiro.creditsAppliedTitle':"Créditos de clases canceladas descontados automáticamente del valor de este mes", 'financeiro.creditAppliedOne':"crédito aplicado", 'financeiro.creditsAppliedMany':"créditos aplicados", 'financeiro.creditsBannerApplied':"fueron descontados automáticamente del valor de este mes —", 'financeiro.creditsBannerHint':"Las primeras clases del mes ya cuentan como clases de crédito, sin cobro adicional.", 'despesas.title':"Gastos", 'despesas.add':"＋ Nuevo gasto", 'despesas.registered':"gasto registrado", 'despesas.registeredPl':"gastos registrados", 'despesas.uniqAndRec':"(únicos y recurrentes)", 'despesas.empty':"Ningún gasto este mes.", 'despesas.emptyCta':"Haga clic en <b>＋ Nuevo gasto</b> para comenzar.", 'despesas.formNew':"Nuevo gasto", 'despesas.formEdit':"Editar gasto", 'despesas.name':"Nombre", 'despesas.type':"Tipo", 'despesas.material':"Material", 'despesas.service':"Servicio", 'despesas.other':"Otro", 'despesas.billing':"Cobro", 'despesas.single':"Único", 'despesas.recurring':"Recurrente (cada mes)", 'despesas.value':"Valor ($)", 'despesas.dueDate':"Fecha de vencimiento", 'despesas.paid':"Pagado", 'despesas.due':"en", 'despesas.dueToday':"vence hoy", 'despesas.overdue':"venció hace", 'despesas.dueIn':"vence en", 'despesas.day':"día", 'despesas.days':"días", 'despesas.dueLabel':"Vencimiento", 'declaracao.title':"Declaraciones", 'declaracao.totalYear':"Total recibido en", 'declaracao.manual':"✎ manual", 'declaracao.currentMonth':"mes actual", 'estatisticas.title':"Estadísticas", 'estatisticas.annualEarnings':"Ingreso anual", 'estatisticas.avgEarnings':"Promedio mensual (ingresos)", 'estatisticas.annualHours':"Horas trabajadas en el año", 'estatisticas.avgHours':"Promedio mensual (horas)", 'estatisticas.monthlyEarnings':"💰 Ingresos mensuales", 'estatisticas.monthlyHours':"⏱️ Horas trabajadas mensuales", 'estatisticas.vsLastMonth':"vs mes anterior", 'info.title':"Configuración", 'info.save':"💾 Guardar información", 'info.saved':"¡Guardado!", 'info.identification':"Identificación", 'info.contact':"Contacto", 'info.online':"Presencia en línea", 'info.classroom':"Aula virtual", 'info.documents':"Documentos y contratos", 'info.orgName':"Nombre de la institución / profesor", 'info.doc':"ID Fiscal / RUC / DNI", 'info.whatsapp':"WhatsApp", 'info.email':"Correo electrónico", 'info.instagram':"Instagram", 'info.website':"Sitio web", 'info.meetLink':"Enlace de la reunión (Zoom, Teams, Google Meet...)", 'info.uploadFile':"⬆️ Subir archivo", 'info.noDocs':"Ningún documento subido aún.", 'common.edit':"Editar", 'common.delete':"Eliminar", 'common.cancel':"Cancelar", 'common.save':"Guardar", 'common.prevDay':"Día anterior", 'common.nextDay':"Día siguiente", 'common.prevMonth':"Mes anterior", 'common.nextMonth':"Mes siguiente", 'common.close':"Cerrar", 'common.today':"Hoy"
   }
 };
 function t(key){
@@ -6391,7 +6409,8 @@ function renderPainel(){
 
   el.innerHTML = `
     <!-- AVISO DE ANIVERSÁRIO NO TOPO DO PAINEL -->
-    ${upcomingBirthdays.length ? `<div class="pn-birthday-banner" style="margin-bottom: 20px;">
+    ${upcomingBirthdays.length && !isBannerDismissedToday('birthday') ? `<div class="pn-birthday-banner" style="margin-bottom: 20px; position:relative;">
+      <button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('birthday')">✕</button>
       ${upcomingBirthdays.map(b => `
         <div class="pn-birthday-item">
           <div class="pn-birthday-left">
@@ -6441,8 +6460,8 @@ function renderPainel(){
         </div>
       </div>`).join('') : ''}
 
-    ${reviewDueNow ? `<div class="banner pn-review-banner" style="margin-bottom: 24px;">📋 ${t('painel.reviewDueWarning')}</div>` : ''}
-    ${boletimDueNow ? `<div class="banner pn-boletim-banner" style="margin-bottom: 24px;">📊 Hora do boletim trimestral de ${studentsBoletimDueToday.map(st=>esc(st.name)).join(', ')}. <a href="javascript:void(0)" onclick="go('boletim')" style="font-weight:700;text-decoration:underline;">Gerar agora</a></div>` : ''}
+    ${reviewDueNow && !isBannerDismissedToday('review-due') ? `<div class="banner pn-review-banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">📋 ${t('painel.reviewDueWarning')}<button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('review-due')">✕</button></div>` : ''}
+    ${boletimDueNow && !isBannerDismissedToday('boletim-due') ? `<div class="banner pn-boletim-banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">📊 Hora do boletim trimestral de ${studentsBoletimDueToday.map(st=>esc(st.name)).join(', ')}. <a href="javascript:void(0)" onclick="go('boletim')" style="font-weight:700;text-decoration:underline;">Gerar agora</a><button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('boletim-due')">✕</button></div>` : ''}
 
     <!-- FAIXA DE ALUNOS DO DIA / DIA SEGUINTE -->
     ${(todayRows.length || tomorrowRows.length) ? `
@@ -6475,7 +6494,7 @@ function renderPainel(){
     </div>
     ` : ''}
 
-    ${STORAGE_OK?'':'<div class="banner" style="margin-bottom: 24px;">⚠️ '+t('painel.storageWarning')+'</div>'}
+    ${(STORAGE_OK || isBannerDismissedToday('storage-warning'))?'':'<div class="banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">⚠️ '+t('painel.storageWarning')+'<button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner(\'storage-warning\')">✕</button></div>'}
     
     <!-- METRICS GRID -->
     <div class="stats-grid">
@@ -7353,6 +7372,18 @@ function getActiveSlotNotices(){
 async function dismissSlotNotice(id){
   state.slotNotices = (state.slotNotices||[]).filter(n=>n.id!==id);
   await write('slotNotices', state.slotNotices);
+  renderPainel();
+}
+
+/* ================= DISPENSAR AVISOS DO PAINEL (só por hoje) ================= */
+// Guarda no navegador quais avisos foram fechados hoje — volta a aparecer no dia seguinte
+// (útil pra avisos que se repetem, como aniversário ou revisão pendente).
+function isBannerDismissedToday(key){
+  try{ return localStorage.getItem('dismissedBanner_'+key) === isoDate(new Date()); }
+  catch(e){ return false; }
+}
+function dismissBanner(key){
+  try{ localStorage.setItem('dismissedBanner_'+key, isoDate(new Date())); }catch(e){}
   renderPainel();
 }
 
@@ -8411,7 +8442,18 @@ function renderAlunos(){
         <button class="btn btn-primary" onclick="openAluno()">${t('alunos.add')}</button>
       </div>
     </div>
-    ${n ? `<div class="alu-list">${mainList.map(alunoRow).join('')}</div>`
+    ${n ? `<div class="alu-table">
+        <div class="alu-row alu-header">
+          <div class="alu-col-name">Aluno</div>
+          <div class="alu-col-age">Idade</div>
+          <div class="alu-col-status">Status</div>
+          <div class="alu-col-level">Nível</div>
+          <div class="alu-col-phone">Telefone</div>
+          <div class="alu-col-price">Valor</div>
+          <div class="alu-col-acts">Ações</div>
+        </div>
+        <div class="alu-list">${mainList.map(alunoRow).join('')}</div>
+      </div>`
         : `<div class="card panel"><div class="empty" style="padding:44px 16px">
              <div style="font-size:42.5px;margin-bottom:10px">🧑‍🎓</div>
              ${t('alunos.empty')}<br>${t('alunos.emptyCta')}
@@ -8419,14 +8461,25 @@ function renderAlunos(){
     ${pausedList.length ? `
     <div class="alu-paused-section">
       <div class="alu-paused-header">🔒 ${t('alunos.pausedSectionTitle')} <span class="alu-paused-count">${pausedList.length}</span></div>
-      <div class="alu-list">${pausedList.map(alunoRow).join('')}</div>
+      <div class="alu-table">
+        <div class="alu-row alu-header">
+          <div class="alu-col-name">Aluno</div>
+          <div class="alu-col-age">Idade</div>
+          <div class="alu-col-status">Status</div>
+          <div class="alu-col-level">Nível</div>
+          <div class="alu-col-phone">Telefone</div>
+          <div class="alu-col-price">Valor</div>
+          <div class="alu-col-acts">Ações</div>
+        </div>
+        <div class="alu-list">${pausedList.map(alunoRow).join('')}</div>
+      </div>
     </div>` : ''}`;
 }
 function alunoRow(s){
   const st = ST_ALUNO[s.status] || ST_ALUNO.ativo;
   const wa = s.phone ? waUrl(s.phone, s.name) : '';
   const age = ageFromDOB(s.birth);
-  const ageHtml = age!=null ? `<span class="alu-age-pill">${age} ${t('alunos.age')}</span>` : '';
+  const ageHtml = age!=null ? `${age}` : '<span class="alu-empty">—</span>';
   const levelHtml = s.level ? `<span class="alu-tag">🎯 ${esc(s.level)}</span>` : '<span class="alu-empty">—</span>';
   const phoneHtml = s.phone
     ? `<span class="alu-i">📞 ${esc(s.phone)}${wa?` <a class="wa-link" href="${wa}" target="_blank" rel="noopener noreferrer" title="Conversar no WhatsApp" onclick="return openWA('${wa}', event)">${WA_ICON}</a>`:''}</span>`
@@ -8435,12 +8488,16 @@ function alunoRow(s){
   const prepaidHtml = s.paymentMode==='pre' ? `<span class="alu-tag alu-tag-prepaid" title="${t('alunos.prepaidHint')}">💳 ${t('alunos.prepaid')}</span>` : '';
   const isPaused = s.status==='trancado';
   return `<div class="card alu-row ${isPaused?'alu-row-paused':''}">
-    <div class="avatar" style="background:${studentColor(s)};cursor:pointer;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(initials(s.name))}</div>
-    <div class="alu-name"><span class="alu-nm" style="cursor:pointer;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(s.name)}</span>${ageHtml}<span class="stu-pill ${st.cls}">${t(st.key)}</span>${prepaidHtml}</div>
-    <div class="alu-col">${levelHtml}</div>
-    <div class="alu-col">${phoneHtml}</div>
-    <div class="alu-col">${priceHtml}</div>
-    <div class="alu-acts">
+    <div class="alu-col-name alu-name">
+      <div class="avatar" style="background:${studentColor(s)};cursor:pointer;flex:none;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(initials(s.name))}</div>
+      <span class="alu-nm" style="cursor:pointer;" title="Abrir Ficha 360°" onclick="openStudent360Modal('${s.id}')">${esc(s.name)}</span>${prepaidHtml}
+    </div>
+    <div class="alu-col-age">${ageHtml}</div>
+    <div class="alu-col-status"><span class="stu-pill ${st.cls}">${t(st.key)}</span></div>
+    <div class="alu-col-level">${levelHtml}</div>
+    <div class="alu-col-phone">${phoneHtml}</div>
+    <div class="alu-col-price">${priceHtml}</div>
+    <div class="alu-col-acts alu-acts">
       <button title="Ficha 360° do Aluno" onclick="openStudent360Modal('${s.id}')">👁️</button><button title="Gerar Contrato de Aulas" onclick="openContractModal('${s.id}')">📜</button>
       <button title="${t('common.edit')}" onclick="openAluno('${s.id}')">✏️</button>
       <button title="${t('common.delete')}" class="danger" onclick="delAluno('${s.id}')">🗑️</button>
@@ -8836,31 +8893,38 @@ function renderTopicos(){
   const list = state.topics.filter(t=>t.title.toLowerCase().includes(q));
   const isDark = document.body.classList.contains('dark');
   const isEn = state.lang === 'en';
+  const isEng = isEnglishSubject();
   const filter = state.selectedTopicCategoryFilter;
 
   // conta quantos tópicos há em cada balde (sem categoria = "todos")
   const countFor = key => list.filter(tp => key==='all' ? !topicCategory(tp) : topicCategory(tp)===key).length;
 
-  // 1. Pills no topo: "Todos" (não categorizados) + cada categoria — servem de filtro E de alvo de arrastar
-  let pillsHtml = `<button class="tp-pill ${filter==='all'?'active':''}" data-drop-cat="all"
-      onclick="state.selectedTopicCategoryFilter='all'; renderTopicos();"
-      ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
-      ondragleave="this.classList.remove('tp-pill-over')"
-      ondrop="onTopicDrop(event,null)">${isEn?'All':'Todos'} <span class="tp-pill-count">${countFor('all')}</span></button>`;
-  TOPIC_CATEGORIES.forEach(cat => {
-    pillsHtml += `<button class="tp-pill ${filter===cat.key?'active':''}" data-drop-cat="${cat.key}"
-      onclick="state.selectedTopicCategoryFilter='${cat.key}'; renderTopicos();"
-      ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
-      ondragleave="this.classList.remove('tp-pill-over')"
-      ondrop="onTopicDrop(event,'${cat.key}')">${cat.label} <span class="tp-pill-count">${countFor(cat.key)}</span></button>`;
-  });
+  // 1. Pills no topo: só fazem sentido para Inglês (níveis CEFR). Para outras matérias,
+  //    a lista fica sempre completa, sem esse filtro por nível.
+  let pillsHtml = '';
+  if(isEng){
+    pillsHtml = `<button class="tp-pill ${filter==='all'?'active':''}" data-drop-cat="all"
+        onclick="state.selectedTopicCategoryFilter='all'; renderTopicos();"
+        ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
+        ondragleave="this.classList.remove('tp-pill-over')"
+        ondrop="onTopicDrop(event,null)">${isEn?'All':'Todos'} <span class="tp-pill-count">${countFor('all')}</span></button>`;
+    TOPIC_CATEGORIES.forEach(cat => {
+      pillsHtml += `<button class="tp-pill ${filter===cat.key?'active':''}" data-drop-cat="${cat.key}"
+        onclick="state.selectedTopicCategoryFilter='${cat.key}'; renderTopicos();"
+        ondragover="event.preventDefault();this.classList.add('tp-pill-over')"
+        ondragleave="this.classList.remove('tp-pill-over')"
+        ondrop="onTopicDrop(event,'${cat.key}')">${cat.label} <span class="tp-pill-count">${countFor(cat.key)}</span></button>`;
+    });
+  }
 
-  // 2. Lista filtrada: com busca ativa, ignora a categoria selecionada e busca em TODOS os
-  //    tópicos (lista única) — sem busca, mantém a navegação por categoria como antes.
+  // 2. Lista filtrada: com busca ativa (ou matéria diferente de inglês), ignora a categoria
+  //    selecionada e mostra em TODOS os tópicos (lista única).
   const isSearching = q.length > 0;
-  const filteredList = isSearching
+  const filteredList = !isEng
     ? list
-    : (filter==='all' ? list.filter(tp => !topicCategory(tp)) : list.filter(tp => topicCategory(tp)===filter));
+    : (isSearching
+        ? list
+        : (filter==='all' ? list.filter(tp => !topicCategory(tp)) : list.filter(tp => topicCategory(tp)===filter)));
 
   let bodyContent = '';
   if (state.topics.length === 0) {
@@ -8872,7 +8936,7 @@ function renderTopicos(){
     `;
   } else if (filteredList.length === 0) {
     bodyContent = `<div class="card panel"><div class="empty" style="padding:44px 16px">
-      ${filter==='all' ? `🎉 ${isEn?'Everything is sorted! Pick a category above to view its topics.':'Tudo já foi organizado! Escolha uma categoria acima para ver os tópicos dela.'}`
+      ${isEng && filter==='all' ? `🎉 ${isEn?'Everything is sorted! Pick a category above to view its topics.':'Tudo já foi organizado! Escolha uma categoria acima para ver os tópicos dela.'}`
                         : `🔍 ${t('topicos.noResults')}`}
     </div></div>`;
   } else {
@@ -8885,11 +8949,10 @@ function renderTopicos(){
             : `style="border-left-color:${c.ic};background:${c.bg};border-color:${c.bd}"`;
           const textStyle = isDark ? '' : `style="color:${c.fg}"`;
           return `
-            <div class="tp-row-simple" draggable="true"
-                ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)" ${rowStyle}>
-              <span class="tp-row-drag" title="${isEn?'Drag to a category above':'Arraste para uma categoria acima'}">⠿</span>
+            <div class="tp-row-simple" ${isEng ? `draggable="true" ondragstart="onTopicDragStart(event,'${tp.id}')" ondragend="onTopicDragEnd(event)"` : ''} ${rowStyle}>
+              ${isEng ? `<span class="tp-row-drag" title="${isEn?'Drag to a category above':'Arraste para uma categoria acima'}">⠿</span>` : ''}
               <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
-              ${isSearching ? `<span class="tp-row-catbadge">${topicCategory(tp) ? esc((TOPIC_CATEGORIES.find(c=>c.key===topicCategory(tp))||{}).label || topicCategory(tp)) : (isEn?'Uncategorized':'Sem categoria')}</span>` : ''}
+              ${isEng && isSearching ? `<span class="tp-row-catbadge">${topicCategory(tp) ? esc((TOPIC_CATEGORIES.find(c=>c.key===topicCategory(tp))||{}).label || topicCategory(tp)) : (isEn?'Uncategorized':'Sem categoria')}</span>` : ''}
               <span class="tp-row-actions">
                 <button class="tp-card-btn ${(tp.materials||[]).length?'tp-has-mat':''}" onclick="openTopicMaterialsModal('${tp.id}')" title="Banco de Materiais">📎${(tp.materials||[]).length?` ${tp.materials.length}`:''}</button>
                 <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
@@ -8915,7 +8978,7 @@ function renderTopicos(){
       <span class="count-pill">${filteredList.length} ${t('topicos.shown')}</span>
     </div>
 
-    <div class="tp-pills" style="margin-bottom:14px">${pillsHtml}</div>
+    ${isEng ? `<div class="tp-pills" style="margin-bottom:14px">${pillsHtml}</div>` : ''}
 
     ${bodyContent}
   `;
@@ -12865,7 +12928,8 @@ async function clearDcAjuste(year, month){
 }
 const MONTHS_SHORT_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const MONTHS_SHORT_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const MONTHS_SHORT = new Proxy([], { get(_,prop){ const arr = (typeof state!=='undefined'&&state.lang==='en')?MONTHS_SHORT_EN:MONTHS_SHORT_PT; return arr[prop]; } });
+const MONTHS_SHORT_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const MONTHS_SHORT = new Proxy([], { get(_,prop){ const arr = (typeof state!=='undefined'&&state.lang==='es')?MONTHS_SHORT_ES:((typeof state!=='undefined'&&state.lang==='en')?MONTHS_SHORT_EN:MONTHS_SHORT_PT); return arr[prop]; } });
 const DC_MONTH_COLORS_NATURE = [
   {bg:'#EDF5F0', fg:'#1E7F49'}, {bg:'#FAF2EC', fg:'#C2570F'}, {bg:'#F9F1EB', fg:'#B45309'},
   {bg:'#ECF4F3', fg:'#0F766E'}, {bg:'#ECF3EF', fg:'#166534'}, {bg:'#F7EFEC', fg:'#9A3412'},
@@ -14111,8 +14175,8 @@ async function toggleColorMode(){
 }
 function applyLangLabel(lang){
   const label = document.getElementById('lang-toggle-label');
-  if(label) label.textContent = lang==='en' ? 'English (US)' : 'Português (BR)';
-  document.documentElement.lang = lang==='en' ? 'en-US' : 'pt-BR';
+  if(label) label.textContent = lang==='es' ? 'Español (ES)' : (lang==='en' ? 'English (US)' : 'Português (BR)');
+  document.documentElement.lang = lang==='es' ? 'es-ES' : (lang==='en' ? 'en-US' : 'pt-BR');
 }
 function applyLang(lang){
   state.lang = lang;
@@ -14151,7 +14215,7 @@ function applyNavLabels(){
   applyNavGroupState();
 }
 async function toggleLang(){
-  const next = state.lang==='en' ? 'pt' : 'en';
+  const next = state.lang==='pt' ? 'en' : (state.lang==='en' ? 'es' : 'pt');
   applyLang(next);
   await write('lang', next);
 }
@@ -14831,7 +14895,7 @@ async function installPwaApp(){
           </div>
 
           {/* Cartão de login */}
-          <div className="relative z-10 w-full max-w-[420px] bg-white rounded-[16px] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100/80 p-6 sm:p-8 animate-slide-up flex flex-col items-center shrink-0">
+          <div className="relative z-10 w-full max-w-[420px] rounded-[20px] shadow-[0_20px_60px_rgba(147,51,234,0.12)] border border-white/60 p-6 sm:p-8 animate-slide-up flex flex-col items-center shrink-0 backdrop-blur-xl" style={{background:'linear-gradient(160deg, rgba(255,240,247,0.85) 0%, rgba(240,247,255,0.85) 45%, rgba(255,247,235,0.85) 100%)'}}>
 
           <p className="text-sm text-gray-500 mt-1 mb-6 text-center">
             {view === 'login' && t('login.welcomeSub')}
