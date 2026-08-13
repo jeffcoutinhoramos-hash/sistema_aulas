@@ -5541,6 +5541,9 @@ const RECOVERED_EXPRESSIONS3_AUG2026 = [
   { title:'Nice work if you can get it', emoji:'😎', meaning:'An easy or highly paid job anyone would want.', translation:'Trabalho fácil se você conseguir.', ex1:'She gets paid to travel and write—nice work if you can get it.', ex2:'Being a game tester sounds like nice work if you can get it.', alt:'That\'s a sweet gig, if you can get it.' },
   { title:'Cross that bridge when we come to it', emoji:'🌉', meaning:'Don\'t worry about a future problem until it actually happens.', translation:'Deixar para resolver quando acontecer.', ex1:'What if the flight cancels? We\'ll cross that bridge when we come to it.', ex2:'Don\'t stress about the interview yet; we\'ll cross that bridge when we come to it.', alt:'Let\'s wait and see.' },
 ];
+const RECOVERED_EXPRESSIONS4_AUG2026 = [
+  { title:'Hats off!', emoji:'🎩', meaning:"To express admiration or congratulations for someone's achievement.", translation:'Tirar o chapéu (para alguém).', ex1:'I have to say, hats off to Maria — she finished the project ahead of schedule!', ex2:'Hats off to the entire team for such an outstanding performance.', alt:'Kudos! or Well done!' },
+];
 const RECOVERED_TOPICS_AUG2026 = [
   '"Should" in the past',
   '2024 - What was left behind',
@@ -5937,6 +5940,36 @@ const RECOVERED_TOPICS_AUG2026 = [
     state.expressions.sort((a,b) => rankOf3(a.title) - rankOf3(b.title));
     await save('expressions');
     await write('expressionsRecovered3Aug2026', true);
+  }
+  const expressionsRecovered4Aug2026 = await read('expressionsRecovered4Aug2026', false);
+  if(!expressionsRecovered4Aug2026){
+    const existingExprTitles4 = new Set(state.expressions.map(x=>x.title.toLowerCase()));
+    const batch4 = [];
+    RECOVERED_EXPRESSIONS4_AUG2026.forEach(rec=>{
+      if(!existingExprTitles4.has(rec.title.toLowerCase())){
+        batch4.push(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, rec));
+        existingExprTitles4.add(rec.title.toLowerCase());
+      }
+    });
+    state.expressions = batch4.concat(state.expressions);
+    const canonicalOrder4 = [
+      "Hats off!",
+      "Miss the boat","Nice work if you can get it","Cross that bridge when we come to it",
+      "Wrap your head around something","Face the music","The bee's knees","Kick the can down the road",
+      "The whole nine yards","Everything but the kitchen sink","Every cloud has a silver lining",
+      "The early bird gets the worm","Get your act together","Give the benefit of the doubt",
+      "Get the ball rolling","Get a taste of your own medicine","Drive someone up the wall",
+      "Cut someone some slack","Bite off more than you can chew","The best of both worlds",
+      "Beat around the bush","Cut corners","Cry over spilled milk","Cost an arm and a leg","Cold feet","Call it a day",
+      "By the skin of your teeth","Bury the hatchet","Barking up the wrong tree","All in the same boat","All ears",
+      "A dime a dozen","Pull someone's leg","Spill the beans","Kill two birds with one stone",
+      "A blessing in disguise","On cloud nine","Bite the bullet","Burn the midnight oil",
+      "Let the cat out of the bag","Under the weather","Hit the nail on the head","Piece of cake","Break the ice"
+    ];
+    const rankOf4 = title => { const i = canonicalOrder4.findIndex(c=>c.toLowerCase()===title.toLowerCase()); return i===-1 ? -1 : i; };
+    state.expressions.sort((a,b) => rankOf4(a.title) - rankOf4(b.title));
+    await save('expressions');
+    await write('expressionsRecovered4Aug2026', true);
   }
   state.lessons  = await read('lessons', []);
   if(!SUPABASE_CONFIGURED) state.authHash = await read('authHash', '');
@@ -9302,7 +9335,7 @@ async function saveExpressao(id){
     const x = state.expressions.find(e=>e.id===id);
     Object.assign(x, fields);
   }else{
-    state.expressions.unshift(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, fields));
+    state.expressions.push(Object.assign({id:uid(), confirmed:false, addedAt:new Date().toISOString()}, fields));
   }
   await write('expressions', state.expressions);
   closeModal(); renderExpressoes(); renderPainel();
