@@ -6001,6 +6001,13 @@ const RECOVERED_TOPICS_AUG2026 = [
   state.pagamentos = await read('pagamentos', {});
   state.financeiroAjustes = await read('financeiroAjustes', {});
   state.waTemplates = await read('waTemplates', DEFAULT_WA_TEMPLATES);
+  const lembreteAulaTextUpdatedV3 = await read('lembreteAulaTextUpdatedV3', false);
+  if(!lembreteAulaTextUpdatedV3){
+    const tpl = (state.waTemplates||[]).find(t=>t.id==='tpl_lembrete_aula');
+    if(tpl) tpl.text = "Hey {nome}! Just a quick reminder about our session today at {horario}. We'll be diving into *\"{tema}\"*. Grab your stuff and see you there!";
+    await save('waTemplates');
+    await write('lembreteAulaTextUpdatedV3', true);
+  }
   state.contractSettings = await read('contractSettings', { cancelNoticeHours: 2, reschedulePeriodDays: 30, dueDay: 5, customClauses: '' });
   state.financialGoals = await read('financialGoals', { monthlyTarget: 8000, maxWeeklyHours: 20 });
   state.trialClasses = await read('trialClasses', []);
@@ -13822,7 +13829,7 @@ const DEFAULT_WA_TEMPLATES = [
     id: 'tpl_lembrete_aula',
     name: '⏰ Lembrete de Aula de Hoje',
     category: 'aula',
-    text: 'Olá {nome}! Lembrando da nossa aula hoje, {dia_semana}, às {horario}. Tema de hoje: {tema}. Link da nossa sala: {link_aula}. Até já!'
+    text: "Hey {nome}! Just a quick reminder about our session today at {horario}. We'll be diving into *\"{tema}\"*. Grab your stuff and see you there!"
   },
   {
     id: 'tpl_cobranca',
