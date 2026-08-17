@@ -3,7 +3,7 @@
 // e continuar funcionando mesmo com internet instável ou momentaneamente offline.
 // Atualize CACHE_VERSION sempre que publicar uma nova versão do index.html,
 // assim o app busca a versão nova em vez de usar o cache antigo.
-const CACHE_VERSION = 'ec-system-v1';
+const CACHE_VERSION = 'ec-system-v3';
 const APP_SHELL = [
   './',
   './index.html',

@@ -32,6 +32,7 @@
     --shadow-sm:0 4px 14px -8px rgba(90,143,99,.12);
     --radius:12px;
     --sidebar-width:260px;
+    --sidebar-collapsed-width:68px;
     --ease-out:cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out:cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -538,20 +539,145 @@
   .layout{display:block}
   .sidebar{
     position:fixed;top:0;left:0;bottom:0;flex:none;
-    width:var(--sidebar-width);background:var(--surface);border-right:1px solid var(--line);overflow:hidden;
-    padding:16px 14px;display:flex;flex-direction:column;gap:8px;z-index:40;
+    width:var(--sidebar-collapsed-width);background:var(--surface);border-right:1px solid var(--line);overflow:hidden;
+    padding:16px 10px;display:flex;flex-direction:column;gap:8px;z-index:100;
+    box-shadow:2px 0 12px rgba(0, 0, 0, 0.05);
+    transition:width 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s ease, background-color 0.28s ease, padding 0.28s ease;
+  }
+  .sidebar.pinned{
+    width:var(--sidebar-width);
+    padding:16px 14px;
     box-shadow:2px 0 12px rgba(0, 0, 0, 0.03);
   }
-  .content{margin-left:var(--sidebar-width);min-height:100vh}
-  .shell{max-width:1440px;margin:0 auto;padding:76px 40px 96px}
-
-  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);padding:0 6px}
-  .mark{
-    width:34px;height:34px;border-radius:10px;background:var(--accent-bg);
-    display:grid;place-items:center;font-size:18.5px;flex:none;cursor:pointer;transition:.15s;
-    border:1px solid var(--line);color:var(--violet);
+  @media (min-width: 881px) {
+    .sidebar:not(.pinned):hover{
+      width:var(--sidebar-width);
+      padding:16px 14px;
+      box-shadow:8px 0 32px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.1);
+    }
   }
+
+  .content{
+    margin-left:var(--sidebar-collapsed-width);
+    width:calc(100% - var(--sidebar-collapsed-width));
+    min-height:100vh;
+    transition:margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1), width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .layout.is-pinned .content{
+    margin-left:var(--sidebar-width);
+    width:calc(100% - var(--sidebar-width));
+  }
+
+  .shell{
+    max-width:100%;
+    width:100%;
+    margin:0 auto;
+    padding:64px 36px 96px;
+    box-sizing:border-box;
+    transition:padding 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 881px) {
+    .layout.sidebar-hovered .shell,
+    .sidebar:not(.pinned):hover ~ .content .shell {
+      padding-left: 44px;
+      transform: scale(0.996);
+      transform-origin: left top;
+    }
+  }
+
+  .view {
+    width: 100%;
+    transition: opacity 0.25s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card, .panel {
+    transition: box-shadow 0.24s ease, border-color 0.24s ease, transform 0.24s ease, padding 0.24s ease;
+  }
+
+  .brand{display:flex;align-items:center;gap:10px;color:var(--ink);padding:0 2px;position:relative;min-height:36px;white-space:nowrap;}
+  .mark{
+    width:36px;height:36px;border-radius:10px;background:var(--accent-bg);
+    display:grid;place-items:center;font-size:18.5px;flex:none;cursor:pointer;transition:.15s;
+    border:1px solid var(--line);color:var(--violet);margin:0 auto;
+  }
+  .sidebar.pinned .mark, .sidebar:hover .mark{ margin:0; }
   .mark:hover{background:var(--line-2);transform:scale(1.05)}
+
+  .brand-info{
+    display:flex;align-items:center;justify-content:space-between;flex:1;min-width:0;
+    opacity:0;visibility:hidden;transition:opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .sidebar.pinned .brand-info, .sidebar:hover .brand-info{
+    opacity:1;visibility:visible;
+  }
+  .brand-title-text{
+    font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0;
+  }
+  .sidebar-pin-btn{
+    background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:6px;
+    color:var(--muted);font-size:14px;display:inline-flex;align-items:center;justify-content:center;
+    transition:background 0.15s, color 0.15s, transform 0.15s;flex:none;
+  }
+  .sidebar-pin-btn:hover{background:var(--line-2);color:var(--violet);transform:scale(1.1);}
+  .sidebar.pinned .sidebar-pin-btn{color:var(--violet);}
+
+  .nav{display:flex;flex-direction:column;gap:3px;flex:1;overflow-y:auto;overflow-x:hidden;margin-top:4px}
+  .nav button{
+    display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;
+    border-radius:10px;font-size:13.5px;font-weight:600;color:var(--ink);
+    transition:background 0.15s, color 0.15s;text-align:left;white-space:nowrap;
+  }
+  .nav button .ico{
+    font-size:16px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+    flex:none;margin:0 auto;
+  }
+  .sidebar.pinned .nav button .ico, .sidebar:hover .nav button .ico{ margin:0; }
+
+  .nav-text{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;
+    opacity:0;visibility:hidden;transition:opacity 0.18s ease;
+  }
+  .sidebar.pinned .nav-text, .sidebar:hover .nav-text{
+    opacity:1;visibility:visible;
+  }
+
+  .nav-group-label{
+    display:flex;align-items:center;gap:6px;padding:6px 10px;font-size:11px;
+    font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;
+    margin-top:10px;width:100%;cursor:pointer;
+  }
+  .nav-group-chevron{font-size:10px;flex:none;transition:transform 0.2s;}
+  .nav-group-collapsed .nav-group-chevron{transform:rotate(-90deg);}
+  .nav-group-text{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    opacity:0;visibility:hidden;transition:opacity 0.18s ease;
+  }
+  .sidebar.pinned .nav-group-text, .sidebar:hover .nav-group-text{
+    opacity:1;visibility:visible;
+  }
+  .sidebar:not(.pinned):not(:hover) .nav-group-chevron{ display:none; }
+  .sidebar:not(.pinned):not(:hover) .nav-group-label{
+    padding:4px 0;margin-top:6px;justify-content:center;border-top:1px dashed var(--line);
+  }
+
+  .theme-toggle{
+    display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;
+    font-size:12.5px;font-weight:600;color:var(--muted);transition:background 0.15s, color 0.15s;
+    width:100%;white-space:nowrap;
+  }
+  .theme-toggle:hover{background:var(--line-2);color:var(--ink);}
+  .theme-toggle .ico{
+    font-size:15px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+    flex:none;margin:0 auto;
+  }
+  .sidebar.pinned .theme-toggle .ico, .sidebar:hover .theme-toggle .ico{ margin:0; }
+  .theme-toggle-text{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    opacity:0;visibility:hidden;transition:opacity 0.18s ease;
+  }
+  .sidebar.pinned .theme-toggle-text, .sidebar:hover .theme-toggle-text{
+    opacity:1;visibility:visible;
+  }
   .emoji-section{font-size:13.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 2px 9px}
   .emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:7px}
   .emoji-cell{font-size:26px;padding:8px 0;border-radius:11px;background:#FCFCFF;border:1px solid var(--line);transition:.12s;line-height:1}
@@ -1142,7 +1268,8 @@
   }
   .painel-login-btn:hover{border-color:#B1E0BF;transform:translateY(-1px)}
   .fixed-signout{position:fixed;top:18px;right:24px;z-index:40}
-  .fixed-back-home{position:fixed;top:18px;left:calc(var(--sidebar-width) + 24px);z-index:40}
+  .fixed-back-home{position:fixed;top:18px;left:calc(var(--sidebar-collapsed-width) + 24px);z-index:40;transition:left 0.28s ease}
+  .layout.is-pinned .fixed-back-home{left:calc(var(--sidebar-width) + 24px)}
   @media(max-width:880px){
     .fixed-signout{top:auto;bottom:16px;right:16px;z-index:70}
     .fixed-back-home{top:auto;bottom:16px;left:16px;z-index:70}
@@ -2041,13 +2168,16 @@
 
   @media(max-width:880px){
     .layout{display:flex;flex-direction:column}
-    .sidebar{
+    .sidebar, .sidebar.pinned, .sidebar:not(.pinned):hover{
       position:sticky;top:0;left:auto;right:auto;bottom:auto;
-      width:100%;min-height:0;flex-direction:row;align-items:center;justify-content:space-between;
-      gap:14px;padding:14px 18px;flex-wrap:wrap
+      width:100%!important;min-height:0;flex-direction:row;align-items:center;justify-content:space-between;
+      gap:14px;padding:14px 18px!important;flex-wrap:wrap;box-shadow:none!important;
     }
-    .content{margin-left:0}
+    .content, .layout.is-pinned .content{margin-left:0!important}
+    .brand-info, .nav-text, .nav-group-text, .theme-toggle-text{opacity:1!important;visibility:visible!important}
+    .sidebar-pin-btn{display:none!important}
     .nav{flex-direction:row;flex-wrap:wrap;gap:6px;flex:none;overflow:visible;min-height:0}
+    .nav button .ico{margin:0}
     .nav-group{display:contents}
     .nav button.nav-group-label{display:none}
     .nav-group-items{display:contents!important}
@@ -2909,74 +3039,77 @@
 </style>
 
 <div class="layout">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
       <button class="mark" id="brand-mark" onclick="openEmojiPicker()" title="Trocar ícone">🎓</button>
-      <div>
-        <h1 id="brand-title">JCR System</h1>
+      <div class="brand-info">
+        <h1 id="brand-title" class="brand-title-text">JCR System</h1>
+        <button type="button" class="sidebar-pin-btn" id="sidebar-pin-btn" onclick="toggleSidebarPin()" title="Fixar / Flutuar Menu">
+          <span class="pin-ico">📌</span>
+        </button>
       </div>
     </div>
     <nav class="nav" id="nav">
-      <button data-view="painel" class="active nav-main-btn"><span class="ico">✦</span>Painel</button>
+      <button data-view="painel" class="active nav-main-btn" title="Painel"><span class="ico">✦</span><span class="nav-text">Painel</span></button>
       <div class="nav-group" data-group="operacional">
-        <button type="button" class="nav-group-label" data-group="operacional" onclick="toggleNavGroup('operacional')">
+        <button type="button" class="nav-group-label" data-group="operacional" onclick="toggleNavGroup('operacional')" title="Operacional">
           <span class="nav-group-chevron">▾</span><span class="nav-group-text">Operacional</span>
         </button>
         <div class="nav-group-items" data-group-items="operacional">
-          <button data-view="agenda"><span class="ico">🗓️</span>Agenda</button>
-          <button data-view="presenca"><span class="ico">✅</span>Frequência</button>
-          <button data-view="lembretes"><span class="ico">📱</span>Lembretes WhatsApp</button>
+          <button data-view="agenda" title="Agenda"><span class="ico">🗓️</span><span class="nav-text">Agenda</span></button>
+          <button data-view="presenca" title="Frequência"><span class="ico">✅</span><span class="nav-text">Frequência</span></button>
+          <button data-view="lembretes" title="Lembretes WhatsApp"><span class="ico">📱</span><span class="nav-text">Lembretes WhatsApp</span></button>
         </div>
       </div>
       <div class="nav-group" data-group="pedagogico">
-        <button type="button" class="nav-group-label" data-group="pedagogico" onclick="toggleNavGroup('pedagogico')">
+        <button type="button" class="nav-group-label" data-group="pedagogico" onclick="toggleNavGroup('pedagogico')" title="Pedagógico">
           <span class="nav-group-chevron">▾</span><span class="nav-group-text">Pedagógico</span>
         </button>
         <div class="nav-group-items" data-group-items="pedagogico">
-          <button data-view="alunos"><span class="ico">👤</span>Alunos</button>
-          <button data-view="topicos"><span class="ico">📚</span>Plano de Aula</button>
-          <button data-view="niveis"><span class="ico">🧭</span>Tópicos</button>
-          <button data-view="expressoes"><span class="ico">💬</span>Expressões</button>
-          <button data-view="lecionados"><span class="ico">✅</span>Lecionados</button>
-          <button data-view="experimentais"><span class="ico">🧪</span>Aulas Experimentais</button>
-          <button data-view="certificados"><span class="ico">🎓</span>Certificados</button>
-          <button data-view="boletim"><span class="ico">📊</span>Boletim</button>
-          <button data-view="pronuncia"><span class="ico">🔊</span>Pronúncia & Speaking</button>
-          <button data-view="filaespera"><span class="ico">🕒</span>Fila de Espera</button>
+          <button data-view="alunos" title="Alunos"><span class="ico">👤</span><span class="nav-text">Alunos</span></button>
+          <button data-view="topicos" title="Plano de Aula"><span class="ico">📚</span><span class="nav-text">Plano de Aula</span></button>
+          <button data-view="niveis" title="Tópicos"><span class="ico">🧭</span><span class="nav-text">Tópicos</span></button>
+          <button data-view="expressoes" title="Expressões"><span class="ico">💬</span><span class="nav-text">Expressões</span></button>
+          <button data-view="lecionados" title="Lecionados"><span class="ico">✅</span><span class="nav-text">Lecionados</span></button>
+          <button data-view="experimentais" title="Aulas Experimentais"><span class="ico">🧪</span><span class="nav-text">Aulas Experimentais</span></button>
+          <button data-view="certificados" title="Certificados"><span class="ico">🎓</span><span class="nav-text">Certificados</span></button>
+          <button data-view="boletim" title="Boletim"><span class="ico">📊</span><span class="nav-text">Boletim</span></button>
+          <button data-view="pronuncia" title="Pronúncia & Speaking"><span class="ico">🔊</span><span class="nav-text">Pronúncia & Speaking</span></button>
+          <button data-view="filaespera" title="Fila de Espera"><span class="ico">🕒</span><span class="nav-text">Fila de Espera</span></button>
         </div>
       </div>
       <div class="nav-group" data-group="gestao">
-        <button type="button" class="nav-group-label" data-group="gestao" onclick="toggleNavGroup('gestao')">
+        <button type="button" class="nav-group-label" data-group="gestao" onclick="toggleNavGroup('gestao')" title="Gestão Financeira">
           <span class="nav-group-chevron">▾</span><span class="nav-group-text">Gestão Financeira</span>
         </button>
         <div class="nav-group-items" data-group-items="gestao">
-          <button data-view="financeiro"><span class="ico">💰</span>Financeiro</button>
-          <button data-view="despesas"><span class="ico">🧾</span>Despesas</button>
-          <button data-view="estatisticas"><span class="ico">📈</span>Estatísticas</button>
+          <button data-view="financeiro" title="Financeiro"><span class="ico">💰</span><span class="nav-text">Financeiro</span></button>
+          <button data-view="despesas" title="Despesas"><span class="ico">🧾</span><span class="nav-text">Despesas</span></button>
+          <button data-view="estatisticas" title="Estatísticas"><span class="ico">📈</span><span class="nav-text">Estatísticas</span></button>
         </div>
       </div>
       <div class="nav-group" data-group="sistema">
-        <button type="button" class="nav-group-label" data-group="sistema" onclick="toggleNavGroup('sistema')">
+        <button type="button" class="nav-group-label" data-group="sistema" onclick="toggleNavGroup('sistema')" title="Sistema">
           <span class="nav-group-chevron">▾</span><span class="nav-group-text">Sistema</span>
         </button>
         <div class="nav-group-items" data-group-items="sistema">
-          <button data-view="relatorio"><span class="ico">📊</span>Relatórios</button>
-          <button data-view="ferias"><span class="ico">🏖️</span>Férias</button>
-          <button data-view="info"><span class="ico">🏫</span>Configurações</button>
-          <button data-view="backup"><span class="ico">💾</span>Backup</button>
-          <button data-view="auditoria"><span class="ico">📜</span>Auditoria</button>
+          <button data-view="relatorio" title="Relatórios"><span class="ico">📊</span><span class="nav-text">Relatórios</span></button>
+          <button data-view="ferias" title="Férias"><span class="ico">🏖️</span><span class="nav-text">Férias</span></button>
+          <button data-view="info" title="Configurações"><span class="ico">🏫</span><span class="nav-text">Configurações</span></button>
+          <button data-view="backup" title="Backup"><span class="ico">💾</span><span class="nav-text">Backup</span></button>
+          <button data-view="auditoria" title="Auditoria"><span class="ico">📜</span><span class="nav-text">Auditoria</span></button>
         </div>
       </div>
     </nav>
     <div class="sidebar-toggles">
-      <button class="theme-toggle" id="lang-toggle-btn" onclick="toggleLang()">
-        <span class="ico">🌐</span><span id="lang-toggle-label">Português (BR)</span>
+      <button class="theme-toggle" id="lang-toggle-btn" onclick="toggleLang()" title="Português (BR)">
+        <span class="ico">🌐</span><span id="lang-toggle-label" class="theme-toggle-text">Português (BR)</span>
       </button>
-      <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()">
-        <span class="ico" id="theme-toggle-ico">🌙</span><span id="theme-toggle-label">Modo escuro</span>
+      <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Modo escuro">
+        <span class="ico" id="theme-toggle-ico">🌙</span><span id="theme-toggle-label" class="theme-toggle-text">Modo escuro</span>
       </button>
-      <button class="theme-toggle" id="color-toggle-btn" onclick="toggleColorMode()">
-        <span class="ico" id="color-toggle-ico">🌊</span><span id="color-toggle-label">Modo Oceano</span>
+      <button class="theme-toggle" id="color-toggle-btn" onclick="toggleColorMode()" title="Modo Oceano">
+        <span class="ico" id="color-toggle-ico">🌊</span><span id="color-toggle-label" class="theme-toggle-text">Modo Oceano</span>
       </button>
     </div>
   </aside>
@@ -14350,18 +14483,63 @@ async function toggleNavGroup(group){
   applyNavGroupState();
   await write('navCollapsedGroups', Array.from(navCollapsedGroups));
 }
+function setupSidebarHoverEvents(){
+  const sidebar = document.getElementById('sidebar');
+  const layout = document.querySelector('.layout');
+  if(sidebar && layout && !sidebar._hasHoverEvents){
+    sidebar._hasHoverEvents = true;
+    sidebar.addEventListener('mouseenter', ()=>{
+      if(!sidebar.classList.contains('pinned')){
+        layout.classList.add('sidebar-hovered');
+      }
+    });
+    sidebar.addEventListener('mouseleave', ()=>{
+      layout.classList.remove('sidebar-hovered');
+    });
+  }
+}
+function initSidebarPin(){
+  const isPinned = localStorage.getItem('ecs_sidebar_pinned') === 'true';
+  const sidebar = document.getElementById('sidebar');
+  const layout = document.querySelector('.layout');
+  const pinBtn = document.getElementById('sidebar-pin-btn');
+  if(sidebar && layout){
+    sidebar.classList.toggle('pinned', isPinned);
+    layout.classList.toggle('is-pinned', isPinned);
+    if(isPinned) layout.classList.remove('sidebar-hovered');
+    if(pinBtn){
+      pinBtn.title = isPinned ? 'Desfixar Menu (Modo Flutuante)' : 'Fixar Menu (Modo Expandido)';
+      pinBtn.innerHTML = isPinned ? '<span class="pin-ico" style="color:var(--violet)">📌</span>' : '<span class="pin-ico" style="opacity:0.65">🔓</span>';
+    }
+    setupSidebarHoverEvents();
+  }
+}
+function toggleSidebarPin(){
+  const sidebar = document.getElementById('sidebar');
+  const isCurrentlyPinned = sidebar ? sidebar.classList.contains('pinned') : false;
+  const nextState = !isCurrentlyPinned;
+  localStorage.setItem('ecs_sidebar_pinned', nextState);
+  initSidebarPin();
+}
 function applyNavLabels(){
   document.querySelectorAll('#nav button[data-view]').forEach(btn=>{
     const view = btn.dataset.view;
     const span = btn.querySelector('.ico');
     const key = 'nav.'+view;
+    const translatedText = t(key);
     btn.innerHTML = '';
     if(span) btn.appendChild(span);
-    btn.appendChild(document.createTextNode(t(key)));
+    const textSpan = document.createElement('span');
+    textSpan.className = 'nav-text';
+    textSpan.textContent = translatedText;
+    btn.appendChild(textSpan);
+    btn.setAttribute('title', translatedText);
   });
   document.querySelectorAll('#nav .nav-group-label').forEach(el=>{
     const textEl = el.querySelector('.nav-group-text');
-    if(textEl) textEl.textContent = t('nav.group.'+el.dataset.group);
+    const groupText = t('nav.group.'+el.dataset.group);
+    if(textEl) textEl.textContent = groupText;
+    el.setAttribute('title', groupText);
   });
   applyNavGroupState();
 }
@@ -14666,6 +14844,7 @@ window.addEventListener('popstate', e=>{
 
 function renderAll(){
   renderBrand();
+  initSidebarPin();
   renderPainel(); renderLogin(); renderAlunos(); renderTopicos(); renderExpressoes();
   renderPresenca(); renderAgenda(); renderLembretes();
   renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderTrialClasses(); renderCertificados(); renderBoletim(); renderPronuncia(); renderBackup(); renderWaitlist(); renderNiveis(); renderAuditoria();
