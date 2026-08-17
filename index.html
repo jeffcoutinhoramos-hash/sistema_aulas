@@ -8347,70 +8347,138 @@ let _pronunciaAudioRecorder = null;
 let _pronunciaAudioChunks = [];
 let _pronunciaCurrentAudioUrl = '';
 
-function openPronunciaModal(studentId, challengeId){
-  const s = studentById(studentId) || (state.students && state.students[0]);
-  if(!s){
-    alert('Nenhum aluno cadastrado para criar desafio de pronúncia.');
-    return;
-  }
+const PRONUNCIA_CATEGORIES = {
+  'pronunciation': { label: '🔤 Pronúncia & Fonética', color: 'var(--violet)', bg: 'var(--accent-bg)' },
+  'speaking': { label: '🗣️ Desafio Speaking', color: '#0284c7', bg: '#e0f2fe' },
+  'listening': { label: '🎧 Listening & Exercício', color: '#059669', bg: '#d1fae5' },
+  'explanation': { label: '💬 Explicação / Gramática', color: '#d97706', bg: '#fef3c7' },
+  'voice_note': { label: '🎙️ Nota de Voz Geral', color: '#e11d48', bg: '#ffe4e6' }
+};
 
+function openPronunciaModal(studentId, challengeId){
   const item = challengeId ? (state.pronunciationChallenges || []).find(c => c.id === challengeId) : null;
   const isEn = state.lang === 'en';
 
+  const selectedStudentId = item ? (item.studentId || '') : (studentId || '');
+  const title = item ? (item.title || '') : '';
+  const category = item ? (item.category || 'pronunciation') : 'pronunciation';
   const words = item ? (item.words || []).join(', ') : '';
   const sentence = item ? (item.sentence || '') : '';
   const notes = item ? (item.notes || '') : '';
   _pronunciaCurrentAudioUrl = item ? (item.audioUrl || '') : '';
 
-  const studentOpts = state.students.map(st => 
-    `<option value="${st.id}" ${st.id === (item ? item.studentId : s.id) ? 'selected' : ''}>${esc(st.name)}</option>`
+  const studentOpts = `
+    <option value="" ${!selectedStudentId ? 'selected' : ''}>🌐 ${isEn ? 'General Archive (For any student / Future use)' : 'Acervo Geral (Todos os alunos / Uso futuro)'}</option>
+    ${(state.students || []).map(st => 
+      `<option value="${st.id}" ${st.id === selectedStudentId ? 'selected' : ''}>${esc(st.name)}</option>`
+    ).join('')}
+  `;
+
+  const categoryOpts = Object.keys(PRONUNCIA_CATEGORIES).map(catKey => 
+    `<option value="${catKey}" ${catKey === category ? 'selected' : ''}>${PRONUNCIA_CATEGORIES[catKey].label}</option>`
   ).join('');
 
   showModal(`
     <div class="modal-header-grad">
-      <h3>🔊 ${item ? (isEn ? 'Edit Pronunciation Challenge' : 'Editar Desafio de Pronúncia') : (isEn ? 'New Pronunciation Challenge' : 'Novo Desafio de Pronúncia')}</h3>
-      <div class="msub">${isEn ? 'Train key sounds and send speaking tasks via WhatsApp' : 'Registre palavras de difícil pronúncia e envie tarefas de áudio pelo WhatsApp'}</div>
+      <h3>🔊 ${item ? (isEn ? 'Edit Audio / Pronunciation Item' : 'Editar Áudio / Desafio de Pronúncia') : (isEn ? 'New Audio / Challenge' : 'Novo Áudio / Desafio de Pronúncia')}</h3>
+      <div class="msub">${isEn ? 'Record voice notes, audio drills, phonetics and send via WhatsApp' : 'Grave ou envie áudios, dicas fonéticas e tarefas para o acervo ou para um aluno'}</div>
+    </div>
+
+    <div class="field-2">
+      <div class="field">
+        <label style="font-weight:700;">Título / Identificação do Áudio</label>
+        <input id="prn-title" value="${esc(title)}" placeholder="Ex: Dica som TH, Exercício de Speaking #1, Nota de Voz...">
+      </div>
+      <div class="field">
+        <label style="font-weight:700;">Categoria / Tipo de Áudio *</label>
+        <select id="prn-category">${categoryOpts}</select>
+      </div>
     </div>
 
     <div class="field" style="margin-bottom:12px;">
-      <label style="font-weight:700;">Aluno(a) *</label>
-      <select id="prn-student-select" onchange="openPronunciaModal(this.value, '${challengeId||''}')">
+      <label style="font-weight:700;">Aluno(a) Destinado(a) (Opcional)</label>
+      <select id="prn-student-select">
         ${studentOpts}
       </select>
+      <div class="sub" style="font-size:0.75rem;margin-top:3px;color:var(--muted);">Deixe em "Acervo Geral" para salvar a gravação na sua biblioteca e utilizar com qualquer aluno no futuro.</div>
+    </div>
+
+    <!-- Gravador de Áudio Nativo e Upload -->
+    <div style="background:var(--bg);padding:14px;border-radius:12px;border:1px solid var(--line);margin-bottom:16px;">
+      <label style="font-weight:700;font-size:0.88rem;color:var(--ink);display:block;margin-bottom:8px;">🎙️ Gravação de Áudio / Arquivo</label>
+      
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <button type="button" id="prn-rec-start" class="btn btn-sm btn-ghost" onclick="startPronunciaRecording()" style="color:var(--rose);font-weight:800;">🔴 Iniciar Gravação</button>
+        <button type="button" id="prn-rec-stop" class="btn btn-sm btn-ghost" onclick="stopPronunciaRecording()" style="display:none;font-weight:800;">⏹️ Parar Gravação</button>
+        
+        <label class="btn btn-sm btn-ghost" style="cursor:pointer;font-weight:700;margin:0;">
+          📁 Enviar Arquivo de Áudio
+          <input type="file" id="prn-audio-file" accept="audio/*" style="display:none;" onchange="handlePronunciaAudioUpload(this)">
+        </label>
+
+        ${_pronunciaCurrentAudioUrl ? `<button type="button" class="btn btn-sm btn-ghost" style="color:var(--rose);font-size:0.78rem;" onclick="clearPronunciaAudio()">🗑️ Remover Áudio</button>` : ''}
+      </div>
+
+      <audio id="prn-audio-player" controls style="display:${_pronunciaCurrentAudioUrl ? 'block' : 'none'};width:100%;height:36px;margin-top:6px;" src="${_pronunciaCurrentAudioUrl}"></audio>
+      <span id="prn-rec-status" style="font-size:0.78rem;color:var(--muted);margin-top:6px;display:block;">${_pronunciaCurrentAudioUrl ? '✓ Áudio pronto para reprodução e envio' : 'Grave pelo microfone ou envie um arquivo (.mp3, .wav, .m4a, .webm)'}</span>
     </div>
 
     <div class="field">
-      <label style="font-weight:700;">Palavras para Treino (separadas por vírgula) *</label>
+      <label style="font-weight:700;">Palavras para Treino (opcional, separadas por vírgula)</label>
       <input id="prn-words" value="${esc(words)}" placeholder="Ex: comfortable, schedule, thorough, world">
     </div>
 
     <div class="field">
-      <label style="font-weight:700;">Frase Exemplo de Desafio</label>
+      <label style="font-weight:700;">Frase Exemplo de Desafio (opcional)</label>
       <input id="prn-sentence" value="${esc(sentence)}" placeholder="Ex: I will be there in fifteen minutes for the comfortable schedule.">
     </div>
 
     <div class="field">
-      <label style="font-weight:700;">Dica Fonética & Observações do Professor</label>
+      <label style="font-weight:700;">Dica Fonética & Observações do Professor (opcional)</label>
       <textarea id="prn-notes" rows="2" placeholder="Ex: Atentar ao som do TH não vozeado e à sílaba tônica da palavra comfortable.">${esc(notes)}</textarea>
-    </div>
-
-    <!-- Gravador de Áudio Nativo -->
-    <div style="background:var(--bg);padding:14px;border-radius:12px;border:1px solid var(--line);margin-bottom:16px;">
-      <label style="font-weight:700;font-size:0.88rem;color:var(--ink);display:block;margin-bottom:8px;">🎙️ Áudio Guia de Pronúncia (Gravador do Professor)</label>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <button type="button" id="prn-rec-start" class="btn btn-sm btn-ghost" onclick="startPronunciaRecording()" style="color:var(--rose);font-weight:800;">🔴 Iniciar Gravação</button>
-        <button type="button" id="prn-rec-stop" class="btn btn-sm btn-ghost" onclick="stopPronunciaRecording()" style="display:none;font-weight:800;">⏹️ Parar Gravação</button>
-        <audio id="prn-audio-player" controls style="display:${_pronunciaCurrentAudioUrl ? 'block' : 'none'};height:34px;flex:1;min-width:180px;" src="${_pronunciaCurrentAudioUrl}"></audio>
-      </div>
-      <span id="prn-rec-status" style="font-size:0.78rem;color:var(--muted);margin-top:6px;display:block;">${_pronunciaCurrentAudioUrl ? '✓ Áudio gravado disponível' : 'Clique em Iniciar Gravação para usar o microfone'}</span>
     </div>
 
     <div class="modal-acts">
       <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-      ${item ? `<button type="button" class="btn btn-ghost" style="color:var(--emerald);font-weight:800;" onclick="sendPronunciaChallengeWA('${item.studentId}', '${item.id}')">📱 Desafio WhatsApp</button>` : ''}
-      <button type="button" class="btn btn-primary" onclick="savePronunciaChallenge('${challengeId||''}')">💾 Salvar Desafio</button>
+      ${item ? `<button type="button" class="btn btn-ghost" style="color:var(--emerald);font-weight:800;" onclick="sendPronunciaChallengeWA('${item.studentId||''}', '${item.id}', event)">📱 Compartilhar WhatsApp</button>` : ''}
+      <button type="button" class="btn btn-primary" onclick="savePronunciaChallenge('${challengeId||''}')">💾 Salvar no Acervo</button>
     </div>
-  `);
+  `, 'modal-lg');
+}
+
+function handlePronunciaAudioUpload(input){
+  if(!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const statusEl = document.getElementById('prn-rec-status');
+  
+  if(statusEl) statusEl.textContent = '⏳ Carregando arquivo de áudio...';
+  
+  const reader = new FileReader();
+  reader.onload = function(e){
+    _pronunciaCurrentAudioUrl = e.target.result;
+    const player = document.getElementById('prn-audio-player');
+    if(player){
+      player.src = _pronunciaCurrentAudioUrl;
+      player.style.display = 'block';
+    }
+    if(statusEl) statusEl.textContent = '✓ Arquivo "' + file.name + '" carregado com sucesso!';
+  };
+  reader.onerror = function(){
+    alert('Erro ao ler o arquivo de áudio selecionado.');
+    if(statusEl) statusEl.textContent = 'Erro no carregamento do arquivo.';
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPronunciaAudio(){
+  _pronunciaCurrentAudioUrl = '';
+  const player = document.getElementById('prn-audio-player');
+  if(player){
+    player.src = '';
+    player.style.display = 'none';
+  }
+  const statusEl = document.getElementById('prn-rec-status');
+  if(statusEl) statusEl.textContent = 'Áudio removido. Grave um novo áudio ou envie um arquivo.';
 }
 
 async function startPronunciaRecording(){
@@ -8445,7 +8513,7 @@ async function startPronunciaRecording(){
     _pronunciaAudioRecorder.start();
     if (btnStart) btnStart.style.display = 'none';
     if (btnStop) btnStop.style.display = 'inline-flex';
-    if (statusEl) statusEl.textContent = '🎙️ Gravando áudio pelo microfone...';
+    if (statusEl) statusEl.textContent = '🎙️ Gravando áudio pelo microfone... Fale agora!';
   } catch (err) {
     console.error('Microphone access error:', err);
     alert('Não foi possível acessar o microfone. Verifique as permissões do seu navegador.');
@@ -8464,19 +8532,23 @@ function stopPronunciaRecording(){
 }
 
 async function savePronunciaChallenge(challengeId){
-  const sid = (document.getElementById('prn-student-select')||{}).value;
+  const title = fv('prn-title');
+  const category = (document.getElementById('prn-category')||{}).value || 'pronunciation';
+  const sid = (document.getElementById('prn-student-select')||{}).value || '';
   const wordsRaw = fv('prn-words');
-  if(!wordsRaw){
-    const i = document.getElementById('prn-words');
-    if(i) i.focus();
-    return;
-  }
-
-  const words = wordsRaw.split(',').map(w => w.trim()).filter(Boolean);
   const sentence = fv('prn-sentence');
   const notes = fv('prn-notes');
 
+  const words = wordsRaw ? wordsRaw.split(',').map(w => w.trim()).filter(Boolean) : [];
+
+  if(!title && !words.length && !sentence && !_pronunciaCurrentAudioUrl){
+    alert('Por favor, adicione pelo menos um título, áudio gravado/enviado, palavras ou frase para salvar.');
+    return;
+  }
+
   const data = {
+    title: title,
+    category: category,
     studentId: sid,
     words: words,
     sentence: sentence,
@@ -8504,7 +8576,59 @@ async function savePronunciaChallenge(challengeId){
 
 function sendPronunciaChallengeWA(studentId, challengeId, ev){
   if(ev) ev.stopPropagation();
-  const s = studentById(studentId);
+  const item = (state.pronunciationChallenges||[]).find(c => c.id === challengeId);
+  if(!item) return;
+
+  const targetStudentId = studentId || item.studentId;
+  const s = studentById(targetStudentId);
+
+  if(!s){
+    openSendPronunciaToStudentModal(challengeId);
+    return;
+  }
+
+  if(!s.phone){
+    alert('O aluno ' + s.name + ' não possui número de telefone cadastrado.');
+    return;
+  }
+
+  doSendPronunciaWA(s, item, ev);
+}
+
+function openSendPronunciaToStudentModal(challengeId){
+  const item = (state.pronunciationChallenges||[]).find(c => c.id === challengeId);
+  if(!item) return;
+
+  if(!state.students || !state.students.length){
+    alert('Nenhum aluno cadastrado para enviar.');
+    return;
+  }
+
+  const studentOpts = state.students.map(st => 
+    `<option value="${st.id}">${esc(st.name)} ${st.phone ? ' (' + st.phone + ')' : ' (Sem tel)'}</option>`
+  ).join('');
+
+  showModal(`
+    <div class="modal-header-grad">
+      <h3>📱 Enviar Áudio / Desafio via WhatsApp</h3>
+      <div class="msub">Selecione o aluno que receberá esta tarefa ou gravação do acervo</div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px;">
+      <label style="font-weight:700;">Selecione o Aluno *</label>
+      <select id="prn-send-student-select">${studentOpts}</select>
+    </div>
+
+    <div class="modal-acts">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button type="button" class="btn btn-wa-green" style="font-weight:800;" onclick="confirmSendPronunciaWA('${challengeId}')">🚀 Enviar no WhatsApp</button>
+    </div>
+  `);
+}
+
+function confirmSendPronunciaWA(challengeId){
+  const sid = (document.getElementById('prn-send-student-select')||{}).value;
+  const s = studentById(sid);
   const item = (state.pronunciationChallenges||[]).find(c => c.id === challengeId);
   if(!s || !item) return;
 
@@ -8513,14 +8637,25 @@ function sendPronunciaChallengeWA(studentId, challengeId, ev){
     return;
   }
 
+  closeModal();
+  doSendPronunciaWA(s, item);
+}
+
+function doSendPronunciaWA(s, item, ev){
   const firstName = s.name.trim().split(/\s+/)[0] || s.name;
-  const wordsList = (item.words || []).map((w, idx) => (idx + 1) + '. ' + w).join('\n');
+  const catObj = PRONUNCIA_CATEGORIES[item.category] || PRONUNCIA_CATEGORIES['pronunciation'];
+  const titleStr = item.title ? item.title : catObj.label;
+
+  let msg = '🎙️ *' + titleStr + ' - ' + firstName + '!*\n\n';
   
-  let msg = '🎙️ *Desafio de Pronúncia - ' + firstName + '!*\n\n';
-  msg += 'Pratique a pronúncia destas palavras da nossa aula:\n' + wordsList + '\n\n';
+  if(item.words && item.words.length){
+    const wordsList = item.words.map((w, idx) => (idx + 1) + '. ' + w).join('\n');
+    msg += 'Pratique a pronúncia destas palavras:\n' + wordsList + '\n\n';
+  }
+  
   if(item.sentence) msg += '🗣️ *Frase de Treino:*\n"' + item.sentence + '"\n\n';
   if(item.notes) msg += '💡 *Dica do Prof:* ' + item.notes + '\n\n';
-  msg += 'Grave um áudio pronunciando cada uma e me envie por aqui até nossa próxima aula! 💪';
+  msg += 'Ouça a orientação acima e pratique a sua fala! Qualquer dúvida me mande uma mensagem! 💪';
 
   const digits = (s.phone||'').replace(/\D/g,'');
   const full = digits.length <= 11 ? '55' + digits : digits;
@@ -8530,7 +8665,7 @@ function sendPronunciaChallengeWA(studentId, challengeId, ev){
 function deletePronunciaChallenge(challengeId){
   const item = (state.pronunciationChallenges||[]).find(c => c.id === challengeId);
   if(!item) return;
-  confirmBox('Excluir este desafio de pronúncia?', "doDeletePronunciaChallenge('" + challengeId + "')");
+  confirmBox('Excluir este item de áudio do acervo?', "doDeletePronunciaChallenge('" + challengeId + "')");
 }
 
 async function doDeletePronunciaChallenge(challengeId){
@@ -8545,61 +8680,127 @@ function renderPronuncia(){
   if(!el) return;
 
   const isEn = state.lang === 'en';
-  const list = state.pronunciationChallenges || [];
+  const rawList = state.pronunciationChallenges || [];
 
-  const cardsHtml = list.length ? list.map(item => {
+  const q = (state.q_pronuncia || '').toLowerCase().trim();
+  const catFilter = state.cat_pronuncia || '';
+  const stFilter = state.st_pronuncia || '';
+
+  const filteredList = rawList.filter(item => {
+    if(catFilter && item.category !== catFilter) return false;
+    if(stFilter === 'geral' && item.studentId) return false;
+    if(stFilter && stFilter !== 'geral' && item.studentId !== stFilter) return false;
+    if(q){
+      const s = studentById(item.studentId);
+      const studentName = s ? s.name.toLowerCase() : '';
+      const titleMatch = (item.title||'').toLowerCase().includes(q);
+      const wordsMatch = (item.words||[]).some(w => w.toLowerCase().includes(q));
+      const sentenceMatch = (item.sentence||'').toLowerCase().includes(q);
+      const notesMatch = (item.notes||'').toLowerCase().includes(q);
+      return titleMatch || wordsMatch || sentenceMatch || notesMatch || studentName.includes(q);
+    }
+    return true;
+  });
+
+  const totalCount = rawList.length;
+  const generalCount = rawList.filter(i => !i.studentId).length;
+
+  const studentFilterOpts = `
+    <option value="" ${stFilter===''?'selected':''}>👥 ${isEn ? 'All Students & Archive' : 'Todos os Alunos & Acervo'}</option>
+    <option value="geral" ${stFilter==='geral'?'selected':''}>🌐 ${isEn ? 'General Archive Only' : 'Apenas Acervo Geral'}</option>
+    ${(state.students||[]).map(st => `<option value="${st.id}" ${stFilter===st.id?'selected':''}>🧑‍🎓 ${esc(st.name)}</option>`).join('')}
+  `;
+
+  const categoryFilterOpts = `
+    <option value="" ${catFilter===''?'selected':''}>🏷️ ${isEn ? 'All Categories' : 'Todas as Categorias'}</option>
+    ${Object.keys(PRONUNCIA_CATEGORIES).map(catKey => 
+      `<option value="${catKey}" ${catFilter===catKey?'selected':''}>${PRONUNCIA_CATEGORIES[catKey].label}</option>`
+    ).join('')}
+  `;
+
+  const cardsHtml = filteredList.length ? filteredList.map(item => {
     const s = studentById(item.studentId);
-    const studentName = s ? s.name : 'Aluno removido';
+    const studentName = s ? s.name : (item.studentId ? 'Aluno removido' : '🌐 Acervo Geral');
     const wordsCount = (item.words || []).length;
+    const catObj = PRONUNCIA_CATEGORIES[item.category] || PRONUNCIA_CATEGORIES['pronunciation'];
+    const titleDisp = item.title || catObj.label;
 
     return `
-      <div class="card" style="padding:20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+      <div class="card" style="padding:20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-space-between;gap:14px;">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="background:${studentColor(s)};width:38px;height:38px;font-size:0.95rem;flex:none;">${esc(initials(studentName))}</div>
+              <div class="avatar" style="background:${s ? studentColor(s) : 'var(--violet)'};width:38px;height:38px;font-size:0.95rem;flex:none;">
+                ${s ? esc(initials(studentName)) : '🌐'}
+              </div>
               <div>
-                <h3 style="font-size:1.05rem;font-weight:800;color:var(--ink);margin:0;">${esc(studentName)}</h3>
-                <div style="font-size:0.78rem;color:var(--muted);font-weight:600;">📅 ${fmtDateBR(item.createdAt.slice(0,10))}</div>
+                <h3 style="font-size:1rem;font-weight:800;color:var(--ink);margin:0;line-height:1.2;">${esc(titleDisp)}</h3>
+                <div style="font-size:0.76rem;color:var(--muted);font-weight:600;margin-top:2px;">
+                  ${s ? `🧑‍🎓 ${esc(studentName)}` : '🌐 Acervo Geral'} · 📅 ${(item.createdAt||'').slice(0,10) ? fmtDateBR((item.createdAt||'').slice(0,10)) : ''}
+                </div>
               </div>
             </div>
-            <span style="font-size:0.75rem;font-weight:800;color:var(--violet);background:var(--accent-bg);padding:3px 10px;border-radius:20px;">${wordsCount} ${wordsCount===1?'palavra':'palavras'}</span>
+            <span style="font-size:0.73rem;font-weight:800;color:${catObj.color};background:${catObj.bg};padding:3px 9px;border-radius:20px;white-space:nowrap;">
+              ${catObj.label.split(' ')[0]} ${catObj.label.split(' ').slice(1).join(' ')}
+            </span>
           </div>
 
           <!-- Palavras de Treino -->
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-            ${(item.words||[]).map(w => `<span style="font-size:0.85rem;font-weight:700;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:8px;">${esc(w)}</span>`).join('')}
-          </div>
+          ${(item.words||[]).length ? `
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin:10px 0;">
+            ${(item.words||[]).map(w => `<span style="font-size:0.82rem;font-weight:700;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:2px 8px;border-radius:6px;">${esc(w)}</span>`).join('')}
+          </div>` : ''}
 
-          ${item.sentence ? `<div style="font-size:0.86rem;color:var(--ink);background:var(--line-2);padding:10px 12px;border-radius:10px;margin-bottom:10px;line-height:1.4;">🗣️ "<i>${esc(item.sentence)}</i>"</div>` : ''}
-          ${item.notes ? `<div style="font-size:0.83rem;color:var(--muted);margin-bottom:10px;">💡 <b>Dica:</b> ${esc(item.notes)}</div>` : ''}
-          ${item.audioUrl ? `<audio controls style="width:100%;height:32px;margin-top:6px;" src="${item.audioUrl}"></audio>` : ''}
+          ${item.sentence ? `<div style="font-size:0.85rem;color:var(--ink);background:var(--line-2);padding:8px 10px;border-radius:8px;margin-bottom:8px;line-height:1.4;">🗣️ "<i>${esc(item.sentence)}</i>"</div>` : ''}
+          ${item.notes ? `<div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;">💡 <b>Dica:</b> ${esc(item.notes)}</div>` : ''}
+          ${item.audioUrl ? `<audio controls style="width:100%;height:34px;margin-top:6px;" src="${item.audioUrl}"></audio>` : '<div style="font-size:0.75rem;color:var(--muted);font-style:italic;margin-top:4px;">(Nenhum áudio anexado)</div>'}
         </div>
 
         <div style="display:flex;gap:8px;border-top:1px solid var(--line-2);padding-top:12px;margin-top:auto;">
-          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="openPronunciaModal('${item.studentId}', '${item.id}')">✏️ Editar</button>
-          <button type="button" class="btn btn-sm btn-wa-green" style="flex:1.4;" onclick="sendPronunciaChallengeWA('${item.studentId}', '${item.id}', event)">📱 WhatsApp</button>
+          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="openPronunciaModal('${item.studentId||''}', '${item.id}')">✏️ Editar</button>
+          <button type="button" class="btn btn-sm btn-wa-green" style="flex:1.4;" onclick="sendPronunciaChallengeWA('${item.studentId||''}', '${item.id}', event)">📱 WhatsApp</button>
           <button type="button" class="btn btn-sm btn-ghost" style="color:var(--rose);" onclick="deletePronunciaChallenge('${item.id}')">🗑️</button>
         </div>
       </div>
     `;
   }).join('') : `
-    <div class="card panel"><div class="empty" style="padding:44px 16px;text-align:center;">
-      <div style="font-size:42.5px;margin-bottom:10px">🔊</div>
-      ${isEn ? 'No pronunciation challenges created yet.' : 'Nenhum desafio de pronúncia cadastrado ainda. Clique no botão acima para criar o primeiro.'}
+    <div class="card panel" style="grid-column:1/-1;"><div class="empty" style="padding:44px 16px;text-align:center;">
+      <div style="font-size:42.5px;margin-bottom:10px">🎙️</div>
+      <div style="font-weight:700;font-size:1.1rem;color:var(--ink);">${isEn ? 'No audio items found.' : 'Nenhum áudio ou desafio encontrado.'}</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-top:4px;">${isEn ? 'Click the button above to record or upload a new audio.' : 'Clique no botão acima para gravar um áudio ou cadastrar uma tarefa de pronúncia.'}</div>
     </div></div>
   `;
 
   el.innerHTML = `
     <div class="sec-head">
       <div>
-        <h2>🔊 ${isEn ? 'Speaking & Pronunciation' : 'Pronúncia & Speaking'}</h2>
-        <div class="sub">${isEn ? 'Manage pronunciation challenges and speaking audio drills' : 'Central de desafios fonéticos, gravação de guia de áudio e tarefas de speaking'}</div>
+        <h2>🔊 ${isEn ? 'Speaking & Pronunciation Library' : 'Pronúncia & Speaking — Acervo de Áudios'}</h2>
+        <div class="sub">${isEn ? 'Record voice notes, speaking drills, phonetics and organize audio resources' : 'Grave, organize e armazene áudios de pronúncia, exercícios de speaking e notas de voz para uso futuro ou envio aos alunos'}</div>
       </div>
-      <button class="btn btn-primary" onclick="openPronunciaModal()">➕ ${isEn ? 'New Challenge' : 'Novo Desafio'}</button>
+      <button class="btn btn-primary" onclick="openPronunciaModal('')">➕ ${isEn ? 'New Audio / Drill' : 'Novo Áudio / Desafio'}</button>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:16px;">
+    <!-- Barra de Filtros e Pesquisa -->
+    <div class="card" style="padding:14px 18px;margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-radius:14px;">
+      <div style="flex:1;min-width:200px;">
+        <input type="text" placeholder="🔍 Buscar por título, palavra, frase ou aluno..." value="${esc(state.q_pronuncia||'')}" oninput="state.q_pronuncia = this.value; renderPronuncia();" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);">
+      </div>
+      <div style="width:200px;">
+        <select onchange="state.cat_pronuncia = this.value; renderPronuncia();" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);">
+          ${categoryFilterOpts}
+        </select>
+      </div>
+      <div style="width:220px;">
+        <select onchange="state.st_pronuncia = this.value; renderPronuncia();" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);">
+          ${studentFilterOpts}
+        </select>
+      </div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--muted);white-space:nowrap;margin-left:auto;">
+        📊 ${filteredList.length} ${filteredList.length===1?'áudio':'áudios'} (${generalCount} no acervo geral)
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">
       ${cardsHtml}
     </div>
   `;
