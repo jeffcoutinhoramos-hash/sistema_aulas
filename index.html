@@ -884,8 +884,8 @@
   .rp-bar-val{font-size:11.5px;font-weight:800;color:var(--ink);width:16px;flex:none;text-align:right}
 
   /* ---------- financeiro ---------- */
-  .fn-totals{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-  .fn-tot{flex:1;min-width:150px;border-radius:16px;padding:16px 18px;color:#fff;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm)}
+  .fn-totals{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:12px;margin-bottom:20px;align-items:stretch}
+  .fn-tot{border-radius:16px;padding:16px 18px;color:#fff;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm)}
   .fn-tot-total{background:linear-gradient(135deg,#72C199,#62A580)}
   .fn-tot-recebido{background:linear-gradient(135deg,#72E1B8,#51B696)}
   .fn-tot-pendente{background:linear-gradient(135deg,#F4B279,#D48957)}
@@ -911,7 +911,7 @@
   body.violeta .fn-tot-pendente{background:linear-gradient(135deg,#C084FC,#8B5CF6)}
   body.violeta .fn-tot-projecao{background:linear-gradient(135deg,#D8C6F5,#8577A0)}
   .fn-tot-lbl{font-size:14px;font-weight:600;opacity:.92}
-  .fn-tot-val{font-family:'Bricolage Grotesque';font-size:24px;font-weight:800}
+  .fn-tot-val{font-family:'Bricolage Grotesque';font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
   .fn-tot-sub{display:block;font-size:12.5px;font-weight:600;opacity:.85;margin-top:2px}
   .fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .fn-card{display:flex;flex-direction:column;gap:12px;padding:16px}
@@ -925,11 +925,11 @@
   .fn-proj-head{display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
   .fn-proj-title{font-size:0.98rem;font-weight:800;color:var(--ink)}
   .fn-proj-hint{font-size:0.74rem;color:var(--muted);font-weight:600}
-  .fn-proj-months{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-  .fn-proj-month{flex:1;min-width:150px;border-radius:14px;padding:14px 16px;background:var(--bg);border:1.5px solid var(--line)}
+  .fn-proj-months{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:12px;margin-bottom:14px;align-items:stretch}
+  .fn-proj-month{border-radius:14px;padding:14px 16px;background:var(--bg);border:1.5px solid var(--line);display:flex;flex-direction:column}
   .fn-proj-month-lbl{font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-  .fn-proj-month-val{font-size:1.25rem;font-weight:800;color:var(--violet)}
-  .fn-proj-month-sub{font-size:0.74rem;color:var(--muted);font-weight:600;margin-top:2px}
+  .fn-proj-month-val{font-size:1.25rem;font-weight:800;color:var(--violet);font-variant-numeric:tabular-nums}
+  .fn-proj-month-sub{font-size:0.74rem;color:var(--muted);font-weight:600;margin-top:auto;padding-top:2px}
   .fn-proj-total{font-size:0.88rem;font-weight:700;color:var(--ink);padding-top:12px;border-top:1.5px solid var(--line)}
   .fn-proj-total b{color:var(--violet);font-size:1.02rem}
   .st-timeline{max-height:260px;overflow-y:auto;padding-right:4px}
@@ -3863,7 +3863,7 @@ const I18N = {
     'painel.sundayMsgToday':'Hoje é domingo, hora de relaxar e curtir!',
     'painel.sundayMsg':'Domingo é dia de relaxar e curtir!',
     'painel.expectedRevenue':'Faturamento Previsto', 'painel.upcomingClassesAttendance':'Frequência',
-    'painel.expectedRevenueHint':'atualiza com presenças e agendamentos · cancelados não contam',
+    'painel.expectedRevenueHint':'atualiza com presenças e agendamentos · faltas não são cobradas · canceladas viram crédito',
     'painel.calToday':'Hoje', 'painel.calPrevMonth':'Mês anterior', 'painel.calNextMonth':'Próximo mês',
     'painel.calLegendClass':'Aula', 'painel.calLegendAbsence':'Falta', 'painel.calLegendHoliday':'Feriado',
     'painel.logAttendance':'Lançar Presença', 'painel.studentCol':'Aluno', 'painel.scheduleCol':'Horário',
@@ -4169,7 +4169,7 @@ const I18N = {
     'painel.sundayMsgToday':'It\'s Sunday, time to relax and enjoy!',
     'painel.sundayMsg':'Sunday is for relaxing and enjoying!',
     'painel.expectedRevenue':'Expected Revenue', 'painel.upcomingClassesAttendance':'Attendance',
-    'painel.expectedRevenueHint':'updates with attendance & scheduling · cancelled don\'t count',
+    'painel.expectedRevenueHint':'updates with attendance & scheduling \u00b7 absences aren\'t charged \u00b7 cancellations become credit',
     'painel.calToday':'Today', 'painel.calPrevMonth':'Previous month', 'painel.calNextMonth':'Next month',
     'painel.calLegendClass':'Class', 'painel.calLegendAbsence':'Absence', 'painel.calLegendHoliday':'Holiday',
     'painel.logAttendance':'Log Attendance', 'painel.studentCol':'Student', 'painel.scheduleCol':'Schedule',
@@ -6489,6 +6489,8 @@ function renderPainel(){
     effectiveEntries(todayISO, todayKey, h).forEach(e=>{
       const s = studentById(e.studentId);
       if(s && s.startDate && todayISO < s.startDate) return; // ainda não começou o curso
+      const presRec = state.presenca[presKey(todayISO, h, e.studentId)];
+      if(presRec && (presRec.status === 'f' || presRec.status === 'c')) return; // já marcado falta/cancelada — sai da lista
       todayRows.push({hour:h, studentId:e.studentId});
     });
   });
@@ -6502,6 +6504,8 @@ function renderPainel(){
     effectiveEntries(tomorrowISO, tomorrowKey, h).forEach(e=>{
       const s = studentById(e.studentId);
       if(s && s.startDate && tomorrowISO < s.startDate) return;
+      const presRec = state.presenca[presKey(tomorrowISO, h, e.studentId)];
+      if(presRec && (presRec.status === 'f' || presRec.status === 'c')) return; // já marcado falta/cancelada — sai da lista
       tomorrowRows.push({hour:h, studentId:e.studentId});
     });
   });
@@ -6640,6 +6644,23 @@ function renderPainel(){
 
     ${reviewDueNow && !isBannerDismissedToday('review-due') ? `<div class="banner pn-review-banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">📋 ${t('painel.reviewDueWarning')}<button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('review-due')">✕</button></div>` : ''}
     ${boletimDueNow && !isBannerDismissedToday('boletim-due') ? `<div class="banner pn-boletim-banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">📊 Hora do boletim trimestral de ${studentsBoletimDueToday.map(st=>esc(st.name)).join(', ')}. <a href="javascript:void(0)" onclick="go('boletim')" style="font-weight:700;text-decoration:underline;">Gerar agora</a><button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('boletim-due')">✕</button></div>` : ''}
+    ${(() => {
+      const isFirstDay = today.getDate() === 1;
+      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+      const isLastDay = today.getDate() === lastDayOfMonth;
+      if(!(isFirstDay || isLastDay) || isBannerDismissedToday('credits-reminder')) return '';
+      const studentsWithCredits = state.students
+        .filter(s => !s.status || s.status === 'ativo')
+        .map(s => ({ s, credits: creditBalanceAtStartOfMonth(s.id, today.getFullYear(), today.getMonth()) }))
+        .filter(x => x.credits > 0);
+      if(!studentsWithCredits.length) return '';
+      const listLabel = studentsWithCredits.map(x => `${esc(x.s.name)} (${x.credits})`).join(', ');
+      return `<div class="banner" style="margin-bottom: 24px; position:relative; padding-right:40px;">
+        💳 ${isFirstDay ? 'Início' : 'Fechamento'} de mês — fique de olho nos créditos de aula cancelada antes de cobrar: ${listLabel}.
+        <a href="javascript:void(0)" onclick="go('financeiro')" style="font-weight:700;text-decoration:underline;">Ver Financeiro</a>
+        <button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('credits-reminder')">✕</button>
+      </div>`;
+    })()}
 
     <!-- FAIXA DE ALUNOS DO DIA / DIA SEGUINTE -->
     ${(todayRows.length || tomorrowRows.length) ? `
@@ -9858,10 +9879,12 @@ function countMonthlyClasses(year, month){
         if(s && s.startDate && iso < s.startDate) return; // antes do início do curso do aluno
         if(isPastOrToday){
           // Para dias já ocorridos, usa o que foi de fato registrado na Frequência:
-          // aula cancelada gera crédito (não conta como faturamento); presença ou
-          // falta (ou dia ainda não marcado) contam normalmente como agendados/realizados.
+          // falta (aluno avisou antes) e cancelada nunca contam como faturamento
+          // desse mês — mas só a cancelada gera crédito de reposição rastreado
+          // (veja studentCreditRecords/creditsGeneratedInMonth). Presença (ou dia
+          // ainda não marcado) conta normalmente.
           const pr = getPres(iso, h, e.studentId);
-          if(pr && pr.status === 'c') return;
+          if(pr && (pr.status === 'c' || pr.status === 'f')) return;
         }
         counts[e.studentId] = (counts[e.studentId]||0)+1;
       });
@@ -9891,7 +9914,7 @@ function studentCreditRecords(sid){
   const list = [];
   Object.keys(state.presenca).forEach(k=>{
     const rec = state.presenca[k];
-    if(!rec || rec.status!=='c') return;
+    if(!rec || rec.status!=='c') return; // só cancelada gera crédito de reposição — falta apenas não é cobrada
     const parts = k.split('_');
     const kIso = parts[0], kHour = parts[1], kSid = parts.slice(2).join('_');
     if(kSid !== sid) return;
@@ -9922,7 +9945,7 @@ function creditsGeneratedInMonth(sid, year, month){
   Object.keys(state.presenca).forEach(k=>{
     if(k.slice(0,7)!==monthPrefix) return;
     const rec = state.presenca[k];
-    if(!rec || rec.status!=='c') return;
+    if(!rec || rec.status!=='c') return; // só cancelada gera crédito — falta apenas não é cobrada
     const parts = k.split('_');
     if(parts.slice(2).join('_')!==sid) return;
     n++;
@@ -10118,12 +10141,64 @@ function painelFreqToday(){
   _painelFreqDate = new Date();
   renderPainel();
 }
+/* ================= REMANEJAMENTO AUTOMÁTICO DE TÓPICOS (falta/cancelada) ================= */
+// Quando uma aula é marcada como falta ou cancelada, o tópico que estava
+// planejado pra ela "anda" pra próxima aula agendada daquele aluno — e, se
+// essa próxima já tinha um tópico marcado, esse por sua vez empurra pra
+// aula seguinte, e assim sucessivamente, mantendo a ordem combinada.
+function getUpcomingScheduledSlotsForStudent(studentId, fromISO, limit){
+  const slots = [];
+  const start = new Date(fromISO + 'T00:00:00');
+  for(let i = 1; i <= 120 && slots.length < limit; i++){
+    const dt = new Date(start);
+    dt.setDate(start.getDate() + i);
+    const iso = isoDate(dt);
+    const dayKey = DAYKEY_BY_GETDAY[dt.getDay()];
+    (state.agendaHours || []).forEach(h => {
+      if(slots.length >= limit) return;
+      const entries = effectiveEntries(iso, dayKey, h);
+      if(entries.some(e => e.studentId === studentId)){
+        slots.push({ iso, hour: h });
+      }
+    });
+  }
+  return slots;
+}
+async function cascadeTopicOnAbsence(studentId, missedIso, missedHour){
+  const missedKey = presKey(missedIso, missedHour, studentId);
+  const missedRec = state.presenca[missedKey];
+  const missedTopic = missedRec ? (missedRec.content || '') : '';
+  if(!missedTopic) return; // não tinha tópico planejado, nada a remanejar
+
+  // tira o tópico da aula perdida — ele vai "andar" pra frente
+  missedRec.content = '';
+  if(!missedRec.status && !missedRec.content && !missedRec.obs) delete state.presenca[missedKey];
+  else state.presenca[missedKey] = missedRec;
+
+  const futureSlots = getUpcomingScheduledSlotsForStudent(studentId, missedIso, 24);
+  let carryTopic = missedTopic;
+  for(const slot of futureSlots){
+    if(!carryTopic) break;
+    const key = presKey(slot.iso, slot.hour, studentId);
+    const rec = state.presenca[key] || {};
+    const existing = rec.content || '';
+    rec.content = carryTopic;
+    state.presenca[key] = rec;
+    carryTopic = existing || null; // o que já estava lá empurra pra próxima, e assim por diante
+  }
+  await write('presenca', state.presenca);
+}
 async function setPresStatus(iso,h,sid,status){
   const k = presKey(iso,h,sid);
   const cur = state.presenca[k] || {};
+  const prevStatus = cur.status;
   cur.status = (cur.status===status) ? '' : status;
+  const justMarkedMissedOrCancelled = (cur.status==='f' || cur.status==='c') && cur.status !== prevStatus;
   if(!cur.status && !cur.content) delete state.presenca[k]; else state.presenca[k]=cur;
   await write('presenca', state.presenca);
+  if(justMarkedMissedOrCancelled){
+    await cascadeTopicOnAbsence(sid, iso, h);
+  }
   renderPresenca();
   renderPainel();
   renderAgenda();
