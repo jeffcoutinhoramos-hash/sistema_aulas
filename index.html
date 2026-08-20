@@ -6763,9 +6763,9 @@ function renderPainel(){
           </div>` : ''}
           ${freqRows.length ? `<div class="pr-legend">
             <span><b class="pr-key p">${attendanceLetter('p')}</b> ${t('presenca.pres')}</span>
+            <span><b class="pr-key au">${attendanceLetter('au')}</b> ${t('presenca.absent')}</span>
             <span><b class="pr-key f">${attendanceLetter('f')}</b> ${t('presenca.abs')}</span>
             <span><b class="pr-key c">${attendanceLetter('c')}</b> ${t('presenca.cancel')}</span>
-            <span><b class="pr-key au">${attendanceLetter('au')}</b> ${t('presenca.absent')}</span>
           </div>` : ''}
           <div class="pr-list">${freqRows.length ? attendanceRowsHTML(freqISO, freqRows, freqMonthStatus) : attendanceEmptyHTML(freqHoliday)}</div>
         </div>
@@ -10095,7 +10095,7 @@ function attendanceRowsHTML(iso, rows, monthStatus){
           </div>`;
         })()}
       </div>
-      <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}${btn('au',t('presenca.absent'),'au')}</div>
+      <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('au',t('presenca.absent'),'au')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}</div>
     </div>`;
   }).join('');
 }
@@ -10143,9 +10143,9 @@ function renderPresenca(){
     </div>
     ${rows.length ? `<div class="pr-legend">
       <span><b class="pr-key p">${attendanceLetter('p')}</b> ${t('presenca.pres')}</span>
+      <span><b class="pr-key au">${attendanceLetter('au')}</b> ${t('presenca.absent')}</span>
       <span><b class="pr-key f">${attendanceLetter('f')}</b> ${t('presenca.abs')}</span>
       <span><b class="pr-key c">${attendanceLetter('c')}</b> ${t('presenca.cancel')}</span>
-      <span><b class="pr-key au">${attendanceLetter('au')}</b> ${t('presenca.absent')}</span>
     </div>` : ''}
     <div class="pr-list">${body}</div>`;
 }
@@ -10455,9 +10455,9 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
     <div class="msub">${label} · ${hour}</div>
     <div class="ag-status-actions">
       ${sbtn('p', t('presenca.pres'), 'p')}
+      ${sbtn('au', t('presenca.absent'), 'au')}
       ${sbtn('f', t('presenca.abs'), 'f')}
       ${sbtn('c', t('presenca.cancel'), 'c')}
-      ${sbtn('au', t('presenca.absent'), 'au')}
     </div>
     ${pr.status==='c' ? `<div class="ag-credit-note">🎟️ ${t('agenda.cancelGeneratedCredit')} <b>${credits}</b></div>` : ''}
     <div class="ag-remove-section">
