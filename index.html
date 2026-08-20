@@ -3552,8 +3552,11 @@ function ageFromDOB(dob){
 }
 const fmtBRL = n => (n||n===0) ? Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : '';
 function attendanceLetter(code){
-  // P=Presente, F=Falta (não avisou, conta como aula dada), C=Cancelada (crédito), AU=Ausente (avisou antes, não cobra nem gera crédito)
-  if(code === 'au') return 'AU';
+  // P=Presente/Present, C=Cancelada/Cancelled, AU=Ausente(avisou, não cobra)="A" em qualquer idioma.
+  // Falta (não avisou, cobra) muda de letra conforme o idioma pra não colidir com o "A" de Ausente:
+  // PT/ES usam "F" (Falta), EN usa "N" (No-Show).
+  if(code === 'au') return 'A';
+  if(code === 'f') return state.lang === 'en' ? 'N' : 'F';
   return code.toUpperCase();
 }
 /* ================= máscara de valores em dinheiro (formato brasileiro) ================= */
@@ -4382,8 +4385,8 @@ const I18N = {
     'agenda.sub':"Tap a time slot to schedule. Students repeat every week automatically — you can change a specific week whenever needed.",
     'presenca.title':'Attendance', 'presenca.sub':"Today's roll call — mark present, absent, or cancelled.",
     'presenca.today':'today', 'presenca.goToday':'Today',
-    'presenca.pres':'Present', 'presenca.abs':'Absent', 'presenca.cancel':'Cancelled', 'presenca.absent':'Excused Absence', 'presenca.absentMonth':'Excused absences this month',
-    'presenca.presMonth':'Presences this month', 'presenca.absMonth':'Absences this month', 'presenca.cancelMonth':'Cancellations this month',
+    'presenca.pres':'Present', 'presenca.abs':'No-Show', 'presenca.cancel':'Cancelled', 'presenca.absent':'Absent', 'presenca.absentMonth':'Excused absences this month',
+    'presenca.presMonth':'Presences this month', 'presenca.absMonth':'No-shows this month', 'presenca.cancelMonth':'Cancellations this month',
     'presenca.credits':'Credits', 'presenca.creditsTooltip':'Cancelled classes accrued as credit',
     'presenca.creditsModalTitle':'Cancelled Class Credits', 'presenca.noCredits':'No credits accrued yet.',
     'presenca.alreadyGivenOn':'Class already given on',
