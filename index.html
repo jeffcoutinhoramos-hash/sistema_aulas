@@ -814,10 +814,6 @@
   .pr-topic-btn.has:hover{border-color:#BBE6D3;background:#E6F7EE}
   .pr-topic-btn:hover{border-color:#B1E0BF;background:#FCFEFC}
   .pr-warn{font-size:13px;color:var(--amber);font-weight:700}
-  .pr-materials{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-  .pr-material-chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--violet);background:var(--accent-bg);border:1px solid var(--line);border-radius:14px;padding:4px 10px;text-decoration:none;}
-  .pr-material-chip:hover{filter:brightness(0.97)}
-  .tp-has-mat{color:var(--violet)!important;font-weight:800}
   .cp-current{font-size:14.5px;color:var(--muted);margin-bottom:10px}
   .cp-clear{color:var(--rose);font-weight:600;font-size:13.5px;padding:2px 6px;border-radius:7px}
   .cp-clear:hover{background:var(--rose-bg)}
@@ -6113,6 +6109,19 @@ const RECOVERED_TOPICS_AUG2026 = [
     await save('expressions');
     await write('expressionsRecovered4Aug2026', true);
   }
+  const topicMaterialsRemovedV1 = await read('topicMaterialsRemovedV1', false);
+  if(!topicMaterialsRemovedV1){
+    // O Banco de Materiais (anexar arquivos em base64 direto no tópico) foi
+    // removido por deixar o sistema pesado — aqui limpamos os dados que já
+    // tinham sido salvos, liberando espaço de verdade (não só escondendo).
+    let hadMaterials = false;
+    (state.topics||[]).forEach(tp=>{
+      if(tp.materials && tp.materials.length){ hadMaterials = true; }
+      delete tp.materials;
+    });
+    if(hadMaterials) await save('topics');
+    await write('topicMaterialsRemovedV1', true);
+  }
   state.lessons  = await read('lessons', []);
   if(!SUPABASE_CONFIGURED) state.authHash = await read('authHash', '');
   state.orgDocs  = await read('orgDocs', []);
@@ -9364,7 +9373,6 @@ function renderTopicos(){
               <span class="tp-row-name" ${textStyle}>${esc(tp.title)}</span>
               ${isEng && isSearching ? `<span class="tp-row-catbadge">${topicCategory(tp) ? esc((TOPIC_CATEGORIES.find(c=>c.key===topicCategory(tp))||{}).label || topicCategory(tp)) : (isEn?'Uncategorized':'Sem categoria')}</span>` : ''}
               <span class="tp-row-actions">
-                <button class="tp-card-btn ${(tp.materials||[]).length?'tp-has-mat':''}" onclick="openTopicMaterialsModal('${tp.id}')" title="Banco de Materiais">📎${(tp.materials||[]).length?` ${tp.materials.length}`:''}</button>
                 <button class="tp-card-btn" onclick="openTopicForm('${tp.id}')" title="${t('common.edit')}">✏️</button>
                 <button class="tp-card-btn tp-del" onclick="delTopic('${tp.id}')" title="${t('common.delete')}">🗑️</button>
               </span>
@@ -9544,11 +9552,6 @@ function renderLecionados(){
               ${catLabel ? `<span style="font-size:0.72rem;font-weight:700;color:var(--muted);background:var(--line-2);padding:2px 8px;border-radius:12px;">${esc(catLabel)}</span>` : ''}
             </div>
             <div style="font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.4;word-break:break-word;margin-bottom:4px;">${esc(item.topic)}</div>
-            ${matchedTopic && (matchedTopic.materials||[]).length ? `
-              <div class="pr-materials" style="margin-top:8px;">
-                ${matchedTopic.materials.map(m=>`<a class="pr-material-chip" href="${m.dataUrl}" download="${esc(m.name)}" title="Baixar: ${esc(m.name)}">${docIcon(m.type)} ${esc(m.name.length>18?m.name.slice(0,16)+'…':m.name)}</a>`).join('')}
-              </div>
-            ` : ''}
           </div>
           
           <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-2);padding-top:12px;margin-top:auto;font-size:0.85rem;color:var(--muted);font-weight:600;">
@@ -9777,78 +9780,12 @@ function renderTopicManageRows(query){
     <div class="tp-manage-row">
       <span class="tp-manage-name">${esc(tp2.title)}</span>
       <span class="tp-manage-acts">
-        <button class="tp-btn ${(tp2.materials||[]).length?'tp-has-mat':''}" title="Banco de Materiais" onclick="openTopicMaterialsModal('${tp2.id}')">📎${(tp2.materials||[]).length?` ${tp2.materials.length}`:''}</button>
         <button class="tp-btn" title="${t('common.edit')}" onclick="openTopicForm('${tp2.id}')">✏️</button>
         <button class="tp-btn tp-del" title="${t('common.delete')}" onclick="delTopic('${tp2.id}')">🗑️</button>
       </span>
     </div>`).join('');
 }
 /* ================= BANCO DE MATERIAIS (anexos por tópico) ================= */
-function openTopicMaterialsModal(topicId){
-  const tp = topicById(topicId);
-  if(!tp) return;
-  showModal(`
-    <h3>📎 Banco de Materiais</h3>
-    <div class="msub">${esc(tp.title)} — anexe PDFs, planilhas, imagens etc. para usar nas aulas desse tópico.</div>
-    <label class="doc-upload-btn" style="margin:14px 0 4px;display:inline-block;">📤 Anexar Arquivo(s)<input type="file" multiple hidden onchange="onTopicMaterialUpload(event,'${tp.id}')"></label>
-    <div class="doc-list" id="tp-mat-list">${renderTopicMaterialsList(tp)}</div>
-    <div class="modal-acts"><button class="btn btn-ghost" onclick="closeModal()">${t('common.close')}</button></div>
-  `);
-}
-function renderTopicMaterialsList(tp){
-  const mats = tp.materials || [];
-  if(!mats.length) return `<div class="empty" style="padding:20px 0">Nenhum material anexado ainda.</div>`;
-  return mats.map(m=>`
-    <div class="doc-row">
-      <span class="doc-ico">${docIcon(m.type)}</span>
-      <div class="doc-info">
-        <div class="doc-name">${esc(m.name)}</div>
-        <div class="doc-meta">${fmtFileSize(m.size)}</div>
-      </div>
-      <a class="doc-btn" href="${m.dataUrl}" download="${esc(m.name)}" title="${t('info.download')}">⬇️</a>
-      <button class="doc-btn doc-del" title="${t('info.delete')}" onclick="delTopicMaterial('${tp.id}','${m.id}')">🗑️</button>
-    </div>`).join('');
-}
-// Atualiza todas as telas do sistema que podem exibir materiais de um tópico —
-// inclusive aulas já dadas/marcadas no passado com esse mesmo tópico, já que a
-// lista de materiais é sempre buscada ao vivo a partir do tópico (não fica
-// "congelada" na aula), garantindo que qualquer alteração aqui reflita em
-// todo lugar automaticamente.
-function refreshAllTopicMaterialViews(topicId){
-  const tp = topicById(topicId);
-  const listEl = document.getElementById('tp-mat-list');
-  if(listEl && tp) listEl.innerHTML = renderTopicMaterialsList(tp);
-  const manageListEl = document.getElementById('tp-manage-list');
-  if(manageListEl) filterTopicManageList(); // atualiza o 📎 no modal de gerenciar tópicos, se estiver aberto
-  renderTopicos();   // Plano de Aula — contador de materiais no card do tópico
-  renderPresenca();  // Frequência — inclui aulas passadas já marcadas com esse tópico
-  renderAgenda();    // Agenda — caso mostre o mesmo conteúdo em algum slot
-  renderPainel();    // Painel — atalhos/planejamento recente também referenciam tópicos
-  renderLecionados(); // Lecionados — aulas já dadas a qualquer aluno com esse tópico
-}
-async function onTopicMaterialUpload(e, topicId){
-  const tp = topicById(topicId);
-  if(!tp) return;
-  if(!tp.materials) tp.materials = [];
-  const files = Array.from(e.target.files || []);
-  const MAXSZ = 4*1024*1024;
-  for(const file of files){
-    if(file.size > MAXSZ){ alert('"'+file.name+'" '+t('alert.fileTooBig')); continue; }
-    const dataUrl = await new Promise((res,rej)=>{
-      const r = new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file);
-    });
-    tp.materials.push({id:uid(), name:file.name, type:file.type, size:file.size, dataUrl, addedAt:new Date().toISOString()});
-  }
-  await write('topics', state.topics);
-  refreshAllTopicMaterialViews(topicId);
-}
-async function delTopicMaterial(topicId, materialId){
-  const tp = topicById(topicId);
-  if(!tp) return;
-  tp.materials = (tp.materials||[]).filter(m=>m.id!==materialId);
-  await write('topics', state.topics);
-  refreshAllTopicMaterialViews(topicId);
-}
 function filterTopicManageList(){
   const q = (document.getElementById('tp-manage-search')||{}).value || '';
   const listEl = document.getElementById('tp-manage-list');
@@ -10088,15 +10025,6 @@ function attendanceRowsHTML(iso, rows, monthStatus){
             ${pr.content?esc(pr.content):t('presenca.chooseTopic')}</button>
         </div>
         ${hist.length?`<div class="pr-warn">⚠️ ${t('presenca.alreadyGivenOn')} ${hist.map(fmtDM).join(', ')}</div>`:''}
-        ${(() => {
-          if(!pr.content) return '';
-          const tpMat = topicByTitle(pr.content);
-          const mats = tpMat ? (tpMat.materials||[]) : [];
-          if(!mats.length) return '';
-          return `<div class="pr-materials">
-            ${mats.map(m=>`<a class="pr-material-chip" href="${m.dataUrl}" download="${esc(m.name)}" title="Baixar: ${esc(m.name)}">${docIcon(m.type)} ${esc(m.name.length>18?m.name.slice(0,16)+'…':m.name)}</a>`).join('')}
-          </div>`;
-        })()}
       </div>
       <div class="pr-status">${btn('p',t('presenca.pres'),'p')}${btn('au',t('presenca.absent'),'au')}${btn('f',t('presenca.abs'),'f')}${btn('c',t('presenca.cancel'),'c')}</div>
     </div>`;
