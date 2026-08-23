@@ -1102,7 +1102,8 @@
 
   /* --- navegação semanal + status/crédito --- */
   .ag-week-nav{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap}
-  .ag-week-range{font-size:14px;font-weight:700;color:var(--ink);text-transform:capitalize;white-space:nowrap;min-width:190px;text-align:center;display:inline-block}
+  .ag-week-range{font-size:14px;font-weight:700;color:var(--ink);text-transform:capitalize;white-space:nowrap;
+    width:280px;flex:none;text-align:center;display:inline-block;overflow:hidden;text-overflow:ellipsis}
   .ag-today-btn{padding:6px 12px!important;font-size:13.5px!important}
   .ag-daynum{font-family:'Bricolage Grotesque';font-size:16px;font-weight:800;background:rgba(255,255,255,.28);
     padding:1px 7px;border-radius:20px;margin-left:2px}
@@ -10403,10 +10404,77 @@ function openAgendaStudentStatus(dateISO, hour, studentId){
       <div class="ag-remove-title">${t('agenda.deleteThisDayTitle')}</div>
       <button class="ag-delete-day-btn" onclick="removeAgendaEntry('${dateISO}','${dayKey}','${hour}','${studentId}','week')">🗑️ ${t('agenda.deleteThisDay')}</button>
     </div>
+    <div class="ag-remove-section">
+      <div class="ag-remove-title">Remover de todas as semanas deste horário</div>
+      <div class="ag-remove-hint">Útil quando o aluno foi agendado por engano e está se repetindo toda semana — remove de uma vez, sem precisar excluir semana por semana.</div>
+      <button class="ag-delete-day-btn" style="background:var(--rose);border-color:var(--rose);" onclick="confirmRemoveStudentAllWeeks('${dayKey}','${hour}','${studentId}')">🗑️ Excluir de Todas as Semanas</button>
+    </div>
     <div class="modal-acts">
       ${credits>0?`<button class="btn btn-ghost" onclick="openStudentCredits('${studentId}')">🎟️ ${t('presenca.credits')} (${credits})</button>`:''}
       <button class="btn btn-ghost" onclick="closeModal()">${t('common.close')}</button>
     </div>`);
+}
+function confirmRemoveStudentAllWeeks(dayKey, hour, studentId){
+  const s = studentById(studentId);
+  const nm = s ? s.name : t('presenca.theStudent');
+  showModal(`
+    <div class="cf-icon">🗑️</div>
+    <h3 class="cf-title">Excluir ${esc(nm)} de todas as semanas</h3>
+    <div class="msub cf-msg">Isso tira ${esc(nm)} desse horário fixo (toda semana), parando de aparecer na Agenda. Escolha o que fazer com o que já foi registrado:</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+      <button class="btn btn-ghost" style="text-align:left;padding:13px 16px;height:auto;line-height:1.5;" onclick="doRemoveStudentAllWeeks('${dayKey}','${hour}','${studentId}', false)">
+        <b>↪️ Só a partir de hoje</b><br><span style="font-size:12px;font-weight:400;color:var(--muted)">Mantém o histórico de presenças/tópicos já registrados no passado. Só deixa de agendar dali pra frente.</span>
+      </button>
+      <button class="btn btn-ghost" style="text-align:left;padding:13px 16px;height:auto;line-height:1.5;border:1.5px solid var(--rose);color:var(--rose);" onclick="doRemoveStudentAllWeeks('${dayKey}','${hour}','${studentId}', true)">
+        <b>🗑️ Todas as semanas, incluindo o passado</b><br><span style="font-size:12px;font-weight:400;color:var(--muted)">Apaga também as presenças/tópicos já registrados nesse horário, em qualquer data. Não pode ser desfeito.</span>
+      </button>
+    </div>
+    <div class="modal-acts"><button class="btn btn-ghost" onclick="openAgendaStudentStatus('${isoDate(new Date())}','${hour}','${studentId}')">${t('common.cancel')}</button></div>
+  `);
+}
+async function doRemoveStudentAllWeeks(dayKey, hour, studentId, includePast){
+  const todayISO = isoDate(new Date());
+  const recKey = dayKey+'_'+hour;
+
+  // 1. remove do modelo recorrente (afeta toda semana, passado e futuro, salvo overrides específicos)
+  if(state.agendaRecurring[recKey]){
+    state.agendaRecurring[recKey] = state.agendaRecurring[recKey].filter(e=>e.studentId!==studentId);
+    if(!state.agendaRecurring[recKey].length) delete state.agendaRecurring[recKey];
+    await write('agendaRecurring', state.agendaRecurring);
+  }
+
+  // 2. remove de qualquer override de data específica, nesse mesmo dia da semana + horário
+  let overridesChanged = false;
+  Object.keys(state.agendaOverrides).forEach(key=>{
+    const dateISO = key.slice(0,10), kHour = key.slice(11);
+    if(kHour !== hour) return;
+    const dt = new Date(dateISO+'T00:00:00');
+    if(DAYKEY_BY_GETDAY[dt.getDay()] !== dayKey) return;
+    if(!includePast && dateISO < todayISO) return; // mantém overrides passados intactos se não incluir o passado
+    if((state.agendaOverrides[key]||[]).some(e=>e.studentId===studentId)){
+      state.agendaOverrides[key] = state.agendaOverrides[key].filter(e=>e.studentId!==studentId);
+      overridesChanged = true;
+    }
+  });
+  if(overridesChanged) await write('agendaOverrides', state.agendaOverrides);
+
+  // 3. limpa presença/tópico já registrado, respeitando o escopo escolhido
+  let presChanged = false;
+  Object.keys(state.presenca).forEach(key=>{
+    const parts = key.split('_');
+    const dateISO = parts[0], kHour = parts[1], kSid = parts.slice(2).join('_');
+    if(kSid !== studentId || kHour !== hour) return;
+    const dt = new Date(dateISO+'T00:00:00');
+    if(DAYKEY_BY_GETDAY[dt.getDay()] !== dayKey) return;
+    if(!includePast && dateISO < todayISO) return;
+    delete state.presenca[key];
+    presChanged = true;
+  });
+  if(presChanged) await write('presenca', state.presenca);
+
+  await logAudit('Aluno removido de todas as semanas de um horário', `${studentById(studentId)?.name || studentId} · ${dayKey} ${hour}${includePast ? ' (incluindo histórico)' : ' (a partir de hoje)'}`, '🗑️');
+  closeModal();
+  renderAll();
 }
 async function agendaSetScope(dateISO, dayKey, hour, studentId, scope){
   const recKey = dayKey+'_'+hour;
@@ -10554,11 +10622,23 @@ async function addAgendaEntry(dateISO, dayKey, hour){
     if(!state.agendaRecurring[recKey]) state.agendaRecurring[recKey] = [];
     state.agendaRecurring[recKey].push({studentId, addedOn: dateISO});
     await write('agendaRecurring', state.agendaRecurring);
-    // se esta semana específica já tinha sido alterada, refletir a adição nela também
-    if(Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
-      state.agendaOverrides[ovKey].push({studentId});
-      await write('agendaOverrides', state.agendaOverrides);
-    }
+    // Repetir toda semana precisa valer pra TODAS as semanas — inclusive as que já
+    // tinham sido alteradas antes (por qualquer outro motivo, tipo remoção de outro
+    // aluno numa semana específica). Sem isso, o aluno aparecia só nas semanas "sem
+    // exceção" e ficava faltando justamente nas que já tinham alguma modificação —
+    // por isso a inconsistência de "algumas semanas sim, outras não".
+    let overridesChanged = false;
+    Object.keys(state.agendaOverrides).forEach(key=>{
+      const kDate = key.slice(0,10), kHour = key.slice(11);
+      if(kHour !== hour || kDate < dateISO) return;
+      const dt = new Date(kDate+'T00:00:00');
+      if(DAYKEY_BY_GETDAY[dt.getDay()] !== dayKey) return;
+      if(!state.agendaOverrides[key].some(e=>e.studentId===studentId)){
+        state.agendaOverrides[key].push({studentId});
+        overridesChanged = true;
+      }
+    });
+    if(overridesChanged) await write('agendaOverrides', state.agendaOverrides);
   }else{
     if(!Object.prototype.hasOwnProperty.call(state.agendaOverrides, ovKey)){
       state.agendaOverrides[ovKey] = (state.agendaRecurring[recKey] || []).slice();
