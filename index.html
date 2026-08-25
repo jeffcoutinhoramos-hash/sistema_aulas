@@ -1270,11 +1270,47 @@
     padding:9px 16px 9px 9px;border-radius:30px;box-shadow:var(--shadow-sm);transition:.14s
   }
   .painel-login-btn:hover{border-color:#B1E0BF;transform:translateY(-1px)}
-  .fixed-signout{position:fixed;top:18px;right:24px;z-index:40}
+  .fixed-topbar-actions{position:fixed;top:16px;right:20px;z-index:41;display:flex;align-items:center;gap:7px}
+  .fixed-bell{position:relative;
+    width:34px;height:34px;border-radius:50%;background:#fff;border:1.5px solid var(--line);
+    box-shadow:var(--shadow-sm);font-size:14.5px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:.14s;flex:none}
+  .fixed-signout-labeled{width:auto;border-radius:17px;padding:0 12px 0 10px;gap:4px;font-size:12px;font-weight:800;color:var(--ink);letter-spacing:.2px}
+  .fixed-signout-text{line-height:1}
+  body.dark .fixed-signout-labeled{color:var(--ink)}
+  .fixed-bell:hover{border-color:#B1E0BF;transform:translateY(-1px)}
+  .fixed-bell-badge{position:absolute;top:-4px;right:-4px;background:var(--rose);color:#fff;
+    font-size:9.5px;font-weight:800;min-width:16px;height:16px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;padding:0 3px;border:2px solid #fff}
+  body.dark .fixed-bell{background:var(--surface);color:var(--ink)}
+  .notif-center{position:fixed;top:58px;right:20px;z-index:70;width:340px;max-width:calc(100vw - 32px);
+    max-height:70vh;overflow-y:auto;background:#fff;border-radius:16px;border:1px solid var(--line);
+    box-shadow:0 16px 40px rgba(15,23,42,0.16);padding:8px}
+  body.dark .notif-center{background:var(--surface)}
+  .notif-center-empty{padding:32px 16px;text-align:center;color:var(--muted);font-size:13.5px}
+  .notif-item{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:12px;cursor:pointer;transition:.12s}
+  .notif-item:hover{background:var(--line-2)}
+  .notif-item-ico{font-size:18px;flex:none;margin-top:1px}
+  .notif-item-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.4}
+  .notif-item-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .gs-input{width:100%;padding:13px 16px;font-size:16px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+  .gs-input:focus{outline:none;border-color:var(--violet)}
+  .gs-results{max-height:52vh;overflow-y:auto;margin-top:14px}
+  .gs-group-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin:14px 4px 6px}
+  .gs-group-label:first-child{margin-top:2px}
+  .gs-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;cursor:pointer;transition:.12s}
+  .gs-item:hover{background:var(--line-2)}
+  .gs-item-ico{font-size:17px;flex:none}
+  .gs-item-title{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .gs-item-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .gs-empty{padding:30px 10px;text-align:center;color:var(--muted);font-size:13.5px}
+  .gs-hint{font-size:11.5px;color:var(--muted);text-align:center;margin-top:12px}
+  .gs-hint kbd{background:var(--line-2);border-radius:5px;padding:1px 6px;font-family:inherit;font-weight:700;color:var(--ink)}
   .fixed-back-home{position:fixed;top:18px;left:calc(var(--sidebar-collapsed-width) + 24px);z-index:40;transition:left 0.28s ease}
   .layout.is-pinned .fixed-back-home{left:calc(var(--sidebar-width) + 24px)}
   @media(max-width:880px){
-    .fixed-signout{top:auto;bottom:16px;right:16px;z-index:70}
+    .fixed-topbar-actions{top:auto;bottom:16px;right:16px;z-index:70}
+    .notif-center{top:auto;bottom:70px;right:16px}
     .fixed-back-home{top:auto;bottom:16px;left:16px;z-index:70}
   }
   .sac-bubble-wrap{position:fixed;bottom:26px;right:26px;z-index:60;display:flex;align-items:center;gap:10px}
@@ -3149,11 +3185,18 @@
 
 <div class="overlay" id="overlay"></div>
 <div class="auth-gate" id="auth-gate"></div>
-<button class="painel-login-btn fixed-signout" id="global-signout-btn" onclick="logoutNow()" style="display:none">
-  <span class="painel-login-ico">🚪</span><span id="global-signout-label">Sair</span>
-</button>
-<button class="painel-login-btn fixed-back-home" id="global-backhome-btn" onclick="go('painel')" style="display:none">
-  <span class="painel-login-ico">←</span><span id="global-backhome-label">Painel</span>
+<div class="fixed-topbar-actions" id="fixed-topbar-actions" style="display:none">
+  <button class="fixed-bell fixed-search" id="global-search-btn" onclick="openGlobalSearch()" title="Busca global (Ctrl+K)">🔍</button>
+  <button class="fixed-bell" id="global-bell-btn" onclick="toggleNotifCenter()" title="Notificações">
+    🔔<span class="fixed-bell-badge" id="global-bell-badge" style="display:none">0</span>
+  </button>
+  <button class="fixed-bell fixed-signout-labeled" id="global-signout-btn" onclick="logoutNow()" title="Sair">
+    🚪 <span class="fixed-signout-text">SAIR</span>
+  </button>
+</div>
+<div class="notif-center" id="notif-center" style="display:none"></div>
+<button class="fixed-bell fixed-back-home" id="global-backhome-btn" onclick="go('painel')" style="display:none" title="Painel">
+  ←
 </button>
 
 <!-- SAC: bolha flutuante de atendimento via WhatsApp -->
@@ -4538,16 +4581,15 @@ function validUsernames(){
 let authView = 'login'; // 'login' | 'signup' | 'recover'
 function setAuthView(v){ authView = v; renderAuthGate(); }
 function updateGlobalSignoutBtn(show){
+  const actionsWrap = document.getElementById('fixed-topbar-actions');
+  if(actionsWrap) actionsWrap.style.display = show ? 'flex' : 'none';
   const btn = document.getElementById('global-signout-btn');
-  const label = document.getElementById('global-signout-label');
-  if(label) label.textContent = t('login.signOut');
-  if(btn) btn.style.display = show ? '' : 'none';
+  if(btn) btn.title = t('login.signOut');
   const backBtn = document.getElementById('global-backhome-btn');
-  const backLabel = document.getElementById('global-backhome-label');
-  if(backLabel) backLabel.textContent = t('nav.painel');
-  if(backBtn) backBtn.style.display = (show && state.view!=='painel') ? '' : 'none';
+  if(backBtn){ backBtn.title = t('nav.painel'); backBtn.style.display = (show && state.view!=='painel') ? '' : 'none'; }
   const sacWrap = document.getElementById('sac-bubble-wrap');
   if(sacWrap) sacWrap.style.display = show ? '' : 'none';
+  if(show) refreshNotifBadge(); else { const nc=document.getElementById('notif-center'); if(nc) nc.style.display='none'; }
 }
 function renderAuthGate(){
   const el = document.getElementById('auth-gate');
@@ -6123,6 +6165,19 @@ const RECOVERED_TOPICS_AUG2026 = [
     if(hadMaterials) await save('topics');
     await write('topicMaterialsRemovedV1', true);
   }
+  const expressionsReorderedV1 = await read('expressionsReorderedV1', false);
+  if(!expressionsReorderedV1 && state.expressions && state.expressions.length){
+    // Reorganiza a Biblioteca uma única vez: expressões já confirmadas/enviadas
+    // mantêm a posição atual (topo, mais recente enviada primeiro); as que ainda
+    // não foram enviadas vão todas para o final, da mais antiga pra mais nova —
+    // assim a mais recente adicionada (mas ainda não enviada) fica por último.
+    const confirmed = state.expressions.filter(x=>x.confirmed);
+    const unconfirmed = state.expressions.filter(x=>!x.confirmed)
+      .sort((a,b)=> new Date(a.addedAt||0) - new Date(b.addedAt||0));
+    state.expressions = confirmed.concat(unconfirmed);
+    await save('expressions');
+    await write('expressionsReorderedV1', true);
+  }
   state.lessons  = await read('lessons', []);
   if(!SUPABASE_CONFIGURED) state.authHash = await read('authHash', '');
   state.orgDocs  = await read('orgDocs', []);
@@ -7597,6 +7652,202 @@ async function dismissSlotNotice(id){
 /* ================= DISPENSAR AVISOS DO PAINEL (só por hoje) ================= */
 // Guarda no navegador quais avisos foram fechados hoje — volta a aparecer no dia seguinte
 // (útil pra avisos que se repetem, como aniversário ou revisão pendente).
+/* ================= CENTRAL DE NOTIFICAÇÕES (sininho) ================= */
+// Reúne, num único lugar, todos os avisos que hoje ficam espalhados pelo
+// Painel — acessível de qualquer tela do sistema, não só do Painel.
+function computeSystemNotifications(){
+  const list = [];
+  const now = new Date();
+  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const todayISO = isoDate(now);
+
+  // Aniversários próximos (até 2 dias)
+  (state.students||[])
+    .filter(s => (!s.status || s.status==='ativo') && s.birth)
+    .forEach(s=>{
+      const b = new Date(s.birth+'T00:00:00');
+      if(isNaN(b.getTime())) return;
+      let next = new Date(todayMidnight.getFullYear(), b.getMonth(), b.getDate());
+      if(next < todayMidnight) next = new Date(todayMidnight.getFullYear()+1, b.getMonth(), b.getDate());
+      const daysLeft = Math.round((next - todayMidnight) / 86400000);
+      if(daysLeft<0 || daysLeft>2) return;
+      const when = daysLeft===0?'hoje':(daysLeft===1?'amanhã':`em ${daysLeft} dias`);
+      list.push({icon:'🎂', title:`Aniversário de ${s.name}`, sub:`É ${when}`, action:()=>go('painel')});
+    });
+
+  // Revisão de aula pendente (ciclo de 35 dias)
+  const REVIEW_CYCLE_DAYS = 35;
+  const studentsReviewDueToday = [];
+  (state.students||[]).forEach(s=>{
+    if(s.status && s.status!=='ativo') return;
+    if(!s.startDate) return;
+    const [sy,sm,sd] = s.startDate.split('-').map(Number);
+    if(!sy) return;
+    const startMidnight = new Date(sy, sm-1, sd);
+    if(startMidnight > todayMidnight) return;
+    const daysSinceStart = Math.round((todayMidnight - startMidnight) / 86400000);
+    const rem = daysSinceStart % REVIEW_CYCLE_DAYS;
+    if(rem===0) studentsReviewDueToday.push(s);
+  });
+  if(studentsReviewDueToday.length){
+    list.push({icon:'📋', title:'Revisão de aula pendente', sub:studentsReviewDueToday.map(s=>s.name).join(', '), action:()=>go('painel')});
+  }
+
+  // Boletim trimestral
+  const studentsBoletimDueToday = (state.students||[]).filter(st=>{
+    if(st.status && st.status!=='ativo') return false;
+    return boletimDaysUntilNext(st.id) === 0;
+  });
+  if(studentsBoletimDueToday.length){
+    list.push({icon:'📊', title:'Hora do boletim trimestral', sub:studentsBoletimDueToday.map(s=>s.name).join(', '), action:()=>go('boletim')});
+  }
+
+  // Vagas disponíveis (aluno trancado)
+  (state.slotNotices||[]).forEach(n=>{
+    list.push({icon:'🔓', title:'Vaga disponível', sub:n.studentName, action:()=>go('painel')});
+  });
+
+  // Armazenamento
+  if(!STORAGE_OK){
+    list.push({icon:'⚠️', title:'Aviso de armazenamento', sub:t('painel.storageWarning'), action:()=>go('backup')});
+  }
+
+  // Créditos pendentes (só no 1º ou último dia do mês)
+  const isFirstDay = now.getDate() === 1;
+  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const isLastDay = now.getDate() === lastDayOfMonth;
+  if(isFirstDay || isLastDay){
+    const studentsWithCredits = (state.students||[])
+      .filter(s => !s.status || s.status === 'ativo')
+      .map(s => ({ s, credits: creditBalanceAtStartOfMonth(s.id, now.getFullYear(), now.getMonth()) }))
+      .filter(x => x.credits > 0);
+    if(studentsWithCredits.length){
+      list.push({icon:'💳', title:'Créditos de aula pendentes', sub:studentsWithCredits.map(x=>`${x.s.name} (${x.credits})`).join(', '), action:()=>go('financeiro')});
+    }
+  }
+
+  return list;
+}
+function refreshNotifBadge(){
+  const badge = document.getElementById('global-bell-badge');
+  if(!badge) return;
+  const n = computeSystemNotifications().length;
+  badge.style.display = n>0 ? '' : 'none';
+  badge.textContent = n>9 ? '9+' : String(n);
+}
+function toggleNotifCenter(){
+  const el = document.getElementById('notif-center');
+  if(!el) return;
+  const isOpen = el.style.display !== 'none';
+  if(isOpen){ el.style.display = 'none'; return; }
+  const notifications = computeSystemNotifications();
+  el.innerHTML = notifications.length
+    ? notifications.map((n,i)=>`
+        <div class="notif-item" onclick="closeNotifCenter(); (window.__notifActions[${i}])()">
+          <span class="notif-item-ico">${n.icon}</span>
+          <div>
+            <div class="notif-item-title">${esc(n.title)}</div>
+            <div class="notif-item-sub">${esc(n.sub)}</div>
+          </div>
+        </div>`).join('')
+    : `<div class="notif-center-empty">🎉 Tudo em dia! Nenhuma notificação pendente.</div>`;
+  window.__notifActions = notifications.map(n=>n.action);
+  el.style.display = '';
+}
+function closeNotifCenter(){
+  const el = document.getElementById('notif-center');
+  if(el) el.style.display = 'none';
+}
+document.addEventListener('click', e=>{
+  const center = document.getElementById('notif-center');
+  const bell = document.getElementById('global-bell-btn');
+  if(!center || center.style.display==='none') return;
+  if(center.contains(e.target) || (bell && bell.contains(e.target))) return;
+  center.style.display = 'none';
+});
+/* ================= BUSCA GLOBAL ================= */
+// Pesquisa em alunos, tópicos e expressões de uma vez só, de qualquer tela.
+function openGlobalSearch(){
+  showModal(`
+    <input id="gs-input" class="gs-input" type="text" placeholder="🔍 Buscar aluno, tópico ou expressão..." autocomplete="off" oninput="handleGlobalSearchInput(this.value)">
+    <div class="gs-results" id="gs-results"></div>
+    <div class="gs-hint">Atalho: <kbd>Ctrl</kbd> + <kbd>K</kbd> a qualquer momento</div>
+  `, 'modal-lg');
+  setTimeout(()=>{
+    const i = document.getElementById('gs-input');
+    if(i) i.focus();
+    handleGlobalSearchInput('');
+  }, 30);
+}
+function handleGlobalSearchInput(query){
+  const el = document.getElementById('gs-results');
+  if(!el) return;
+  const q = (query||'').trim().toLowerCase();
+
+  if(!q){
+    el.innerHTML = `<div class="gs-empty">Digite pra buscar entre alunos, tópicos e expressões.</div>`;
+    return;
+  }
+
+  const studentMatches = (state.students||[])
+    .filter(s => s.name.toLowerCase().includes(q))
+    .slice(0, 8)
+    .map(s => ({
+      icon:'👤', title:s.name, sub:s.level ? `Nível: ${s.level}` : (s.phone||''),
+      action:`closeModal(); openStudent360Modal('${s.id}')`
+    }));
+
+  const topicMatches = (state.topics||[])
+    .filter(tp => tp.title.toLowerCase().includes(q))
+    .slice(0, 8)
+    .map(tp => ({
+      icon:'📚', title:tp.title, sub:tp.category ? tp.category : 'Sem categoria',
+      action:`closeModal(); go('topicos')`
+    }));
+
+  const exprMatches = (state.expressions||[])
+    .filter(x => x.title.toLowerCase().includes(q) || (x.meaning||'').toLowerCase().includes(q))
+    .slice(0, 8)
+    .map(x => ({
+      icon: x.emoji || '💬', title:x.title, sub:x.meaning || '',
+      action:`closeModal(); go('expressoes')`
+    }));
+
+  const groups = [
+    {label:`Alunos (${studentMatches.length})`, items:studentMatches},
+    {label:`Tópicos (${topicMatches.length})`, items:topicMatches},
+    {label:`Expressões (${exprMatches.length})`, items:exprMatches},
+  ].filter(g => g.items.length);
+
+  if(!groups.length){
+    el.innerHTML = `<div class="gs-empty">🔎 Nada encontrado para "${esc(query)}".</div>`;
+    return;
+  }
+
+  el.innerHTML = groups.map(g => `
+    <div class="gs-group-label">${g.label}</div>
+    ${g.items.map(it => `
+      <div class="gs-item" onclick="${it.action}">
+        <span class="gs-item-ico">${it.icon}</span>
+        <div>
+          <div class="gs-item-title">${esc(it.title)}</div>
+          ${it.sub ? `<div class="gs-item-sub">${esc(it.sub)}</div>` : ''}
+        </div>
+      </div>`).join('')}
+  `).join('');
+}
+document.addEventListener('keydown', e=>{
+  const isTypingField = ['INPUT','TEXTAREA','SELECT'].includes((e.target.tagName||''));
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
+    e.preventDefault();
+    if(authOk || (!SUPABASE_CONFIGURED && state.authHash)) openGlobalSearch();
+    return;
+  }
+  if(e.key==='/' && !isTypingField && (authOk || (!SUPABASE_CONFIGURED && state.authHash))){
+    e.preventDefault();
+    openGlobalSearch();
+  }
+});
 function isBannerDismissedToday(key){
   try{ return localStorage.getItem('dismissedBanner_'+key) === isoDate(new Date()); }
   catch(e){ return false; }
@@ -15132,7 +15383,16 @@ function purgeAllOrphanedStudentData(){
 function go(view, opts){
   opts = opts || {};
   if(!document.getElementById('v-'+view)) return;
+  if(typeof closeNotifCenter === 'function') closeNotifCenter();
+  const previousView = state.view;
   state.view=view;
+  // Ao entrar (de novo) numa dessas abas vindo de outra, sempre volta pra data/semana
+  // atual — evita que a Agenda/Frequência fiquem "presas" numa data antiga navegada
+  // antes, caso o usuário saia da página e retorne depois.
+  if(view !== previousView){
+    if(view === 'agenda'){ state.agendaAnchor = new Date(); renderAgenda(); }
+    if(view === 'presenca'){ state.presencaDate = new Date(); renderPresenca(); }
+  }
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+view).classList.add('on');
@@ -15167,6 +15427,7 @@ function renderAll(){
   renderRelatorio(); renderFinanceiro(); renderDespesas(); renderInfo(); renderEstatisticas(); renderFerias(); renderLecionados(); renderTrialClasses(); renderCertificados(); renderBoletim(); renderPronuncia(); renderBackup(); renderWaitlist(); renderNiveis(); renderAuditoria();
   applySubjectNavVisibility();
   renderAuthGate();
+  refreshNotifBadge();
 }
 boot();
 
