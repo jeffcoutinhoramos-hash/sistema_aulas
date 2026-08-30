@@ -2742,6 +2742,31 @@
     opacity: .9;
   }
   .pn-cal-day.pn-cal-today .pn-cal-day-count { color: #fff; }
+  .nch-banner{
+    background:linear-gradient(120deg, #0f3d2e, #145c41 60%, #1a7350);
+    border-radius:18px; padding:18px 22px; color:#fff;
+    box-shadow:0 10px 26px -8px rgba(15,61,46,0.45);
+  }
+  .nch-badge{
+    display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:800;
+    letter-spacing:.5px; text-transform:uppercase; color:#eafff3; margin-bottom:10px;
+  }
+  .nch-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,0.25);flex:none}
+  .nch-main{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .nch-name{font-size:19px;font-weight:800;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .nch-tag{background:rgba(255,255,255,0.16);font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.2px}
+  .nch-sub{font-size:12.5px;color:#d6f5e6;margin-top:5px;font-weight:600}
+  .nch-acts{display:flex;gap:10px;flex:none;flex-wrap:wrap}
+  .nch-btn{border:none;border-radius:10px;padding:11px 18px;font-size:13px;font-weight:800;cursor:pointer;transition:.14s;white-space:nowrap}
+  .nch-btn-primary{background:#fff;color:#0f3d2e}
+  .nch-btn-primary:hover{background:#eafff3;transform:translateY(-1px)}
+  .nch-btn-ghost{background:rgba(255,255,255,0.14);color:#fff;border:1.5px solid rgba(255,255,255,0.35)}
+  .nch-btn-ghost:hover{background:rgba(255,255,255,0.22);transform:translateY(-1px)}
+  @media(max-width:640px){
+    .nch-main{flex-direction:column;align-items:flex-start}
+    .nch-acts{width:100%}
+    .nch-btn{flex:1}
+  }
   .pn-birthday-banner{
     display:flex; flex-direction:column; gap:8px;
     margin-bottom:24px;
@@ -3795,7 +3820,7 @@ function openWA(url, ev){
 function sendClassReminder(iso, hour, studentId, ev){
   if(ev) ev.stopPropagation();
   const s = studentById(studentId);
-  if(!s || !s.phone){ alert(t('presenca.noPhoneForReminder')); return; }
+  if(!s || (!s.phone && !s.waGroupLink)){ alert(t('presenca.noPhoneForReminder')); return; }
   const pr = getPres(iso, hour, studentId);
   const topic = (pr.content||'').trim();
   openWhatsAppModal(studentId, 'tpl_lembrete_aula', {hour: hour, topic: topic});
@@ -6259,6 +6284,8 @@ function startClock(){
     const ag = document.getElementById('ag-now');
     if(ag) ag.textContent = nowDateTime();
     if(document.getElementById('clsroom-sync-holder')) refreshClassroomSyncBlock();
+    const nchHolder = document.getElementById('nch-holder');
+    if(nchHolder) nchHolder.innerHTML = renderNextClassHeroBanner();
   }, 1000);
 }
 
@@ -6483,6 +6510,53 @@ function renderPainelCalendar(){
 function holidayBadgeText(hol){
   return hol && hol.isVacation ? `🏖️ ${t('ferias.periodLabel')}` : `🎌 ${t('agenda.holiday')}`;
 }
+function renderNextClassHeroBanner(){
+  const info = getCurrentOrNextClassAnyDay();
+  if(!info) return '';
+  const s = info.student;
+  const isNow = info.status === 'current';
+  const isToday = info.status === 'current' || info.status === 'next';
+
+  const iso = info.iso;
+  const dt = new Date(iso+'T00:00:00');
+  const dkey = DAYKEY_BY_GETDAY[dt.getDay()];
+
+  // conta quantas aulas ainda restam naquele dia (incluindo essa), pra dar contexto
+  let totalThatDay = 0;
+  (state.agendaHours||[]).forEach(h=>{
+    effectiveEntries(iso, dkey, h).forEach(e=>{
+      const parts = h.split(':').map(Number);
+      const classMinutes = parts[0]*60+(parts[1]||0);
+      if(classMinutes >= info.classMinutes) totalThatDay++;
+    });
+  });
+
+  const levelTag = s.level ? `<span class="nch-tag">${esc(s.level)}</span>` : '';
+  const waLink = s.waGroupLink || (s.phone ? waUrl(s.phone, s.name) : '');
+
+  const dayLabel = isToday ? 'HOJE' : dt.toLocaleDateString('pt-BR', {weekday:'long'}).replace(/^./, c=>c.toUpperCase());
+  const badgeText = isNow
+    ? 'ACONTECENDO AGORA'
+    : `PRÓXIMA AULA ${dayLabel}${!isToday?` (${fmtDateBR(iso)})`:''} ÀS ${esc(info.hour)}`;
+  const subText = isToday
+    ? `📌 Aula agendada na grade de hoje • ${totalThatDay} aula${totalThatDay>1?'s':''} agendada${totalThatDay>1?'s':''} no total${isNow?' hoje':' a partir de agora'}`
+    : `📌 Sem mais aulas por hoje — próxima é ${dayLabel.toLowerCase()}, ${fmtDateBR(iso)} • ${totalThatDay} aula${totalThatDay>1?'s':''} agendada${totalThatDay>1?'s':''} naquele dia`;
+
+  return `
+    <div class="nch-banner" style="margin-bottom:20px;">
+      <div class="nch-badge"><span class="nch-dot"></span>${badgeText}</div>
+      <div class="nch-main">
+        <div class="nch-info">
+          <div class="nch-name">${esc(s.name)} ${levelTag}</div>
+          <div class="nch-sub">${subText}</div>
+        </div>
+        <div class="nch-acts">
+          <button class="nch-btn nch-btn-primary" onclick="go('presenca')">▶ Iniciar / Marcar Presença</button>
+          ${waLink ? `<button class="nch-btn nch-btn-ghost" onclick="${s.waGroupLink?`sendToWhatsAppGroup('${esc(s.waGroupLink)}', 'Olá ${esc((s.name||'').split(' ')[0])}! Já vamos começar nossa aula.', event)`:`openWA('${waLink}', event)`}">💬 WhatsApp</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
 function renderPainel(){
   const el = document.getElementById('v-painel');
   const nA = state.students.filter(s=>!s.status || s.status==='ativo').length;
@@ -6664,6 +6738,7 @@ function renderPainel(){
   const maxValChart = Math.max(1, ...monthsData.map(x => x.val));
 
   el.innerHTML = `
+    <div id="nch-holder">${renderNextClassHeroBanner()}</div>
     <!-- AVISO DE ANIVERSÁRIO NO TOPO DO PAINEL -->
     ${upcomingBirthdays.length && !isBannerDismissedToday('birthday') ? `<div class="pn-birthday-banner" style="margin-bottom: 20px; position:relative;">
       <button type="button" class="pn-banner-dismiss" title="Dispensar aviso" onclick="dismissBanner('birthday')">✕</button>
@@ -9152,9 +9227,12 @@ function alunoRow(s){
   const age = ageFromDOB(s.birth);
   const ageHtml = age!=null ? `${age}` : '<span class="alu-empty">—</span>';
   const levelHtml = s.level ? `<span class="alu-tag">🎯 ${esc(s.level)}</span>` : '<span class="alu-empty">—</span>';
+  const waGroupIcon = s.waGroupLink
+    ? ` <a class="wa-link" href="${esc(s.waGroupLink)}" target="_blank" rel="noopener noreferrer" title="Grupo de WhatsApp">👨‍👩‍👧</a>`
+    : '';
   const phoneHtml = s.phone
-    ? `<span class="alu-i">📞 ${esc(s.phone)}${wa?` <a class="wa-link" href="${wa}" target="_blank" rel="noopener noreferrer" title="Conversar no WhatsApp" onclick="return openWA('${wa}', event)">${WA_ICON}</a>`:''}</span>`
-    : '<span class="alu-empty">—</span>';
+    ? `<span class="alu-i">📞 ${esc(s.phone)}${wa?` <a class="wa-link" href="${wa}" target="_blank" rel="noopener noreferrer" title="Conversar no WhatsApp" onclick="return openWA('${wa}', event)">${WA_ICON}</a>`:''}${waGroupIcon}</span>`
+    : (s.waGroupLink ? `<span class="alu-i">👨‍👩‍👧 Grupo${waGroupIcon}</span>` : '<span class="alu-empty">—</span>');
   const priceHtml = (s.price!=null && s.price!=='') ? `<span class="alu-price">💰 ${fmtBRL(s.price)}</span>` : '<span class="alu-empty">—</span>';
   const prepaidHtml = s.paymentMode==='pre' ? `<span class="alu-tag alu-tag-prepaid" title="${t('alunos.prepaidHint')}">💳 ${t('alunos.prepaid')}</span>` : '';
   const isPaused = s.status==='trancado';
@@ -13447,6 +13525,35 @@ function getCurrentOrNextClassToday(){
 
   return null;
 }
+// Igual getCurrentOrNextClassToday, mas se não sobrar nenhuma aula pra hoje,
+// continua procurando nos próximos dias até achar a próxima aula agendada —
+// não importa se é amanhã, semana que vem etc.
+function getCurrentOrNextClassAnyDay(){
+  const todayResult = getCurrentOrNextClassToday();
+  if(todayResult) return todayResult;
+
+  const now = new Date();
+  for(let i=1; i<=60; i++){
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate()+i);
+    const iso = isoDate(dt);
+    if(holidayInfo(iso)) continue;
+    const dkey = DAYKEY_BY_GETDAY[dt.getDay()];
+    let candidates = [];
+    (state.agendaHours||[]).forEach(h=>{
+      effectiveEntries(iso, dkey, h).forEach(e=>{
+        const s = studentById(e.studentId);
+        if(!s) return;
+        if(s.startDate && iso < s.startDate) return;
+        const parts = h.split(':').map(Number);
+        const classMinutes = parts[0]*60+(parts[1]||0);
+        candidates.push({ hour:h, classMinutes, student:s, iso });
+      });
+    });
+    candidates.sort((a,b)=>a.classMinutes-b.classMinutes);
+    if(candidates.length) return Object.assign({status:'future'}, candidates[0]);
+  }
+  return null;
+}
 function renderClassroomSyncBlock(){
   const o = state.orgInfo || {};
   const info = getCurrentOrNextClassToday();
@@ -14693,6 +14800,16 @@ function copyWATextToClipboard(text, ev){
 function triggerWASend(studentId, text, ev){
   if(ev) ev.stopPropagation();
   const s = studentId ? studentById(studentId) : null;
+
+  // Se o aluno tem um grupo de WhatsApp cadastrado (ex: grupo com os pais), o
+  // WhatsApp não permite abrir um grupo já com a mensagem pronta (só funciona
+  // assim pra números individuais) — então copiamos a mensagem e abrimos o
+  // grupo direto, faltando só colar (Ctrl+V) lá dentro.
+  if(s && s.waGroupLink){
+    sendToWhatsAppGroup(s.waGroupLink, text, ev);
+    return;
+  }
+
   const phone = (s && s.phone) ? s.phone : (state.waTargetPhone || '');
   const digits = (phone||'').replace(/\D/g,'');
   if(!digits){
@@ -14702,6 +14819,16 @@ function triggerWASend(studentId, text, ev){
   const full = digits.length <= 11 ? '55' + digits : digits;
   const url = 'https://wa.me/' + full + '?text=' + encodeURIComponent(text);
   openWA(url, ev);
+}
+async function sendToWhatsAppGroup(groupLink, text, ev){
+  if(ev) ev.stopPropagation();
+  try{
+    await navigator.clipboard.writeText(text);
+    alert('📋 Mensagem copiada!\n\nO grupo vai abrir agora — é só colar (Ctrl+V ou tocar e segurar > Colar) e enviar.');
+  }catch(e){
+    prompt('Copie a mensagem abaixo, cole no grupo que vai abrir e envie:', text);
+  }
+  openWA(groupLink, ev);
 }
 
 function renderLembretes(){
@@ -15193,6 +15320,11 @@ function openAluno(id){
       <input id="al-nome" value="${s?esc(s.name):''}" placeholder="${t('alunos.namePh')}"></div>
     <div class="field"><label>${t('alunos.phone')}</label>
       <input id="al-fone" value="${s?esc(s.phone||''):''}" placeholder="(11) 90000-0000" inputmode="numeric" oninput="this.value=maskPhoneBR(this.value)"></div>
+    <div class="field">
+      <label>👨‍👩‍👧 Grupo de WhatsApp (opcional)</label>
+      <input id="al-wagroup" value="${s?esc(s.waGroupLink||''):''}" placeholder="https://chat.whatsapp.com/...">
+      <span class="field-hint">Se o contato com esse aluno é feito num grupo (ex: com os pais), cole aqui o link do grupo. O sistema vai copiar a mensagem e abrir o grupo direto, em vez do número individual.</span>
+    </div>
     <div class="field"><label>${t('alunos.birth')}</label>
       <div class="al-inline">
         <input id="al-nasc" type="date" value="${s&&s.birth?s.birth:''}" oninput="updateAge()">
@@ -15251,6 +15383,7 @@ async function saveAluno(id){
   const data = {
     name,
     phone: fv('al-fone'),
+    waGroupLink: fv('al-wagroup'),
     birth: fv('al-nasc'),
     status: newStatus,
     level: (document.getElementById('al-nivel')||{}).value || '',
